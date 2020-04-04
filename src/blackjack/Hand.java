@@ -16,12 +16,28 @@
  */
 package blackjack;
 
+import playingcards.PlayingCard;
+
+import java.util.ArrayList;
+
 /**
  *
  * @author Alonso del Arte
  */
 public class Hand {
     
-    // TODO: Write it
+    private final ArrayList<PlayingCard> cards;
+    
+    public int value() {
+        return 0;
+    }
+    
+    public void add(PlayingCard card) {
+        this.cards.add(card);
+    }
+    
+    public Hand() {
+        this.cards = new ArrayList<>();
+    }
     
 }
