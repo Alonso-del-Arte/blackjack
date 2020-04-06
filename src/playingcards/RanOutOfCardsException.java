@@ -35,7 +35,8 @@ public class RanOutOfCardsException extends RuntimeException {
     
     /**
      * Indicates whether this exception was caused by a deficiency of cards of a 
-     * specific rank. An exception handler may opt to check
+     * specific rank. An exception handler may opt to check this before calling 
+     * {@link #getRank() getRank()}.
      * @return True if a rank was specified at the time this exception was 
      * constructed, false otherwise.
      */
@@ -43,26 +44,66 @@ public class RanOutOfCardsException extends RuntimeException {
         return this.rankNotNullFlag;
     }
     
+    /**
+     * Indicates whether this exception was caused by a deficiency of cards of a 
+     * specific suit. An exception handler may opt to check this before calling 
+     * {@link #getSuit() getSuit()}.
+     * @return True if a suit was specified at the time this exception was 
+     * constructed, false otherwise.
+     */
     public boolean suitDeficient() {
         return this.suitNotNullFlag;
     }
     
+    /**
+     * Retrieves the rank specified at the time the exception was constructed. 
+     * An exception handler may call {@link #rankDeficient() rankDeficient()} 
+     * before using this getter.
+     * @return The rank specified at the time this exception was constructed 
+     * (for example, Queen). May be null.
+     */
     public Rank getRank() {
         return this.specRank;
     }
     
+    /**
+     * Retrieves the suit specified at the time the exception was constructed. 
+     * An exception handler may call {@link #suitDeficient() suitDeficient()} 
+     * before using this getter.
+     * @return The suit specified at the time this exception was constructed 
+     * (for example, Spades). May be null.
+     */
     public Suit getSuit() {
         return this.specSuit;
     }
     
+    /**
+     * Constructs a RanOutOfCardsException with the specified detail message. No 
+     * rank nor suit is specified.
+     * @param msg The detail message. For example, "Ran out of cards".
+     */
     public RanOutOfCardsException(String msg) {
         this(msg, null, null);
     }
     
+    /**
+     * Constructs a RanOutOfCardsException with the specified detail message and 
+     * card rank.
+     * @param msg The detail message. For example, "Ran out of Eights".
+     * @param rank The rank that caused this exception. For example, 
+     * <code>Rank.EIGHT</code>.
+     */
     public RanOutOfCardsException(String msg, Rank rank) {
         this(msg, rank, null);
     }
     
+    /**
+     * Constructs a RanOutOfCardsException with the specified detail message and 
+     * card suit.
+     * @param msg The detail message. For example, "Ran out of Diamonds".
+     * @param suit  The suit that caused this exception. For example, 
+     * <code>Suit.DIAMONDS</code>.
+     */
     public RanOutOfCardsException(String msg, Suit suit) {
         this(msg, null, suit);
     }
