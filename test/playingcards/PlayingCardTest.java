@@ -124,7 +124,7 @@ public class PlayingCardTest {
     public void testToStringAceOfSpades() {
         System.out.println("toString");
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String expResult = "A\u2664";
+        String expResult = "A\u2660";
         String result = spadesAce.toString();
         assertEquals(expResult, result);
     }
@@ -157,7 +157,7 @@ public class PlayingCardTest {
     @Test
     public void testToStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        String expResult = "10\u2667";
+        String expResult = "10\u2663";
         String result = clubsTen.toString();
         assertEquals(expResult, result);
     }
@@ -207,6 +207,9 @@ public class PlayingCardTest {
         assertEquals(expResult, result);
     }
     
+    /**
+     * Test of cardValue method, of class PlayingCard.
+     */
     @Test
     public void testCardValue() {
         System.out.println("cardValue");
@@ -222,4 +225,104 @@ public class PlayingCardTest {
         }
     }
     
+    /**
+     * Test of isOfRank method, of class PlayingCard.
+     */
+    @Test
+    public void testIsOfRank() {
+        System.out.println("isOfRank");
+        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
+        String assertionMessage = spadesAce.toString() 
+                + " should be recognized as an Ace";
+        assert spadesAce.isOfRank(Rank.ACE) : assertionMessage;
+    }
+    
+    /**
+     * Another test of isOfRank method, of class PlayingCard.
+     */
+    @Test
+    public void testIsNotOfRank() {
+        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
+        String assertionMessage = spadesAce.toString() 
+                + " should not be considered to be a Three";
+        assert !spadesAce.isOfRank(Rank.THREE) : assertionMessage;
+    }
+    
+    /**
+     * Test of isSameRank method, of class PlayingCard.
+     */
+    @Test
+    public void testIsSameRank() {
+        System.out.println("isSameRank");
+        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
+        PlayingCard heartsAce = new PlayingCard(Rank.ACE, Suit.HEARTS);
+        String assertionMessage = spadesAce.toString() 
+                + " should be recognized as being the same rank as " 
+                + heartsAce.toString();
+        assert spadesAce.isSameRank(heartsAce) : assertionMessage;
+    }
+
+    /**
+     * Another test of isSameRank method, of class PlayingCard.
+     */
+    @Test
+    public void testIsNotSameRank() {
+        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
+        PlayingCard spadesTwo = new PlayingCard(Rank.TWO, Suit.SPADES);
+        String assertionMessage = spadesAce.toString() 
+                + " should not be considered as being the same rank as " 
+                + spadesTwo.toString();
+        assert !spadesAce.isSameRank(spadesTwo) : assertionMessage;
+    }
+    
+    /**
+     * Test of isOfSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testIsOfSuit() {
+        System.out.println("isOfSuit");
+        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
+        String assertionMessage = heartsQueen.toString() 
+                + " should be recognized as a card of hearts";
+        assert heartsQueen.isOfSuit(Suit.HEARTS) : assertionMessage;
+    }
+
+    /**
+     * Another test of isOfSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testIsNotOfSuit() {
+        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
+        String assertionMessage = heartsQueen.toString() 
+                + " should not be considered a card of clubs";
+        assert !heartsQueen.isOfSuit(Suit.CLUBS) : assertionMessage;
+    }
+    
+    /**
+     * Test of isSameSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testIsSameSuit() {
+        System.out.println("isSameSuit");
+        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
+        PlayingCard heartsKing = new PlayingCard(Rank.KING, Suit.HEARTS);
+        String assertionMessage = heartsQueen.toString() 
+                + " should be recognized as being of the same suit as " 
+                + heartsKing.toString();
+        assert heartsQueen.isSameSuit(heartsKing) : assertionMessage;
+    }
+
+    /**
+     * Another test of isSameSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testIsNotSameSuit() {
+        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
+        PlayingCard spadesQueen = new PlayingCard(Rank.QUEEN, Suit.SPADES);
+        String assertionMessage = heartsQueen.toString() 
+                + " should not be considered to be of the same suit as " 
+                + spadesQueen.toString();
+        assert !heartsQueen.isSameSuit(spadesQueen) : assertionMessage;
+    }
+
 }

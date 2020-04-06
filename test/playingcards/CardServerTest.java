@@ -1,0 +1,259 @@
+/*
+ * Copyright (C) 2020 Alonso del Arte
+ *
+ * This program is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU General Public License as published by the Free Software 
+ * Foundation, either version 3 of the License, or (at your option) any later 
+ * version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
+ *
+ * You should have received a copy of the GNU General Public License along with 
+ * this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+package playingcards;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+/**
+ *
+ * @author Alonso del Arte
+ */
+public class CardServerTest {
+    
+    @Test
+    public void testGiveCard() {
+        System.out.println("giveCard");
+        CardServer server = new CardServer();
+        PlayingCard card = server.giveCard();
+        assert card != null : "Server should not serve null card";
+        System.out.println("For no specific rank/suit, server served " 
+                + card.toASCIIString());
+    }
+    
+    @Test
+    public void testGiveCardCanDealFromTwoDecks() {
+        CardServer server = new CardServer(2);
+        int counter = 0;
+        while (counter < CardDeck.NUMBER_OF_CARDS_PER_DECK) {
+            server.giveCard();
+            counter++;
+        }
+        try {
+            PlayingCard card = server.giveCard();
+            System.out.println("Server gave " + card.toASCIIString() 
+                    + " from second deck");
+        } catch (RanOutOfCardsException roce) {
+            String failMsg = "Trying to deal from second deck should not have caused RanOutOfCardsException";
+            System.out.println(failMsg);
+            System.out.println("\"" + roce.getMessage() + "\"");
+            fail(failMsg);
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() + " is the wrong exception to throw for inability to deal from second deck";
+            fail(failMsg);
+        }
+    }
+    
+    @Test
+    public void testGiveCardRankThree() {
+        System.out.println("giveCard(Rank)");
+        CardServer server = new CardServer();
+        Rank expected = Rank.THREE;
+        PlayingCard card = server.giveCard(expected);
+        assert card != null : "Served card should not be null";
+        System.out.println("Server served " + card.toASCIIString());
+        String assertionMessage = "Served card " + card.toString() 
+                + " should be a " + expected.getRankWord();
+        assert card.isOfRank(expected) : assertionMessage;
+    }
+    
+    @Test
+    public void testGiveCardMultOfRankInvokeDistinct() {
+        CardServer server = new CardServer();
+        PlayingCard[] cards = new PlayingCard[4];
+        Rank expected = Rank.FIVE;
+        String assertionMessage = "Served card should be of rank " 
+                + expected.getRankWord();
+        for (int n = 0; n < 4; n++) {
+            cards[n] = server.giveCard(expected);
+            assert cards[n].isOfRank(expected) : assertionMessage;
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = i + 1; j < 4; j++) {
+                assertNotEquals(cards[i], cards[j]);
+            }
+        }
+    }
+    
+    @Test
+    public void testGiveCardMultOfSuitInvokeDistinct() {
+        CardServer server = new CardServer();
+        PlayingCard[] cards = new PlayingCard[13];
+        Suit expected = Suit.HEARTS;
+        String assertionMessage = "Served card should be of suit " 
+                + expected.getSuitWord();
+        for (int n = 0; n < 13; n++) {
+            cards[n] = server.giveCard(expected);
+            assert cards[n].isOfSuit(expected) : assertionMessage;
+        }
+        for (int i = 0; i < 12; i++) {
+            for (int j = i + 1; j < 13; j++) {
+                assertNotEquals(cards[i], cards[j]);
+            }
+        }
+    }
+    
+    @Test
+    public void testGiveCardSuitHearts() {
+        System.out.println("giveCard(Suit)");
+        CardServer server = new CardServer();
+        Suit expected = Suit.HEARTS;
+        PlayingCard card = server.giveCard(expected);
+        assert card != null : "Served card should not be null";
+        System.out.println("Server served " + card.toASCIIString());
+        String assertionMessage = "Served card " + card.toString() 
+                + " should be of suit " + expected.getSuitWord();
+        assert card.isOfSuit(expected) : assertionMessage;
+    }
+    
+    @Test
+    public void testGiveCards() {
+        System.out.println("giveCards");
+        CardServer server = new CardServer();
+        PlayingCard[] cards = server.giveCards(20);
+        for (PlayingCard card : cards) {
+            assert card != null : "Served card should not be null";
+        }
+    }
+    
+    @Test
+    public void testGiveCardsRankFour() {
+        System.out.println("giveCards(Rank)");
+        CardServer server = new CardServer();
+        Rank expected = Rank.FOUR;
+        PlayingCard[] cards = server.giveCards(expected, 4);
+        String assertionMessage = "Served card should be of rank " 
+                + expected.getRankWord();
+        for (PlayingCard card : cards) {
+            assert card.isOfRank(expected) : assertionMessage;
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = i + 1; j < 4; j++) {
+                assertNotEquals(cards[i], cards[j]);
+            }
+        }
+    }
+    
+    @Test
+    public void testGiveCardsSuitClubs() {
+        System.out.println("giveCards(Suit)");
+        CardServer server = new CardServer();
+        Suit expected = Suit.CLUBS;
+        PlayingCard[] cards = server.giveCards(expected, 13);
+        String assertionMessage = "Served card should be of suit " 
+                + expected.getSuitWord();
+        for (PlayingCard card : cards) {
+            assert card.isOfSuit(expected) : assertionMessage;
+        }
+        for (int i = 0; i < 12; i++) {
+            for (int j = i + 1; j < 13; j++) {
+                assertNotEquals(cards[i], cards[j]);
+            }
+        }
+    }
+    
+    @Test
+    public void testGiveCardsCanDealFromTwoDecks() {
+        CardServer server = new CardServer(2);
+        try {
+            PlayingCard[] cards = server.giveCards(53);
+            System.out.println("Server gave " + cards[52].toASCIIString() 
+                    + " from second deck");
+        } catch (RanOutOfCardsException roce) {
+            String failMsg = "Trying to deal from second deck should not have caused RanOutOfCardsException";
+            System.out.println(failMsg);
+            System.out.println("\"" + roce.getMessage() + "\"");
+            fail(failMsg);
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() + " is the wrong exception to throw for inability to deal from second deck";
+            fail(failMsg);
+        }
+    }
+    
+    @Test
+    public void testGiveCardsRankCanServeFromTwoDecks() {
+        CardServer server = new CardServer(2);
+        Rank expected = Rank.SEVEN;
+        try {
+            PlayingCard[] cards = server.giveCards(expected, 7);
+            String assertionMessage = "Served card should be of rank " 
+                    + expected.getRankWord();
+            for (PlayingCard card : cards) {
+                assert card.isOfRank(expected) : assertionMessage;
+            }
+        } catch (RuntimeException re) {
+            String failMsg = "Server should have been able to deal cards of rank " 
+                    + expected.getRankWord() + " from two decks without causing " 
+                    + re.getClass().getName();
+            fail(failMsg);
+        }
+    }
+    
+    @Test
+    public void testGiveCardsSuitCanServeFromTwoDecks() {
+        CardServer server = new CardServer(2);
+        Suit expected = Suit.DIAMONDS;
+        try {
+            PlayingCard[] cards = server.giveCards(expected, 25);
+            String assertionMessage = "Served card should be of suit " 
+                    + expected.getSuitWord();
+            for (PlayingCard card : cards) {
+                assert card.isOfSuit(expected) : assertionMessage;
+            }
+        } catch (RuntimeException re) {
+            String failMsg = "Server should have been able to deal cards of rank " 
+                    + expected.getSuitWord() + " from two decks without causing " 
+                    + re.getClass().getName();
+            fail(failMsg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectNegativeDeckQuantity() {
+        try {
+            CardServer server = new CardServer(-1);
+            String failMsg = "Should not have been able to create " 
+                    + server.toString() + " with negative deck quantity";
+            fail(failMsg);
+        } catch (NegativeArraySizeException nase) {
+            System.out.println("Trying to create CardServer with negative deck quantity correctly caused exception");
+            System.out.println("\"" + nase.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() 
+                    + " is the wrong exception to throw for trying to create CardServer with negative deck quantity";
+            fail(failMsg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectZeroDeckQuantity() {
+        try {
+            CardServer server = new CardServer(0);
+            String failMsg = "Should not have been able to create " 
+                    + server.toString() + " with deck quantity zero";
+            fail(failMsg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to create CardServer with deck quantity zero correctly caused exception");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() 
+                    + " is the wrong exception to throw for trying to create CardServer with deck quantity zero";
+            fail(failMsg);
+        }
+    }
+    
+}

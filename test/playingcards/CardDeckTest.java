@@ -29,6 +29,17 @@ import static org.junit.Assert.*;
 public class CardDeckTest {
 
     /**
+     * The deck is expected to have thirteen cards for each of four suits, and
+     * no Jokers.
+     */
+    public static final int EXPECTED_NUMBER_OF_CARDS_IN_DECK = 52;
+
+    @Test
+    public void testNumberOfCards() {
+        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, CardDeck.NUMBER_OF_CARDS_PER_DECK);
+    }
+
+    /**
      * Test of hasNext method, of class CardDeck.
      */
     @Test
@@ -53,7 +64,7 @@ public class CardDeckTest {
     public void testDeckHas52Cards() {
         CardDeck deck = new CardDeck();
         int counter = 0;
-        while (counter < 52) {
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
             deck.getNextCard();
             counter++;
         }
@@ -66,15 +77,55 @@ public class CardDeckTest {
         PlayingCard card = new PlayingCard(Rank.TWO, Suit.CLUBS);
         HashSet<PlayingCard> cards = new HashSet<>();
         int counter = 0;
-        while (counter < 52) {
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
             card = deck.getNextCard();
             cards.add(card);
             counter++;
         }
         System.out.println("Last card dealt was " + card.toASCIIString() + "?");
-        int expected = CardDeck.NUMBER_OF_CARDS_PER_DECK;
         int actual = cards.size();
-        assertEquals(expected, actual);
+        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, actual);
+    }
+    
+    /**
+     * Another test of getNextCard method, of class CardDeck. Trying to get 
+     * another card after the last card has been dealt should cause 
+     * <code>IllegalStateException</code>. It should not cause 
+     * <code>IndexOutOfBoundsException</code>, which would imply that the caller 
+     * was expected to keep track of the index. The correct way to prevent 
+     * <code>getNextCard()</code> from causing an exception is by checking 
+     * <code>hasNext()</code>.
+     */
+    @Test
+    public void testNoDealAfterLastCard() {
+        CardDeck deck = new CardDeck();
+        int counter = 0;
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        try {
+            PlayingCard card = deck.getNextCard();
+            String failMsg = 
+                    "Asking for another card after last should not have given " 
+                    + card.toString();
+            fail(failMsg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println("Asking for another card after last correctly caused RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
+            Rank rank = roce.getRank();
+            Suit suit = roce.getSuit();
+            assertNull(rank);
+            assertNull(suit);
+        } catch (IndexOutOfBoundsException ioobe) {
+            String failMsg = "Asking for another card after last should not disclose IndexOutOfBoundsException";
+            System.out.println(failMsg);
+            System.out.println("\"" + ioobe.getMessage() + "\"");
+            fail(failMsg);
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() + " is the wrong exception to throw after asking for another card after last";
+            fail(failMsg);
+        }
     }
 
     /**
@@ -137,6 +188,12 @@ public class CardDeckTest {
         assert !unshuffled.sameOrderAs(shuffled) : assertionMessage;
     }
 
+    /**
+     * Another test of shuffle method, of class CardDeck. I don't know if there
+     * are any card games that require the deck to be reshuffled after cards
+     * have been dealt, but it seems logical that if that is the case, the same
+     * card should not be dealt twice. Hence this test.
+     */
     @Test
     public void testShuffleOnlyCardsInDeck() {
         CardDeck deck = new CardDeck();
@@ -162,10 +219,63 @@ public class CardDeckTest {
             });
             String failMsg = "Card " + intersection.get(0).toString();
             if (intersection.size() > 1) {
-                failMsg = failMsg + " and " + (intersection.size() - 1) 
+                failMsg = failMsg + " and " + (intersection.size() - 1)
                         + " other(s) ";
             }
             failMsg = failMsg + " should not have been dealt twice";
+            fail(failMsg);
+        }
+    }
+
+    /**
+     * Another test of shuffle method, of class CardDeck. I don't know if there
+     * are any card games that require the deck to be reshuffled after cards
+     * have been dealt. However, if there is only one card left in the deck, 
+     * there is no point in shuffling. It could be argued that there's no point 
+     * shuffling two cards, but I'm going to let that one slide.
+     */
+    @Test
+    public void testNoShuffleForJustOneCard() {
+        CardDeck deck = new CardDeck();
+        int counter = 0;
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK - 1) {
+            deck.getNextCard();
+            counter++;
+        }
+        try {
+            deck.shuffle();
+            fail("Should not have been able to shuffle deck with just one card");
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to shuffle deck with only one card left correctly caused IllegalStateException");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() + " is the wrong exception to throw for trying to shuffle a deck with just one card";
+            fail(failMsg);
+        }
+    }
+
+    /**
+     * Another test of shuffle method, of class CardDeck. I don't know if there
+     * are any card games that require the deck to be reshuffled after cards 
+     * have been dealt. However, if there are no cards left in the deck, trying 
+     * to shuffle should cause an exception.
+     */
+    @Test
+    public void testNoShuffleForZeroCards() {
+        CardDeck deck = new CardDeck();
+        int counter = 0;
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        try {
+            deck.shuffle();
+            fail("Should not have been able to shuffle deck with no cards left");
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to shuffle deck with no cards left correctly caused IllegalStateException");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String failMsg = re.getClass().getName() + " is the wrong exception to throw for trying to shuffle a deck with no cards left";
             fail(failMsg);
         }
     }

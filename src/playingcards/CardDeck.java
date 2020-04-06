@@ -39,6 +39,9 @@ public class CardDeck {
     }
 
     public PlayingCard getNextCard() {
+        if (this.dealCount == NUMBER_OF_CARDS_PER_DECK) {
+            throw new RanOutOfCardsException("All cards have been dealt");
+        }
         return this.cards.get(dealCount++);
     }
 
@@ -47,10 +50,16 @@ public class CardDeck {
     }
 
     public void shuffle() {
-        if (this.dealCount == 0) {
-            Collections.shuffle(this.cards);
-        } else {
-            Collections.shuffle(this.cards.subList(this.dealCount, NUMBER_OF_CARDS_PER_DECK));
+        switch (this.dealCount) {
+            case 0:
+                Collections.shuffle(this.cards);
+                break;
+            case NUMBER_OF_CARDS_PER_DECK - 1:
+            case NUMBER_OF_CARDS_PER_DECK:
+                String excMsg = "No point shuffling a deck with one or no cards left";
+                throw new IllegalStateException(excMsg);
+            default:
+                Collections.shuffle(this.cards.subList(this.dealCount, NUMBER_OF_CARDS_PER_DECK));
         }
     }
 

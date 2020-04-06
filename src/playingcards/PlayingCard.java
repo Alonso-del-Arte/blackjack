@@ -20,7 +20,10 @@ package playingcards;
  * Represents a playing card from a standard 52-card deck. The idea of making 
  * the constructor private so as to make equality and referential equality 
  * identical was considered. However, given that some card games are played with 
- * two or more decks, I decided to make the constructor package private instead.
+ * two or more decks, I decided to make the constructor package private instead, 
+ * so as to allow games to track from which deck a card comes from.
+ * <p>No provision for wildcards. Implementing wildcards is left up to the game 
+ * implementations.</p>
  * @author Alonso del Arte
  */
 public class PlayingCard {
@@ -62,6 +65,22 @@ public class PlayingCard {
 
     public int cardValue() {
         return this.cardRank.getRank();
+    }
+    
+    public boolean isOfRank(Rank rank) {
+        return this.cardRank == rank;
+    }
+    
+    public boolean isSameRank(PlayingCard other) {
+        return this.cardRank == other.cardRank;
+    }
+    
+    public boolean isOfSuit(Suit suit) {
+        return this.cardSuit == suit;
+    }
+    
+    public boolean isSameSuit(PlayingCard other) {
+        return this.cardSuit == other.cardSuit;
     }
 
     PlayingCard(Rank rank, Suit suit) {

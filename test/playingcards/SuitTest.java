@@ -25,14 +25,10 @@ import static org.junit.Assert.*;
  */
 public class SuitTest {
     
-    // TODO: Weigh the different Unicode symbols for playing card suits.
-    // https://www.unicode.org/charts/PDF/U2600.pdf page 5 of 8, and
-    // https://emojipedia.org/spade-suit/ and crossrefs thereof
-
     @Test
     public void testGetSpadesChar() {
         System.out.println("getSuitChar");
-        assertEquals('\u2664', Suit.SPADES.getSuitChar());
+        assertEquals('\u2660', Suit.SPADES.getSuitChar());
     }
     
     @Test
@@ -47,7 +43,28 @@ public class SuitTest {
     
     @Test
     public void testGetClubsChar() {
-        assertEquals('\u2667', Suit.CLUBS.getSuitChar());
+        assertEquals('\u2663', Suit.CLUBS.getSuitChar());
+    }
+    
+    @Test
+    public void testGetSpadesAltChar() {
+        System.out.println("getAltSuitChar");
+        assertEquals('\u2664', Suit.SPADES.getAltSuitChar());
+    }
+    
+    @Test
+    public void testGetDiamondsAltChar() {
+        assertEquals('\u2662', Suit.DIAMONDS.getAltSuitChar());
+    }
+    
+    @Test
+    public void testGetHeartsAltChar() {
+        assertEquals('\u2661', Suit.HEARTS.getAltSuitChar());
+    }
+    
+    @Test
+    public void testGetClubsAltChar() {
+        assertEquals('\u2667', Suit.CLUBS.getAltSuitChar());
     }
     
     @Test
@@ -69,6 +86,27 @@ public class SuitTest {
     @Test
     public void testGetClubsASCIIChar() {
         assertEquals('C', Suit.CLUBS.getSuitCharASCII());
+    }
+    
+    @Test
+    public void testGetSpadesCharEmojiVariant() {
+        System.out.println("getSuitCharEmojiVariant");
+        assertEquals("\u2660\uFE0F", Suit.SPADES.getSuitCharEmojiVariant());
+    }
+    
+    @Test
+    public void testGetDiamondsCharEmojiVariant() {
+        assertEquals("\u2666\uFE0F", Suit.DIAMONDS.getSuitCharEmojiVariant());
+    }
+    
+    @Test
+    public void testGetHeartsCharEmojiVariant() {
+        assertEquals("\u2665\uFE0F", Suit.HEARTS.getSuitCharEmojiVariant());
+    }
+    
+    @Test
+    public void testGetClubsCharEmojiVariant() {
+        assertEquals("\u2663\uFE0F", Suit.CLUBS.getSuitCharEmojiVariant());
     }
     
     @Test

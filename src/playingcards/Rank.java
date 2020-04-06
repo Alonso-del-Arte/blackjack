@@ -20,7 +20,7 @@ package playingcards;
  *
  * @author Alonso del Arte
  */
-enum Rank {
+public enum Rank {
     
     ACE (14, "A", "Ace"),
     TWO (2, "2", "Two"), 
@@ -40,15 +40,15 @@ enum Rank {
     private final String rankChars;
     private final String rankWord;
     
-    int getRank() {
+    public int getRank() {
         return this.rank;
     }
     
-    String getRankChars() {
+    public String getRankChars() {
         return this.rankChars;
     }
     
-    String getRankWord() {
+    public String getRankWord() {
         return this.rankWord;
     }
     
