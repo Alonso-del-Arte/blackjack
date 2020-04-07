@@ -17,53 +17,84 @@
 package playingcards;
 
 /**
- * Provides cards of a specific rank or suit. This class should only be 
- * accessible to test classes, to facilitate the testing of hand scoring. 
- * Callers may ask for a card of a given rank or suit, or for an array of cards 
+ * Provides cards of a specific rank or suit. This class should only be
+ * accessible to test classes, to facilitate the testing of hand scoring.
+ * Callers may ask for a card of a given rank or suit, or for an array of cards
  * of a given rank or suit.
+ * <p>At the time of construction, multiple decks may be specified. However, the
+ * decks are shuffled separately and all cards are theoretically available to be
+ * dealt. So there isn't much protection against card counting, which is another
+ * reason this card supplier should not be used in production.</p>
  * @author Alonso del Arte
  */
-public class CardServer {
-    
+public class CardServer implements CardSupplier {
+
     private final CardDeck[] decks;
-    
+
     private int currDeckIndex = 0;
-    
+
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+
+    @Override
+    public PlayingCard getNextCard() {
+        return this.giveCard();
+    }
+
+    @Override
+    public boolean provenance(PlayingCard card) {
+        boolean matchFoundFlag = false;
+        int index = 0;
+        while (!matchFoundFlag && index < this.decks.length) {
+            matchFoundFlag = this.decks[index].provenance(card);
+            index++;
+        }
+        return matchFoundFlag;
+    }
+
     public PlayingCard giveCard() {
-        if (!this.decks[this.currDeckIndex].hasNext()) this.currDeckIndex++;
+        if (!this.decks[this.currDeckIndex].hasNext()) {
+            this.currDeckIndex++;
+        }
         if (this.currDeckIndex == this.decks.length) {
             String excMsg = "Ran out of decks to deal from";
             throw new RanOutOfCardsException(excMsg);
         }
         return this.decks[this.currDeckIndex].getNextCard();
     }
-    
+
     public PlayingCard giveCard(Rank rank) {
         PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
                 card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOfRank(rank)) return card;
+                if (card.isOfRank(rank)) {
+                    return card;
+                }
             }
             this.currDeckIndex++;
         }
         String excMsg = "Ran out of cards of rank " + rank.getRankWord();
         throw new RuntimeException(excMsg);
     }
-    
+
     public PlayingCard giveCard(Suit suit) {
         PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
                 card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOfSuit(suit)) return card;
+                if (card.isOfSuit(suit)) {
+                    return card;
+                }
             }
             this.currDeckIndex++;
         }
         String excMsg = "Ran out of cards of suit " + suit.getSuitWord();
         throw new RuntimeException(excMsg);
     }
-    
+
     public PlayingCard[] giveCards(int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -71,7 +102,7 @@ public class CardServer {
         }
         return cards;
     }
-    
+
     public PlayingCard[] giveCards(Rank rank, int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -79,7 +110,7 @@ public class CardServer {
         }
         return cards;
     }
-    
+
     public PlayingCard[] giveCards(Suit suit, int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -87,20 +118,21 @@ public class CardServer {
         }
         return cards;
     }
-    
+
     /**
-     * Initializes a card server with only one deck. New decks can't be added 
+     * Initializes a card server with only one deck. New decks can't be added
      * later, except by creating another card server.
      */
     public CardServer() {
         this(1);
     }
-    
+
     /**
-     * Initializes a card server with a given number of decks. The decks are 
-     * shuffled separately. New decks can't be added later, except by creating 
+     * Initializes a card server with a given number of decks. The decks are
+     * shuffled separately. New decks can't be added later, except by creating
      * another card server.
-     * @param deckQty How many decks to initialize the card server with. Should 
+     *
+     * @param deckQty How many decks to initialize the card server with. Should
      * be a positive integer.
      * @throws IllegalArgumentException If <code>deckQty</code> is 0.
      * @throws NegativeArraySizeException If <code>deckQty</code> is negative.
@@ -116,5 +148,5 @@ public class CardServer {
             this.decks[i].shuffle();
         }
     }
-    
+
 }

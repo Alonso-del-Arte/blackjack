@@ -67,12 +67,20 @@ public class PlayingCard {
         return this.cardRank.getRank();
     }
     
+    public Rank getRank() {
+        return this.cardRank;
+    }
+    
     public boolean isOfRank(Rank rank) {
         return this.cardRank == rank;
     }
     
     public boolean isSameRank(PlayingCard other) {
         return this.cardRank == other.cardRank;
+    }
+    
+    public Suit getSuit() {
+        return this.cardSuit;
     }
     
     public boolean isOfSuit(Suit suit) {

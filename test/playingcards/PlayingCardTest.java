@@ -102,21 +102,6 @@ public class PlayingCardTest {
         assertEquals(expected, actual);
     }
     
-    // TODO: DELETE THIS TEST AFTER MORE THOROUGHGOING TESTS ARE WRITTEN
-    @Test
-    public void testEqualsHashCode() {
-        PlayingCard someCard = new PlayingCard(Rank.TWO, Suit.CLUBS);
-        PlayingCard sameCard = new PlayingCard(Rank.TWO, Suit.CLUBS);
-        System.out.println(someCard.toASCIIString() + " " 
-                + System.identityHashCode(someCard) + " hashed as " 
-                + someCard.hashCode());
-        System.out.println(sameCard.toASCIIString() + " " 
-                + System.identityHashCode(sameCard) + " hashed as " 
-                + sameCard.hashCode());
-        assertEquals(someCard, sameCard);
-        assertEquals(someCard.hashCode(), sameCard.hashCode());
-    }
-    
     /**
      * Test of toString method, of class PlayingCard.
      */
@@ -226,6 +211,25 @@ public class PlayingCardTest {
     }
     
     /**
+     * Test of getRank method, of class PlayingCard.
+     */
+    @Test
+    public void testGetRankOfATen() {
+        System.out.println("getRank");
+        PlayingCard spadesTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
+        assertEquals(Rank.TEN, spadesTen.getRank());
+    }
+    
+    /**
+     * Another test of getRank method, of class PlayingCard.
+     */
+    @Test
+    public void testGetRankOfAKing() {
+        PlayingCard diamondsKing = new PlayingCard(Rank.KING, Suit.DIAMONDS);
+        assertEquals(Rank.KING, diamondsKing.getRank());
+    }
+    
+    /**
      * Test of isOfRank method, of class PlayingCard.
      */
     @Test
@@ -273,6 +277,25 @@ public class PlayingCardTest {
                 + " should not be considered as being the same rank as " 
                 + spadesTwo.toString();
         assert !spadesAce.isSameRank(spadesTwo) : assertionMessage;
+    }
+    
+    /**
+     * Test of getSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testGetSuitOfASpade() {
+        System.out.println("getSuit");
+        PlayingCard spadesAce = new PlayingCard(Rank.JACK, Suit.SPADES);
+        assertEquals(Suit.SPADES, spadesAce.getSuit());
+    }
+    
+    /**
+     * Another test of getSuit method, of class PlayingCard.
+     */
+    @Test
+    public void testGetSuitOfAClub() {
+        PlayingCard spadesAce = new PlayingCard(Rank.SIX, Suit.CLUBS);
+        assertEquals(Suit.CLUBS, spadesAce.getSuit());
     }
     
     /**

@@ -26,7 +26,7 @@ import java.util.Collections;
  *
  * @author Alonso del Arte
  */
-public class CardDeck {
+public class CardDeck implements CardSupplier {
 
     public static final int NUMBER_OF_CARDS_PER_DECK = 52;
 
@@ -34,10 +34,16 @@ public class CardDeck {
 
     private int dealCount = 0;
 
+    /**
+     * Tells whether the deck can give another card.
+     * @return A playing card. It should be random enough for most purposes.
+     */
+    @Override
     public boolean hasNext() {
         return (this.dealCount < NUMBER_OF_CARDS_PER_DECK);
     }
 
+    @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == NUMBER_OF_CARDS_PER_DECK) {
             throw new RanOutOfCardsException("All cards have been dealt");
@@ -49,6 +55,12 @@ public class CardDeck {
         return (this.cards.equals(other.cards) && this.dealCount == other.dealCount);
     }
 
+    /**
+     * Shuffles the cards of this deck. Only cards still in the deck are 
+     * shuffled.
+     * @throws IllegalStateException If the deck has only one or zero cards 
+     * left.
+     */
     public void shuffle() {
         switch (this.dealCount) {
             case 0:
@@ -68,16 +80,21 @@ public class CardDeck {
      * the benefit of games that use two or more decks. Theoretically, it is
      * possible to represent cheating (as in surreptitiously inserting a card
      * from a deck not dealt by the dealer).
-     *
      * @param card The card to check the provenance of.
      * @return True if the card came from this deck, false otherwise.
      */
+    @Override
     public boolean provenance(PlayingCard card) {
         int index = cards.indexOf(card);
         PlayingCard ownCard = this.cards.get(index);
         return (card == ownCard);
     }
 
+    /**
+     * Constructs a new deck with four cards of each rank and thirteen cards of 
+     * each suit. The cards are not shuffled unless {@link #shuffle() shuffle()} 
+     * is called.
+     */
     public CardDeck() {
         this.cards = new ArrayList<>();
         PlayingCard card;

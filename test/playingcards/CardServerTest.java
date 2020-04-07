@@ -25,6 +25,31 @@ import static org.junit.Assert.*;
  */
 public class CardServerTest {
     
+    // TODO: Test hasNext()
+    // There's no need to test getNextCard(); in this implementation it's just 
+    // an alias for giveCard().
+    
+    @Test
+    public void testProvenance() {
+        System.out.println("provenance");
+        CardServer server = new CardServer(2);
+        PlayingCard[] aces = server.giveCards(Rank.ACE, 8);
+        for (PlayingCard ace : aces) {
+            assert server.provenance(ace) : "The ace came from this card server";
+        }
+    }
+    
+    @Test
+    public void testNotProvenance() {
+        CardServer server = new CardServer();
+        PlayingCard servedCard = server.getNextCard();
+        PlayingCard copiedCard = new PlayingCard(servedCard.getRank(), 
+                servedCard.getSuit());
+        String assertionMessage = "Copied card " + copiedCard.toString() 
+                + " should not be said to have come from this server";
+        assert !server.provenance(copiedCard) : assertionMessage;
+    }
+    
     @Test
     public void testGiveCard() {
         System.out.println("giveCard");
