@@ -20,7 +20,8 @@ package playingcards;
  * Provides a way to count the cards given out by a card supplier. This class 
  * should only be accessible to test classes, to facilitate the testing of card 
  * distributions. For example, a deck should only give one of each card, a 
- * 4-deck dispenser should not give more than four of each card.
+ * 4-deck dispenser should not give more than four of each card. Because this 
+ * counter depletes a supplier, its usefulness in production is very limited.
  * @author Alonso del Arte
  */
 public class CardCounter {
@@ -33,10 +34,23 @@ public class CardCounter {
         return card.getSuit().ordinal() * 13 + card.getRank().ordinal();
     }
     
+    /**
+     * Counts how many times a card supplier gave a certain card.
+     * @param card The card to count. For example, A&#9824;.
+     * @return How many times a the card came up from the dispenser. For 
+     * example, a 5-deck dispenser without a plastic card should probably give 
+     * five Aces of Spades.
+     */
     public int count(PlayingCard card) {
         return this.cardCounts[index(card)];
     }
     
+    /**
+     * Constructs a counter and counts up the cards given by the supplier.
+     * @param supplier A card supplier. It may be newly initialized, or it may 
+     * have dealt a few or all of its cards. Either way, the supplier will be 
+     * depleted after the counter is constructed.
+     */
     public CardCounter(CardSupplier supplier) {
         this.cardSupplier = supplier;
         PlayingCard card;
