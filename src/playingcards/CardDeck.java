@@ -36,13 +36,21 @@ public class CardDeck implements CardSupplier {
 
     /**
      * Tells whether the deck can give another card.
-     * @return A playing card. It should be random enough for most purposes.
+     * @return True if the deck can give another card, false if not.
      */
     @Override
     public boolean hasNext() {
         return (this.dealCount < NUMBER_OF_CARDS_PER_DECK);
     }
 
+    /**
+     * Supplies one card. The card is guaranteed to be of the next higher rank, 
+     * or of the next suit, if {@link #shuffle()} has never been called on this 
+     * deck.
+     * @return A playing card. For example, 3&#9824;.
+     * @throws RanOutOfCardsException If the deck has no more cards to give. 
+     * This exception may be avoided by checking {@link #hasNext()}.
+     */
     @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == NUMBER_OF_CARDS_PER_DECK) {

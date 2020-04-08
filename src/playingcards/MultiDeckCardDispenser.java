@@ -20,7 +20,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- *
+ * A multi-deck card dispenser with the option of a plastic card to prevent a 
+ * certain number of cards from being dealt out. This disrupts card counting. 
+ * For example, with a 3-deck dispenser and a plastic card holding back the 
+ * bottom twenty cards, it's possible that the dispenser might provide all three 
+ * Aces of Spades but only one Ace of Clubs.
  * @author Alonso del Arte
  */
 public class MultiDeckCardDispenser implements CardSupplier {
@@ -31,11 +35,25 @@ public class MultiDeckCardDispenser implements CardSupplier {
     
     private int dispenseIndex = 0;
     
+    /**
+     * Tells whether this dispenser can give another card.
+     * @return True if this dispenser can give another card, false otherwise.
+     */
     @Override
     public boolean hasNext() {
         return (this.dispenseIndex < this.cards.size());
     }
     
+    /** 
+     * Supplies one card. The card should be random. Depending on how this 
+     * dispenser was constructed, some rank and suit combinations may occur more 
+     * or less than others. For example, a 6-deck dispenser with a plastic card 
+     * holding back 75 cards might dispense six Aces of Diamonds but only three 
+     * Aces of Hearts.
+     * @return A playing card. For example, 2&#9830;.
+     * @throws RanOutOfCardsException If this dispenser has run out of cards. To 
+     * avoid this exception, the caller can check {@link #hasNext()}.
+     */
     @Override
     public PlayingCard getNextCard() {
         if (this.dispenseIndex == this.cards.size()) {
@@ -55,10 +73,41 @@ public class MultiDeckCardDispenser implements CardSupplier {
         return matchFoundFlag;
     }
     
+    /**
+     * Constructs a new multi-deck card dispenser. The decks may or may not be 
+     * shuffled individually, but the whole bunch of cards should be shuffled 
+     * together, so that two or more of the same card could possibly wind up as 
+     * consecutive cards. With this constructor, all cards from all decks will 
+     * be available to be dealt out.
+     * @param numberOfDecks How many decks to put into the dispenser. Should be 
+     * a positive number, preferably greater than 1. For example, 6 for six 
+     * decks.
+     * @throws IllegalArgumentException If <code>numberOfDecks</code> is 0.
+     * @throws NegativeArraySizeException If either <code>numberOfDecks</code> 
+     * is negative.
+     */
     public MultiDeckCardDispenser(int numberOfDecks) {
         this(numberOfDecks, 0);
     }
     
+    /**
+     * Constructs a new multi-deck card dispenser. The decks may or may not be 
+     * shuffled individually, but the whole bunch of cards should be shuffled 
+     * together, so that two or more of the same card could possibly wind up as 
+     * consecutive cards.
+     * @param numberOfDecks How many decks to put into the dispenser. Should be 
+     * a positive number, preferably greater than 1. For example, 6 for six 
+     * decks.
+     * @param plasticCardPos At which position from the bottom to place a 
+     * plastic card, which will then prevent the cards under it from being 
+     * dealt. May be 0 but should not be negative. For example, 75, which will 
+     * then prevent the bottom seventy-five cards from being dealt out.
+     * @throws IllegalArgumentException If <code>numberOfDecks</code> is 0, or 
+     * if <code>plasticCardPos</code> is in excess of how many cards there are 
+     * in the decks in total.
+     * @throws NegativeArraySizeException If either <code>numberOfDecks</code>  
+     * or <code>plasticCardPos</code> is negative.
+     */
     public MultiDeckCardDispenser(int numberOfDecks, int plasticCardPos) {
         if (numberOfDecks == 0) {
             String excMsg = "Dispenser needs at least one deck of cards to dispense, preferably more";
@@ -76,12 +125,13 @@ public class MultiDeckCardDispenser implements CardSupplier {
         }
         if (plasticCardPos < 0) {
             String excMsg = "Negative plastic card position not allowed";
-            throw new IndexOutOfBoundsException(excMsg);
+            throw new NegativeArraySizeException(excMsg);
         }
         this.decks = new CardDeck[numberOfDecks];
         this.cards = new ArrayList<>();
         for (int i = 0; i < numberOfDecks; i++) {
             this.decks[i] = new CardDeck();
+            this.decks[i].shuffle(); // TODO: Determine if this helps randomness
             while (this.decks[i].hasNext()) {
                 this.cards.add(this.decks[i].getNextCard());
             }

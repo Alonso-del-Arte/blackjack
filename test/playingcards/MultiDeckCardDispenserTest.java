@@ -143,6 +143,8 @@ public class MultiDeckCardDispenserTest {
         }
     }
     
+    // TODO: Determine if there is any meaningful way to test card disavowal.
+    
     /**
      * Another test of provenance method, of class MultiDeckCardDispenser.
      */
@@ -186,7 +188,7 @@ public class MultiDeckCardDispenserTest {
                     + dispenser.toString() + " with negative number of decks";
             fail(failMsg);
         } catch (NegativeArraySizeException nase) {
-            System.out.println("Trying to create dispenser with zero decks correctly caused NegativeArraySizeException");
+            System.out.println("Trying to create dispenser with negative number of decks correctly caused NegativeArraySizeException");
             System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
             String failMsg = re.getClass().getName()
@@ -219,9 +221,9 @@ public class MultiDeckCardDispenserTest {
             String failMsg = "Should not have been able to create "
                     + dispenser.toString() + " with negative plastic card position";
             fail(failMsg);
-        } catch (IndexOutOfBoundsException ioobe) {
-            System.out.println("Trying to create dispenser with negative plastic card position correctly caused IndexOutOfBoundsException");
-            System.out.println("\"" + ioobe.getMessage() + "\"");
+        } catch (NegativeArraySizeException nase) {
+            System.out.println("Trying to create dispenser with negative plastic card position correctly caused NegativeArraySizeException");
+            System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
             String failMsg = re.getClass().getName()
                     + " is the wrong exception for trying to create dispenser with negative plastic card position";

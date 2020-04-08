@@ -17,28 +17,31 @@
 package playingcards;
 
 /**
- *
+ * Enumerates the ranks of the playing cards: Aces, Twos, Threes, ..., Queens, 
+ * Kings. Provides certain basic information, but no image data. This 
+ * enumeration does not include Jokers.
  * @author Alonso del Arte
  */
 public enum Rank {
     
-    ACE (14, "A", "Ace"),
-    TWO (2, "2", "Two"), 
-    THREE (3, "3", "Three"), 
-    FOUR (4, "4", "Four"), 
-    FIVE (5, "5", "Five"), 
-    SIX (6, "6", "Six"), 
-    SEVEN (7, "7", "Seven"), 
-    EIGHT (8, "8", "Eight"), 
-    NINE (9, "9", "Nine"), 
-    TEN (10, "10", "Ten"),
-    JACK (11, "J", "Jack"),
-    QUEEN (12, "Q", "Queen"),
-    KING (13, "K", "King");
+    ACE (14, "A", "Ace", false),
+    TWO (2, "2", "Two", false), 
+    THREE (3, "3", "Three", false), 
+    FOUR (4, "4", "Four", false), 
+    FIVE (5, "5", "Five", false), 
+    SIX (6, "6", "Six", false), 
+    SEVEN (7, "7", "Seven", false), 
+    EIGHT (8, "8", "Eight", false), 
+    NINE (9, "9", "Nine", false), 
+    TEN (10, "10", "Ten", false),
+    JACK (11, "J", "Jack", true),
+    QUEEN (12, "Q", "Queen", true),
+    KING (13, "K", "King", true);
     
     private final int rank;
     private final String rankChars;
     private final String rankWord;
+    private final boolean faceCardFlag;
     
     public int getRank() {
         return this.rank;
@@ -52,10 +55,21 @@ public enum Rank {
         return this.rankWord;
     }
     
-    Rank(int n, String nchars, String word) {
+    /**
+     * Tells whether a given rank corresponds to a court card or not. Other 
+     * terms for "court card" include "face card," "picture card" and "painting 
+     * card."
+     * @return True for Jacks, Queens and Kings, false for all others.
+     */
+    public boolean isCourtCard() {
+        return this.faceCardFlag;
+    }
+    
+    Rank(int n, String nchars, String word, boolean cc) {
         this.rank = n;
         this.rankChars = nchars;
         this.rankWord = word;
+        this.faceCardFlag = cc;
     }
     
 }

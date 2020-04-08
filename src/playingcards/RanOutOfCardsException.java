@@ -1,27 +1,27 @@
 /*
  * Copyright (C) 2020 Alonso del Arte
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU General Public License as published by the Free Software 
+ * Foundation, either version 3 of the License, or (at your option) any later 
+ * version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with 
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
 
 /**
  * Indicates that a deck, hand or other grouping of cards has run out of cards. 
  * This exception should generally only be used when the caller has ignored some 
- * other more normal indication that the deck, hand or other grouping has run 
+ * other, more normal, indication that the deck, hand or other grouping has run 
  * out of cards. The object throwing this exception may indicate if the deficit 
- * is of a specific rank (e.g., aces) or a specific suit (e.g., spades), 
+ * is of a specific rank (e.g., Aces) or a specific suit (e.g., Spades), 
  * suggesting that cards of other ranks or suits may be available.
  * @author Alonso del Arte
  */
@@ -36,7 +36,7 @@ public class RanOutOfCardsException extends RuntimeException {
     /**
      * Indicates whether this exception was caused by a deficiency of cards of a 
      * specific rank. An exception handler may opt to check this before calling 
-     * {@link #getRank() getRank()}.
+     * {@link #getRank()}.
      * @return True if a rank was specified at the time this exception was 
      * constructed, false otherwise.
      */
@@ -47,7 +47,7 @@ public class RanOutOfCardsException extends RuntimeException {
     /**
      * Indicates whether this exception was caused by a deficiency of cards of a 
      * specific suit. An exception handler may opt to check this before calling 
-     * {@link #getSuit() getSuit()}.
+     * {@link #getSuit()}.
      * @return True if a suit was specified at the time this exception was 
      * constructed, false otherwise.
      */
@@ -57,8 +57,8 @@ public class RanOutOfCardsException extends RuntimeException {
     
     /**
      * Retrieves the rank specified at the time the exception was constructed. 
-     * An exception handler may call {@link #rankDeficient() rankDeficient()} 
-     * before using this getter.
+     * An exception handler may call {@link #rankDeficient()} before using this 
+     * getter.
      * @return The rank specified at the time this exception was constructed 
      * (for example, Queen). May be null.
      */
@@ -68,8 +68,8 @@ public class RanOutOfCardsException extends RuntimeException {
     
     /**
      * Retrieves the suit specified at the time the exception was constructed. 
-     * An exception handler may call {@link #suitDeficient() suitDeficient()} 
-     * before using this getter.
+     * An exception handler may call {@link #suitDeficient()} before using this 
+     * getter.
      * @return The suit specified at the time this exception was constructed 
      * (for example, Spades). May be null.
      */

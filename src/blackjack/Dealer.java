@@ -1,20 +1,22 @@
 /*
  * Copyright (C) 2020 Alonso del Arte
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify it under 
+ * the terms of the GNU General Public License as published by the Free Software 
+ * Foundation, either version 3 of the License, or (at your option) any later 
+ * version.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful, but WITHOUT 
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS 
+ * FOR A PARTICULAR PURPOSE. See the GNU General Public License for more 
+ * details.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with 
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package blackjack;
+
+import playingcards.MultiDeckCardDispenser;
 
 /**
  *
@@ -22,6 +24,33 @@ package blackjack;
  */
 public class Dealer {
     
-    // TODO: Write it
+    private static int instanceCounter = 0;
+    
+    private MultiDeckCardDispenser cardDispenser;
+    
+    // TODO: Flesh out
+    
+    private static int plasticCardPlace() {
+        return ((int) Math.floor(Math.random() * 15) + 60);
+    }
+    
+    private void replenishDispenser() {
+        this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
+    }
+    
+    public static Dealer getDealer() {
+        if (Dealer.instanceCounter > 0) {
+            String excMsg = "There's already a Dealer instantiated";
+            throw new IllegalStateException(excMsg);
+        }
+        return new Dealer(new MultiDeckCardDispenser(6, plasticCardPlace()));
+    }
+    
+    // TODO: Determine if it makes any sense for Dealer to have finalize()
+    
+    private Dealer(MultiDeckCardDispenser dispenser) {
+        this.cardDispenser = dispenser;
+        Dealer.instanceCounter++;
+    }
     
 }
