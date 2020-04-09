@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Suit enumerated type.
  * @author Alonso del Arte
  */
 public class SuitTest {

@@ -20,15 +20,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the CardServer class.
  * @author Alonso del Arte
  */
 public class CardServerTest {
     
     // TODO: Test hasNext()
-    // There's no need to test getNextCard(); in this implementation it's just 
-    // an alias for giveCard().
     
+    /**
+     * Test of provenance method, of class CardServer.
+     */
     @Test
     public void testProvenance() {
         System.out.println("provenance");
@@ -39,6 +40,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Another test of provenance method, of class CardServer.
+     */
     @Test
     public void testNotProvenance() {
         CardServer server = new CardServer();
@@ -50,26 +54,32 @@ public class CardServerTest {
         assert !server.provenance(copiedCard) : assertionMessage;
     }
     
+    /**
+     * Test of getNextCard method, of class CardServer.
+     */
     @Test
-    public void testGiveCard() {
-        System.out.println("giveCard");
+    public void testGetNextCard() {
+        System.out.println("getNextCard");
         CardServer server = new CardServer();
-        PlayingCard card = server.giveCard();
+        PlayingCard card = server.getNextCard();
         assert card != null : "Server should not serve null card";
         System.out.println("For no specific rank/suit, server served " 
                 + card.toASCIIString());
     }
     
+    /**
+     * Another test of getNextCard method, of class CardServer.
+     */
     @Test
-    public void testGiveCardCanDealFromTwoDecks() {
+    public void testGetNextCardCanDealFromTwoDecks() {
         CardServer server = new CardServer(2);
         int counter = 0;
-        while (counter < CardDeck.NUMBER_OF_CARDS_PER_DECK) {
-            server.giveCard();
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            server.getNextCard();
             counter++;
         }
         try {
-            PlayingCard card = server.giveCard();
+            PlayingCard card = server.getNextCard();
             System.out.println("Server gave " + card.toASCIIString() 
                     + " from second deck");
         } catch (RanOutOfCardsException roce) {
@@ -83,6 +93,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Test of giveCard(Rank) method, of class CardServer.
+     */
     @Test
     public void testGiveCardRankThree() {
         System.out.println("giveCard(Rank)");
@@ -93,9 +106,12 @@ public class CardServerTest {
         System.out.println("Server served " + card.toASCIIString());
         String assertionMessage = "Served card " + card.toString() 
                 + " should be a " + expected.getRankWord();
-        assert card.isOfRank(expected) : assertionMessage;
+        assert card.isOf(expected) : assertionMessage;
     }
     
+    /**
+     * Another test of giveCard(Rank) method, of class CardServer.
+     */
     @Test
     public void testGiveCardMultOfRankInvokeDistinct() {
         CardServer server = new CardServer();
@@ -105,7 +121,7 @@ public class CardServerTest {
                 + expected.getRankWord();
         for (int n = 0; n < 4; n++) {
             cards[n] = server.giveCard(expected);
-            assert cards[n].isOfRank(expected) : assertionMessage;
+            assert cards[n].isOf(expected) : assertionMessage;
         }
         for (int i = 0; i < 3; i++) {
             for (int j = i + 1; j < 4; j++) {
@@ -114,24 +130,9 @@ public class CardServerTest {
         }
     }
     
-    @Test
-    public void testGiveCardMultOfSuitInvokeDistinct() {
-        CardServer server = new CardServer();
-        PlayingCard[] cards = new PlayingCard[13];
-        Suit expected = Suit.HEARTS;
-        String assertionMessage = "Served card should be of suit " 
-                + expected.getSuitWord();
-        for (int n = 0; n < 13; n++) {
-            cards[n] = server.giveCard(expected);
-            assert cards[n].isOfSuit(expected) : assertionMessage;
-        }
-        for (int i = 0; i < 12; i++) {
-            for (int j = i + 1; j < 13; j++) {
-                assertNotEquals(cards[i], cards[j]);
-            }
-        }
-    }
-    
+    /**
+     * Test of giveCard(Suit) method, of class CardServer.
+     */
     @Test
     public void testGiveCardSuitHearts() {
         System.out.println("giveCard(Suit)");
@@ -142,9 +143,33 @@ public class CardServerTest {
         System.out.println("Server served " + card.toASCIIString());
         String assertionMessage = "Served card " + card.toString() 
                 + " should be of suit " + expected.getSuitWord();
-        assert card.isOfSuit(expected) : assertionMessage;
+        assert card.isOf(expected) : assertionMessage;
     }
     
+    /**
+     * Another test of giveCard(Suit) method, of class CardServer.
+     */
+    @Test
+    public void testGiveCardMultOfSuitInvokeDistinct() {
+        CardServer server = new CardServer();
+        PlayingCard[] cards = new PlayingCard[13];
+        Suit expected = Suit.HEARTS;
+        String assertionMessage = "Served card should be of suit " 
+                + expected.getSuitWord();
+        for (int n = 0; n < 13; n++) {
+            cards[n] = server.giveCard(expected);
+            assert cards[n].isOf(expected) : assertionMessage;
+        }
+        for (int i = 0; i < 12; i++) {
+            for (int j = i + 1; j < 13; j++) {
+                assertNotEquals(cards[i], cards[j]);
+            }
+        }
+    }
+    
+    /**
+     * Test of giveCards method, of class CardServer.
+     */
     @Test
     public void testGiveCards() {
         System.out.println("giveCards");
@@ -155,6 +180,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Test of giveCards(Rank) method, of class CardServer.
+     */
     @Test
     public void testGiveCardsRankFour() {
         System.out.println("giveCards(Rank)");
@@ -164,7 +192,7 @@ public class CardServerTest {
         String assertionMessage = "Served card should be of rank " 
                 + expected.getRankWord();
         for (PlayingCard card : cards) {
-            assert card.isOfRank(expected) : assertionMessage;
+            assert card.isOf(expected) : assertionMessage;
         }
         for (int i = 0; i < 3; i++) {
             for (int j = i + 1; j < 4; j++) {
@@ -173,6 +201,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Test of giveCards(Suit) method, of class CardServer.
+     */
     @Test
     public void testGiveCardsSuitClubs() {
         System.out.println("giveCards(Suit)");
@@ -182,7 +213,7 @@ public class CardServerTest {
         String assertionMessage = "Served card should be of suit " 
                 + expected.getSuitWord();
         for (PlayingCard card : cards) {
-            assert card.isOfSuit(expected) : assertionMessage;
+            assert card.isOf(expected) : assertionMessage;
         }
         for (int i = 0; i < 12; i++) {
             for (int j = i + 1; j < 13; j++) {
@@ -191,6 +222,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Another test of giveCards method, of class CardServer.
+     */
     @Test
     public void testGiveCardsCanDealFromTwoDecks() {
         CardServer server = new CardServer(2);
@@ -209,6 +243,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Another test of giveCards method, of class CardServer.
+     */
     @Test
     public void testGiveCardsRankCanServeFromTwoDecks() {
         CardServer server = new CardServer(2);
@@ -218,7 +255,7 @@ public class CardServerTest {
             String assertionMessage = "Served card should be of rank " 
                     + expected.getRankWord();
             for (PlayingCard card : cards) {
-                assert card.isOfRank(expected) : assertionMessage;
+                assert card.isOf(expected) : assertionMessage;
             }
         } catch (RuntimeException re) {
             String failMsg = "Server should have been able to deal cards of rank " 
@@ -228,6 +265,9 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Another test of giveCards method, of class CardServer.
+     */
     @Test
     public void testGiveCardsSuitCanServeFromTwoDecks() {
         CardServer server = new CardServer(2);
@@ -237,7 +277,7 @@ public class CardServerTest {
             String assertionMessage = "Served card should be of suit " 
                     + expected.getSuitWord();
             for (PlayingCard card : cards) {
-                assert card.isOfSuit(expected) : assertionMessage;
+                assert card.isOf(expected) : assertionMessage;
             }
         } catch (RuntimeException re) {
             String failMsg = "Server should have been able to deal cards of rank " 
@@ -247,6 +287,10 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Test of the CardServer constructor. A negative number should be an 
+     * invalid number of decks constructor parameter.
+     */
     @Test
     public void testConstructorRejectNegativeDeckQuantity() {
         try {
@@ -264,6 +308,10 @@ public class CardServerTest {
         }
     }
     
+    /**
+     * Another test of the CardServer constructor. Zero should be an invalid 
+     * number of decks constructor parameter.
+     */
     @Test
     public void testConstructorRejectZeroDeckQuantity() {
         try {

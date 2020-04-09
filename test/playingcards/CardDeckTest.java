@@ -23,7 +23,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the CardDeck class.
  * @author Alonso del Arte
  */
 public class CardDeckTest {
@@ -34,9 +34,13 @@ public class CardDeckTest {
      */
     public static final int EXPECTED_NUMBER_OF_CARDS_IN_DECK = 52;
 
+    /**
+     * The CardDeck class should have a constant declaring that the deck has 52 
+     * cards at the time of instantiation.
+     */
     @Test
     public void testNumberOfCards() {
-        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, CardDeck.NUMBER_OF_CARDS_PER_DECK);
+        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
     }
 
     /**
@@ -60,6 +64,9 @@ public class CardDeckTest {
         assertNotNull(assertionMessage, deck.getNextCard());
     }
 
+    /**
+     * Test to ascertain the deck gives 52 cards and then no more.
+     */
     @Test
     public void testDeckHas52Cards() {
         CardDeck deck = new CardDeck();
@@ -71,6 +78,9 @@ public class CardDeckTest {
         assert !deck.hasNext() : "Deck should be out of cards after dealing all 52";
     }
 
+    /**
+     * Test to ascertain the deck gives 52 distinct cards.
+     */
     @Test
     public void testDeckHas52DistinctCards() {
         CardDeck deck = new CardDeck();

@@ -31,6 +31,13 @@ public class PlayingCard {
     private final Rank cardRank;
     private final Suit cardSuit;
 
+    /**
+     * Indicates whether this playing card is equal to another object.
+     * @param obj The object to compare for equality.
+     * @return True if <code>obj</code> is of runtime class 
+     * <code>PlayingCard</code> a playing card of the same suit and the same 
+     * rank, false otherwise.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -49,46 +56,136 @@ public class PlayingCard {
         return (this.cardRank.equals(other.cardRank));
     }
 
+    /**
+     * Returns a hash code for this playing card.
+     * @return A hash code, based on the card's rank and suit.
+     */
     @Override
     public int hashCode() {
         return this.cardValue() * this.cardSuit.getSuitChar();
     }
 
+    /**
+     * Gives a text representation of the playing card. Uses the Unicode playing 
+     * card characters from the Miscellaneous Symbols block, U+2600 to U+26FF. 
+     * For console applications with potentially limited character sets, it may 
+     * be preferable to use {@link #toASCIIString()}.
+     * @return A text representation like "8&#9824;".
+     */
     @Override
     public String toString() {
         return this.cardRank.getRankChars() + this.cardSuit.getSuitChar();
     }
 
+    /**
+     * Gives an ASCII text representation of the playing card. This should be 
+     * suitable for use in a console application with a potentially limited 
+     * character set.
+     * @return A text representation like "Eight of Spades".
+     */
     public String toASCIIString() {
         return this.cardRank.getRankWord() + " of " + this.cardSuit.getSuitWord();
     }
+    
+    /**
+     * Gives a Unicode Supplementary Multilingual Plane (SMP) character to 
+     * represent this playing card. Because of spotty font support and the need 
+     * for surrogate pairs, in most contexts it will be preferable to use {@link 
+     * #toASCIIString()} or {@link #toString()}.
+     * @return A Unicode SMP character represented as high surrogate U+D83C 
+     * followed by a low surrogate in the range U+DCA1 (for A&#9824;) to U+DCD1 
+     * (for K&#9827;).
+     */
+    public String toUnicodeSMPChar() {
+        char highSurrogate = '\uD83C';
+        char aceBase = '\uDCA1';
+        int adj = this.cardSuit.ordinal() * 16 + this.cardRank.ordinal();
+        int knightAdj = 0;
+        if (this.cardRank.ordinal() > 10) knightAdj = 1;
+        char lowSurrogate = (char) (aceBase + adj + knightAdj);
+        return "" + highSurrogate + lowSurrogate;
+    }
 
+    /**
+     * Gives the value of this card. It should be suitable for most games. Some 
+     * games might need tweaking for some or all cards.
+     * @return An integer values. For most pip cards like 8&#9824;, it should be 
+     * the number of pips, e.g., 8. Though for Aces like A&#9830; it will be 14. 
+     * Jacks are 11, Queens are 12 and Kings are 13.
+     */
     public int cardValue() {
         return this.cardRank.getRank();
     }
     
+    /**
+     * Gives the enumeration of this card's rank.
+     * @return An enumeration field. For example, <code>Rank.NINE</code> for 
+     * 9&#9827;.
+     */
     public Rank getRank() {
         return this.cardRank;
     }
     
-    public boolean isOfRank(Rank rank) {
+    /**
+     * Determines if this card is of the specified rank.
+     * @param rank The rank to check. For example, <code>Rank.SEVEN</code>.
+     * @return True if this card is of the specified rank, false if it is not. 
+     * For example, true for 7&#9827;, false for 8&#9827;.
+     */
+    public boolean isOf(Rank rank) {
         return this.cardRank == rank;
     }
     
+    /**
+     * Determines if this card is the same rank as another card.
+     * @param other The card to check against. For example, 7&#9827;.
+     * @return True if the other card is of the same rank, false if it is not. 
+     * For example, if this card is 7&#9830; and the other card is 7&#9827;, 
+     * then true. But if this card is 8&#9830; and the other card is 7&#9827;, 
+     * then false.
+     */
     public boolean isSameRank(PlayingCard other) {
         return this.cardRank == other.cardRank;
     }
     
+    /**
+     * Gives the enumeration of this card's suit.
+     * @return An enumeration field. For example, <code>Suit.HEARTS</code> for 
+     * 10&#9829;.
+     */
     public Suit getSuit() {
         return this.cardSuit;
     }
     
-    public boolean isOfSuit(Suit suit) {
+    /**
+     * Determines if this card is of the specified suit.
+     * @param suit The suit to check. For example, <code>Suit.HEARTS</code>.
+     * @return True if this card is of the specified suit, false if it is not. 
+     * For example, true for 10&#9829;, false for 10&#9830;.
+     */
+    public boolean isOf(Suit suit) {
         return this.cardSuit == suit;
     }
     
+    /**
+     * Determines if this card is the same suit as another card.
+     * @param other The card to check against. For example, 10&#9829;.
+     * @return True if the other card is of the same rank, false if it is not. 
+     * For example, if this card is 10&#9829; and the other card is Q&#9829;, 
+     * then true. But if this card is 10&#9829; and the other card is 10&#9830;, 
+     * then false.
+     */
     public boolean isSameSuit(PlayingCard other) {
         return this.cardSuit == other.cardSuit;
+    }
+    
+    /**
+     * Tells whether this card is a court card or not. Other terms for "court 
+     * card" include "face card," "picture card" and "painting card."
+     * @return True for Jacks, Queens and Kings, false for all others.
+     */
+    public boolean isCourtCard() {
+        return this.cardRank.isCourtRank();
     }
 
     PlayingCard(Rank rank, Suit suit) {

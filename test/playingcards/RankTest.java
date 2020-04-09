@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Rank enumerated type.
  * @author Alonso del Arte
  */
 public class RankTest {
@@ -221,6 +221,24 @@ public class RankTest {
     @Test
     public void testGetRankWordKing() {
         assertEquals("King", Rank.KING.getRankWord());
+    }
+    
+    @Test
+    public void testIsCourtRank() {
+        System.out.println("isCourtRank");
+        assert !Rank.ACE.isCourtRank() : "Aces are not court cards";
+        assert !Rank.TWO.isCourtRank() : "Twos are not court cards";
+        assert !Rank.THREE.isCourtRank() : "Threes are not court cards";
+        assert !Rank.FOUR.isCourtRank() : "Fours are not court cards";
+        assert !Rank.FIVE.isCourtRank() : "Fives are not court cards";
+        assert !Rank.SIX.isCourtRank() : "Sixes are not court cards";
+        assert !Rank.SEVEN.isCourtRank() : "Sevens are not court cards";
+        assert !Rank.EIGHT.isCourtRank() : "Eights are not court cards";
+        assert !Rank.NINE.isCourtRank() : "Nines are not court cards";
+        assert !Rank.TEN.isCourtRank() : "Tens are not court cards";
+        assert Rank.JACK.isCourtRank() : "Jacks are court cards";
+        assert Rank.QUEEN.isCourtRank() : "Queens are court cards";
+        assert Rank.KING.isCourtRank() : "Kings are court cards";
     }
     
 }

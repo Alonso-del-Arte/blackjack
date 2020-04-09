@@ -25,9 +25,6 @@ import static org.junit.Assert.*;
  */
 public class RanOutOfCardsExceptionTest {
     
-    public RanOutOfCardsExceptionTest() {
-    }
-
     /**
      * Test of rankDeficient method, of class RanOutOfCardsException.
      */

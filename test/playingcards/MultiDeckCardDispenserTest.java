@@ -20,7 +20,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the MultiDeckCardDispenser class.
  * @author Alonso del Arte
  */
 public class MultiDeckCardDispenserTest {
@@ -32,7 +32,7 @@ public class MultiDeckCardDispenserTest {
     public void testHasNext() {
         System.out.println("hasNext");
         int numberOfDecks = 3;
-        int expectedMax = numberOfDecks * CardDeck.NUMBER_OF_CARDS_PER_DECK;
+        int expectedMax = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(numberOfDecks);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
         int counter = 0;
@@ -75,7 +75,7 @@ public class MultiDeckCardDispenserTest {
     public void testGetNextCardStopsAtPlasticCard() {
         int numberOfDecks = 6;
         int plasticCardPos = 75;
-        int expectedMax = numberOfDecks * CardDeck.NUMBER_OF_CARDS_PER_DECK
+        int expectedMax = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK
                 - plasticCardPos;
         MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
@@ -163,6 +163,9 @@ public class MultiDeckCardDispenserTest {
         }
     }
     
+    /**
+     * Tests that zero is an invalid number of decks constructor parameter.
+     */
     @Test
     public void testConstructorRejectsZeroDecks() {
         try {
@@ -180,6 +183,10 @@ public class MultiDeckCardDispenserTest {
         }
     }
 
+    /**
+     * Tests that negative numbers are invalid for the number of decks 
+     * constructor parameter.
+     */
     @Test
     public void testConstructorRejectsNegativeDecks() {
         try {
@@ -197,6 +204,10 @@ public class MultiDeckCardDispenserTest {
         }
     }
 
+    /**
+     * Tests that the plastic card can't be set for more cards than there are in 
+     * the dispenser.
+     */
     @Test
     public void testConstructorRejectsExcessivePlasticCardPos() {
         try {
@@ -214,6 +225,10 @@ public class MultiDeckCardDispenserTest {
         }
     }
 
+    /**
+     * Tests that negative numbers are invalid for the plastic card constructor 
+     * parameter.
+     */
     @Test
     public void testConstructorRejectsNegativePlasticCardPos() {
         try {

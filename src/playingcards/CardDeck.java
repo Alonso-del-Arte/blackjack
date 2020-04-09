@@ -23,12 +23,15 @@ import java.util.Collections;
  * Represents a standard deck of 52 cards, without Jokers. Since some card games
  * are played with two or more decks, this class provides the ability to detect
  * whether a given playing card object came from a particular deck or not.
- *
  * @author Alonso del Arte
  */
 public class CardDeck implements CardSupplier {
 
-    public static final int NUMBER_OF_CARDS_PER_DECK = 52;
+    /**
+     * The deck is expected to have cards of thirteen ranks for each of four 
+     * suits.
+     */
+    public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 52;
 
     private final ArrayList<PlayingCard> cards;
 
@@ -40,7 +43,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return (this.dealCount < NUMBER_OF_CARDS_PER_DECK);
+        return (this.dealCount < INITIAL_NUMBER_OF_CARDS_PER_DECK);
     }
 
     /**
@@ -53,12 +56,18 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public PlayingCard getNextCard() {
-        if (this.dealCount == NUMBER_OF_CARDS_PER_DECK) {
+        if (this.dealCount == INITIAL_NUMBER_OF_CARDS_PER_DECK) {
             throw new RanOutOfCardsException("All cards have been dealt");
         }
         return this.cards.get(dealCount++);
     }
 
+    /**
+     * Determines whether this deck is in the same order as another deck.
+     * @param other The deck to compare this deck to for order.
+     * @return True if both decks have dealt out the same number of cards 
+     * <em>and</em> the remaining cards are in the same order, false otherwise.
+     */
     public boolean sameOrderAs(CardDeck other) {
         return (this.cards.equals(other.cards) && this.dealCount == other.dealCount);
     }
@@ -74,12 +83,12 @@ public class CardDeck implements CardSupplier {
             case 0:
                 Collections.shuffle(this.cards);
                 break;
-            case NUMBER_OF_CARDS_PER_DECK - 1:
-            case NUMBER_OF_CARDS_PER_DECK:
+            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1:
+            case INITIAL_NUMBER_OF_CARDS_PER_DECK:
                 String excMsg = "No point shuffling a deck with one or no cards left";
                 throw new IllegalStateException(excMsg);
             default:
-                Collections.shuffle(this.cards.subList(this.dealCount, NUMBER_OF_CARDS_PER_DECK));
+                Collections.shuffle(this.cards.subList(this.dealCount, INITIAL_NUMBER_OF_CARDS_PER_DECK));
         }
     }
 
@@ -100,8 +109,8 @@ public class CardDeck implements CardSupplier {
 
     /**
      * Constructs a new deck with four cards of each rank and thirteen cards of 
-     * each suit. The cards are not shuffled unless {@link #shuffle() shuffle()} 
-     * is called.
+     * each suit. The cards are not shuffled unless {@link #shuffle()} is 
+     * called.
      */
     public CardDeck() {
         this.cards = new ArrayList<>();

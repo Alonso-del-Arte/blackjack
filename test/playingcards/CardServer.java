@@ -33,16 +33,40 @@ public class CardServer implements CardSupplier {
 
     private int currDeckIndex = 0;
 
+    /**
+     * Tells whether this server can give another card.
+     * @return True if this server can give another card, false if not.
+     */
     @Override
     public boolean hasNext() {
         return false;
     }
 
+    /**
+     * Supplies one card to the caller. The card will be somewhat random, but 
+     * perhaps not random enough for production use.
+     * @return A playing card. For example, 3&#9829;.
+     */
     @Override
     public PlayingCard getNextCard() {
-        return this.giveCard();
+        if (!this.decks[this.currDeckIndex].hasNext()) {
+            this.currDeckIndex++;
+        }
+        if (this.currDeckIndex == this.decks.length) {
+            String excMsg = "Ran out of decks to deal from";
+            throw new RanOutOfCardsException(excMsg);
+        }
+        return this.decks[this.currDeckIndex].getNextCard();
     }
 
+    /**
+     * Determines if a card came from this server or not. This implementation is 
+     * provided only to fulfill the expectations of the {@link 
+     * playingcards.CardSupplier CardSupplier} interface.
+     * @param card The playing card to check the provenance of.
+     * @return True if the card came from one of the decks used by this server, 
+     * false otherwise.
+     */
     @Override
     public boolean provenance(PlayingCard card) {
         boolean matchFoundFlag = false;
@@ -54,23 +78,12 @@ public class CardServer implements CardSupplier {
         return matchFoundFlag;
     }
 
-    public PlayingCard giveCard() {
-        if (!this.decks[this.currDeckIndex].hasNext()) {
-            this.currDeckIndex++;
-        }
-        if (this.currDeckIndex == this.decks.length) {
-            String excMsg = "Ran out of decks to deal from";
-            throw new RanOutOfCardsException(excMsg);
-        }
-        return this.decks[this.currDeckIndex].getNextCard();
-    }
-
     public PlayingCard giveCard(Rank rank) {
         PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
                 card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOfRank(rank)) {
+                if (card.isOf(rank)) {
                     return card;
                 }
             }
@@ -85,7 +98,7 @@ public class CardServer implements CardSupplier {
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
                 card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOfSuit(suit)) {
+                if (card.isOf(suit)) {
                     return card;
                 }
             }
@@ -98,7 +111,7 @@ public class CardServer implements CardSupplier {
     public PlayingCard[] giveCards(int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
-            cards[i] = this.giveCard();
+            cards[i] = this.getNextCard();
         }
         return cards;
     }

@@ -62,6 +62,14 @@ public class MultiDeckCardDispenser implements CardSupplier {
         return this.cards.get(this.dispenseIndex++);
     }
     
+    /**
+     * Determines if a card came from this dispenser. Cards held back by the 
+     * plastic card should not be leaked out, so theoretically there is no need 
+     * to worry about disavowing those cards.
+     * @param card The playing card to check the provenance of. 
+     * @return True if the card came from one of the decks used by this 
+     * dispenser, false otherwise.
+     */
     @Override
     public boolean provenance(PlayingCard card) {
         boolean matchFoundFlag = false;
@@ -117,7 +125,7 @@ public class MultiDeckCardDispenser implements CardSupplier {
             String excMsg = "Dispenser needs a positive number of decks";
             throw new NegativeArraySizeException(excMsg);
         }
-        int maxPlasticCardPos = numberOfDecks * CardDeck.NUMBER_OF_CARDS_PER_DECK - 1;
+        int maxPlasticCardPos = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
         if (plasticCardPos > maxPlasticCardPos) {
             String excMsg = "Plastic card position " + plasticCardPos 
                     + " is excessive for just " + numberOfDecks + " decks.";

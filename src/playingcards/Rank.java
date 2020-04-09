@@ -43,33 +43,48 @@ public enum Rank {
     private final String rankWord;
     private final boolean faceCardFlag;
     
+    /**
+     * Gives the integer associated with this rank.
+     * @return 14 for ACE, 2 for TWO, 3 for THREE, ..., 10 for TEN, 11 for JACK, 
+     * 12 for QUEEN, 13 for KING.
+     */
     public int getRank() {
         return this.rank;
     }
     
+    /**
+     * Gives one or two characters suitable for concatenating with a suit 
+     * character.
+     * @return "A" for ACE, "2" for TWO, "3" for THREE, ..., "10" for TEN, "J" 
+     * for JACK, "Q" for QUEEN, "K" for KING.
+     */
     public String getRankChars() {
         return this.rankChars;
     }
     
+    /**
+     * Gives the English word for this rank.
+     * @return "Ace" for ACE, "Two" for TWO, "Three" for THREE, ..., "Ten" for 
+     * TEN, "Jack" for JACK, "Queen" for QUEEN, "King" for KING.
+     */
     public String getRankWord() {
         return this.rankWord;
     }
     
     /**
-     * Tells whether a given rank corresponds to a court card or not. Other 
-     * terms for "court card" include "face card," "picture card" and "painting 
-     * card."
+     * Tells whether a given rank corresponds to courts card or not. Other terms 
+     * for "court card" include "face card," "picture card" and "painting card."
      * @return True for Jacks, Queens and Kings, false for all others.
      */
-    public boolean isCourtCard() {
+    public boolean isCourtRank() {
         return this.faceCardFlag;
     }
     
-    Rank(int n, String nchars, String word, boolean cc) {
+    Rank(int n, String nchars, String word, boolean cr) {
         this.rank = n;
         this.rankChars = nchars;
         this.rankWord = word;
-        this.faceCardFlag = cc;
+        this.faceCardFlag = cr;
     }
     
 }

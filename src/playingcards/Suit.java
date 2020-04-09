@@ -17,7 +17,10 @@
 package playingcards;
 
 /**
- * Enumerates the suits of a standard deck of playing cards.
+ * Enumerates the suits of a standard deck of playing cards. These suits are 
+ * listed in the order they appear in the Playing Cards block (U+1F0A0 to 
+ * U+1F0FF) of Unicode's Supplementary Multilingual Plane: Spades, Hearts, 
+ * Diamonds, Clubs.
  * @author Alonso del Arte
  */
 public enum Suit {
@@ -33,14 +36,14 @@ public enum Suit {
     HEARTS ('\u2665', '\u2661', 'H', "Hearts"), 
     
     /**
-     * Clubs. Main Unicode character: &#9827;, alternate &#9831;.
-     */
-    CLUBS ('\u2663', '\u2667', 'C', "Clubs"), 
-    
-    /**
      * Diamonds. Main Unicode character: &#9830;, alternate &#9826;.
      */
-    DIAMONDS ('\u2666', '\u2662', 'D', "Diamonds");
+    DIAMONDS ('\u2666', '\u2662', 'D', "Diamonds"),
+    
+    /**
+     * Clubs. Main Unicode character: &#9827;, alternate &#9831;.
+     */
+    CLUBS ('\u2663', '\u2667', 'C', "Clubs");
     
     private final char suitChar;
     private final char altSuitChar;
