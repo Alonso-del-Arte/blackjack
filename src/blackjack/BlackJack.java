@@ -30,14 +30,14 @@ public class BlackJack {
     /**
      * EARLY PROOF OF CONCEPT. Play blackjack at the command line. Dealer and
      * only one player.
-     *
      * @param args the command line arguments; don't actually do anything with
      * these, yet
      */
     public static void main(String[] args) {
+        System.out.println();
+        System.out.println("BLACKJACK");
+        System.out.println();
         try (Scanner input = new Scanner(System.in)) {
-            System.out.println("BLACKJACK");
-            System.out.println();
             int wager = 1;
             System.out.print("Enter your wager in whole dollars: $");
             try {
@@ -70,15 +70,6 @@ public class BlackJack {
             // TODO: Give option to split pair, when applicable
             // TODO: Give option to double down, when applicable
             // TODO: Give option for insurance bet
-//        int cardVal = playerHand.cardsValue();
-//        if (cardVal > 8 && cardVal < 11) {
-//            System.out.print("Would you like to double your wager? (Y/N) ");
-//            String choice = input.nextLine();
-//            if (choice.toLowerCase().startsWith("y")) {
-//                wager *= 2;
-//                System.out.println("Wager doubled to $" + wager);
-//            }
-//        }
             if (playerHand.isWinningHand()) {
                 if (dealerHand.isWinningHand()) {
                     System.out.println("You have natural blackjack, but so does the dealer");
@@ -134,7 +125,8 @@ public class BlackJack {
                         case 1821:
                         case 1921:
                         case 2021:
-                            System.out.println("*** YOU WIN $" + (2 * wager) + " ****");
+                        case 3021:
+                            System.out.println("*** YOU WIN $" + wager + " ****");
                             break;
                         case 1717:
                         case 1818:
@@ -148,7 +140,8 @@ public class BlackJack {
                         case 1819:
                         case 1820:
                         case 1920:
-                            System.out.println("As you have a higher score, you win $" + wager);
+                            System.out.println("As you have a higher score,");
+                            System.out.println("*** YOU WIN $" + wager + " ****");
                             break;
                         case 3012:
                         case 3013:
@@ -160,7 +153,7 @@ public class BlackJack {
                         case 3019:
                         case 3020:
                             System.out.println("Since you stood and the dealer went bust,");
-                            System.out.println("*** YOU WIN $" + (2 * wager) + " ****");
+                            System.out.println("*** YOU WIN $" + wager + " ****");
                             break;
                         case 3030:
                             System.out.println("Even though the dealer also went bust...");
