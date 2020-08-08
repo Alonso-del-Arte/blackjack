@@ -25,13 +25,16 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Hand class.
  * @author Alonso del Arte
  */
 public class HandTest {
     
     private CardServer server;
     
+    /**
+     * Sets up a new card server with six decks
+     */
     @Before
     public void setUp() {
         this.server = new CardServer(6);
@@ -47,6 +50,10 @@ public class HandTest {
         assertEquals("Empty hand should have value 0", 0, hand.cardsValue());
     }
     
+    /**
+     * Another test of cardsValue method, of class Hand. A Jack of any suit 
+     * should be valued at 10.
+     */
     @Test
     public void testCardsValueAfterAddingJack() {
         Hand hand = new Hand();
@@ -55,6 +62,12 @@ public class HandTest {
         assertEquals("Hand with Jack should have value 10", 10, hand.cardsValue());
     }
     
+    /**
+     * Another test of cardsValue method, of class Hand. Two Aces valued at 11 
+     * each would mean the hand has gone bust. However, when a hand has two 
+     * Aces, one or both of them should be revalued at 1, so that the hand's 
+     * value is then less than 22.
+     */
     @Test
     public void testTwoAcesCantBust() {
         Hand hand = new Hand();
@@ -66,6 +79,10 @@ public class HandTest {
         assert value < 22 : "Two Aces shouldn't bust";
     }
     
+    /**
+     * Another test of cardsValue method, of class Hand. The court cards should 
+     * each be valued at 10.
+     */
     @Test
     public void testCourtCardsAreTenEach() {
         Hand hand = new Hand();
@@ -78,6 +95,9 @@ public class HandTest {
         assertEquals(30, hand.cardsValue());
     }
     
+    /**
+     * Test of inspectCards method of class Hand.
+     */
     @Test
     public void testInspectCards() {
         System.out.println("inspectCards");
@@ -97,6 +117,9 @@ public class HandTest {
         }
     }
     
+    /**
+     * Test of isSplittableHand method of class Hand.
+     */
     @Test
     public void testIsSplittableHand() {
         System.out.println("isSplittableHand");
@@ -110,6 +133,9 @@ public class HandTest {
         assert splittableHand.isSplittableHand() : assertionMessage;
     }
     
+    /**
+     * Another test of isSplittableHand method of class Hand.
+     */
     @Test
     public void testNotSplittableHand() {
         Hand hand = new Hand();
@@ -125,6 +151,9 @@ public class HandTest {
         assert !hand.isSplittableHand() : assertionMessage;
     }
     
+    /**
+     * Another test of split method of class Hand.
+     */
     @Test
     public void testCantSplitNewHand() {
         Hand hand = new Hand();
@@ -220,6 +249,9 @@ public class HandTest {
         }
     }
     
+    /**
+     * Test of isWinningHand method of class Hand.
+     */
     @Test
     public void testIsWinningHand() {
         System.out.println("isWinningHand");
@@ -258,6 +290,9 @@ public class HandTest {
         assert !hand.isWinningHand() : assertionMessage;
     }
 
+    /**
+     * Test of isBustedHand method of class Hand.
+     */
     @Test
     public void testIsBustedHand() {
         System.out.println("isBustedHand");
@@ -346,6 +381,9 @@ public class HandTest {
         assert !hand.isOpenHand() : assertionMessage;
     }
     
+    /**
+     * Test of isOpenHand method of class Hand.
+     */
     @Test
     public void testIsOpenHand() {
         System.out.println("isOpenHand");

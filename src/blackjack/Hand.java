@@ -22,7 +22,9 @@ import playingcards.Rank;
 import java.util.ArrayList;
 
 /**
- *
+ * A class to represent a blackjack hand, and keep track of its status (in play, 
+ * won or busted). The hand's value is recalculated as each card is added, and 
+ * the values of the Aces are reassessed if necessary.
  * @author Alonso del Arte
  */
 public class Hand {
@@ -65,7 +67,7 @@ public class Hand {
      * is counted as 1. All the pip cards are counted at face value.
      * @return The value of the hand: 0 for a new hand, 2 to 20 for a hand that 
      * has at least one card and may take more cards, 21 for a winning hand and 
-     * 22 to 30 for a hand that has gone bust. The value 1 is not allowed 
+     * 22 to 30 for a hand that has gone bust. The value 1 should not occur 
      * because a hand with an Ace as the only card is valued at 11.
      */
     public int cardsValue() {
@@ -75,7 +77,8 @@ public class Hand {
     /**
      * Shows the cards in the hand. The cards are still held by the hand 
      * afterwards.
-     * @return An array of the cards.
+     * @return An array of the cards. For example, a 2-element array containing 
+     * an Ace of Spades (A&#9824;) and a Two of Hearts (2&#9829;).
      */
     public PlayingCard[] inspectCards() {
         PlayingCard[] cardsToShow = new PlayingCard[this.cards.size()];
@@ -108,8 +111,8 @@ public class Hand {
      * limitation.
      * @return The split off hand, containing one card that was previously in 
      * this hand. That card may or may not be the former second card of this 
-     * hand: that's an implementation detail callers (including tests) should 
-     * not rely upon.
+     * hand: that's an implementation detail callers should not rely upon and 
+     * tests should not test for.
      * @throws IllegalStateException If this hand can't be split according to 
      * {@link #isSplittableHand()}.
      */
@@ -161,6 +164,11 @@ public class Hand {
         return this.closedFlag;
     }
 
+    /**
+     * Adds a card to the hand.
+     * @param card The card to add. For example, 5&#9824;.
+     * @throws IllegalStateException If the hand has blackjack or has gone bust.
+     */
     public void add(PlayingCard card) {
         if (this.closedFlag) {
             String excMsg = "Can't add card to hand vlaued at " + this.handScore;
@@ -184,6 +192,10 @@ public class Hand {
         this.updateCardsValue();
     }
 
+    /**
+     * Creates a new hand. The hand has no cards and is valued at 0. Add cards 
+     * using {@link #add(playingcards.PlayingCard) add()}.
+     */
     public Hand() {
         this.cards = new ArrayList<>();
     }
