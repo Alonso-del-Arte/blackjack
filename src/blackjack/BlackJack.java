@@ -30,13 +30,8 @@ public class BlackJack {
     /**
      * EARLY PROOF OF CONCEPT. Play blackjack at the command line. Dealer and
      * only one player.
-     * @param args the command line arguments; don't actually do anything with
-     * these, yet
      */
-    public static void main(String[] args) {
-        System.out.println();
-        System.out.println("BLACKJACK");
-        System.out.println();
+    public static void playGameAtCommandLine() {
         try (Scanner input = new Scanner(System.in)) {
             int wager = 1;
             System.out.print("Enter your wager in whole dollars: $");
@@ -164,6 +159,13 @@ public class BlackJack {
                 }
             }
         }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println();
+        System.out.println("BLACKJACK");
+        System.out.println();
+        playGameAtCommandLine();
     }
 
 }

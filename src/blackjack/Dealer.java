@@ -38,6 +38,12 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
+    /**
+     * Gets a dealer. There can only be one dealer at a table.
+     * @return A <code>Dealer</code> instance.
+     * @throws IllegalStateException If there is already a <code>Dealer</code> 
+     * instance.
+     */
     public static Dealer getDealer() {
         if (Dealer.instanceCounter > 0) {
             String excMsg = "There's already a Dealer instantiated";

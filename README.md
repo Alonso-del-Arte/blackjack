@@ -7,7 +7,7 @@ For now, this is a console application limited to a dealer and only one player. 
 
 The concept seems simple enough. You make a wager. The dealer gives you cards ("hit") until you want no more cards ("stand") or you win by having a score of 21 or you lose by going over 21 ("going bust").
 
-The court cards (J&#9824;, Q&#9824;, K&#9824;, J<span style="color: red">&#9829;</span>, etc.) are valued at 10 each. Aces are valued at 1 or 11 at the player's discretion (though in practice it's assumed the player wants them valued to win).
+The court cards (J&#9824;, Q&#9824;, K&#9824;, J&#9829;, etc.) are valued at 10 each. Aces are valued at 1 or 11 at the player's discretion (though in practice it's assumed the player wants them valued to win).
 
 If you win, the dealer pays up. If you lose, the dealer collects your wager. Simple, right? Well, there are plenty of subtleties that threaten to make a blackjack program into a mess of heavily indented nested If statements (the current state of the console application source).
 
@@ -15,7 +15,7 @@ After the players make their initial wagers, the dealer gives each player two ca
 
 When a player's first two cards add up to 9, 10 or 11, that player may make another wager equal to their original wager ("doubling down"). The dealer then gives that player a card face down, which stays face down until other bets are settled. Doubling down is also not yet implemented in the console application.
 
-If a player's first two cards are a pair of equal rank (e.g., 7<span style="color: red">&#9830;</span> and 7&#9827;), the player may split them into separate hands. Some casinos don't allow certain splits, and other casinos allow some splits of cards of unequal rank. Although the `Hand` class has support for most splits of cards of equal rank, this is not yet used in any form in the console application.
+If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 7&#9827;), the player may split them into separate hands. Some casinos don't allow certain splits, and other casinos allow some splits of cards of unequal rank. Although the `Hand` class has support for most splits of cards of equal rank, this is not yet used in any form in the console application.
 
 If any player hits 21 from the first two cards, they have a "natural" blackjack, and the dealer should pay 3/2 times the player's wager.
 
