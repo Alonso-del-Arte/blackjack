@@ -39,13 +39,19 @@ public class CardServer implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return false;
+        if (this.decks[this.currDeckIndex].hasNext()) {
+            return true;
+        }
+        return this.currDeckIndex < (this.decks.length - 1);
     }
 
     /**
      * Supplies one card to the caller. The card will be somewhat random, but 
      * perhaps not random enough for production use.
      * @return A playing card. For example, 3&#9829;.
+     * @throws RanOutOfCardsException If this server has run out of cards. Since 
+     * this server should only be used for testing purposes, it would probably 
+     * be acceptable to simply initialize this server with more decks.
      */
     @Override
     public PlayingCard getNextCard() {

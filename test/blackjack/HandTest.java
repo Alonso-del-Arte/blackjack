@@ -32,6 +32,8 @@ public class HandTest {
     
     private CardServer server;
     
+    private static Dealer dealer;
+    
     /**
      * Sets up a new card server with six decks
      */
@@ -130,7 +132,7 @@ public class HandTest {
         splittableHand.add(secondSix);
         String assertionMessage = "Hand with " + firstSix.toString() + " and " 
                 + secondSix.toString() + " should be considered splittable";
-        assert splittableHand.isSplittableHand() : assertionMessage;
+        assert splittableHand.isSplittableHand(dealer) : assertionMessage;
     }
     
     /**
@@ -148,7 +150,7 @@ public class HandTest {
         String assertionMessage = "Hand with " + firstSix.toString() + ", " 
                 + secondSix.toString() + " and " + seven.toString() 
                 + " should not be considered splittable";
-        assert !hand.isSplittableHand() : assertionMessage;
+        assert !hand.isSplittableHand(dealer) : assertionMessage;
     }
     
     /**
@@ -158,7 +160,7 @@ public class HandTest {
     public void testCantSplitNewHand() {
         Hand hand = new Hand();
         try {
-            Hand splitOff = hand.split();
+            Hand splitOff = hand.split(dealer);
             System.out.println("Somehow created " + splitOff.toString() 
                     + " valued at " + splitOff.cardsValue() 
                     + " from new hand with no cards");
@@ -185,7 +187,7 @@ public class HandTest {
         PlayingCard secondEight = this.server.giveCard(Rank.EIGHT);
         firstHand.add(firstEight);
         firstHand.add(secondEight);
-        Hand splitOffHand = firstHand.split();
+        Hand splitOffHand = firstHand.split(dealer);
         assertEquals(8, firstHand.cardsValue());
         assertEquals(8, splitOffHand.cardsValue());
         PlayingCard[] cards = splitOffHand.inspectCards();
@@ -209,7 +211,7 @@ public class HandTest {
         hand.add(ten);
         hand.add(queen);
         try {
-            Hand splitOffHand = hand.split();
+            Hand splitOffHand = hand.split(dealer);
             String failMsg = "Trying to split off hand consisting of " 
                     + ten.toString() + " and " + queen.toString() 
                     + " should not have created " + splitOffHand.toString();
@@ -236,7 +238,7 @@ public class HandTest {
         hand.add(firstAce);
         hand.add(secondAce);
         try {
-            Hand splitOffHand = hand.split();
+            Hand splitOffHand = hand.split(dealer);
             System.out.println("Trying to split off hand consisting of " 
                     + firstAce.toASCIIString() + " and " + secondAce.toASCIIString() 
                     + " correctly created " + splitOffHand.toString());

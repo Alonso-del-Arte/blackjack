@@ -17,6 +17,9 @@
 package blackjack;
 
 import playingcards.MultiDeckCardDispenser;
+import playingcards.matchers.RankPairSpec;
+
+import java.util.HashSet;
 
 /**
  *
@@ -27,6 +30,8 @@ public class Dealer {
     private static int instanceCounter = 0;
     
     private MultiDeckCardDispenser cardDispenser;
+    
+    private final HashSet<RankPairSpec> splitSpecs;
     
     // TODO: Flesh out
     
@@ -55,6 +60,7 @@ public class Dealer {
     // TODO: Determine if it makes any sense for Dealer to have finalize()
     
     private Dealer(MultiDeckCardDispenser dispenser) {
+        this.splitSpecs = new HashSet<>();
         this.cardDispenser = dispenser;
         Dealer.instanceCounter++;
     }

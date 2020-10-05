@@ -22,14 +22,31 @@ import playingcards.PlayingCard;
 import java.util.Scanner;
 
 /**
- *
+ * The blackjack game. This will eventually have a graphical user interface. For 
+ * the time being, it's only a command line application.
+ * @version 0.2.
  * @author Alonso del Arte
  */
 public class BlackJack {
+    
+    // These flags are for when splitting functionality is enabled. For now, 
+    // these flags don't actually do anything.
+    private static boolean splitAcesAllowed = true;
+    private static boolean splitAnyTimeAllowed = true;
+    private static boolean splitSameValueAllowed = true;
+    private static boolean split16Allowed = false;
+    private static boolean resplitAllowed = false;
+    private static boolean resplitAcesAllowed = false;
+    private static boolean multDrawSplitAcesAllowed = false;
+    private static boolean discardSplitAllowed = false;
+    
+    private static boolean splitOptionsChanged = false;
 
+    // TODO: Break up into playGameAtCommandLine() smaller units
     /**
      * EARLY PROOF OF CONCEPT. Play blackjack at the command line. Dealer and
      * only one player.
+     * @since 0.2.
      */
     public static void playGameAtCommandLine() {
         try (Scanner input = new Scanner(System.in)) {
@@ -83,20 +100,25 @@ public class BlackJack {
                     if (answer.toLowerCase().startsWith("h")) {
                         card = dispenser.getNextCard();
                         playerHand.add(card);
-                        System.out.println("Your next card is " + card.toASCIIString());
-                        System.out.println("Your hand's value is " + playerHand.cardsValue());
+                        System.out.println("Your next card is " 
+                                + card.toASCIIString());
+                        System.out.println("Your hand's value is " 
+                                + playerHand.cardsValue());
                     } else {
                         keepHitting = false;
                     }
                     System.out.println();
                 }
-                System.out.println("Dealer's face-down card is " + faceDownCard.toASCIIString());
-                System.out.println("Dealer's hand value is " + dealerHand.cardsValue());
+                System.out.println("Dealer's face-down card is " 
+                        + faceDownCard.toASCIIString());
+                System.out.println("Dealer's hand value is " 
+                        + dealerHand.cardsValue());
                 while (dealerHand.cardsValue() < 17) {
                     card = dispenser.getNextCard();
                     dealerHand.add(card);
                     System.out.println("Dealer takes " + card.toASCIIString());
-                    System.out.println("Dealer's hand value is " + dealerHand.cardsValue());
+                    System.out.println("Dealer's hand value is " 
+                            + dealerHand.cardsValue());
                     System.out.println();
                 }
                 if (dealerHand.isWinningHand()) {
@@ -161,10 +183,89 @@ public class BlackJack {
         }
     }
     
+    private static void informSplitOptions() {
+        if (splitAcesAllowed) {
+            System.out.println("You may split Aces");
+        }
+        if (splitAnyTimeAllowed) {
+            System.out.println("You may split at any point in the game");
+        }
+        // TODO: Remove next line once splitting IS implemented
+        System.out.println("Note that splitting hands is not actually implemented yet");
+        System.out.println();
+    }
+    
+    private static void processOptions(String[] args) {
+        for (String arg : args) {
+            switch (arg.toLowerCase()) {
+                case "-splitaces":
+                    splitAcesAllowed = true;
+                    break;
+                case "-nosplitaces":
+                    splitAcesAllowed = false;
+                    splitOptionsChanged = true;
+                    break;
+                case "-splitanytime":
+                    splitAnyTimeAllowed = true;
+                    break;
+                case "-splitbeginonly":
+                    splitAnyTimeAllowed = false;
+                    splitOptionsChanged = true;
+                    break;
+                // TODO: Finish adding command line options for split preferences
+                case "-text": // TODO: Revise once GUI's available
+                    System.out.println("Since the graphical version isn't available yet,");
+                    System.out.println("this game is only available as text on the command line.");
+                    System.out.println();
+                    break;
+                case "-v":
+                case "-version":
+                    System.out.println("Version 0.2");
+                    System.out.println();
+                    break;
+                default:
+                    if (arg.startsWith("-")) {
+                        System.err.println("Command line option '" + arg 
+                                + "' not recognized");
+                    } else {
+                        System.err.println("Parameter '" + arg 
+                                + "' not recognized");
+                    }
+            }
+        }
+        if (splitOptionsChanged) informSplitOptions();
+    }
+    
+    // TODO: Once splitting is enabled, update main() Javadoc
+    /**
+     * Play the game. Eventually it will be possible to play the game with a 
+     * graphical user interface. For now, though, it's only possible to play at 
+     * the command line.
+     * @param args The command line arguments. They are case-insensitive, but 
+     * many of them don't do anything yet. Earlier options that are contradicted 
+     * by later options are simply ignored.
+     * <ul>
+     * <li><code>-splitAces</code> You may split Aces. This is the default.</li>
+     * <li><code>-noSplitAces</code> You can't split Aces.</li>
+     * <li><code>-splitAnyTime</code> You can split any time you get two 
+     * consecutive cards for which a split is allowed. For example, if you get 
+     * A&#9824;, 8&#9824; and 8&#9829;, you may split. But if you get 8&#9824;, 
+     * A&#9824; and 8&#9829;, you may not split regardless of this option.  This 
+     * is the default.</li>
+     * <li><code>-splitBeginOnly</code> You can split only after drawing the 
+     * second card in your hand but before drawing the third card.</li>
+     * <li><code></code></li>
+     * <li><code>-text</code> Play the game as text-based on the command line. 
+     * But since I haven't even started work on the graphics, only the 
+     * text-based version is currently available.</li>
+     * <li><code>-version</code> Gives the version number.</li>
+     * </ul>
+     */
     public static void main(String[] args) {
         System.out.println();
         System.out.println("BLACKJACK");
         System.out.println();
+        processOptions(args);
         playGameAtCommandLine();
     }
 

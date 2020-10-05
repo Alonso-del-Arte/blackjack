@@ -87,28 +87,34 @@ public class Hand {
         }
         return cardsToShow;
     }
-    
+
+    // TODO: Update Javadoc once dealer param is actually used    
     /**
-     * Determines if the hand can be split. If it can, use {@link #split()} to 
-     * split the hand.
+     * Determines if the hand can be split. If it can be split, use {@link 
+     * #split()} to split the hand.
+     * @param dealer The dealer who enforces the rules as to how and when hands 
+     * can be split. For now this parameter doesn't actually enforce anything.
      * @return True if and only if the hand has only a pair of cards of the same 
      * rank, false otherwise. For example, this would be true for 10&#9824; and 
      * 10&#9827;, false for 10&#9824; and J&#9827; even though they are both 
      * valued 10. There is no stricture on splitting Aces, Fours, Fives or Tens 
      * (which some British casinos might enforce).
      */
-    public boolean isSplittableHand() {
+    public boolean isSplittableHand(Dealer dealer) {
         return (this.cards.size() == 2 
                 && this.cards.get(0).isSameRank(this.cards.get(1)));
     }
     
+    // TODO: Update Javadoc once dealer param is actually used    
     /**
-     * Splits off one of a pair to a separate hand. If the split occurs 
+     * Splits off one of a pair to a separate hand.If the split occurs 
      * successfully, this hand will then contain one card and the other hand 
      * will contain the other card. The value of this hand is reduced 
      * accordingly. Some casinos may limit how many times one player may split a 
      * hand during a game; this class provides no mechanism for such a 
      * limitation.
+     * @param dealer The dealer who enforces the rules as to how and when hands 
+     * can be split. For now this parameter doesn't actually enforce anything.
      * @return The split off hand, containing one card that was previously in 
      * this hand. That card may or may not be the former second card of this 
      * hand: that's an implementation detail callers should not rely upon and 
@@ -116,8 +122,8 @@ public class Hand {
      * @throws IllegalStateException If this hand can't be split according to 
      * {@link #isSplittableHand()}.
      */
-    public Hand split() {
-        if (!this.isSplittableHand()) {
+    public Hand split(Dealer dealer) {
+        if (!this.isSplittableHand(dealer)) {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
         }
