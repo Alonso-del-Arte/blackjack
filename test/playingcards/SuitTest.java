@@ -28,106 +28,106 @@ public class SuitTest {
     @Test
     public void testGetSpadesChar() {
         System.out.println("getSuitChar");
-        assertEquals('\u2660', Suit.SPADES.getSuitChar());
+        assertEquals('\u2660', Suit.SPADES.getChar());
     }
     
     @Test
     public void testGetDiamondsChar() {
-        assertEquals('\u2666', Suit.DIAMONDS.getSuitChar());
+        assertEquals('\u2666', Suit.DIAMONDS.getChar());
     }
     
     @Test
     public void testGetHeartsChar() {
-        assertEquals('\u2665', Suit.HEARTS.getSuitChar());
+        assertEquals('\u2665', Suit.HEARTS.getChar());
     }
     
     @Test
     public void testGetClubsChar() {
-        assertEquals('\u2663', Suit.CLUBS.getSuitChar());
+        assertEquals('\u2663', Suit.CLUBS.getChar());
     }
     
     @Test
     public void testGetSpadesAltChar() {
         System.out.println("getAltSuitChar");
-        assertEquals('\u2664', Suit.SPADES.getAltSuitChar());
+        assertEquals('\u2664', Suit.SPADES.getAltChar());
     }
     
     @Test
     public void testGetDiamondsAltChar() {
-        assertEquals('\u2662', Suit.DIAMONDS.getAltSuitChar());
+        assertEquals('\u2662', Suit.DIAMONDS.getAltChar());
     }
     
     @Test
     public void testGetHeartsAltChar() {
-        assertEquals('\u2661', Suit.HEARTS.getAltSuitChar());
+        assertEquals('\u2661', Suit.HEARTS.getAltChar());
     }
     
     @Test
     public void testGetClubsAltChar() {
-        assertEquals('\u2667', Suit.CLUBS.getAltSuitChar());
+        assertEquals('\u2667', Suit.CLUBS.getAltChar());
     }
     
     @Test
     public void testGetSpadesASCIIChar() {
         System.out.println("getSuitCharASCII");
-        assertEquals('S', Suit.SPADES.getSuitCharASCII());
+        assertEquals('S', Suit.SPADES.getCharASCII());
     }
     
     @Test
     public void testGetDiamondsASCIIChar() {
-        assertEquals('D', Suit.DIAMONDS.getSuitCharASCII());
+        assertEquals('D', Suit.DIAMONDS.getCharASCII());
     }
     
     @Test
     public void testGetHeartsASCIIChar() {
-        assertEquals('H', Suit.HEARTS.getSuitCharASCII());
+        assertEquals('H', Suit.HEARTS.getCharASCII());
     }
     
     @Test
     public void testGetClubsASCIIChar() {
-        assertEquals('C', Suit.CLUBS.getSuitCharASCII());
+        assertEquals('C', Suit.CLUBS.getCharASCII());
     }
     
     @Test
     public void testGetSpadesCharEmojiVariant() {
         System.out.println("getSuitCharEmojiVariant");
-        assertEquals("\u2660\uFE0F", Suit.SPADES.getSuitCharEmojiVariant());
+        assertEquals("\u2660\uFE0F", Suit.SPADES.getCharEmojiVariant());
     }
     
     @Test
     public void testGetDiamondsCharEmojiVariant() {
-        assertEquals("\u2666\uFE0F", Suit.DIAMONDS.getSuitCharEmojiVariant());
+        assertEquals("\u2666\uFE0F", Suit.DIAMONDS.getCharEmojiVariant());
     }
     
     @Test
     public void testGetHeartsCharEmojiVariant() {
-        assertEquals("\u2665\uFE0F", Suit.HEARTS.getSuitCharEmojiVariant());
+        assertEquals("\u2665\uFE0F", Suit.HEARTS.getCharEmojiVariant());
     }
     
     @Test
     public void testGetClubsCharEmojiVariant() {
-        assertEquals("\u2663\uFE0F", Suit.CLUBS.getSuitCharEmojiVariant());
+        assertEquals("\u2663\uFE0F", Suit.CLUBS.getCharEmojiVariant());
     }
     
     @Test
     public void testGetSpadesWord() {
         System.out.println("getSuitWord");
-        assertEquals("Spades", Suit.SPADES.getSuitWord());
+        assertEquals("Spades", Suit.SPADES.getWord());
     }
     
     @Test
     public void testGetDiamondsWord() {
-        assertEquals("Diamonds", Suit.DIAMONDS.getSuitWord());
+        assertEquals("Diamonds", Suit.DIAMONDS.getWord());
     }
     
     @Test
     public void testGetHeartsWord() {
-        assertEquals("Hearts", Suit.HEARTS.getSuitWord());
+        assertEquals("Hearts", Suit.HEARTS.getWord());
     }
     
     @Test
     public void testGetClubsWord() {
-        assertEquals("Clubs", Suit.CLUBS.getSuitWord());
+        assertEquals("Clubs", Suit.CLUBS.getWord());
     }
     
 }

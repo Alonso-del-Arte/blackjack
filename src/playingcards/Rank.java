@@ -22,23 +22,80 @@ package playingcards;
  * enumeration does not include Jokers.
  * @author Alonso del Arte
  */
-public enum Rank {
+public enum Rank implements CardSpec {
     
-    ACE (14, "A", "Ace", false),
-    TWO (2, "2", "Two", false), 
-    THREE (3, "3", "Three", false), 
-    FOUR (4, "4", "Four", false), 
-    FIVE (5, "5", "Five", false), 
-    SIX (6, "6", "Six", false), 
-    SEVEN (7, "7", "Seven", false), 
-    EIGHT (8, "8", "Eight", false), 
-    NINE (9, "9", "Nine", false), 
-    TEN (10, "10", "Ten", false),
-    JACK (11, "J", "Jack", true),
-    QUEEN (12, "Q", "Queen", true),
-    KING (13, "K", "King", true);
+    /**
+     * Ace. Pip card. The letter A appears on the card. The value of an Ace  
+     * depends on the particular game being played. The numerical value given 
+     * here is 14.
+     */
+    ACE (14, 'A', "A", "Ace", false),
+    
+    /**
+     * Two. Perfectly symmetrical pip card. The number 2 appears on the card.
+     */
+    TWO (2, '2', "2", "Two", false), 
+    
+    /**
+     * Three. Pip card. The number 3 appears on the card.
+     */
+    THREE (3, '3', "3", "Three", false), 
+    
+    /**
+     * Four. Pip card. The number 4 appears on the card.
+     */
+    FOUR (4, '4', "4", "Four", false), 
+    
+    /**
+     * Five. Pip card. The number 5 appears on the card.
+     */
+    FIVE (5, '5', "5", "Five", false), 
+    
+    /**
+     * Six. Pip card. The number 6 appears on the card.
+     */
+    SIX (6, '6', "6", "Six", false), 
+    
+    /**
+     * Seven. Pip card. The number 7 appears on the card.
+     */
+    SEVEN (7, '7', "7", "Seven", false), 
+    
+    /**
+     * Eight. Pip card. The number 8 appears on the card.
+     */
+    EIGHT (8, '8', "8", "Eight", false), 
+    
+    /**
+     * Nine. Pip card. The number 9 appears on the card.
+     */
+    NINE (9, '9', "9", "Nine", false), 
+    
+    /**
+     * Ten. Perfectly symmetrical pip card. The number 10 appears on the card.
+     */
+    TEN (10, '\u2169', "10", "Ten", false),
+    
+    /**
+     * Jack. The lowest court card, generally valued at 11. The letter J appears 
+     * on the card.
+     */
+    JACK (11, 'J', "J", "Jack", true),
+    
+    /**
+     * Queen. Court card, generally valued at 12. The letter Q appears on the 
+     * card.
+     */
+    QUEEN (12, 'Q', "Q", "Queen", true),
+    
+    /**
+     * King. The highest court card, generally valued at 13. The letter K 
+     * appears on the card.
+     */
+    KING (13, 'K', "K", "King", true);
     
     private final int rank;
+    private final char rankChar;
     private final String rankChars;
     private final String rankWord;
     private final boolean faceCardFlag;
@@ -53,12 +110,39 @@ public enum Rank {
     }
     
     /**
+     * Gives the character associated with this rank, which appears on the card 
+     * itself, except for {@link #TEN}.
+     * @return The character for this rank, except for {@link #TEN}, for which 
+     * this returns &#x2169; (Roman numeral 10).
+     */
+    @Override
+    public char getChar() {
+        return this.rankChar;
+    }
+    
+    /**
+     * Gives the character associated with this rank, which appears on the card 
+     * itself, except for {@link #TEN}.
+     * @return The character for this rank, except for {@link #TEN}, for which 
+     * this returns '0'.
+     */
+    @Override
+    public char getCharASCII() {
+        switch (this) {
+            case TEN:
+                return '0';
+            default:
+                return this.rankChar;
+        }
+    }
+    
+    /**
      * Gives one or two characters suitable for concatenating with a suit 
      * character.
      * @return "A" for ACE, "2" for TWO, "3" for THREE, ..., "10" for TEN, "J" 
      * for JACK, "Q" for QUEEN, "K" for KING.
      */
-    public String getRankChars() {
+    public String getChars() {
         return this.rankChars;
     }
     
@@ -67,7 +151,8 @@ public enum Rank {
      * @return "Ace" for ACE, "Two" for TWO, "Three" for THREE, ..., "Ten" for 
      * TEN, "Jack" for JACK, "Queen" for QUEEN, "King" for KING.
      */
-    public String getRankWord() {
+    @Override
+    public String getWord() {
         return this.rankWord;
     }
     
@@ -80,9 +165,10 @@ public enum Rank {
         return this.faceCardFlag;
     }
     
-    Rank(int n, String nchars, String word, boolean cr) {
+    Rank(int n, char ch, String nChars, String word, boolean cr) {
         this.rank = n;
-        this.rankChars = nchars;
+        this.rankChar = ch;
+        this.rankChars = nChars;
         this.rankWord = word;
         this.faceCardFlag = cr;
     }

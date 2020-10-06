@@ -25,52 +25,13 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
-    private static final int HASH_SEP = 65536;
-    
-    private final Rank rank1, rank2;
-    
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        final RankPairSpec other = (RankPairSpec) obj;
-        if (this.rank1.equals(other.rank1) && this.rank2.equals(other.rank2)) {
-            return true;
-        }
-        return this.rank1.equals(other.rank2) && this.rank2.equals(other.rank1);
-    }
-    
-    @Override
-    public int hashCode() {
-        return (this.rank1.ordinal() + 1) * HASH_SEP + this.rank2.ordinal();
-    }
-    
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
-        if (this.rank1.equals(cardA.getRank()) 
-                && (this.rank2.equals(cardB.getRank()))) {
-            return true;
-        }
-        return (this.rank1.equals(cardB.getRank()) 
-                && (this.rank2.equals(cardA.getRank())));
+        return this.matches(cardA.getRank(), cardB.getRank());
     }
     
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        if (rankA.compareTo(rankB) > 0) {
-            this.rank1 = rankB;
-            this.rank2 = rankA;
-        } else {
-            this.rank1 = rankA; // This is purposefully redundant and will be 
-            this.rank2 = rankB; // deleted once the abstract superclass is tested.
-        }
     }
 
 }

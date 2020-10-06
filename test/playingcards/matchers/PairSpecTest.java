@@ -16,10 +16,10 @@
  */
 package playingcards.matchers;
 
-import java.time.DayOfWeek;
+import playingcards.PlayingCard;
+import playingcards.TestingSpec;
 
 import org.junit.Test;
-import playingcards.PlayingCard;
 import static org.junit.Assert.*;
 
 /**
@@ -44,15 +44,15 @@ public class PairSpecTest {
         fail("The test case is a prototype.");
     }
 
-    class PairSpecImpl extends PairSpec<DayOfWeek> {
+    class PairSpecImpl extends PairSpec<TestingSpec> {
 
         @Override
         public boolean matches(PlayingCard cardA, PlayingCard cardB) {
             return false;
         }
 
-        public PairSpecImpl(DayOfWeek dayA, DayOfWeek dayB) {
-            super(dayA, dayB);
+        public PairSpecImpl(TestingSpec specA, TestingSpec specB) {
+            super(specA, specB);
         }
 
     }

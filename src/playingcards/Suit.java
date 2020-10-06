@@ -23,7 +23,7 @@ package playingcards;
  * Diamonds, Clubs.
  * @author Alonso del Arte
  */
-public enum Suit {
+public enum Suit implements CardSpec {
     
     /**
      * Spades. Main Unicode character: &#9824;, alternate &#9828;.
@@ -58,7 +58,8 @@ public enum Suit {
      * @return '&#9824;' for spades, '&#9829;' for hearts, '&#9827;' for clubs 
      * and '&#9830;' for diamonds.
      */
-    public char getSuitChar() {
+    @Override
+    public char getChar() {
         return this.suitChar;
     }
     
@@ -69,7 +70,7 @@ public enum Suit {
      * @return '&#9828;' for spades, '&#9825;' for hearts, '&#9831;' for clubs 
      * and '&#9826;' for diamonds.
      */
-    public char getAltSuitChar() {
+    public char getAltChar() {
         return this.altSuitChar;
     }
     
@@ -80,7 +81,8 @@ public enum Suit {
      * @return 'S' for spades, 'H' for hearts, 'C' for clubs and 'D' for 
      * diamonds.
      */
-    public char getSuitCharASCII() {
+    @Override
+    public char getCharASCII() {
         return this.suitCharASCII;
     }
     
@@ -93,7 +95,7 @@ public enum Suit {
      * @return  "&#9824;&#65039;" for spades, "&#9829;&#65039;" for hearts, 
      * "&#9827;&#65039;" for clubs and "&#9830;&#65039;" for diamonds.
      */
-    public String getSuitCharEmojiVariant() {
+    public String getCharEmojiVariant() {
         return "" + this.suitChar + '\uFE0F';
     }
     
@@ -104,7 +106,8 @@ public enum Suit {
      * @return "Spades" for spades, "Hearts" for hearts, "Clubs" for clubs and 
      * "Diamonds" for diamonds.
      */
-    public String getSuitWord() {
+    @Override
+    public String getWord() {
         return this.suitWord;
     }
     

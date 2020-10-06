@@ -62,7 +62,7 @@ public class PlayingCard {
      */
     @Override
     public int hashCode() {
-        return this.cardValue() * this.cardSuit.getSuitChar();
+        return this.cardValue() * this.cardSuit.getChar();
     }
 
     /**
@@ -74,7 +74,7 @@ public class PlayingCard {
      */
     @Override
     public String toString() {
-        return this.cardRank.getRankChars() + this.cardSuit.getSuitChar();
+        return this.cardRank.getChars() + this.cardSuit.getChar();
     }
 
     /**
@@ -84,7 +84,7 @@ public class PlayingCard {
      * @return A text representation like "Eight of Spades".
      */
     public String toASCIIString() {
-        return this.cardRank.getRankWord() + " of " + this.cardSuit.getSuitWord();
+        return this.cardRank.getWord() + " of " + this.cardSuit.getWord();
     }
     
     /**

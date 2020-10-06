@@ -92,135 +92,267 @@ public class RankTest {
     }
     
     @Test
+    public void testGetRankCharAce() {
+        System.out.println("getRankChar");
+        assertEquals('A', Rank.ACE.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCIIAce() {
+        System.out.println("getRankCharASCII");
+        assertEquals('A', Rank.ACE.getCharASCII());
+    }
+    
+    @Test
     public void testGetRankCharsAce() {
         System.out.println("getRankChars");
-        assertEquals("A", Rank.ACE.getRankChars());
+        assertEquals("A", Rank.ACE.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar2() {
+        assertEquals('2', Rank.TWO.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII2() {
+        assertEquals('2', Rank.TWO.getCharASCII());
     }
     
     @Test
     public void testGetRankChars2() {
-        assertEquals("2", Rank.TWO.getRankChars());
+        assertEquals("2", Rank.TWO.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar3() {
+        assertEquals('3', Rank.THREE.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII3() {
+        assertEquals('3', Rank.THREE.getCharASCII());
     }
     
     @Test
     public void testGetRankChars3() {
-        assertEquals("3", Rank.THREE.getRankChars());
+        assertEquals("3", Rank.THREE.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar4() {
+        assertEquals('4', Rank.FOUR.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII4() {
+        assertEquals('4', Rank.FOUR.getCharASCII());
     }
     
     @Test
     public void testGetRankChars4() {
-        assertEquals("4", Rank.FOUR.getRankChars());
+        assertEquals("4", Rank.FOUR.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar5() {
+        assertEquals('5', Rank.FIVE.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII5() {
+        assertEquals('5', Rank.FIVE.getCharASCII());
     }
     
     @Test
     public void testGetRankChars5() {
-        assertEquals("5", Rank.FIVE.getRankChars());
+        assertEquals("5", Rank.FIVE.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar6() {
+        assertEquals('6', Rank.SIX.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII6() {
+        assertEquals('6', Rank.SIX.getCharASCII());
     }
     
     @Test
     public void testGetRankChars6() {
-        assertEquals("6", Rank.SIX.getRankChars());
+        assertEquals("6", Rank.SIX.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar7() {
+        assertEquals('7', Rank.SEVEN.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII7() {
+        assertEquals('7', Rank.SEVEN.getCharASCII());
     }
     
     @Test
     public void testGetRankChars7() {
-        assertEquals("7", Rank.SEVEN.getRankChars());
+        assertEquals("7", Rank.SEVEN.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar8() {
+        assertEquals('8', Rank.EIGHT.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII8() {
+        assertEquals('8', Rank.EIGHT.getCharASCII());
     }
     
     @Test
     public void testGetRankChars8() {
-        assertEquals("8", Rank.EIGHT.getRankChars());
+        assertEquals("8", Rank.EIGHT.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar9() {
+        assertEquals('9', Rank.NINE.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII9() {
+        assertEquals('9', Rank.NINE.getCharASCII());
     }
     
     @Test
     public void testGetRankChars9() {
-        assertEquals("9", Rank.NINE.getRankChars());
+        assertEquals("9", Rank.NINE.getChars());
+    }
+    
+    @Test
+    public void testGetRankChar10() {
+        assertEquals('\u2169', Rank.TEN.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCII10() {
+        assertEquals('0', Rank.TEN.getCharASCII());
     }
     
     @Test
     public void testGetRankChars10() {
-        assertEquals("10", Rank.TEN.getRankChars());
+        assertEquals("10", Rank.TEN.getChars());
+    }
+    
+    @Test
+    public void testGetRankCharJack() {
+        assertEquals('J', Rank.JACK.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCIIJack() {
+        assertEquals('J', Rank.JACK.getCharASCII());
     }
     
     @Test
     public void testGetRankCharsJack() {
-        assertEquals("J", Rank.JACK.getRankChars());
+        assertEquals("J", Rank.JACK.getChars());
+    }
+    
+    @Test
+    public void testGetRankCharQueen() {
+        assertEquals('Q', Rank.QUEEN.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCIIQueen() {
+        assertEquals('Q', Rank.QUEEN.getCharASCII());
     }
     
     @Test
     public void testGetRankCharsQueen() {
-        assertEquals("Q", Rank.QUEEN.getRankChars());
+        assertEquals("Q", Rank.QUEEN.getChars());
+    }
+    
+    @Test
+    public void testGetRankCharKing() {
+        assertEquals('K', Rank.KING.getChar());
+    }
+    
+    @Test
+    public void testGetRankCharASCIIKing() {
+        assertEquals('K', Rank.KING.getCharASCII());
     }
     
     @Test
     public void testGetRankCharsKing() {
-        assertEquals("K", Rank.KING.getRankChars());
+        assertEquals("K", Rank.KING.getChars());
     }
     
     @Test
     public void testGetRankWordAce() {
         System.out.println("getRankWord");
-        assertEquals("Ace", Rank.ACE.getRankWord());
+        assertEquals("Ace", Rank.ACE.getWord());
     }
     
     @Test
     public void testGetRankWord2() {
-        assertEquals("Two", Rank.TWO.getRankWord());
+        assertEquals("Two", Rank.TWO.getWord());
     }
     
     @Test
     public void testGetRankWord3() {
-        assertEquals("Three", Rank.THREE.getRankWord());
+        assertEquals("Three", Rank.THREE.getWord());
     }
     
     @Test
     public void testGetRankWord4() {
-        assertEquals("Four", Rank.FOUR.getRankWord());
+        assertEquals("Four", Rank.FOUR.getWord());
     }
     
     @Test
     public void testGetRankWord5() {
-        assertEquals("Five", Rank.FIVE.getRankWord());
+        assertEquals("Five", Rank.FIVE.getWord());
     }
     
     @Test
     public void testGetRankWord6() {
-        assertEquals("Six", Rank.SIX.getRankWord());
+        assertEquals("Six", Rank.SIX.getWord());
     }
     
     @Test
     public void testGetRankWord7() {
-        assertEquals("Seven", Rank.SEVEN.getRankWord());
+        assertEquals("Seven", Rank.SEVEN.getWord());
     }
     
     @Test
     public void testGetRankWord8() {
-        assertEquals("Eight", Rank.EIGHT.getRankWord());
+        assertEquals("Eight", Rank.EIGHT.getWord());
     }
     
     @Test
     public void testGetRankWord9() {
-        assertEquals("Nine", Rank.NINE.getRankWord());
+        assertEquals("Nine", Rank.NINE.getWord());
     }
     
     @Test
     public void testGetRankWord10() {
-        assertEquals("Ten", Rank.TEN.getRankWord());
+        assertEquals("Ten", Rank.TEN.getWord());
     }
     
     @Test
     public void testGetRankWordJack() {
-        assertEquals("Jack", Rank.JACK.getRankWord());
+        assertEquals("Jack", Rank.JACK.getWord());
     }
     
     @Test
     public void testGetRankWordQueen() {
-        assertEquals("Queen", Rank.QUEEN.getRankWord());
+        assertEquals("Queen", Rank.QUEEN.getWord());
     }
     
     @Test
     public void testGetRankWordKing() {
-        assertEquals("King", Rank.KING.getRankWord());
+        assertEquals("King", Rank.KING.getWord());
     }
     
     @Test
@@ -239,6 +371,21 @@ public class RankTest {
         assert Rank.JACK.isCourtRank() : "Jacks are court cards";
         assert Rank.QUEEN.isCourtRank() : "Queens are court cards";
         assert Rank.KING.isCourtRank() : "Kings are court cards";
+    }
+    
+    @Test
+    public void testCharWordCorrespondence() {
+        char expected, actual;
+        String msg;
+        for (Rank rank : Rank.values()) {
+            if (rank.getRank() > 10) {
+                expected = rank.getWord().charAt(0);
+                actual = rank.getChar();
+                msg = "Character for " + rank.toString() + " ought to be '" 
+                        + expected + "'";
+                assertEquals(msg, expected, actual);
+            }
+        }
     }
     
 }

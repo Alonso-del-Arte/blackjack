@@ -140,7 +140,7 @@ public class CardServerTest {
         assert card != null : "Served card should not be null";
         System.out.println("Server served " + card.toASCIIString());
         String assertionMessage = "Served card " + card.toString() 
-                + " should be a " + expected.getRankWord();
+                + " should be a " + expected.getWord();
         assert card.isOf(expected) : assertionMessage;
     }
     
@@ -153,7 +153,7 @@ public class CardServerTest {
         PlayingCard[] cards = new PlayingCard[4];
         Rank expected = Rank.FIVE;
         String assertionMessage = "Served card should be of rank " 
-                + expected.getRankWord();
+                + expected.getWord();
         for (int n = 0; n < 4; n++) {
             cards[n] = server.giveCard(expected);
             assert cards[n].isOf(expected) : assertionMessage;
@@ -177,7 +177,7 @@ public class CardServerTest {
         assert card != null : "Served card should not be null";
         System.out.println("Server served " + card.toASCIIString());
         String assertionMessage = "Served card " + card.toString() 
-                + " should be of suit " + expected.getSuitWord();
+                + " should be of suit " + expected.getWord();
         assert card.isOf(expected) : assertionMessage;
     }
     
@@ -190,7 +190,7 @@ public class CardServerTest {
         PlayingCard[] cards = new PlayingCard[13];
         Suit expected = Suit.HEARTS;
         String assertionMessage = "Served card should be of suit " 
-                + expected.getSuitWord();
+                + expected.getWord();
         for (int n = 0; n < 13; n++) {
             cards[n] = server.giveCard(expected);
             assert cards[n].isOf(expected) : assertionMessage;
@@ -225,7 +225,7 @@ public class CardServerTest {
         Rank expected = Rank.FOUR;
         PlayingCard[] cards = server.giveCards(expected, 4);
         String assertionMessage = "Served card should be of rank " 
-                + expected.getRankWord();
+                + expected.getWord();
         for (PlayingCard card : cards) {
             assert card.isOf(expected) : assertionMessage;
         }
@@ -246,7 +246,7 @@ public class CardServerTest {
         Suit expected = Suit.CLUBS;
         PlayingCard[] cards = server.giveCards(expected, 13);
         String assertionMessage = "Served card should be of suit " 
-                + expected.getSuitWord();
+                + expected.getWord();
         for (PlayingCard card : cards) {
             assert card.isOf(expected) : assertionMessage;
         }
@@ -289,13 +289,13 @@ public class CardServerTest {
         try {
             PlayingCard[] cards = server.giveCards(expected, 7);
             String assertionMessage = "Served card should be of rank " 
-                    + expected.getRankWord();
+                    + expected.getWord();
             for (PlayingCard card : cards) {
                 assert card.isOf(expected) : assertionMessage;
             }
         } catch (RuntimeException re) {
             String msg = "Server should have been able to deal cards of rank " 
-                    + expected.getRankWord() + " from two decks without causing " 
+                    + expected.getWord() + " from two decks without causing " 
                     + re.getClass().getName();
             fail(msg);
         }
@@ -311,13 +311,13 @@ public class CardServerTest {
         try {
             PlayingCard[] cards = server.giveCards(expected, 25);
             String assertionMessage = "Served card should be of suit " 
-                    + expected.getSuitWord();
+                    + expected.getWord();
             for (PlayingCard card : cards) {
                 assert card.isOf(expected) : assertionMessage;
             }
         } catch (RuntimeException re) {
             String msg = "Server should have been able to deal cards of rank " 
-                    + expected.getSuitWord() + " from two decks without causing " 
+                    + expected.getWord() + " from two decks without causing " 
                     + re.getClass().getName();
             fail(msg);
         }

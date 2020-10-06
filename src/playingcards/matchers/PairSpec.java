@@ -16,14 +16,19 @@
  */
 package playingcards.matchers;
 
+import playingcards.CardSpec;
 import playingcards.PlayingCard;
 
 /**
- *
- * @param <E>
+ * Specifies a pair of characteristics (not necessarily distinct) which a pair 
+ * of playing cards either matches or doesn't, regardless of order. This is 
+ * mostly going to be used with rank and suit.
+ * @param <E> An enumeration that represents a characteristic of a playing card. 
+ * Generally this should be either <code>Rank</code> or <code>Suit</code>. Other 
+ * characteristics are rare but allowed.
  * @author Alonso del Arte
  */
-abstract class PairSpec<E extends Enum> {
+abstract class PairSpec<E extends Enum & CardSpec> {
     
     private final E elementA, elementB;
     

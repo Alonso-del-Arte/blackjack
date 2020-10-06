@@ -95,7 +95,7 @@ public class CardServer implements CardSupplier {
             }
             this.currDeckIndex++;
         }
-        String excMsg = "Ran out of cards of rank " + rank.getRankWord();
+        String excMsg = "Ran out of cards of rank " + rank.getWord();
         throw new RuntimeException(excMsg);
     }
 
@@ -110,7 +110,7 @@ public class CardServer implements CardSupplier {
             }
             this.currDeckIndex++;
         }
-        String excMsg = "Ran out of cards of suit " + suit.getSuitWord();
+        String excMsg = "Ran out of cards of suit " + suit.getWord();
         throw new RuntimeException(excMsg);
     }
 

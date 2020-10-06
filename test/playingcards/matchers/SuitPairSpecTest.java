@@ -116,8 +116,8 @@ public class SuitPairSpecTest {
         PlayingCard cardA = SERVER.giveCard(cardASuit);
         PlayingCard cardB = SERVER.giveCard(cardBSuit);
         SuitPairSpec spec = new SuitPairSpec(cardASuit, cardBSuit);
-        String msg = "Pair specification for " + cardASuit.getSuitWord()
-                + " and " + cardBSuit.getSuitWord() + " should match " 
+        String msg = "Pair specification for " + cardASuit.getWord()
+                + " and " + cardBSuit.getWord() + " should match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
@@ -133,8 +133,8 @@ public class SuitPairSpecTest {
         PlayingCard cardA = SERVER.giveCard(cardASuit);
         PlayingCard cardB = SERVER.giveCard(cardBSuit);
         SuitPairSpec spec = new SuitPairSpec(cardCSuit, cardASuit);
-        String msg = "Pair specification for " + cardASuit.getSuitWord() 
-                + " and " + cardCSuit.getSuitWord() + " should NOT match " 
+        String msg = "Pair specification for " + cardASuit.getWord() 
+                + " and " + cardCSuit.getWord() + " should NOT match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert !spec.matches(cardA, cardB) : msg;
     }

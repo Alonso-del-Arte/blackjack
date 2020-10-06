@@ -115,8 +115,8 @@ public class RankPairSpecTest {
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
         RankPairSpec spec = new RankPairSpec(cardARank, cardBRank);
-        String msg = "Pair specification for " + cardARank.getRankWord() 
-                + " and " + cardBRank.getRankWord() + " should match " 
+        String msg = "Pair specification for " + cardARank.getWord() 
+                + " and " + cardBRank.getWord() + " should match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
@@ -132,8 +132,8 @@ public class RankPairSpecTest {
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
         RankPairSpec spec = new RankPairSpec(cardCRank, cardARank);
-        String msg = "Pair specification for " + cardARank.getRankWord() 
-                + " and " + cardCRank.getRankWord() + " should NOT match " 
+        String msg = "Pair specification for " + cardARank.getWord() 
+                + " and " + cardCRank.getWord() + " should NOT match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert !spec.matches(cardA, cardB) : msg;
     }
