@@ -30,18 +30,49 @@ import playingcards.PlayingCard;
  */
 abstract class PairSpec<E extends Enum & CardSpec> {
     
+    private static final int HASH_SEP = 65536;
+    
     private final E elementA, elementB;
     
-    // STUB TO FAIL THE INDIRECT TESTS
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        final PairSpec other = (PairSpec) obj;
+        return (this.elementA.equals(other.elementA) 
+                && this.elementB.equals(other.elementB));
+    }
+    
+    @Override
+    public int hashCode() {
+        return (this.elementA.ordinal() + 1) * HASH_SEP 
+                + (this.elementB.ordinal()) + 1;
+    }
+    
     protected boolean matches(E fromCardA, E fromCardB) {
-        return false;
+        return (this.elementA.equals(fromCardA) 
+                && this.elementB.equals(fromCardB)) 
+                || (this.elementA.equals(fromCardB) 
+                && this.elementB.equals(fromCardA));
     }
     
     public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
     PairSpec(E elemA, E elemB) {
-        this.elementA = elemA;
-        this.elementB = elemB;
+        if (elemB.ordinal() > elemA.ordinal()) {
+            this.elementA = elemA;
+            this.elementB = elemB;
+        } else {
+            this.elementA = elemB;
+            this.elementB = elemA;
+        }
     }
     
 }
