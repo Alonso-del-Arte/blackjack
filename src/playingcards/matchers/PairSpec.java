@@ -97,11 +97,14 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
     /**
-     * Superclass constructor.
+     * Superclass constructor. This constructor takes care of making sure the 
+     * elements are stored so that their order as constructor parameters does 
+     * not matter for equality and matching operations.
      * @param elemA Enumerated element specifying the characteristic of one card 
      * of a pair of cards. May or may not be the same as <code>elemB</code>.
-     * @param elemB Enumerated element specifying the characteristic of one card 
-     * of a pair of cards. May or may not be the same as <code>elemA</code>.
+     * @param elemB Enumerated element specifying the characteristic of the 
+     * other card of the pair of cards. May or may not be the same as 
+     * <code>elemA</code>.
      */
     PairSpec(E elemA, E elemB) {
         if (elemB.ordinal() > elemA.ordinal()) {

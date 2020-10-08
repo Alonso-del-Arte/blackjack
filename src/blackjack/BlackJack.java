@@ -195,6 +195,9 @@ public class BlackJack {
         if (splitDiffTensAllowed) {
             System.out.println("You may split cards valued at 10 even if they're not the same");
         }
+        if (split16Allowed) {
+            System.out.println("You may split any pair valued at 16");
+        }
         // TODO: Remove next line once splitting IS implemented
         System.out.println("Note that splitting hands is not actually implemented yet");
         System.out.println();
@@ -223,6 +226,13 @@ public class BlackJack {
                 case "-nosplitdifftens":
                     splitDiffTensAllowed = false;
                     splitOptionsChanged = true;
+                    break;
+                case "-split16":
+                    split16Allowed = true;
+                    splitOptionsChanged = true;
+                    break;
+                case "-noSplit16":
+                    split16Allowed = false;
                     break;
                 // TODO: Finish adding command line options for split preferences
                 case "-text": // TODO: Revise once GUI's available
@@ -272,23 +282,16 @@ public class BlackJack {
      * <li><code>-noSplitDiffTens</code> You can't split two cards valued 10 if 
      * they are different, e.g., 10&#9829; and Q&#9827; can't be split, they 
      * would either both have to be 10s or both Queens.</li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
-     * <li><code></code></li>
+     * <li><code>-split16</code></li>
+     * <li><code>-noSplit16</code></li>
+     * <li><code>-resplit</code></li>
+     * <li><code>-noResplit</code></li>
+     * <li><code>-resplitAces</code></li>
+     * <li><code>-noResplitAces</code></li>
+     * <li><code>-multDrawSplitAces</code></li>
+     * <li><code>-noMultDrawSplitAces</code></li>
+     * <li><code>-discardSplit</code></li>
+     * <li><code>-noDiscardSplit</code></li>
      * <li><code>-text</code> Play the game as text-based on the command line. 
      * But since I haven't even started work on the graphics, only the 
      * text-based version is currently available.</li>
