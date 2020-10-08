@@ -21,6 +21,7 @@ import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -43,6 +44,8 @@ public class BlackJack {
     private static boolean discardSplitAllowed = false;
     
     private static boolean splitOptionsChanged = false;
+    
+    private static HashSet<RankPairSpec> splittablePairs = new HashSet<>();
 
     // TODO: Break up into playGameAtCommandLine() smaller units
     /**
@@ -198,6 +201,18 @@ public class BlackJack {
         if (split16Allowed) {
             System.out.println("You may split any pair valued at 16");
         }
+        if (resplitAllowed) {
+            System.out.println("You can split more than once");
+        }
+        if (resplitAcesAllowed) {
+            System.out.println("You can split Aces more than once");
+        }
+        if (multDrawSplitAcesAllowed) {
+            System.out.println("You can draw more than one card after splitting aces");
+        }
+        if (discardSplitAllowed) {
+            System.out.println("You may discard a split hand");
+        }
         // TODO: Remove next line once splitting IS implemented
         System.out.println("Note that splitting hands is not actually implemented yet");
         System.out.println();
@@ -231,10 +246,37 @@ public class BlackJack {
                     split16Allowed = true;
                     splitOptionsChanged = true;
                     break;
-                case "-noSplit16":
+                case "-nosplit16":
                     split16Allowed = false;
                     break;
-                // TODO: Finish adding command line options for split preferences
+                case "-resplit":
+                    resplitAllowed = true;
+                    splitOptionsChanged = true;
+                    break;
+                case "-noresplit":
+                    resplitAllowed = false;
+                    break;
+                case "-resplitaces":
+                    resplitAcesAllowed = true;
+                    splitOptionsChanged = true;
+                    break;
+                case "-noresplitaces":
+                    resplitAcesAllowed = false;
+                    break;
+                case "-multdrawsplitaces":
+                    multDrawSplitAcesAllowed = true;
+                    splitOptionsChanged = true;
+                    break;
+                case "-singledrawsplitaces":
+                    multDrawSplitAcesAllowed = false;
+                    break;
+                case "-discardsplit":
+                    discardSplitAllowed = true;
+                    splitOptionsChanged = true;
+                    break;
+                case "-nodiscardsplit":
+                    discardSplitAllowed = false;
+                    break;
                 case "-text": // TODO: Revise once GUI's available
                     System.out.println("Since the graphical version isn't available yet,");
                     System.out.println("this game is only available as text on the command line.");
@@ -282,16 +324,20 @@ public class BlackJack {
      * <li><code>-noSplitDiffTens</code> You can't split two cards valued 10 if 
      * they are different, e.g., 10&#9829; and Q&#9827; can't be split, they 
      * would either both have to be 10s or both Queens.</li>
-     * <li><code>-split16</code></li>
-     * <li><code>-noSplit16</code></li>
-     * <li><code>-resplit</code></li>
-     * <li><code>-noResplit</code></li>
-     * <li><code>-resplitAces</code></li>
-     * <li><code>-noResplitAces</code></li>
-     * <li><code>-multDrawSplitAces</code></li>
-     * <li><code>-noMultDrawSplitAces</code></li>
-     * <li><code>-discardSplit</code></li>
-     * <li><code>-noDiscardSplit</code></li>
+     * <li><code>-split16</code> You can split any pair valued at 16.</li>
+     * <li><code>-noSplit16</code> You can split Eights but no other pair valued 
+     * at 16.</li>
+     * <li><code>-resplit</code> You can split multiple times, infinitely, in 
+     * theory.</li>
+     * <li><code>-noResplit</code> You can't split a second time.</li>
+     * <li><code>-resplitAces</code> You can re-split Aces.</li>
+     * <li><code>-noResplitAces</code> You can't re-split Aces.</li>
+     * <li><code>-multDrawSplitAces</code> You can draw more than one card after 
+     * splitting Aces.</li>
+     * <li><code>-singleDrawSplitAces</code> You can only draw one more card 
+     * after splitting Aces.</li>
+     * <li><code>-discardSplit</code> You can discard a split hand.</li>
+     * <li><code>-noDiscardSplit</code> You can't discard a split hand.</li>
      * <li><code>-text</code> Play the game as text-based on the command line. 
      * But since I haven't even started work on the graphics, only the 
      * text-based version is currently available.</li>

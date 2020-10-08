@@ -20,33 +20,11 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Dealer class.
  * @author Alonso del Arte
  */
 public class DealerTest {
 
-    /**
-     * Test of getDealer method, of class Dealer. Only one Dealer may be 
-     * instantiated at a time.
-     */
-    @Test
-    public void testGetDealer() {
-        System.out.println("getDealer");
-        Dealer firstDealer = Dealer.getDealer();
-        try {
-            Dealer secondDealer = Dealer.getDealer();
-            String failMsg = "Already having " + firstDealer.toString() 
-                    + ", should not have been able to get " 
-                    + secondDealer.toString();
-            fail(failMsg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to get second dealer correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to instantiate Dealer twice";
-            fail(failMsg);
-        }
-    }
+    // TODO: Write tests
     
 }

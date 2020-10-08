@@ -17,12 +17,14 @@
 package blackjack;
 
 import playingcards.MultiDeckCardDispenser;
+import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.HashSet;
 
 /**
- *
+ * Represents a blackjack dealer. The dealer is responsible for dealing cards, 
+ * splitting hands per house rules, collecting wagers and paying winning bets.
  * @author Alonso del Arte
  */
 public class Dealer {
@@ -43,25 +45,11 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
-    /**
-     * Gets a dealer. There can only be one dealer at a table.
-     * @return A <code>Dealer</code> instance.
-     * @throws IllegalStateException If there is already a <code>Dealer</code> 
-     * instance.
-     */
-    public static Dealer getDealer() {
-        if (Dealer.instanceCounter > 0) {
-            String excMsg = "There's already a Dealer instantiated";
-            throw new IllegalStateException(excMsg);
-        }
-        return new Dealer(new MultiDeckCardDispenser(6, plasticCardPlace()));
-    }
-    
     // TODO: Determine if it makes any sense for Dealer to have finalize()
     
-    private Dealer(MultiDeckCardDispenser dispenser) {
-        this.splitSpecs = new HashSet<>();
-        this.cardDispenser = dispenser;
+    Dealer(HashSet<RankPairSpec> pairs) {
+        this.splitSpecs = pairs;
+        this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
         Dealer.instanceCounter++;
     }
     
