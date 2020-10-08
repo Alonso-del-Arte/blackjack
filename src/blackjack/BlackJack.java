@@ -18,6 +18,8 @@ package blackjack;
 
 import playingcards.MultiDeckCardDispenser;
 import playingcards.PlayingCard;
+import playingcards.Rank;
+import playingcards.matchers.RankPairSpec;
 
 import java.util.Scanner;
 
@@ -33,7 +35,7 @@ public class BlackJack {
     // these flags don't actually do anything.
     private static boolean splitAcesAllowed = true;
     private static boolean splitAnyTimeAllowed = true;
-    private static boolean splitSameValueAllowed = true;
+    private static boolean splitDiffTensAllowed = true;
     private static boolean split16Allowed = false;
     private static boolean resplitAllowed = false;
     private static boolean resplitAcesAllowed = false;
@@ -190,6 +192,9 @@ public class BlackJack {
         if (splitAnyTimeAllowed) {
             System.out.println("You may split at any point in the game");
         }
+        if (splitDiffTensAllowed) {
+            System.out.println("You may split cards valued at 10 even if they're not the same");
+        }
         // TODO: Remove next line once splitting IS implemented
         System.out.println("Note that splitting hands is not actually implemented yet");
         System.out.println();
@@ -210,6 +215,13 @@ public class BlackJack {
                     break;
                 case "-splitbeginonly":
                     splitAnyTimeAllowed = false;
+                    splitOptionsChanged = true;
+                    break;
+                case "-splitdifftens":
+                    splitDiffTensAllowed = true;
+                    break;
+                case "-nosplitdifftens":
+                    splitDiffTensAllowed = false;
                     splitOptionsChanged = true;
                     break;
                 // TODO: Finish adding command line options for split preferences
@@ -254,6 +266,28 @@ public class BlackJack {
      * is the default.</li>
      * <li><code>-splitBeginOnly</code> You can split only after drawing the 
      * second card in your hand but before drawing the third card.</li>
+     * <li><code>-splitDiffTens</code> You can split two cards valued 10 even if 
+     * they are different, e.g., 10&#9829; and Q&#9827; can be split, as well as 
+     * of course pairs like J&#9824; and J&#9830;.</li>
+     * <li><code>-noSplitDiffTens</code> You can't split two cards valued 10 if 
+     * they are different, e.g., 10&#9829; and Q&#9827; can't be split, they 
+     * would either both have to be 10s or both Queens.</li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
+     * <li><code></code></li>
      * <li><code></code></li>
      * <li><code>-text</code> Play the game as text-based on the command line. 
      * But since I haven't even started work on the graphics, only the 

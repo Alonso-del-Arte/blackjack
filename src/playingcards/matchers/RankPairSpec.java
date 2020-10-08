@@ -25,11 +25,34 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
+    /**
+     * Determines whether or not two cards match this pair specification. Order 
+     * does not matter. For example, suppose this pair specification is for 
+     * Sevens and Queens.
+     * @param cardA One of the cards of the pair. For example, 7&#9830;.
+     * @param cardB The other card of the pair. For example, Q&#9827;.
+     * @return True if the cards match this pair specification, false otherwise. 
+     * In the example, 7&#9830; and Q&#9827; match this pair specification. If 
+     * the cards were switched, with <code>cardA</code> being Q&#9827; and 
+     * <code>cardB</code> being 7&#9830;, the result would also be true. But it 
+     * would be false if both cards were Sevens, or if both cards were Queens, 
+     * etc.
+     * @throws NullPointerException If either card is null.
+     */
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
+    /**
+     * Constructor. Order does not matter, the superclass takes care of ensuring 
+     * equality and matching operations are carried out without regard for the 
+     * order of constructor parameters.
+     * @param rankA Rank of one card of a pair of cards. May or may not be the 
+     * same as <code>rankB</code>. For example, Seven.
+     * @param rankB  Rank of one card of a pair of cards. May or may not be the 
+     * same as <code>rankA</code>. For example, Queen.
+     */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
     }

@@ -34,6 +34,15 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     
     private final E elementA, elementB;
     
+    /**
+     * Determines whether an object is equal to this pair specification.
+     * @param obj The object to compare for equality. May be null.
+     * @return True if <code>obj</code> is of the same runtime class as this 
+     * pair specification <em>and</em> both specify the same characteristics for 
+     * a pair of playing cards, false under any other circumstance. Order is not 
+     * considered, but that depends on the subclasses letting this class take 
+     * care of holding on to the pair characteristics.
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -50,12 +59,26 @@ abstract class PairSpec<E extends Enum & CardSpec> {
                 && this.elementB.equals(other.elementB));
     }
     
+    /**
+     * Gives a hash code for this pair specification.
+     * @return A positive integer derived from the enumeration ordinals of the 
+     * pair of characteristics.
+     */
     @Override
     public int hashCode() {
         return (this.elementA.ordinal() + 1) * HASH_SEP 
                 + (this.elementB.ordinal()) + 1;
     }
     
+    /**
+     * Determines whether the specified characteristics match this pair 
+     * specification. This function should be called by the classes implementing 
+     * this abstract class.
+     * @param fromCardA The characteristic of one of the cards.
+     * @param fromCardB The characteristic of the other card of the pair.
+     * @return True if the characteristics match this pair specification, false 
+     * otherwise. Order does not matter.
+     */
     protected boolean matches(E fromCardA, E fromCardB) {
         return (this.elementA.equals(fromCardA) 
                 && this.elementB.equals(fromCardB)) 
@@ -63,8 +86,23 @@ abstract class PairSpec<E extends Enum & CardSpec> {
                 && this.elementB.equals(fromCardA));
     }
     
+    /**
+     * Determines whether or not two cards match this pair specification. Order 
+     * should not matter. This function should be implemented by calling the 
+     * protected <code>matches(E, E)</code> function.
+     * @param cardA One card of the pair.
+     * @param cardB The other card of the pair.
+     * @return 
+     */
     public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
+    /**
+     * Superclass constructor.
+     * @param elemA Enumerated element specifying the characteristic of one card 
+     * of a pair of cards. May or may not be the same as <code>elemB</code>.
+     * @param elemB Enumerated element specifying the characteristic of one card 
+     * of a pair of cards. May or may not be the same as <code>elemA</code>.
+     */
     PairSpec(E elemA, E elemB) {
         if (elemB.ordinal() > elemA.ordinal()) {
             this.elementA = elemA;
