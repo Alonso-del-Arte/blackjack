@@ -69,7 +69,8 @@ public class CardDeck implements CardSupplier {
      * <em>and</em> the remaining cards are in the same order, false otherwise.
      */
     public boolean sameOrderAs(CardDeck other) {
-        return (this.cards.equals(other.cards) && this.dealCount == other.dealCount);
+        return (this.cards.equals(other.cards) 
+                && this.dealCount == other.dealCount);
     }
 
     /**
@@ -85,10 +86,11 @@ public class CardDeck implements CardSupplier {
                 break;
             case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1:
             case INITIAL_NUMBER_OF_CARDS_PER_DECK:
-                String excMsg = "No point shuffling a deck with one or no cards left";
+                String excMsg = "Can't shuffle a deck with one or no cards left";
                 throw new IllegalStateException(excMsg);
             default:
-                Collections.shuffle(this.cards.subList(this.dealCount, INITIAL_NUMBER_OF_CARDS_PER_DECK));
+                Collections.shuffle(this.cards.subList(this.dealCount, 
+                        INITIAL_NUMBER_OF_CARDS_PER_DECK));
         }
     }
 
@@ -102,7 +104,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean provenance(PlayingCard card) {
-        int index = cards.indexOf(card);
+        int index = this.cards.indexOf(card);
         PlayingCard ownCard = this.cards.get(index);
         return (card == ownCard);
     }

@@ -70,7 +70,7 @@ public class Hand {
      * 22 to 30 for a hand that has gone bust. The value 1 should not occur 
      * because a hand with an Ace as the only card is valued at 11.
      */
-    public int cardsValue() {
+    int cardsValue() {
         return this.handScore;
     }
     
@@ -80,7 +80,7 @@ public class Hand {
      * @return An array of the cards. For example, a 2-element array containing 
      * an Ace of Spades (A&#9824;) and a Two of Hearts (2&#9829;).
      */
-    public PlayingCard[] inspectCards() {
+    PlayingCard[] inspectCards() {
         PlayingCard[] cardsToShow = new PlayingCard[this.cards.size()];
         for (int i = 0; i < this.cards.size(); i++) {
             cardsToShow[i] = this.cards.get(i);
@@ -100,7 +100,7 @@ public class Hand {
      * valued 10. There is no stricture on splitting Aces, Fours, Fives or Tens 
      * (which some British casinos might enforce).
      */
-    public boolean isSplittableHand(Dealer dealer) {
+    boolean isSplittableHand(Dealer dealer) {
         return (this.cards.size() == 2 
                 && this.cards.get(0).isSameRank(this.cards.get(1)));
     }
@@ -122,7 +122,7 @@ public class Hand {
      * @throws IllegalStateException If this hand can't be split according to 
      * {@link #isSplittableHand()}.
      */
-    public Hand split(Dealer dealer) {
+    Hand split(Dealer dealer) {
         if (!this.isSplittableHand(dealer)) {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
@@ -138,7 +138,7 @@ public class Hand {
      * @return True if the hand is new or has cards valued at 2 to 20, false 
      * otherwise.
      */
-    public boolean isOpenHand() {
+    boolean isOpenHand() {
         return this.openFlag;
     }
     
@@ -149,7 +149,7 @@ public class Hand {
      * @return True if and only if this hand is valued at 21, false otherwise, 
      * without regard to how this hand compares to other players' hands.
      */
-    public boolean isWinningHand() {
+    boolean isWinningHand() {
         return this.winFlag;
     }
     
@@ -158,7 +158,7 @@ public class Hand {
      * @return True if cards' aggregate value is in excess of 21 (even after 
      * counting all Aces as 1 each), false otherwise.
      */
-    public boolean isBustedHand() {
+    boolean isBustedHand() {
         return this.bustFlag;
     }
     
@@ -166,7 +166,7 @@ public class Hand {
      * Indicates if no more cards may be added to this hand.
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
-    public boolean isClosedHand() {
+    boolean isClosedHand() {
         return this.closedFlag;
     }
 
@@ -175,7 +175,7 @@ public class Hand {
      * @param card The card to add. For example, 5&#9824;.
      * @throws IllegalStateException If the hand has blackjack or has gone bust.
      */
-    public void add(PlayingCard card) {
+    void add(PlayingCard card) {
         if (this.closedFlag) {
             String excMsg = "Can't add card to hand vlaued at " + this.handScore;
             throw new IllegalStateException(excMsg);
@@ -202,7 +202,7 @@ public class Hand {
      * Creates a new hand. The hand has no cards and is valued at 0. Add cards 
      * using {@link #add(playingcards.PlayingCard) add()}.
      */
-    public Hand() {
+    Hand() {
         this.cards = new ArrayList<>();
     }
 

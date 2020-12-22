@@ -36,7 +36,9 @@ public class MultiDeckCardDispenser implements CardSupplier {
     private int dispenseIndex = 0;
     
     /**
-     * Tells whether this dispenser can give another card.
+     * Tells whether this dispenser can give another card. Call this function to 
+     * avoid incurring {@link RanOutOfCardsException} (or call the constructor 
+     * with a greater number of decks).
      * @return True if this dispenser can give another card, false otherwise.
      */
     @Override
@@ -109,7 +111,10 @@ public class MultiDeckCardDispenser implements CardSupplier {
      * @param plasticCardPos At which position from the bottom to place a 
      * plastic card, which will then prevent the cards under it from being 
      * dealt. May be 0 but should not be negative. For example, 75, which will 
-     * then prevent the bottom seventy-five cards from being dealt out.
+     * then prevent the bottom seventy-five cards from being dealt out. Note 
+     * that the placing of the plastic card occurs after the decks have been 
+     * shuffled together, so a setting of 52 or even as high as 104 is unlikely 
+     * to shut out all cards from a particular deck.
      * @throws IllegalArgumentException If <code>numberOfDecks</code> is 0, or 
      * if <code>plasticCardPos</code> is in excess of how many cards there are 
      * in the decks in total.
@@ -118,14 +123,15 @@ public class MultiDeckCardDispenser implements CardSupplier {
      */
     public MultiDeckCardDispenser(int numberOfDecks, int plasticCardPos) {
         if (numberOfDecks == 0) {
-            String excMsg = "Dispenser needs at least one deck of cards to dispense, preferably more";
+            String excMsg = "At least one deck of cards needed to dispense";
             throw new IllegalArgumentException(excMsg);
         }
         if (numberOfDecks < 0) {
             String excMsg = "Dispenser needs a positive number of decks";
             throw new NegativeArraySizeException(excMsg);
         }
-        int maxPlasticCardPos = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
+        int maxPlasticCardPos = numberOfDecks 
+                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
         if (plasticCardPos > maxPlasticCardPos) {
             String excMsg = "Plastic card position " + plasticCardPos 
                     + " is excessive for just " + numberOfDecks + " decks.";

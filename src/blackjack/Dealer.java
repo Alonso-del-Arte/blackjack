@@ -29,13 +29,31 @@ import java.util.HashSet;
  */
 public class Dealer {
     
-    private static int instanceCounter = 0;
-    
     private MultiDeckCardDispenser cardDispenser;
     
     private final HashSet<RankPairSpec> splitSpecs;
     
+    private Hand hand;
+    
     // TODO: Flesh out
+    
+    // STUB TO FAIL THE FIRST TEST
+    HashSet<RankPairSpec> giveUsualPairs() {
+        HashSet<RankPairSpec> pairs = new HashSet<>();
+        return pairs;
+    }
+    
+    // STUB TO FAIL THE FIRST TEST
+    HashSet<RankPairSpec> giveTenPairs() {
+        HashSet<RankPairSpec> pairs = new HashSet<>();
+        return pairs;
+    }
+    
+    // STUB TO FAIL THE FIRST TEST
+    HashSet<RankPairSpec> giveSixteenPairs() {
+        HashSet<RankPairSpec> pairs = new HashSet<>();
+        return pairs;
+    }
     
     private static int plasticCardPlace() {
         return ((int) Math.floor(Math.random() * 15) + 60);
@@ -45,12 +63,10 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
-    // TODO: Determine if it makes any sense for Dealer to have finalize()
-    
     Dealer(HashSet<RankPairSpec> pairs) {
         this.splitSpecs = pairs;
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
-        Dealer.instanceCounter++;
+        this.hand = new Hand();
     }
     
 }

@@ -45,7 +45,9 @@ public class BlackJack {
     
     private static boolean splitOptionsChanged = false;
     
-    private static HashSet<RankPairSpec> splittablePairs = new HashSet<>();
+    private final static HashSet<RankPairSpec> splittablePairs = new HashSet<>();
+    
+    private static Dealer dealer;
 
     // TODO: Break up into playGameAtCommandLine() smaller units
     /**
@@ -219,14 +221,17 @@ public class BlackJack {
     }
     
     private static void processOptions(String[] args) {
+        RankPairSpec aces = new RankPairSpec(Rank.ACE, Rank.ACE);
         for (String arg : args) {
             switch (arg.toLowerCase()) {
                 case "-splitaces":
                     splitAcesAllowed = true;
+                    splittablePairs.add(aces);
                     break;
                 case "-nosplitaces":
                     splitAcesAllowed = false;
-                    splitOptionsChanged = true;
+                    splitOptionsChanged = splitOptionsChanged 
+                            || splittablePairs.remove(aces);
                     break;
                 case "-splitanytime":
                     splitAnyTimeAllowed = true;
@@ -349,6 +354,7 @@ public class BlackJack {
         System.out.println("BLACKJACK");
         System.out.println();
         processOptions(args);
+        dealer = new Dealer(splittablePairs);
         playGameAtCommandLine();
     }
 

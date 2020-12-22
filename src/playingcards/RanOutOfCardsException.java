@@ -78,8 +78,8 @@ public class RanOutOfCardsException extends RuntimeException {
     }
     
     /**
-     * Constructs a RanOutOfCardsException with the specified detail message. No 
-     * rank nor suit is specified.
+     * Constructs an exception with the specified detail message. No rank nor 
+     * suit is specified.
      * @param msg The detail message. For example, "Ran out of cards".
      */
     public RanOutOfCardsException(String msg) {
@@ -87,8 +87,8 @@ public class RanOutOfCardsException extends RuntimeException {
     }
     
     /**
-     * Constructs a RanOutOfCardsException with the specified detail message and 
-     * card rank.
+     * Constructs an exception with the specified detail message and card rank. 
+     * The rank will then be available through a getter.
      * @param msg The detail message. For example, "Ran out of Eights".
      * @param rank The rank that caused this exception. For example, 
      * <code>Rank.EIGHT</code>.
@@ -98,8 +98,8 @@ public class RanOutOfCardsException extends RuntimeException {
     }
     
     /**
-     * Constructs a RanOutOfCardsException with the specified detail message and 
-     * card suit.
+     * Constructs an exception with the specified detail message and card suit.
+     * The suit will then be available through a getter.
      * @param msg The detail message. For example, "Ran out of Diamonds".
      * @param suit  The suit that caused this exception. For example, 
      * <code>Suit.DIAMONDS</code>.
