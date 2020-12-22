@@ -27,4 +27,9 @@ public class DealerTest {
 
     // TODO: Write tests
     
+    @Test
+    public void testPlaceholder() {
+        fail("Haven't written tests yet");
+    }
+    
 }

@@ -84,6 +84,15 @@ public class CardServer implements CardSupplier {
         return matchFoundFlag;
     }
 
+    /**
+     * Gives a card of a specified rank. The card can be of any suit.
+     * @param rank The rank of the card. For example, <code>Rank.SEVEN</code>.
+     * @return A card of the specified rank. For example, 7&#9829;.
+     * @throws RanOutOfCardsException If this server has run out of cards of the 
+     * specified rank. The exception object will include the specified rank. 
+     * Since this server should only be used for testing purposes, it would 
+     * probably be acceptable to simply initialize this server with more decks.
+     */
     public PlayingCard giveCard(Rank rank) {
         PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
@@ -96,9 +105,19 @@ public class CardServer implements CardSupplier {
             this.currDeckIndex++;
         }
         String excMsg = "Ran out of cards of rank " + rank.getWord();
-        throw new RuntimeException(excMsg);
+        throw new RanOutOfCardsException(excMsg, rank);
     }
 
+    /**
+     * Gives a card of a specified suit. The card can be of any rank.
+     * @param suit The suit of the card. For example, 
+     * <code>Suit.DIAMONDS</code>.
+     * @return A card of the specified suit. For example, 4&#9830;.
+     * @throws RanOutOfCardsException If this server has run out of cards of the 
+     * specified suit. The exception object will include the specified suit. 
+     * Since this server should only be used for testing purposes, it would 
+     * probably be acceptable to simply initialize this server with more decks.
+     */
     public PlayingCard giveCard(Suit suit) {
         PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
@@ -111,9 +130,22 @@ public class CardServer implements CardSupplier {
             this.currDeckIndex++;
         }
         String excMsg = "Ran out of cards of suit " + suit.getWord();
-        throw new RuntimeException(excMsg);
+        throw new RanOutOfCardsException(excMsg, suit);
     }
-
+    
+    /**
+     * Gives a specified number of cards. The cards are given in an array. They 
+     * may be of any rank and of any suit, and probably won't be in any 
+     * discernible order.
+     * @param cardQty How many cards to give. For example, five.
+     * @return An array with the specified number of cards. For example, 
+     * 4&#9830;, 4&#9829;, Q&#9827;, 5&#9830;, 7&#9824;.
+     * @throws NegativeArraySizeException If <code>cardQty</code> is negative.
+     * @throws RanOutOfCardsException If this server has run out of cards, or it 
+     * runs out of cards while trying to fulfill this request. Since this server 
+     * should only be used for testing purposes, it would probably be acceptable 
+     * to simply initialize this server with more decks.
+     */
     public PlayingCard[] giveCards(int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -122,6 +154,25 @@ public class CardServer implements CardSupplier {
         return cards;
     }
 
+    /**
+     * Gives a specified number of cards, of a specified rank. The cards are 
+     * given in an array. They may be of any suit, and probably won't be in any 
+     * discernible order.
+     * @param rank The rank of cards to give. For example, 
+     * <code>Rank.ACE</code>.
+     * @param cardQty How many cards to give. For example, five.
+     * @return An array with the specified number of cards. For example, 
+     * A&#9830;, A&#9829;, A&#9827;, A&#9830;, A&#9824;.
+     * @throws NegativeArraySizeException If <code>cardQty</code> is negative.
+     * @throws RanOutOfCardsException If this server has run out of cards of the 
+     * specified rank, or runs out of such cards while trying to fulfill this 
+     * request. The exception object will include the specified rank. Since this 
+     * server should only be used for testing purposes, it would probably be 
+     * acceptable to simply initialize this server with more decks. In the 
+     * example above, this exception would certainly occur if the server is 
+     * initialized with only one deck, as this function would obtain one Ace of 
+     * each suit and then it would fail to find another Ace of any suit.
+     */
     public PlayingCard[] giveCards(Rank rank, int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -130,6 +181,22 @@ public class CardServer implements CardSupplier {
         return cards;
     }
 
+    /**
+     * Gives a specified number of cards, of a specified suit. The cards are 
+     * given in an array. They may be of any rank, and probably won't be in any 
+     * discernible order.
+     * @param suit The suit of cards to give. For example, 
+     * <code>Suit.CLUBS</code>.
+     * @param cardQty How many cards to give. For example, five.
+     * @return An array with the specified number of cards. For example, 
+     * 4&#9827;, 4&#9827;, Q&#9827;, 5&#9827;, 7&#9827;.
+     * @throws NegativeArraySizeException If <code>cardQty</code> is negative.
+     * @throws RanOutOfCardsException If this server has run out of cards of the 
+     * specified suit, or runs out of such cards while trying to fulfill this 
+     * request. The exception object will include the specified suit. Since this 
+     * server should only be used for testing purposes, it would probably be 
+     * acceptable to simply initialize this server with more decks.
+     */
     public PlayingCard[] giveCards(Suit suit, int cardQty) {
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
@@ -140,7 +207,7 @@ public class CardServer implements CardSupplier {
 
     /**
      * Initializes a card server with only one deck. New decks can't be added
-     * later, except by creating another card server.
+     * later, except by creating another card server with more decks.
      */
     public CardServer() {
         this(1);
@@ -149,8 +216,9 @@ public class CardServer implements CardSupplier {
     /**
      * Initializes a card server with a given number of decks. The decks are
      * shuffled separately. New decks can't be added later, except by creating
-     * another card server.
-     *
+     * another card server. Each deck is shuffled separately as it's added to 
+     * the server, but the cards are not shuffled again once all the decks are 
+     * in.
      * @param deckQty How many decks to initialize the card server with. Should
      * be a positive integer.
      * @throws IllegalArgumentException If <code>deckQty</code> is 0.
