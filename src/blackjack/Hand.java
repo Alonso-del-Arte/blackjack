@@ -37,6 +37,7 @@ public class Hand {
     private boolean winFlag = false;
     private boolean bustFlag = false;
     private boolean closedFlag = false;
+    private boolean settleFlag = false;
     
     private void updateCardsValue() {
         int cumulRank = 0;
@@ -168,6 +169,14 @@ public class Hand {
      */
     boolean isClosedHand() {
         return this.closedFlag;
+    }
+    
+    void markSettled() {
+        this.settleFlag = true;
+    }
+    
+    boolean isSettledHand() {
+        return this.settleFlag;
     }
 
     /**

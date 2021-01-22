@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -45,11 +45,11 @@ public class BlackJack {
     
     private static boolean splitOptionsChanged = false;
     
-    private final static HashSet<RankPairSpec> splittablePairs = new HashSet<>();
+    private final static HashSet<RankPairSpec> SPLITTABLE_PAIRS = new HashSet<>();
     
     private static Dealer dealer;
 
-    // TODO: Break up into playGameAtCommandLine() smaller units
+    // TODO: Break up playGameAtCommandLine() into smaller units
     /**
      * EARLY PROOF OF CONCEPT. Play blackjack at the command line. Dealer and
      * only one player.
@@ -226,12 +226,12 @@ public class BlackJack {
             switch (arg.toLowerCase()) {
                 case "-splitaces":
                     splitAcesAllowed = true;
-                    splittablePairs.add(aces);
+                    SPLITTABLE_PAIRS.add(aces);
                     break;
                 case "-nosplitaces":
                     splitAcesAllowed = false;
                     splitOptionsChanged = splitOptionsChanged 
-                            || splittablePairs.remove(aces);
+                            || SPLITTABLE_PAIRS.remove(aces);
                     break;
                 case "-splitanytime":
                     splitAnyTimeAllowed = true;
@@ -354,7 +354,7 @@ public class BlackJack {
         System.out.println("BLACKJACK");
         System.out.println();
         processOptions(args);
-        dealer = new Dealer(splittablePairs);
+        dealer = new Dealer(SPLITTABLE_PAIRS);
         playGameAtCommandLine();
     }
 

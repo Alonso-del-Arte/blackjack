@@ -423,6 +423,27 @@ public class HandTest {
             assert hand.isOpenHand() == !hand.isClosedHand() : assertionMessage;
         }
     }
+    
+    @Test
+    public void testNewHandShouldNotBeSettledHand() {
+        Hand hand = new Hand();
+        String msg = "New hand should not be a settled hand";
+        assert !hand.isSettledHand() : msg;
+    }
+    
+    @Test
+    public void testMarkSettled() {
+        Hand hand = new Hand();
+        PlayingCard firstCard = server.giveCard(Rank.JACK);
+        hand.add(firstCard);
+        PlayingCard secondCard = server.giveCard(Rank.ACE);
+        hand.add(secondCard);
+        hand.markSettled();
+        String msg = "Hand with " + firstCard.toString() + " and " 
+                + secondCard.toString() 
+                + " was marked settled, should be recognized as settled";
+        assert hand.isSettledHand() : msg;
+    }
 
     /**
      * Test of add method, of class Hand.

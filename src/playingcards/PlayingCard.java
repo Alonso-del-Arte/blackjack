@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -57,8 +57,15 @@ public class PlayingCard {
     }
 
     /**
-     * Returns a hash code for this playing card.
-     * @return A hash code, based on the card's rank and suit.
+     * Returns a hash code for this playing card. The hash code is guaranteed to 
+     * be unique for each rank and suit combination, regardless of the card's 
+     * provenance.
+     * @return A hash code, based on the card's rank and suit. For example, for 
+     * an A&#9824;, this might be 137536; for a 2&#9824; this might be 19648; 
+     * for a 3&#9824;, this might be 29472; etc. These hash codes are for the 
+     * sake of illustration. No guarantee is made aside from uniqueness for each 
+     * rank and suit combination and that two cards that match in both rank and 
+     * suit will also match in hash code.
      */
     @Override
     public int hashCode() {
@@ -80,8 +87,11 @@ public class PlayingCard {
     /**
      * Gives an ASCII text representation of the playing card. This should be 
      * suitable for use in a console application with a potentially limited 
-     * character set.
-     * @return A text representation like "Eight of Spades".
+     * character set (e.g., if playing on the Windows command prompt, characters 
+     * like '&#9824;' would probably show up as '?' &mdash; though the character 
+     * for the rank, such as '8', should show up just fine).
+     * @return A text representation using only ASCII digits and letters. For 
+     * example, "Eight of Spades".
      */
     public String toASCIIString() {
         return this.cardRank.getWord() + " of " + this.cardSuit.getWord();
@@ -137,7 +147,8 @@ public class PlayingCard {
     }
     
     /**
-     * Determines if this card is the same rank as another card.
+     * Determines if this card is the same rank as another card. To match by 
+     * suit, use {@link #isSameSuit(playingcards.PlayingCard) isSameSuit()}.
      * @param other The card to check against. For example, 7&#9827;.
      * @return True if the other card is of the same rank, false if it is not. 
      * For example, if this card is 7&#9830; and the other card is 7&#9827;, 
@@ -168,7 +179,8 @@ public class PlayingCard {
     }
     
     /**
-     * Determines if this card is the same suit as another card.
+     * Determines if this card is the same suit as another card. To match by 
+     * rank, use {@link #isSameRank(playingcards.PlayingCard) isSameRank()}.
      * @param other The card to check against. For example, 10&#9829;.
      * @return True if the other card is of the same rank, false if it is not. 
      * For example, if this card is 10&#9829; and the other card is Q&#9829;, 
@@ -188,6 +200,11 @@ public class PlayingCard {
         return this.cardRank.isCourtRank();
     }
 
+    /**
+     * Sole constructor. Constructs a card of the specified rank and suit.
+     * @param rank The rank of the card. For example, <code>Rank.ACE</code>.
+     * @param suit The suit of the card. For example, <code>Suit.SPADES</code>.
+     */
     PlayingCard(Rank rank, Suit suit) {
         this.cardRank = rank;
         this.cardSuit = suit;
