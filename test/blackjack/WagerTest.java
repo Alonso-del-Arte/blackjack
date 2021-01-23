@@ -17,14 +17,20 @@
 package blackjack;
 
 import currency.CurrencyAmount;
+
+import java.util.Currency;
+import java.util.Locale;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the Wager class.
  * @author Alonso del Arte
  */
 public class WagerTest {
+    
+    private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
     /**
      * Test of getAmount method, of class Wager.
@@ -32,12 +38,31 @@ public class WagerTest {
     @Test
     public void testGetAmount() {
         System.out.println("getAmount");
-//        Wager instance = null;
-//        CurrencyAmount expResult = null;
-//        CurrencyAmount result = instance.getAmount();
-//        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
+        Wager wager = new Wager(expected);
+        CurrencyAmount actual = wager.getAmount();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testConstructorRejectsNegativeAmount() {
+        CurrencyAmount badAmount = new CurrencyAmount(-10000, DOLLARS);
+        try {
+            Wager badWager = new Wager(badAmount);
+            String msg = "Should not have been able to create wager " 
+                    + badWager.toString() + " with " + badAmount.toString();
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to create wager with " 
+                    + badAmount.toString() 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for wager amount " 
+                    + badAmount.toString();
+            fail(msg);
+        }
     }
     
 }

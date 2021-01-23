@@ -16,12 +16,15 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
 import playingcards.MultiDeckCardDispenser;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
+import java.util.Currency;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -48,6 +51,13 @@ public class BlackJack {
     private final static HashSet<RankPairSpec> SPLITTABLE_PAIRS = new HashSet<>();
     
     private static Dealer dealer;
+    
+    private static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    
+    private static final CurrencyAmount ZERO_DOLLARS = new CurrencyAmount(0, 
+            DOLLARS);
+    
+    private static final Wager DEALERS_WAGER = new Wager(ZERO_DOLLARS);
 
     // TODO: Break up playGameAtCommandLine() into smaller units
     /**
@@ -67,9 +77,12 @@ public class BlackJack {
                 System.out.println("Sorry, didn't catch " + nfe.getMessage()
                         + ", substituting $10");
             }
+            CurrencyAmount playersWagerAmount = new CurrencyAmount(wager * 100, 
+                    DOLLARS);
+            Wager playersWager = new Wager(playersWagerAmount);
             MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(6, 75);
-            Hand dealerHand = new Hand();
-            Hand playerHand = new Hand();
+            Hand dealerHand = new Hand(DEALERS_WAGER);
+            Hand playerHand = new Hand(playersWager);
             PlayingCard card = dispenser.getNextCard();
             playerHand.add(card);
             System.out.println("Your first card is " + card.toASCIIString());

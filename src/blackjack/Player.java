@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -27,7 +27,7 @@ public class Player {
     private Hand hand;
     
     Player() {
-        this.hand = new Hand();
+        this.hand = null;// new Hand();
     }
     
 }

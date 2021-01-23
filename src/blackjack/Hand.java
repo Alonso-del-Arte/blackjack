@@ -16,6 +16,7 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 
@@ -38,6 +39,12 @@ public class Hand {
     private boolean bustFlag = false;
     private boolean closedFlag = false;
     private boolean settleFlag = false;
+    
+    private Wager associatedWager;
+    
+    public Wager getWager() {
+        return this.associatedWager;
+    }
     
     private void updateCardsValue() {
         int cumulRank = 0;
@@ -128,7 +135,7 @@ public class Hand {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
         }
-        Hand splitOffHand = new Hand();
+        Hand splitOffHand = new Hand(this.associatedWager);
         splitOffHand.add(this.cards.remove(1));
         this.updateCardsValue();
         return splitOffHand;
@@ -208,10 +215,11 @@ public class Hand {
     }
 
     /**
-     * Creates a new hand. The hand has no cards and is valued at 0. Add cards 
-     * using {@link #add(playingcards.PlayingCard) add()}.
+     * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
+     * cards using {@link #add(playingcards.PlayingCard) add()}.
      */
-    Hand() {
+    Hand(Wager wager) {
+        this.associatedWager = wager;
         this.cards = new ArrayList<>();
     }
 

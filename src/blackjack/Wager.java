@@ -18,21 +18,20 @@ package blackjack;
 
 import currency.CurrencyAmount;
 
-import java.util.Currency;
-
 /**
  * Represents a wager for a blackjack hand or bet.
  * @author Alonso del Arte
  */
 public class Wager {
     
-    // STUB TO FAIL THE FIRST TEST
+    private final CurrencyAmount wagerAmount;
+    
     public CurrencyAmount getAmount() {
-        return new CurrencyAmount(-100, Currency.getInstance("XCD"));
+        return this.wagerAmount;
     }
     
     public Wager(CurrencyAmount amount) {
-        //
+        this.wagerAmount = amount;
     }
     
 }
