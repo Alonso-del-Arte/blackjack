@@ -16,6 +16,8 @@
  */
 package blackjack;
 
+import java.util.ArrayList;
+
 /**
  * Represents a player at a blackjack table.
  * @author Alonso del Arte
@@ -24,10 +26,18 @@ public class Player {
     
     // TODO: Write it
     
-    private Hand hand;
+    private final ArrayList<Hand> hands = new ArrayList<>();
     
-    Player() {
-        this.hand = null;// new Hand();
+    ArrayList<Hand> getHands() {
+        return new ArrayList<>(this.hands);
+    }
+    
+    void add(Hand hand) {
+        this.hands.add(hand);
+    }
+    
+    Player(Hand initialHand) {
+        this.hands.add(initialHand);
     }
     
 }

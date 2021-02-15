@@ -50,7 +50,30 @@ public class WagerTest {
         try {
             Wager badWager = new Wager(badAmount);
             String msg = "Should not have been able to create wager " 
-                    + badWager.toString() + " with " + badAmount.toString();
+                    + badWager.toString() + " with amount " 
+                    + badAmount.toString();
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to create wager with " 
+                    + badAmount.toString() 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for wager amount " 
+                    + badAmount.toString();
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectsAmountZero() {
+        CurrencyAmount badAmount = new CurrencyAmount(0, DOLLARS);
+        try {
+            Wager badWager = new Wager(badAmount);
+            String msg = "Should not have been able to create wager " 
+                    + badWager.toString() + " with amount " 
+                    + badAmount.toString();
             fail(msg);
         } catch (IllegalArgumentException iae) {
             System.out.println("Trying to create wager with " 

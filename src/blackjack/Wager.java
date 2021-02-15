@@ -31,6 +31,11 @@ public class Wager {
     }
     
     public Wager(CurrencyAmount amount) {
+        if (amount.getAmountInCents() < 0) {
+            String excMsg = "Negative amount " + amount.toString() 
+                    + " is not a valid wager amount";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.wagerAmount = amount;
     }
     
