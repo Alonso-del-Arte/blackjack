@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -145,7 +145,7 @@ public class MultiDeckCardDispenser implements CardSupplier {
         this.cards = new ArrayList<>();
         for (int i = 0; i < numberOfDecks; i++) {
             this.decks[i] = new CardDeck();
-            this.decks[i].shuffle(); // TODO: Determine if this helps randomness
+            this.decks[i].shuffle();
             while (this.decks[i].hasNext()) {
                 this.cards.add(this.decks[i].getNextCard());
             }

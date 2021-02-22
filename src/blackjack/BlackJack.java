@@ -54,10 +54,10 @@ public class BlackJack {
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
-    private static final CurrencyAmount ZERO_DOLLARS = new CurrencyAmount(0, 
+    private static final CurrencyAmount ONE_PENNY = new CurrencyAmount(1, 
             DOLLARS);
     
-    private static final Wager DEALERS_WAGER = new Wager(ZERO_DOLLARS);
+    private static final Wager DEALERS_WAGER = new Wager(ONE_PENNY);
 
     // TODO: Break up playGameAtCommandLine() into smaller units
     /**

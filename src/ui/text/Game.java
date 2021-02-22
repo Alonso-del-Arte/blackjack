@@ -14,29 +14,18 @@
  * You should have received a copy of the GNU General Public License along with 
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package blackjack;
+package ui.text;
 
-import currency.CurrencyAmount;
+import playingcards.PlayingCard;
+import playingcards.Rank;
+import playingcards.Suit;
 
 /**
- * Represents a wager for a blackjack hand or bet.
+ *
  * @author Alonso del Arte
  */
-public class Wager {
+public class Game {
     
-    private final CurrencyAmount wagerAmount;
-    
-    public CurrencyAmount getAmount() {
-        return this.wagerAmount;
-    }
-    
-    public Wager(CurrencyAmount amount) {
-        if (amount.getAmountInCents() < 1) {
-            String excMsg = "Non-positive amount " + amount.toString() 
-                    + " is not a valid wager amount";
-            throw new IllegalArgumentException(excMsg);
-        }
-        this.wagerAmount = amount;
-    }
+    // TODO: Move in text game currently in blackjack.BlackJack
     
 }

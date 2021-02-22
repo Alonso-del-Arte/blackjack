@@ -14,29 +14,26 @@
  * You should have received a copy of the GNU General Public License along with 
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package blackjack;
+package ui.graphical;
 
-import currency.CurrencyAmount;
+import playingcards.PlayingCard;
+import playingcards.Rank;
+import playingcards.Suit;
+
+import java.awt.Canvas;
+
+import javax.swing.JFrame;
 
 /**
- * Represents a wager for a blackjack hand or bet.
+ *
  * @author Alonso del Arte
  */
-public class Wager {
+public class CardViewer {
     
-    private final CurrencyAmount wagerAmount;
+    // TODO: Make this program
     
-    public CurrencyAmount getAmount() {
-        return this.wagerAmount;
-    }
-    
-    public Wager(CurrencyAmount amount) {
-        if (amount.getAmountInCents() < 1) {
-            String excMsg = "Non-positive amount " + amount.toString() 
-                    + " is not a valid wager amount";
-            throw new IllegalArgumentException(excMsg);
-        }
-        this.wagerAmount = amount;
+    public static void main(String[] args) {
+        //
     }
     
 }
