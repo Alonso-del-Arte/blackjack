@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -49,7 +49,8 @@ public class PairSpecTest {
     
     @Test
     public void testNotEqualsDiffClass() {
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, TestingSpec.ODD_PIP);
+        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
+                TestingSpec.ODD_PIP);
         PlayingCard card = SERVER.getNextCard();
         assertNotEquals(spec, card);
     }
@@ -99,7 +100,7 @@ public class PairSpecTest {
         }
         int specSetSize = specs.size();
         int hashSetSize = hashes.size();
-        String msg = "Set of specs should be the same size as set of hash codes";
+        String msg = "Set of specs should be same size as set of hash codes";
         assertEquals(msg, specSetSize, hashSetSize);
     }
     
@@ -123,10 +124,10 @@ public class PairSpecTest {
         Rank cardBRank = Rank.QUEEN;
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, TestingSpec.ODD_PIP);
-        // TODO: Use getWord() instead of toString() once TestingSpec passes tests
-        String msg = "Pair specification for " + TestingSpec.COURT.toString()
-                + " and " + TestingSpec.ODD_PIP.toString() + " should match " 
+        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
+                TestingSpec.ODD_PIP);
+        String msg = "Pair specification for " + TestingSpec.COURT.getWord()
+                + " and " + TestingSpec.ODD_PIP.getWord() + " should match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
@@ -140,10 +141,10 @@ public class PairSpecTest {
         Rank cardBRank = Rank.QUEEN;
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.EVEN_PIP, TestingSpec.COURT);
-        // TODO: Use getWord() instead of toString() once TestingSpec passes tests
-        String msg = "Pair specification for " + TestingSpec.EVEN_PIP.toString()
-                + " and " + TestingSpec.COURT.toString() + " should NOT match " 
+        PairSpec spec = new PairSpecImpl(TestingSpec.EVEN_PIP, 
+                TestingSpec.COURT);
+        String msg = "Pair specification for " + TestingSpec.EVEN_PIP.getWord()
+                + " and " + TestingSpec.COURT.getWord() + " should NOT match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert !spec.matches(cardA, cardB) : msg;
     }
@@ -157,10 +158,10 @@ public class PairSpecTest {
         Rank cardBRank = Rank.THREE;
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, TestingSpec.ODD_PIP);
-        // TODO: Use getWord() instead of toString() once TestingSpec passes tests
-        String msg = "Pair specification for " + TestingSpec.COURT.toString()
-                + " and " + TestingSpec.ODD_PIP.toString() + " should match " 
+        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
+                TestingSpec.ODD_PIP);
+        String msg = "Pair specification for " + TestingSpec.COURT.getWord()
+                + " and " + TestingSpec.ODD_PIP.getWord() + " should match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
@@ -185,7 +186,6 @@ public class PairSpecTest {
                 case QUEEN:
                 case KING:
                     return TestingSpec.COURT;
-                // TODO: Re-assess default case
                 default:
                     throw new RuntimeException("Match error");
             }

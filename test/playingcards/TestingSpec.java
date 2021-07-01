@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -33,22 +33,19 @@ public enum TestingSpec implements CardSpec {
     private final char specChar;
     private final String specWord;
 
-    // STUB TO FAIL THE FIRST TEST
     @Override
     public char getChar() {
-        return '?';
+        return this.specChar;
     }
 
-    // STUB TO FAIL THE FIRST TEST
     @Override
     public char getCharASCII() {
-        return '?';
+        return this.specChar;
     }
 
-    // STUB TO FAIL THE FIRST TEST
     @Override
     public String getWord() {
-        return "Sorry, not implemented yet";
+        return this.specWord;
     }
 
     TestingSpec(char ch, String word) {
