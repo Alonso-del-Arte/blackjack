@@ -14,13 +14,17 @@
  * You should have received a copy of the GNU General Public License along with 
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package ui.graphical;
+package ui.graphical.elements;
 
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.Suit;
 
 import java.awt.Canvas;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 
 import javax.swing.JFrame;
 
