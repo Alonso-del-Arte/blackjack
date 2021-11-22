@@ -76,9 +76,53 @@ public class MockGraphicsTest {
         assertEquals(font, g.getFont());
     }
     
+    @Test
+    public void testAuxiliaryInferredColorConstructor() {
+        Font font = FONTS[FONTS.length - 1];
+        Graphics g = new MockGraphics(font);
+        Color expected = Color.BLACK;
+        Color actual = g.getColor();
+        assertEquals(expected, actual);
+        assertEquals(font, g.getFont());
+    }
+    
+    @Test
+    public void testAuxiliaryInferredFontConstructor() {
+        int rgb = RANDOM.nextInt();
+        Color color = new Color(rgb);
+        Graphics g = new MockGraphics(color);
+        Font expected = FONTS[0];
+        Font actual = g.getFont();
+        assertEquals(expected, actual);
+        assertEquals(color, g.getColor());
+    }
+    
+    @Test
+    public void testPublicConstructor() {
+        Graphics g = new MockGraphics();
+        Color expColor = Color.BLACK;
+        Color actColor = g.getColor();
+        Font expFont = FONTS[0];
+        Font actFont = g.getFont();
+        assertEquals(expColor, actColor);
+        assertEquals(expFont, actFont);
+    }
+    
+    @Test
+    public void testSetColor() {
+        System.out.println("setColor");
+        int rgb = RANDOM.nextInt(65280);
+        Color initColor = new Color(rgb);
+        Graphics g = new MockGraphics(initColor);
+        Color expected = initColor.brighter();
+        g.setColor(expected);
+        Color actual = g.getColor();
+        assertEquals(expected, actual);
+    }
+    
 //    @Test
-//    public void testSetColor() {
-//        System.out.println("setColor");
+//    public void testTranslate() {
+//        System.out.println("translate");
 //        fail("Haven't written test yet");
 //    }
     

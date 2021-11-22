@@ -46,6 +46,9 @@ public class MockGraphics extends Graphics {
     
     private FontMetrics currFontMetrics;
     
+    private static final Font FIRST_FONT = GraphicsEnvironment
+            .getLocalGraphicsEnvironment().getAllFonts()[0];
+    
     @Override
     public void clearRect(int x, int y, int width, int height) {
         // TODO: Write tests for this
@@ -190,14 +193,12 @@ public class MockGraphics extends Graphics {
     
     @Override
     public Color getColor() {
-        return Color.ORANGE;
+        return this.currColor;
     }
     
     @Override
     public Font getFont() {
-        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment()
-                .getAllFonts()[0];
-        return font;
+        return this.currFont;
     }
     
     // TODO: Write tests for this
@@ -241,23 +242,48 @@ public class MockGraphics extends Graphics {
         // TODO: Write tests for this
     }
     
-    // TODO: Write tests for this
+    /**
+     * Constructor. Note that this is the only public constructor. Color is 
+     * black and font is whatever font happens to be listed first by AWT's 
+     * <code>getAllFonts()</code>.
+     */
     public MockGraphics() {
-        this(Color.YELLOW, Font.getFont("Comic Sans MS"));
+        this(Color.BLACK, FIRST_FONT);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Constructor. Note that this constructor is package private. The font is 
+     * inferred to be whatever happens to be listed first by AWT's 
+     * <code>getAllFonts()</code>.
+     * @param color The color to be returned by the first call to {@link 
+     * #getColor()}, provided no call to {@link #setColor(java.awt.Color)} has 
+     * been made before then.
+     */
     MockGraphics(Color color) {
-        this(color, Font.getFont("Comic Sans MS"));
+        this(color, FIRST_FONT);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Constructor. Note that this constructor is package private. The color is 
+     * inferred to be black.
+     * @param font The font to be returned by {@link #getFont()}, provided no 
+     * call to {@link #setFont(java.awt.Font)} has been made before then.
+     */
     MockGraphics(Font font) {
-        this(Color.MAGENTA, font);
+        this(Color.BLACK, font);
     }
     
+    /**
+     * Constructor. Note that this constructor is package private.
+     * @param color The color to be returned by the first call to {@link 
+     * #getColor()}, provided no call to {@link #setColor(java.awt.Color)} has 
+     * been made before then.
+     * @param font The font to be returned by {@link #getFont()}, provided no 
+     * call to {@link #setFont(java.awt.Font)} has been made before then.
+     */
     MockGraphics(Color color, Font font) {
-        // TODO: Write tests for this
+        this.currColor = color;
+        this.currFont = font;
     }
     
 }
