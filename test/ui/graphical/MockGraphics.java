@@ -21,6 +21,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
@@ -30,7 +31,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * A subclass of <code>Graphics</code> that does little besides log calls.
+ * A subclass of <code>Graphics</code> that does little besides log calls. 
+ * Though I haven't decided if I'll actually use any of the usual logging since 
+ * order of class loading is not a concern here. So I might opt for a more 
+ * direct way of querying what calls have been made.
  * <p>I'm not sure if this is just reproducing <code>DebugGraphics</code>.</p>
  * @author Alonso del Arte
  */
@@ -184,16 +188,16 @@ public class MockGraphics extends Graphics {
         return null;
     }
     
-    // TODO: Write tests for this
     @Override
     public Color getColor() {
-        return null;
+        return Color.ORANGE;
     }
     
-    // TODO: Write tests for this
     @Override
     public Font getFont() {
-        return null;
+        Font font = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                .getAllFonts()[0];
+        return font;
     }
     
     // TODO: Write tests for this
@@ -234,6 +238,25 @@ public class MockGraphics extends Graphics {
     
     @Override
     public void translate(int x, int y) {
+        // TODO: Write tests for this
+    }
+    
+    // TODO: Write tests for this
+    public MockGraphics() {
+        this(Color.YELLOW, Font.getFont("Comic Sans MS"));
+    }
+    
+    // TODO: Write tests for this
+    MockGraphics(Color color) {
+        this(color, Font.getFont("Comic Sans MS"));
+    }
+    
+    // TODO: Write tests for this
+    MockGraphics(Font font) {
+        this(Color.MAGENTA, font);
+    }
+    
+    MockGraphics(Color color, Font font) {
         // TODO: Write tests for this
     }
     

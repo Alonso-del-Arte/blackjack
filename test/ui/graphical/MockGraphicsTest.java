@@ -22,6 +22,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Polygon;
 import java.awt.Rectangle;
@@ -42,10 +43,43 @@ import static org.junit.Assert.*;
  */
 public class MockGraphicsTest {
     
+    private static final Font[] FONTS 
+            = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+    
+    private static final Random RANDOM = new Random();
+    
     @Test
-    public void testSetColor() {
-        System.out.println("setColor");
-        fail("Haven't written test yet");
+    public void testGetColor() {
+        System.out.println("getColor");
+        Graphics g = new MockGraphics();
+        Color color = g.getColor();
+        String msg = "Color should not be null";
+        assert color != null : msg;
     }
+    
+    @Test
+    public void testGetFont() {
+        System.out.println("getFont");
+        Graphics g = new MockGraphics();
+        Font font = g.getFont();
+        String msg = "Font should not be null";
+        assert font != null : msg;
+    }
+    
+    @Test
+    public void testPrimaryConstructor() {
+        int rgb = RANDOM.nextInt();
+        Color color = new Color(rgb);
+        Font font = FONTS[FONTS.length - 1];
+        Graphics g = new MockGraphics(color, font);
+        assertEquals(color, g.getColor());
+        assertEquals(font, g.getFont());
+    }
+    
+//    @Test
+//    public void testSetColor() {
+//        System.out.println("setColor");
+//        fail("Haven't written test yet");
+//    }
     
 }

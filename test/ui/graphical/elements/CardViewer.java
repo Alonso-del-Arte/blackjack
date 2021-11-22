@@ -16,8 +16,8 @@
  */
 package ui.graphical.elements;
 
+import playingcards.CardProvider;
 import playingcards.PlayingCard;
-import playingcards.Rank;
 import playingcards.Suit;
 
 import java.awt.Canvas;
@@ -27,6 +27,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import playingcards.Rank;
 
 /**
  *
@@ -34,7 +36,22 @@ import javax.swing.JFrame;
  */
 public class CardViewer {
     
+    private static final CardProvider CARD_PROVIDER = new CardProvider();
+    
+    private static final PlayingCard ACE_OF_SPADES 
+            = CARD_PROVIDER.giveCard(Rank.ACE, Suit.SPADES);
+    
+    private PlayingCard currCard = ACE_OF_SPADES;
+    
     // TODO: Make this program
+    
+    CardViewer() {
+        this(null);
+    }
+    
+    CardViewer(PlayingCard card) {
+        // TODO: Write tests for this
+    }
     
     public static void main(String[] args) {
         //
