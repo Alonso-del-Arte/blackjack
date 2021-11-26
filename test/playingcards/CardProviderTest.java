@@ -28,7 +28,48 @@ public class CardProviderTest {
     @Test
     public void testGiveCard() {
         System.out.println("giveCard");
-        fail("Haven't written test yet");
+        CardProvider provider = new CardProvider();
+        Rank[] ranks = Rank.values();
+        Suit[] suits = Suit.values();
+        for (Rank rank : ranks) {
+            for (Suit suit: suits) {
+                PlayingCard expected = new PlayingCard(rank, suit);
+                PlayingCard actual = provider.giveCard(rank, suit);
+                assertEquals(expected, actual);
+            }
+        }
+    }
+    
+    @Test
+    public void testGiveCardsByRank() {
+        PlayingCard[] expected = new PlayingCard[4];
+        PlayingCard[] actual;
+        Rank[] ranks = Rank.values();
+        Suit[] suits = Suit.values();
+        CardProvider provider = new CardProvider();
+        for (Rank rank : ranks) {
+            for (Suit suit : suits) {
+                expected[suit.ordinal()] = new PlayingCard(rank, suit);
+            }
+            actual = provider.giveCards(rank);
+            assertArrayEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    public void testGiveCardsBySuit() {
+        PlayingCard[] expected = new PlayingCard[13];
+        PlayingCard[] actual;
+        Rank[] ranks = Rank.values();
+        Suit[] suits = Suit.values();
+        CardProvider provider = new CardProvider();
+        for (Suit suit : suits) {
+            for (Rank rank : ranks) {
+                expected[rank.ordinal()] = new PlayingCard(rank, suit);
+            }
+            actual = provider.giveCards(suit);
+            assertArrayEquals(expected, actual);
+        }
     }
     
 }
