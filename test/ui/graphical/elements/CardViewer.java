@@ -41,20 +41,36 @@ public class CardViewer {
     private static final PlayingCard ACE_OF_SPADES 
             = CARD_PROVIDER.giveCard(Rank.ACE, Suit.SPADES);
     
-    private PlayingCard currCard = ACE_OF_SPADES;
+    private PlayingCard currCard;
     
-    // TODO: Make this program
-    
-    CardViewer() {
-        this(null);
+    PlayingCard getDisplayedCard() {
+        return this.currCard;
     }
     
+    public void show() {
+        //
+    }
+    
+    CardViewer() {
+        this(ACE_OF_SPADES);
+    }
+    
+    /**
+     * Primary constructor.
+     * @param card The card to first display.
+     * @throws NullPointerException If <code>card</code> is null.
+     */
     CardViewer(PlayingCard card) {
-        // TODO: Write tests for this
+        if (card == null) {
+            String excMsg = "Card must not be null";
+            throw new NullPointerException(excMsg);
+        }
+        this.currCard = card;
     }
     
     public static void main(String[] args) {
-        //
+        CardViewer viewer = new CardViewer();
+        viewer.show();
     }
     
 }
