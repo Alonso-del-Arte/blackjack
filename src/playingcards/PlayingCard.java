@@ -197,9 +197,9 @@ public class PlayingCard {
      * Tells whether this card is a court card or not. Other terms for "court 
      * card" include "face card," "picture card" and "painting card."
      * @return True for Jacks, Queens and Kings, false for all others.
-     */    // TODO: Write tests for this
-    public boolean isCourtCard() {return true;
-//        return this.cardRank.isCourtRank();
+     */
+    public boolean isCourtCard() {
+        return this.cardRank.isCourtRank();
     }
     
     // TODO: Write tests for this

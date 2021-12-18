@@ -32,8 +32,8 @@ public class PlayingCardTest {
     private static final char HIGH_SURROGATE = '\uD83C';
 
     /**
-     * Test of equals method, of class PlayingCard. A playing card should be 
-     * considered equal to itself.
+     * Test of the equals function, of the PlayingCard class. A playing card 
+     * should be considered equal to itself.
      */
     @Test
     public void testReferentialEquality() {
@@ -43,8 +43,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of equals method, of class PlayingCard. A playing card 
-     * reference should not be equal to a null reference.
+     * Another test of the equals function, of the PlayingCard class. A playing 
+     * card reference should not be equal to a null reference.
      */
     @Test
     public void testNotEqualsNull() {
@@ -53,9 +53,9 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of equals method, of class PlayingCard. An instance of 
-     * PlayingCard should not be considered equal to an instance of another 
-     * class.
+     * Another test of the equals function, of the PlayingCard class. An 
+     * instance of PlayingCard should not be considered equal to an instance of 
+     * another class.
      */
     @Test
     public void testNotEqualsOtherClass() {
@@ -64,9 +64,9 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of equals method, of class PlayingCard. A playing card of a 
-     * given rank should not be considered equal to another playing card of the 
-     * same rank but different suit.
+     * Another test of the equals function, of the PlayingCard class. A playing 
+     * card of a given rank should not be considered equal to another playing 
+     * card of the same rank but different suit.
      */
     @Test
     public void testNotEqualsSameRankDiffSuit() {
@@ -76,9 +76,9 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of equals method, of class PlayingCard. A playing card of a 
-     * given suit should not be considered equal to another playing card of the 
-     * same suit but different rank.
+     * Another test of the equals function, of the PlayingCard class. A playing 
+     * card of a given suit should not be considered equal to another playing 
+     * card of the same suit but different rank.
      */
     @Test
     public void testNotEqualsDiffRankSameSuit() {
@@ -88,9 +88,9 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of equals method, of class PlayingCard. Two playing cards 
-     * should be considered equal if they are of the same suit and the same 
-     * rank.
+     * Another test of the equals function, of the PlayingCard class. Two 
+     * playing cards should be considered equal if they are of the same suit and 
+     * the same rank.
      */
     @Test
     public void testEqualsSameRankSameSuit() {
@@ -116,8 +116,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of hashCode method, of class PlayingCard. Given 52 distinct cards, 
-     * there should 52 distinct hash codes.
+     * Test of the hashCode function, of the PlayingCard class. Given 52 
+     * distinct cards, there should 52 distinct hash codes.
      */
     @Test
     public void testHashCodeUniqueness() {
@@ -140,30 +140,33 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of toString method, of class PlayingCard.
+     * Test of the toString function, of the PlayingCard class. For the Ace of 
+     * Spades, this should return "A&#9824;".
      */
     @Test
     public void testToStringAceOfSpades() {
         System.out.println("toString");
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String expResult = "A\u2660";
-        String result = spadesAce.toString();
-        assertEquals(expResult, result);
+        String expected = "A\u2660";
+        String actual = spadesAce.toString();
+        assertEquals(expected, actual);
     }
 
     /**
-     * Another of toString method, of class PlayingCard.
+     * Another test of the toString function, of the PlayingCard class. For the 
+     * Four of Diamonds, this should return "4&#9830;".
      */
     @Test
     public void testToStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
-        String expResult = "4\u2666";
-        String result = diamondsFour.toString();
-        assertEquals(expResult, result);
+        String expected = "4\u2666";
+        String actual = diamondsFour.toString();
+        assertEquals(expected, actual);
     }
 
     /**
-     * Another of toString method, of class PlayingCard.
+     * Another test of the toString function, of the PlayingCard class. For the 
+     * Queen of Hearts, this should return "Q&#9829;".
      */
     @Test
     public void testToStringQueenOfHearts() {
@@ -174,41 +177,45 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another of toString method, of class PlayingCard.
+     * Another test of the toString function, of the PlayingCard class. For the 
+     * Ten of Clubs, this should return "10&#9827;".
      */
     @Test
     public void testToStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        String expResult = "10\u2663";
-        String result = clubsTen.toString();
-        assertEquals(expResult, result);
+        String expected = "10\u2663";
+        String actual = clubsTen.toString();
+        assertEquals(expected, actual);
     }
 
     /**
-     * Test of toASCIIString method, of class PlayingCard.
+     * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
+     * of Spaces, this should be "Ace of Spades".
      */
     @Test
     public void testToASCIIStringAceOfSpades() {
         System.out.println("toASCIIString");
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String expResult = "Ace of Spades";
-        String result = spadesAce.toASCIIString();
-        assertEquals(expResult, result);
+        String expected = "Ace of Spades";
+        String actual = spadesAce.toASCIIString();
+        assertEquals(expected, actual);
     }
 
     /**
-     * Another of toASCIIString method, of class PlayingCard.
+     * Another test of the toASCIIString function, of the PlayingCard class. For 
+     * the Four of Diamonds this should be "Four of Diamonds".
      */
     @Test
     public void testToASCIIStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
-        String expResult = "Four of Diamonds";
-        String result = diamondsFour.toASCIIString();
-        assertEquals(expResult, result);
+        String expected = "Four of Diamonds";
+        String actual = diamondsFour.toASCIIString();
+        assertEquals(expected, actual);
     }
 
     /**
-     * Another of toASCIIString method, of class PlayingCard.
+     * Another test of the toASCIIString function, of the PlayingCard class. For 
+     * the Queen of Hearts this should be "Queen of Hearts".
      */
     @Test
     public void testToASCIIStringQueenOfHearts() {
@@ -219,19 +226,20 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another of toASCIIString method, of class PlayingCard.
+     * Another test of toASCIIString function, of the PlayingCard class. For the 
+     * Ten of Clubs this should be "Ten of Clubs".
      */
     @Test
     public void testToASCIIStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        String expResult = "Ten of Clubs";
-        String result = clubsTen.toASCIIString();
-        assertEquals(expResult, result);
+        String expected = "Ten of Clubs";
+        String actual = clubsTen.toASCIIString();
+        assertEquals(expected, actual);
     }
     
     /**
-     * Test of toUnicodeSMPChar method, of class PlayingCard. This is testing 
-     * A&#9824;, 2&#9824;, ..., 10&#9824;, J&#9824;.
+     * Test of the toUnicodeSMPChar function, of the PlayingCard class. This is 
+     * testing A&#9824;, 2&#9824;, ..., 10&#9824;, J&#9824;.
      */
     @Test
     public void testToUnicodeSMPCharMostSpades() {
@@ -252,8 +260,8 @@ public class PlayingCardTest {
     }
     
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing Q&#9824; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing Q&#9824; on account of the need to skip over 
      * C&#9824.
      */
     @Test
@@ -265,8 +273,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing K&#9824; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing K&#9824; on account of the need to skip over 
      * C&#9824.
      */
     @Test
@@ -278,8 +286,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * testing A&#9829;, 2&#9829;, ..., 10&#9829;, J&#9829;.
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is testing A&#9829;, 2&#9829;, ..., 10&#9829;, J&#9829;.
      */
     @Test
     public void testToUnicodeSMPCharMostHearts() {
@@ -299,8 +307,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing Q&#9829; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing Q&#9829; on account of the need to skip over 
      * C&#9829.
      */
     @Test
@@ -312,8 +320,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing K&#9829; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing K&#9829; on account of the need to skip over 
      * C&#9829.
      */
     @Test
@@ -325,8 +333,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * testing A&#9830;, 2&#9830;, ..., 10&#9830;, J&#9830;.
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is testing A&#9830;, 2&#9830;, ..., 10&#9830;, J&#9830;.
      */
     @Test
     public void testToUnicodeSMPCharMostDiamonds() {
@@ -346,8 +354,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing Q&#9830; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing Q&#9830; on account of the need to skip over 
      * C&#9830.
      */
     @Test
@@ -359,8 +367,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing K&#9830; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing K&#9830; on account of the need to skip over 
      * C&#9830.
      */
     @Test
@@ -372,8 +380,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * testing A&#9827;, 2&#9827;, ..., 10&#9827;, J&#9827;.
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is testing A&#9827;, 2&#9827;, ..., 10&#9827;, J&#9827;.
      */
     @Test
     public void testToUnicodeSMPCharMostClubs() {
@@ -393,8 +401,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing Q&#9827; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing Q&#9827; on account of the need to skip over 
      * C&#9827.
      */
     @Test
@@ -406,8 +414,8 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of toUnicodeSMPChar method, of class PlayingCard. This is 
-     * specifically testing K&#9827; on account of the need to skip over 
+     * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
+     * This is specifically testing K&#9827; on account of the need to skip over 
      * C&#9827.
      */
     @Test
@@ -419,7 +427,7 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of cardValue method, of class PlayingCard.
+     * Test of the cardValue function, of the PlayingCard class.
      */
     @Test
     public void testCardValue() {
@@ -437,7 +445,7 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of getRank method, of class PlayingCard.
+     * Test of the getRank function, of the PlayingCard class.
      */
     @Test
     public void testGetRankOfATen() {
@@ -447,7 +455,7 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of getRank method, of class PlayingCard.
+     * Another test of the getRank function, of the PlayingCard class.
      */
     @Test
     public void testGetRankOfAKing() {
@@ -456,57 +464,56 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of isOf(Rank) method, of class PlayingCard.
+     * Test of the isOf(Rank) function, of the PlayingCard class.
      */
     @Test
     public void testIsOfRank() {
         System.out.println("isOf(Rank)");
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String assertionMessage = spadesAce.toString()
-                + " should be recognized as an Ace";
-        assert spadesAce.isOf(Rank.ACE) : assertionMessage;
+        String msg = spadesAce.toString() + " should be recognized as an Ace";
+        assert spadesAce.isOf(Rank.ACE) : msg;
     }
 
     /**
-     * Another test of isOf(Rank) method, of class PlayingCard.
+     * Another test of the isOf(Rank) function, of the PlayingCard class.
      */
     @Test
     public void testIsNotOfRank() {
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String assertionMessage = spadesAce.toString()
+        String msg = spadesAce.toString() 
                 + " should not be considered to be a Three";
-        assert !spadesAce.isOf(Rank.THREE) : assertionMessage;
+        assert !spadesAce.isOf(Rank.THREE) : msg;
     }
 
     /**
-     * Test of isSameRank method, of class PlayingCard.
+     * Test of the isSameRank function, of the PlayingCard class.
      */
     @Test
     public void testIsSameRank() {
         System.out.println("isSameRank");
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
         PlayingCard heartsAce = new PlayingCard(Rank.ACE, Suit.HEARTS);
-        String assertionMessage = spadesAce.toString()
+        String msg = spadesAce.toString()
                 + " should be recognized as being the same rank as "
                 + heartsAce.toString();
-        assert spadesAce.isSameRank(heartsAce) : assertionMessage;
+        assert spadesAce.isSameRank(heartsAce) : msg;
     }
 
     /**
-     * Another test of isSameRank method, of class PlayingCard.
+     * Another test of the isSameRank function, of the PlayingCard class.
      */
     @Test
     public void testIsNotSameRank() {
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
         PlayingCard spadesTwo = new PlayingCard(Rank.TWO, Suit.SPADES);
-        String assertionMessage = spadesAce.toString()
+        String msg = spadesAce.toString() 
                 + " should not be considered as being the same rank as "
                 + spadesTwo.toString();
-        assert !spadesAce.isSameRank(spadesTwo) : assertionMessage;
+        assert !spadesAce.isSameRank(spadesTwo) : msg;
     }
 
     /**
-     * Test of getSuit method, of class PlayingCard.
+     * Test of the getSuit function, of the PlayingCard class.
      */
     @Test
     public void testGetSuitOfASpade() {
@@ -516,7 +523,7 @@ public class PlayingCardTest {
     }
 
     /**
-     * Another test of getSuit method, of class PlayingCard.
+     * Another test of the getSuit function, of the PlayingCard class.
      */
     @Test
     public void testGetSuitOfAClub() {
@@ -525,111 +532,111 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of isOf(Suit) method, of class PlayingCard.
+     * Test of the isOf(Suit) function, of the PlayingCard class.
      */
     @Test
     public void testIsOfSuit() {
         System.out.println("isOfSuit");
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String assertionMessage = heartsQueen.toString()
+        String msg = heartsQueen.toString()
                 + " should be recognized as a card of hearts";
-        assert heartsQueen.isOf(Suit.HEARTS) : assertionMessage;
+        assert heartsQueen.isOf(Suit.HEARTS) : msg;
     }
 
     /**
-     * Another test of isOf(Suit) method, of class PlayingCard.
+     * Another test of the isOf(Suit) function, of the PlayingCard class.
      */
     @Test
     public void testIsNotOfSuit() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String assertionMessage = heartsQueen.toString()
+        String msg = heartsQueen.toString()
                 + " should not be considered a card of clubs";
-        assert !heartsQueen.isOf(Suit.CLUBS) : assertionMessage;
+        assert !heartsQueen.isOf(Suit.CLUBS) : msg;
     }
 
     /**
-     * Test of isSameSuit method, of class PlayingCard.
+     * Test of the isSameSuit function, of the PlayingCard class.
      */
     @Test
     public void testIsSameSuit() {
         System.out.println("isSameSuit");
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
         PlayingCard heartsKing = new PlayingCard(Rank.KING, Suit.HEARTS);
-        String assertionMessage = heartsQueen.toString()
+        String msg = heartsQueen.toString()
                 + " should be recognized as being of the same suit as "
                 + heartsKing.toString();
-        assert heartsQueen.isSameSuit(heartsKing) : assertionMessage;
+        assert heartsQueen.isSameSuit(heartsKing) : msg;
     }
 
     /**
-     * Another test of isSameSuit method, of class PlayingCard.
+     * Another test of the isSameSuit function, of the PlayingCard class.
      */
     @Test
     public void testIsNotSameSuit() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
         PlayingCard spadesQueen = new PlayingCard(Rank.QUEEN, Suit.SPADES);
-        String assertionMessage = heartsQueen.toString()
+        String msg = heartsQueen.toString()
                 + " should not be considered to be of the same suit as "
                 + spadesQueen.toString();
-        assert !heartsQueen.isSameSuit(spadesQueen) : assertionMessage;
+        assert !heartsQueen.isSameSuit(spadesQueen) : msg;
     }
 
     /**
-     * Test of isCourtCard method, of class PlayingCard.
+     * Test of the isCourtCard function, of the PlayingCard class.
      */
     @Test
     public void testJacksAreCourtCards() {
         System.out.println("isCourtCard");
         PlayingCard jack;
-        String assertionMessage;
+        String msg;
         for (Suit suit : Suit.values()) {
             jack = new PlayingCard(Rank.JACK, suit);
-            assertionMessage = jack.toString() + " is a court card";
-            assert jack.isCourtCard() : assertionMessage;
+            msg = jack.toString() + " is a court card";
+            assert jack.isCourtCard() : msg;
         }
     }
 
     /**
-     * Another test of isCourtCard method, of class PlayingCard.
+     * Another test of the isCourtCard function, of the PlayingCard class.
      */
     @Test
     public void testQueensAreCourtCards() {
         PlayingCard queen;
-        String assertionMessage;
+        String msg;
         for (Suit suit : Suit.values()) {
             queen = new PlayingCard(Rank.QUEEN, suit);
-            assertionMessage = queen.toString() + " is a court card";
-            assert queen.isCourtCard() : assertionMessage;
+            msg = queen.toString() + " is a court card";
+            assert queen.isCourtCard() : msg;
         }
     }
 
     /**
-     * Another test of isCourtCard method, of class PlayingCard.
+     * Another test of the isCourtCard function, of the PlayingCard class.
      */
     @Test
     public void testKingsAreCourtCards() {
         PlayingCard king;
-        String assertionMessage;
+        String msg;
         for (Suit suit : Suit.values()) {
             king = new PlayingCard(Rank.KING, suit);
-            assertionMessage = king.toString() + " is a court card";
-            assert king.isCourtCard() : assertionMessage;
+            msg = king.toString() + " is a court card";
+            assert king.isCourtCard() : msg;
         }
     }
 
     /**
-     * Another test of isCourtCard method, of class PlayingCard.
+     * Another test of the isCourtCard function, of the PlayingCard class.
      */
     @Test
     public void testPipCardsAreNotCourtCards() {
         PlayingCard card;
-        String assertionMessage;
+        String msg;
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
                 if (!rank.isCourtRank()) {
                     card = new PlayingCard(rank, suit);
-                    assertionMessage = card.toString() + " is not a court card";
-                    assert !card.isCourtCard() : assertionMessage;
+                    msg = card.toString() + " is not a court card";
+                    assert !card.isCourtCard() : msg;
                 }
             }
         }
