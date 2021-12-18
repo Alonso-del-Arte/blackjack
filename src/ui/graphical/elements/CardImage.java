@@ -44,12 +44,10 @@ public class CardImage {
     }
     
     private void drawPips(Graphics g, final Point p, final Dimension size) {
-        System.out.println(p.toString());
         //
     }
     
     private void drawRoyal(Graphics g, final Point p, final Dimension size) {
-        System.out.println(p.toString());
         //
     }
     
@@ -59,23 +57,7 @@ public class CardImage {
         g.drawRect(p.x, p.y, size.width, size.height);
         g.setColor(Color.WHITE);
         g.fillRect(p.x, p.y, size.width, size.height);
-//        g.setColor(this.playingCard.getSuit());
-// TODO: Shift this to the Suit enumeration
-Color textColor = Color.GREEN;
-switch (this.playingCard.getSuit()) {
-    case CLUBS:
-    case SPADES:
-        textColor = Color.BLACK;
-        break;
-    case DIAMONDS:
-    case HEARTS:
-        textColor = Color.RED;
-        break;
-    default:
-        throw new RuntimeException("Unexpected suit " 
-                + this.playingCard.getSuit().toString());
-}
-g.setColor(textColor);
+        g.setColor(this.playingCard.getTextColor());
         this.writeEdgeLegend(g, p, size);
         if (this.playingCard.isCourtCard()) {
             this.drawRoyal(g, p, size);
@@ -83,7 +65,7 @@ g.setColor(textColor);
             this.drawPips(g, p, size);
         }
         g.setColor(Color.YELLOW);
-        g.drawString("TODO: Write tests for this", p.x + 20, p.y + 300);
+        g.drawString("DRAFT", p.x + 20, p.y + 250);
     }
     
     public void paintFaceDown(Graphics g, final Point p, final Dimension size) {
