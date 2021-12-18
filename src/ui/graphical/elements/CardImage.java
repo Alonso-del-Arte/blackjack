@@ -20,7 +20,9 @@ import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.Suit;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -33,15 +35,68 @@ public class CardImage {
     
     private final PlayingCard playingCard;
     
-    public void paintFaceUp(Graphics g, Point p, Dimension size) {
-        // TODO: Write tests for this
+    private void writeEdgeLegend(Graphics g, final Point p, 
+            final Dimension size) {
+        Point point = new Point(p.x, p.y);
+        point.translate(10, 100);
+        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 72));
+        g.drawString(this.playingCard.toString(), point.x, point.y);
     }
     
-    public void paintFaceDown(Graphics g, Point p, Dimension size) {
+    private void drawPips(Graphics g, final Point p, final Dimension size) {
+        System.out.println(p.toString());
+        //
+    }
+    
+    private void drawRoyal(Graphics g, final Point p, final Dimension size) {
+        System.out.println(p.toString());
+        //
+    }
+    
+    public void paintFaceUp(Graphics g, final Point p, final Dimension size) {
         // TODO: Write tests for this
+        g.setColor(Color.BLACK);
+        g.drawRect(p.x, p.y, size.width, size.height);
+        g.setColor(Color.WHITE);
+        g.fillRect(p.x, p.y, size.width, size.height);
+//        g.setColor(this.playingCard.getSuit());
+// TODO: Shift this to the Suit enumeration
+Color textColor = Color.GREEN;
+switch (this.playingCard.getSuit()) {
+    case CLUBS:
+    case SPADES:
+        textColor = Color.BLACK;
+        break;
+    case DIAMONDS:
+    case HEARTS:
+        textColor = Color.RED;
+        break;
+    default:
+        throw new RuntimeException("Unexpected suit " 
+                + this.playingCard.getSuit().toString());
+}
+g.setColor(textColor);
+        this.writeEdgeLegend(g, p, size);
+        if (this.playingCard.isCourtCard()) {
+            this.drawRoyal(g, p, size);
+        } else {
+            this.drawPips(g, p, size);
+        }
+        g.setColor(Color.YELLOW);
+        g.drawString("TODO: Write tests for this", p.x + 20, p.y + 300);
+    }
+    
+    public void paintFaceDown(Graphics g, final Point p, final Dimension size) {
+        // TODO: Write tests for this
+        g.setColor(Color.YELLOW);
+        g.drawString("TODO: Write tests for this", p.x, p.y);
     }
     
     public CardImage(PlayingCard card) {
+        if (card == null) {
+            String excMsg = "Playing card should not be null";
+            throw new NullPointerException(excMsg);
+        }
         this.playingCard = card;
     }
     

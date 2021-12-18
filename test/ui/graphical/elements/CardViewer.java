@@ -20,35 +20,95 @@ import playingcards.CardProvider;
 import playingcards.PlayingCard;
 import playingcards.Suit;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+
+import playingcards.CardProvider;
 import playingcards.Rank;
+import playingcards.Suit;
 
 /**
- *
+ * Just a simple program to display playing card images. This is not meant to 
+ * supplant automated tests, but rather to help me write those tests.
  * @author Alonso del Arte
  */
-public class CardViewer {
+public class CardViewer extends JPanel implements ItemListener {
     
-    private static final CardProvider CARD_PROVIDER = new CardProvider();
+    private static final Color BACKGROUND_COLOR = new Color(0, 128, 0);
+    
+    private static final Dimension USUAL_CARD_SIZE = new Dimension(250, 350);
+    
+    private static final Dimension PANEL_SIZE = new Dimension(270, 370);
+    
+    private static final Point TOP_LEFT_CORNER_PLACE = new Point(10, 10);
+    
+    private static final CardProvider CARD_GIVER = new CardProvider();
     
     private static final PlayingCard ACE_OF_SPADES 
-            = CARD_PROVIDER.giveCard(Rank.ACE, Suit.SPADES);
+            = CARD_GIVER.giveCard(Rank.ACE, Suit.SPADES);
     
     private PlayingCard currCard;
     
+    private JFrame frame;
+    
+    private final JComboBox<Rank> rankList = new JComboBox<>(Rank.values());
+    private final JComboBox<Suit> suitList = new JComboBox<>(Suit.values());
+    
+    private CardImage cardImage;
+    
+    // TODO: Write more tests for this
     PlayingCard getDisplayedCard() {
-        return this.currCard;
+        return CARD_GIVER.giveCard(Rank.JACK, Suit.CLUBS);
+//        return this.currCard;
     }
     
-    public void show() {
-        //
+    void setDisplayedCard(PlayingCard card) {
+        // TODO: Write tests for this
+    }
+    
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        this.cardImage.paintFaceUp(g, TOP_LEFT_CORNER_PLACE, USUAL_CARD_SIZE);
+    }
+    
+    @Override
+    public void itemStateChanged(ItemEvent ie) {
+        Rank rank = (Rank) this.rankList.getSelectedItem();
+        Suit suit = (Suit) this.suitList.getSelectedItem();
+        this.currCard = CARD_GIVER.giveCard(rank, suit);
+        this.cardImage = new CardImage(this.currCard);
+        this.frame.setTitle("Card Viewer: " + this.currCard.toString());
+        this.repaint();
+    }
+    
+    public void setUpViewer() {
+        this.frame = new JFrame("Card Viewer: " + this.currCard.toString());
+        this.setBackground(BACKGROUND_COLOR);
+        this.setPreferredSize(PANEL_SIZE);
+        JPanel dropDowns = new JPanel();
+        dropDowns.add(this.rankList);
+        dropDowns.add(this.suitList);
+        this.rankList.addItemListener(this);
+        this.suitList.addItemListener(this);
+        this.frame.add(dropDowns, BorderLayout.PAGE_START);
+        this.frame.add(this, BorderLayout.CENTER);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.pack();
+        this.frame.setVisible(true);
     }
     
     CardViewer() {
@@ -66,11 +126,12 @@ public class CardViewer {
             throw new NullPointerException(excMsg);
         }
         this.currCard = card;
+        this.cardImage = new CardImage(this.currCard);
     }
     
     public static void main(String[] args) {
         CardViewer viewer = new CardViewer();
-        viewer.show();
+        viewer.setUpViewer();
     }
     
 }

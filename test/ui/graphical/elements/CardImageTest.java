@@ -34,9 +34,22 @@ import static org.junit.Assert.*;
 public class CardImageTest {
     
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testConstructorRejectsNullCard() {
+        try {
+            CardImage badImage = new CardImage(null);
+            String msg = "Should not have been able to create " 
+                    + badImage.toString() + " with null card";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Trying to use null card correctly caused NPE");
+            String excMsg = npe.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+            System.out.println("\"" + excMsg + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for null card";
+            fail(msg);
+        }
     }
     
 }
