@@ -32,8 +32,10 @@ public class MultiDeckCardDispenserTest {
     public void testHasNext() {
         System.out.println("hasNext");
         int numberOfDecks = 3;
-        int expectedMax = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-        MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(numberOfDecks);
+        int expectedMax = numberOfDecks 
+                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        MultiDeckCardDispenser dispenser 
+                = new MultiDeckCardDispenser(numberOfDecks);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
         int counter = 0;
         try {
@@ -41,13 +43,15 @@ public class MultiDeckCardDispenserTest {
                 dispenser.getNextCard();
                 counter++;
             }
-            assert !dispenser.hasNext() : "Dispenser should have run out of cards";
+            assert !dispenser.hasNext() 
+                    : "Dispenser should have run out of cards";
         } catch (RanOutOfCardsException roce) {
-            String failMsg = "Expected dispenser to have " + expectedMax
-                    + " cards but it ran out after giving " + counter + " cards";
-            System.out.println(failMsg);
+            String msg = "Expected dispenser to have " + expectedMax
+                    + " cards but it ran out after giving " + counter 
+                    + " cards";
+            System.out.println(msg);
             System.out.println("\"" + roce.getMessage() + "\"");
-            fail(failMsg);
+            fail(msg);
         }
     }
 
@@ -75,9 +79,10 @@ public class MultiDeckCardDispenserTest {
     public void testGetNextCardStopsAtPlasticCard() {
         int numberOfDecks = 6;
         int plasticCardPos = 75;
-        int expectedMax = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK
-                - plasticCardPos;
-        MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
+        int expectedMax = numberOfDecks 
+                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - plasticCardPos;
+        MultiDeckCardDispenser dispenser 
+                = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
         int counter = 0;
         try {
@@ -85,13 +90,15 @@ public class MultiDeckCardDispenserTest {
                 dispenser.getNextCard();
                 counter++;
             }
-            assert !dispenser.hasNext() : "Dispenser should have run out of cards";
+            assert !dispenser.hasNext() 
+                    : "Dispenser should have run out of cards";
         } catch (RanOutOfCardsException roce) {
-            String failMsg = "Expected dispenser to have " + expectedMax
-                    + " cards but it ran out after giving " + counter + " cards";
-            System.out.println(failMsg);
+            String msg = "Expected dispenser to have " + expectedMax 
+                    + " cards but it ran out after giving " + counter 
+                    + " cards";
+            System.out.println(msg);
             System.out.println("\"" + roce.getMessage() + "\"");
-            fail(failMsg);
+            fail(msg);
         }
     }
 
@@ -102,20 +109,20 @@ public class MultiDeckCardDispenserTest {
     public void testGetNextCardProperDistributionBeforePlasticCard() {
         int numberOfDecks = 6;
         int plasticCardPos = 75;
-        MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
+        MultiDeckCardDispenser dispenser 
+                = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
         CardCounter counter = new CardCounter(dispenser);
         CardDeck verifDeck = new CardDeck();
         PlayingCard verifCard;
         int cardCount;
         int cardsWithAllSix = 0;
-        String assertionMessage;
+        String msg;
         while (verifDeck.hasNext()) {
             verifCard = verifDeck.getNextCard();
             cardCount = counter.count(verifCard);
             if (cardCount == 6) cardsWithAllSix++;
-            assertionMessage = "There shouldn't be more than six of " 
-                    + verifCard.toString();
-            assert cardCount < 7 : assertionMessage;
+            msg = "There shouldn't be more than six of " + verifCard.toString();
+            assert cardCount < 7 : msg;
         }
         PlayingCard ace;
         for (Suit suit : Suit.values()) {
@@ -123,7 +130,8 @@ public class MultiDeckCardDispenserTest {
             System.out.println("Dispenser gave " + counter.count(ace) + " of " 
                     + ace.toASCIIString());
         }
-        assert cardsWithAllSix < 30 : "There shouldn't be more than 29 cards with all five";
+        assert cardsWithAllSix < 30 
+                : "There shouldn't be more than 29 cards with all five";
     }
     
     /**
@@ -135,10 +143,10 @@ public class MultiDeckCardDispenserTest {
         MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(4);
         int counter = 0;
         PlayingCard card;
-        String assertionMessage = "Card should be said to come from this dispenser";
+        String msg = "Card should be said to come from this dispenser";
         while (counter < 40) {
             card = dispenser.getNextCard();
-            assert dispenser.provenance(card) : assertionMessage;
+            assert dispenser.provenance(card) : msg;
             counter++;
         }
     }
@@ -153,12 +161,12 @@ public class MultiDeckCardDispenserTest {
         MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(4);
         int counter = 0;
         PlayingCard dispensedCard, copiedCard;
-        String assertionMessage = "Copied card should not be said to come from this dispenser";
+        String msg = "Copied card shouldn't come from this dispenser";
         while (counter < 40) {
             dispensedCard = dispenser.getNextCard();
             copiedCard = new PlayingCard(dispensedCard.getRank(), 
                     dispensedCard.getSuit());
-            assert !dispenser.provenance(copiedCard) : assertionMessage;
+            assert !dispenser.provenance(copiedCard) : msg;
             counter++;
         }
     }
@@ -170,16 +178,16 @@ public class MultiDeckCardDispenserTest {
     public void testConstructorRejectsZeroDecks() {
         try {
             MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(0);
-            String failMsg = "Should not have been able to create "
+            String msg = "Should not have been able to create "
                     + dispenser.toString() + " with zero decks";
-            fail(failMsg);
+            fail(msg);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create dispenser with zero decks correctly caused IllegalArgumentException");
+            System.out.println("Zero decks correctly caused exception");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName()
-                    + " is the wrong exception for trying to create dispenser with zero decks";
-            fail(failMsg);
+            String msg = re.getClass().getName()
+                    + " is the wrong exception for trying for zero decks";
+            fail(msg);
         }
     }
 
@@ -191,16 +199,16 @@ public class MultiDeckCardDispenserTest {
     public void testConstructorRejectsNegativeDecks() {
         try {
             MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(-1);
-            String failMsg = "Should not have been able to create "
+            String msg = "Should not have been able to create "
                     + dispenser.toString() + " with negative number of decks";
-            fail(failMsg);
+            fail(msg);
         } catch (NegativeArraySizeException nase) {
-            System.out.println("Trying to create dispenser with negative number of decks correctly caused NegativeArraySizeException");
+            System.out.println("Negative number of decks caused exception");
             System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName()
-                    + " is the wrong exception for trying to create dispenser with negative number of decks";
-            fail(failMsg);
+            String msg = re.getClass().getName()
+                    + " is the wrong exception for negative number of decks";
+            fail(msg);
         }
     }
 
@@ -211,17 +219,19 @@ public class MultiDeckCardDispenserTest {
     @Test
     public void testConstructorRejectsExcessivePlasticCardPos() {
         try {
-            MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(2, 104);
-            String failMsg = "Should not have been able to create "
-                    + dispenser.toString() + " with excessive plastic card position";
-            fail(failMsg);
+            MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(2, 
+                    104);
+            String msg = "Should not have been able to create "
+                    + dispenser.toString() 
+                    + " with excessive plastic card position";
+            fail(msg);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create dispenser with excessive plastic card position correctly caused IllegalArgumentException");
+            System.out.println("Excessive plastic card position");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName()
-                    + " is the wrong exception for trying to create dispenser with excessive plastic card position";
-            fail(failMsg);
+            String msg = re.getClass().getName()
+                    + " is wrong exception for excessive plastic card position";
+            fail(msg);
         }
     }
 
@@ -233,16 +243,16 @@ public class MultiDeckCardDispenserTest {
     public void testConstructorRejectsNegativePlasticCardPos() {
         try {
             MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(2, -1);
-            String failMsg = "Should not have been able to create "
+            String msg = "Should not have been able to create "
                     + dispenser.toString() + " with negative plastic card position";
-            fail(failMsg);
+            fail(msg);
         } catch (NegativeArraySizeException nase) {
             System.out.println("Trying to create dispenser with negative plastic card position correctly caused NegativeArraySizeException");
             System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName()
+            String msg = re.getClass().getName()
                     + " is the wrong exception for trying to create dispenser with negative plastic card position";
-            fail(failMsg);
+            fail(msg);
         }
     }
 

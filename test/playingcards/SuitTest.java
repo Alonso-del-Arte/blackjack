@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import java.awt.Color;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -128,6 +130,18 @@ public class SuitTest {
     @Test
     public void testGetClubsWord() {
         assertEquals("Clubs", Suit.CLUBS.getWord());
+    }
+    
+    /**
+     * Test of the getTextColor function, of the Suit enumerated type.
+     */
+    @Test
+    public void testGetTextColor() {
+        System.out.println("getTextColor");
+        assertEquals(Color.BLACK, Suit.SPADES.getTextColor());
+        assertEquals(Color.RED, Suit.HEARTS.getTextColor());
+        assertEquals(Color.RED, Suit.DIAMONDS.getTextColor());
+        assertEquals(Color.BLACK, Suit.CLUBS.getTextColor());
     }
     
 }

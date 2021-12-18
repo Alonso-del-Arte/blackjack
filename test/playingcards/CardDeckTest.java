@@ -40,7 +40,8 @@ public class CardDeckTest {
      */
     @Test
     public void testNumberOfCards() {
-        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, 
+                CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
     }
 
     /**
@@ -60,8 +61,9 @@ public class CardDeckTest {
     public void testGetNextCard() {
         System.out.println("getNextCard");
         CardDeck deck = new CardDeck();
-        String assertionMessage = "First card from new deck should not be null";
-        assertNotNull(assertionMessage, deck.getNextCard());
+        String msg = "First card from new deck should not be null";
+        boolean opResult = deck.getNextCard() != null;
+        assert opResult : msg;
     }
 
     /**
@@ -75,7 +77,8 @@ public class CardDeckTest {
             deck.getNextCard();
             counter++;
         }
-        assert !deck.hasNext() : "Deck should be out of cards after dealing all 52";
+        String msg = "Deck should be out of cards after dealing all 52";
+        assert !deck.hasNext() : msg;
     }
 
     /**
@@ -116,25 +119,26 @@ public class CardDeckTest {
         }
         try {
             PlayingCard card = deck.getNextCard();
-            String failMsg = 
-                    "Asking for another card after last should not have given " 
+            String msg 
+                    = "Asking for another card after last shouldn't have given " 
                     + card.toString();
-            fail(failMsg);
+            fail(msg);
         } catch (RanOutOfCardsException roce) {
-            System.out.println("Asking for another card after last correctly caused RanOutOfCardsException");
+            System.out.println("Asking for another card caused exception");
             System.out.println("\"" + roce.getMessage() + "\"");
             Rank rank = roce.getRank();
             Suit suit = roce.getSuit();
-            assertNull(rank);
-            assertNull(suit);
+            assert rank == null;
+            assert suit == null;
         } catch (IndexOutOfBoundsException ioobe) {
-            String failMsg = "Asking for another card after last should not disclose IndexOutOfBoundsException";
-            System.out.println(failMsg);
+            String msg = "Asking for another card caused index exception";
+            System.out.println(msg);
             System.out.println("\"" + ioobe.getMessage() + "\"");
-            fail(failMsg);
+            fail(msg);
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() + " is the wrong exception to throw after asking for another card after last";
-            fail(failMsg);
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for card after last";
+            fail(msg);
         }
     }
 
@@ -146,9 +150,9 @@ public class CardDeckTest {
         System.out.println("sameOrderAs");
         CardDeck deck01 = new CardDeck();
         CardDeck deck02 = new CardDeck();
-        String assertionMessage = "Two new unshuffled decks should be in the same order";
-        assert deck01.sameOrderAs(deck02) : assertionMessage;
-        assert deck02.sameOrderAs(deck01) : assertionMessage;
+        String msg = "Two new unshuffled decks should be in the same order";
+        assert deck01.sameOrderAs(deck02) : msg;
+        assert deck02.sameOrderAs(deck01) : msg;
     }
 
     /**
@@ -160,9 +164,9 @@ public class CardDeckTest {
         CardDeck deck01 = new CardDeck();
         deck01.getNextCard();
         CardDeck deck02 = new CardDeck();
-        String assertionMessage = "Two decks should not be considered to be in the same order after different number of deals";
-        assert !deck01.sameOrderAs(deck02) : assertionMessage;
-        assert !deck02.sameOrderAs(deck01) : assertionMessage;
+        String msg = "Decks should differ after different number of deals";
+        assert !deck01.sameOrderAs(deck02) : msg;
+        assert !deck02.sameOrderAs(deck01) : msg;
     }
 
     /**
@@ -179,9 +183,11 @@ public class CardDeckTest {
         while (shuffled.hasNext() && unshuffled.hasNext()) {
             fromShuffled = shuffled.getNextCard();
             fromUnshuffled = unshuffled.getNextCard();
-            diffCardFound = diffCardFound || !fromShuffled.equals(fromUnshuffled);
+            diffCardFound = diffCardFound 
+                    || !fromShuffled.equals(fromUnshuffled);
         }
-        assert diffCardFound : "Shuffled deck should have at least two cards in different order";
+        String msg = "Shuffled deck should have cards in different order";
+        assert diffCardFound : msg;
     }
 
     /**
@@ -193,9 +199,9 @@ public class CardDeckTest {
         CardDeck unshuffled = new CardDeck();
         CardDeck shuffled = new CardDeck();
         shuffled.shuffle();
-        String assertionMessage = "Shuffled deck should not be in same order as unshuffled deck";
-        assert !shuffled.sameOrderAs(unshuffled) : assertionMessage;
-        assert !unshuffled.sameOrderAs(shuffled) : assertionMessage;
+        String msg = "Shuffled deck should not be in same order as unshuffled";
+        assert !shuffled.sameOrderAs(unshuffled) : msg;
+        assert !unshuffled.sameOrderAs(shuffled) : msg;
     }
 
     /**
@@ -219,21 +225,21 @@ public class CardDeckTest {
             stillInDeck.add(deck.getNextCard());
         }
         ArrayList<PlayingCard> intersection = new ArrayList<>();
-        discardPile.stream().filter((card) -> (stillInDeck.contains(card))).forEachOrdered((card) -> {
+        discardPile.stream().filter((card) -> (stillInDeck.contains(card)))
+                .forEachOrdered((card) -> {
             intersection.add(card);
         });
         if (intersection.size() > 0) {
-            System.out.println("Somehow the following cards were dealt twice: ");
+            System.out.println("The following cards were dealt twice: ");
             intersection.forEach((card) -> {
                 System.out.println(card.toASCIIString());
             });
-            String failMsg = "Card " + intersection.get(0).toString();
+            String msg = "Card " + intersection.get(0).toString();
             if (intersection.size() > 1) {
-                failMsg = failMsg + " and " + (intersection.size() - 1)
-                        + " other(s) ";
+                msg = msg + " and " + (intersection.size() - 1) + " other(s) ";
             }
-            failMsg = failMsg + " should not have been dealt twice";
-            fail(failMsg);
+            msg = msg + " should not have been dealt twice";
+            fail(msg);
         }
     }
 
@@ -254,13 +260,14 @@ public class CardDeckTest {
         }
         try {
             deck.shuffle();
-            fail("Should not have been able to shuffle deck with just one card");
+            fail("Shouldn't have been able to shuffle deck with just one card");
         } catch (IllegalStateException ise) {
-            System.out.println("Trying to shuffle deck with only one card left correctly caused IllegalStateException");
+            System.out.println("Shuffling 1-card deck caused state exception");
             System.out.println("\"" + ise.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() + " is the wrong exception to throw for trying to shuffle a deck with just one card";
-            fail(failMsg);
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for shuffling 1-card deck";
+            fail(msg);
         }
     }
 
@@ -280,13 +287,14 @@ public class CardDeckTest {
         }
         try {
             deck.shuffle();
-            fail("Should not have been able to shuffle deck with no cards left");
+            fail("Shouldn't have been able to shuffle deck with no cards left");
         } catch (IllegalStateException ise) {
-            System.out.println("Trying to shuffle deck with no cards left correctly caused IllegalStateException");
+            System.out.println("Shuffling empty deck caused state exception");
             System.out.println("\"" + ise.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() + " is the wrong exception to throw for trying to shuffle a deck with no cards left";
-            fail(failMsg);
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for shuffling empty deck";
+            fail(msg);
         }
     }
 
@@ -298,9 +306,9 @@ public class CardDeckTest {
         System.out.println("provenance");
         CardDeck deck = new CardDeck();
         PlayingCard card = deck.getNextCard();
-        String assertionMessage = "The card " + card.toString()
+        String msg = "The card " + card.toString() 
                 + " dealt from this deck should be said to come from this deck";
-        assert deck.provenance(card) : assertionMessage;
+        assert deck.provenance(card) : msg;
     }
 
     @Test
@@ -308,9 +316,9 @@ public class CardDeckTest {
         CardDeck deck01 = new CardDeck();
         CardDeck deck02 = new CardDeck();
         PlayingCard cardFromSecondDeck = deck02.getNextCard();
-        String assertionMessage = "The card " + cardFromSecondDeck.toString()
+        String msg = "The card " + cardFromSecondDeck.toString() 
                 + " from Deck 2 should not be said to come from Deck 1";
-        assert !deck01.provenance(cardFromSecondDeck) : assertionMessage;
+        assert !deck01.provenance(cardFromSecondDeck) : msg;
     }
 
 }

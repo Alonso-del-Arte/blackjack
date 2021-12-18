@@ -16,6 +16,7 @@
  */
 package playingcards;
 
+import java.awt.Color;
 import java.util.HashSet;
 
 import javax.print.DocFlavor;
@@ -641,5 +642,28 @@ public class PlayingCardTest {
             }
         }
     }
+    
+    /**
+     * Test of the getTextColor function, of the PlayingCard class.
+     */
+    @Test
+    public void testGetTextColor() {
+        System.out.println("getTextColor");
+        Rank[] ranks = Rank.values();
+        PlayingCard card;
+        for (Rank rank : ranks) {
+            card = new PlayingCard(rank, Suit.SPADES);
+            assertEquals(Color.BLACK, card.getTextColor());
+            card = new PlayingCard(rank, Suit.CLUBS);
+            assertEquals(Color.BLACK, card.getTextColor());
+        }
+        for (Rank rank : ranks) {
+            card = new PlayingCard(rank, Suit.HEARTS);
+            assertEquals(Color.RED, card.getTextColor());
+            card = new PlayingCard(rank, Suit.DIAMONDS);
+            assertEquals(Color.RED, card.getTextColor());
+        }
+    }
+
 
 }

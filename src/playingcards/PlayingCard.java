@@ -202,9 +202,15 @@ public class PlayingCard {
         return this.cardRank.isCourtRank();
     }
     
-    // TODO: Write tests for this
+    /**
+     * Gives the color to use for text elements on this playing card. The color 
+     * is only a suggestion, it may be tweaked or altogether ignored depending 
+     * on the use case.
+     * @return <code>Color.BLACK</code> if this card is one of Spades or Clubs, 
+     * <code>Color.RED</code> if this card is one of Hearts or Diamonds.
+     */
     public Color getTextColor() {
-        return Color.MAGENTA;
+        return this.cardSuit.getTextColor();
     }
 
     /**

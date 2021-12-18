@@ -114,9 +114,15 @@ public enum Suit implements CardSpec {
         return this.suitWord;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Gives the color to use for text elements on a playing card. The color is 
+     * only a suggestion, it may be tweaked or altogether ignored depending on 
+     * the use case.
+     * @return <code>Color.BLACK</code> for Spades and Clubs, 
+     * <code>Color.RED</code> for Hearts and Diamonds.
+     */
     public Color getTextColor() {
-        return Color.MAGENTA;
+        return this.textColor;
     }
     
     /**

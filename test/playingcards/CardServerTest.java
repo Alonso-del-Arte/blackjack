@@ -43,7 +43,7 @@ public class CardServerTest {
         System.out.println("First card server gave was " 
                 + cards[0].toASCIIString() + ", last card was " 
                 + cards[51].toASCIIString());
-        String msg = "Single-deck server should have run out after giving 52 cards";
+        String msg = "Single-deck server should've run out after 52 cards";
         assert !server.hasNext() : msg;
     }
     
@@ -57,7 +57,7 @@ public class CardServerTest {
         System.out.println("First card server gave was " 
                 + cards[0].toASCIIString() + ", last card was " 
                 + cards[51].toASCIIString());
-        String msg = "Two-deck server should not have run out after giving 52 cards";
+        String msg = "Two-deck server should not have run out after 52 cards";
         assert server.hasNext() : msg;
     }
     
@@ -69,8 +69,9 @@ public class CardServerTest {
         System.out.println("provenance");
         CardServer server = new CardServer(2);
         PlayingCard[] aces = server.giveCards(Rank.ACE, 8);
+        String msg = "Ace should've come from this card server";
         for (PlayingCard ace : aces) {
-            assert server.provenance(ace) : "The ace came from this card server";
+            assert server.provenance(ace) : msg;
         }
     }
     
@@ -117,13 +118,13 @@ public class CardServerTest {
             System.out.println("Server gave " + card.toASCIIString() 
                     + " from second deck");
         } catch (RanOutOfCardsException roce) {
-            String msg = "Trying to deal from second deck should not have caused RanOutOfCardsException";
+            String msg = "Second deck should've had cards";
             System.out.println(msg);
             System.out.println("\"" + roce.getMessage() + "\"");
             fail(msg);
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for inability to deal from second deck";
+                    + " is the wrong exception second deck not having cards";
             fail(msg);
         }
     }
@@ -268,13 +269,13 @@ public class CardServerTest {
             System.out.println("Server gave " + cards[52].toASCIIString() 
                     + " from second deck");
         } catch (RanOutOfCardsException roce) {
-            String msg = "Trying to deal from second deck should not have caused RanOutOfCardsException";
+            String msg = "Second deck should've had cards";
             System.out.println(msg);
             System.out.println("\"" + roce.getMessage() + "\"");
             fail(msg);
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for inability to deal from second deck";
+                    + " is wrong exception for second deck not having cards";
             fail(msg);
         }
     }
@@ -335,11 +336,11 @@ public class CardServerTest {
                     + server.toString() + " with negative deck quantity";
             fail(msg);
         } catch (NegativeArraySizeException nase) {
-            System.out.println("Trying to create CardServer with negative deck quantity correctly caused exception");
+            System.out.println("Negative deck quantity caused exception");
             System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to create CardServer with negative deck quantity";
+                    + " is the wrong exception for negative deck quantity";
             fail(msg);
         }
     }
@@ -356,11 +357,11 @@ public class CardServerTest {
                     + server.toString() + " with deck quantity zero";
             fail(msg);
         } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create CardServer with deck quantity zero correctly caused exception");
+            System.out.println("Deck quantity zero correctly caused exception");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to create CardServer with deck quantity zero";
+                    + " is the wrong exception for deck quantity zero";
             fail(msg);
         }
     }
