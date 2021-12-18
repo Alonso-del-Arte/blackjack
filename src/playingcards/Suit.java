@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import java.awt.Color;
+
 /**
  * Enumerates the suits of a standard deck of playing cards. These suits are 
  * listed in the order they appear in the Playing Cards block (U+1F0A0 to 
@@ -28,23 +30,24 @@ public enum Suit implements CardSpec {
     /**
      * Spades. Main Unicode character: &#9824;, alternate &#9828;.
      */
-    SPADES ('\u2660', '\u2664', 'S', "Spades"), 
+    SPADES (Color.BLACK, '\u2660', '\u2664', 'S', "Spades"), 
     
     /**
      * Hearts. Main Unicode character: &#9829;, alternate &#9825;.
      */
-    HEARTS ('\u2665', '\u2661', 'H', "Hearts"), 
+    HEARTS (Color.RED, '\u2665', '\u2661', 'H', "Hearts"), 
     
     /**
      * Diamonds. Main Unicode character: &#9830;, alternate &#9826;.
      */
-    DIAMONDS ('\u2666', '\u2662', 'D', "Diamonds"),
+    DIAMONDS (Color.RED, '\u2666', '\u2662', 'D', "Diamonds"),
     
     /**
      * Clubs. Main Unicode character: &#9827;, alternate &#9831;.
      */
-    CLUBS ('\u2663', '\u2667', 'C', "Clubs");
+    CLUBS (Color.BLACK, '\u2663', '\u2667', 'C', "Clubs");
     
+    private final Color textColor;
     private final char suitChar;
     private final char altSuitChar;
     private final char suitCharASCII;
@@ -100,7 +103,7 @@ public enum Suit implements CardSpec {
     }
     
     /**
-     * Gives the English word for a suit.  This is for use in cases where a 
+     * Gives the English word for a suit. This is for use in cases where a 
      * suitable font for the "main" or "alternative" characters is not 
      * available.
      * @return "Spades" for spades, "Hearts" for hearts, "Clubs" for clubs and 
@@ -111,10 +114,26 @@ public enum Suit implements CardSpec {
         return this.suitWord;
     }
     
-    Suit(char ch, char ach, char bch, String word) {
+    // TODO: Write tests for this
+    public Color getTextColor() {
+        return Color.MAGENTA;
+    }
+    
+    /**
+     * Constructor. The example parameters below will be for spades.
+     * @param color The color to use when drawing playing cards.
+     * @param ch The main Unicode character to use. For example, '&#9824;'.
+     * @param altCh The alternate Unicode character to use. For example, 
+     * '&#9828;'.
+     * @param asciiCh The ASCII character to use. For example, 'S'.
+     * @param word The word to use. For example, "Spades". This is in English, 
+     * it has not been internationalized yet.
+     */
+    Suit(Color color, char ch, char altCh, char asciiCh, String word) {
+        this.textColor = color;
         this.suitChar = ch;
-        this.altSuitChar = ach;
-        this.suitCharASCII = bch;
+        this.altSuitChar = altCh;
+        this.suitCharASCII = asciiCh;
         this.suitWord = word;
     }
     
