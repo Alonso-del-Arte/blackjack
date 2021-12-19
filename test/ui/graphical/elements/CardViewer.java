@@ -67,22 +67,32 @@ public class CardViewer extends JPanel implements ItemListener {
     private final JComboBox<Rank> rankList = new JComboBox<>(Rank.values());
     private final JComboBox<Suit> suitList = new JComboBox<>(Suit.values());
     
+    private boolean faceUp = true;
+    
     private CardImage cardImage;
     
-    // TODO: Write more tests for this
     PlayingCard getDisplayedCard() {
-        return CARD_GIVER.giveCard(Rank.JACK, Suit.CLUBS);
-//        return this.currCard;
+        return this.currCard;
     }
     
     void setDisplayedCard(PlayingCard card) {
-        // TODO: Write tests for this
+        if (card == null) {
+            String excMsg = "Card must not be null";
+            throw new NullPointerException(excMsg);
+        }
+        this.currCard = card;
     }
     
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.cardImage.paintFaceUp(g, TOP_LEFT_CORNER_PLACE, USUAL_CARD_SIZE);
+        if (this.faceUp) {
+            this.cardImage.paintFaceUp(g, TOP_LEFT_CORNER_PLACE, 
+                    USUAL_CARD_SIZE);
+        } else {
+            this.cardImage.paintFaceDown(g, TOP_LEFT_CORNER_PLACE, 
+                    USUAL_CARD_SIZE);
+        }
     }
     
     @Override

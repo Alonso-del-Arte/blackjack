@@ -217,9 +217,14 @@ public class MockGraphics extends Graphics {
         // TODO: Write tests for this
     }
     
+    /**
+     * Changes the color to be used for most drawing and filling operations.
+     * @param c The new color. For example, <code>Color.GREEN</code>. 
+     * Not required to be different from the current color.
+     */
     @Override
     public void setColor(Color c) {
-        // TODO: Write tests for this
+        this.currColor = c;
     }
     
     @Override
@@ -280,8 +285,13 @@ public class MockGraphics extends Graphics {
      * been made before then.
      * @param font The font to be returned by {@link #getFont()}, provided no 
      * call to {@link #setFont(java.awt.Font)} has been made before then.
+     * @throws NullPointerException If <code>color</code> is null.
      */
     MockGraphics(Color color, Font font) {
+//        if (color == null || font == null) {
+//            String excMsg = "Neither color nor font can be null";
+//            throw new NullPointerException(excMsg);
+//        }
         this.currColor = color;
         this.currFont = font;
     }

@@ -16,6 +16,7 @@
  */
 package ui.graphical.elements;
 
+import playingcards.CardDeck;
 import playingcards.CardProvider;
 import playingcards.PlayingCard;
 import playingcards.Suit;
@@ -42,15 +43,6 @@ public class CardViewerTest {
     private static final CardProvider CARD_PROVIDER = new CardProvider();
     
     @Test
-    public void testGetDisplayedCard() {
-        System.out.println("getDisplayedCard");
-        CardViewer viewer = new CardViewer();
-        PlayingCard card = viewer.getDisplayedCard();
-        String msg = "Card should not be null";
-        assert card != null : msg;
-    }
-    
-    @Test
     public void testConstructorRejectsNull() {
         try {
             CardViewer badViewer = new CardViewer(null);
@@ -68,17 +60,14 @@ public class CardViewerTest {
     }
     
     @Test
-    public void testPrimaryConstructor() {
-        Rank[] ranks = Rank.values();
-        Suit[] suits = Suit.values();
-        for (Rank rank : ranks) {
-            for (Suit suit : suits) {
-                PlayingCard expected = CARD_PROVIDER.giveCard(rank, suit);
-                CardViewer viewer = new CardViewer(expected);
-                PlayingCard actual = viewer.getDisplayedCard();
-                assertEquals(expected, actual);
-            }
-        }
+    public void testGetDisplayedCard() {
+        System.out.println("getDisplayedCard");
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        PlayingCard expected = deck.getNextCard();
+        CardViewer viewer = new CardViewer(expected);
+        PlayingCard actual = viewer.getDisplayedCard();
+        assertEquals(expected, actual);
     }
     
     @Test
@@ -87,6 +76,39 @@ public class CardViewerTest {
         PlayingCard expected = CARD_PROVIDER.giveCard(Rank.ACE, Suit.SPADES);
         PlayingCard actual = viewer.getDisplayedCard();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testSetDisplayedCardRejectsNullCard() {
+        CardViewer viewer = new CardViewer();
+        try {
+            viewer.setDisplayedCard(null);
+            String msg = "Should not have been able to set viewer to null card";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Setting viewer to null card caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for setting viewer to null card";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testSetDisplayedCard() {
+        System.out.println("setDisplayedCard");
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        PlayingCard expected, actual;
+        CardViewer viewer = new CardViewer();
+        viewer.setUpViewer();
+        while (deck.hasNext()) {
+            expected = deck.getNextCard();
+            viewer.setDisplayedCard(expected);
+            actual = viewer.getDisplayedCard();
+            assertEquals(expected, actual);
+        }
     }
     
 }

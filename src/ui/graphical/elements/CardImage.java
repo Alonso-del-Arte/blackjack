@@ -35,41 +35,62 @@ public class CardImage {
     
     private final PlayingCard playingCard;
     
+    private final Color textColor;
+    
     private void writeEdgeLegend(Graphics g, final Point p, 
             final Dimension size) {
         Point point = new Point(p.x, p.y);
-        point.translate(10, 100);
-        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 72));
-        g.drawString(this.playingCard.toString(), point.x, point.y);
+        point.translate(10, 40);
+        g.setColor(this.textColor);
+        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, 32));
+        g.drawString(this.playingCard.getRank().getChars(), point.x, point.y);
+        point.translate(0, 32);
+        g.drawString(Character.toString(this.playingCard.getSuit().getChar()), 
+                point.x, point.y);
+        point = new Point(p.x + size.width - 10, p.y + size.height - 40);
+        g.setFont(new Font(g.getFont().getFontName(), Font.PLAIN, -32));
+        g.drawString(this.playingCard.getRank().getChars(), point.x, point.y);
+        point.translate(0, -32);
+        g.drawString(Character.toString(this.playingCard.getSuit().getChar()), 
+                point.x, point.y);
     }
     
     private void drawPips(Graphics g, final Point p, final Dimension size) {
-        //
+        g.setColor(this.textColor);
     }
     
     private void drawRoyal(Graphics g, final Point p, final Dimension size) {
-        //
+        g.setColor(Color.BLACK);
+        g.drawRect(p.x + 30, p.y + 30, size.width - 60, size.height - 50);
+        g.drawString("PLACEHOLDER", p.x + 20, p.y + 200);
+    }
+    
+    private void paintBlankCard(Graphics g, final Point p, 
+            final Dimension size) {
+        g.setColor(Color.BLACK);
+        g.drawRoundRect(p.x, p.y, size.width, size.height, 10, 10);
+        g.setColor(Color.WHITE);
+        g.fillRoundRect(p.x + 1, p.y + 1, size.width, size.height, 10, 10);
     }
     
     public void paintFaceUp(Graphics g, final Point p, final Dimension size) {
         // TODO: Write tests for this
-        g.setColor(Color.BLACK);
-        g.drawRect(p.x, p.y, size.width, size.height);
-        g.setColor(Color.WHITE);
-        g.fillRect(p.x, p.y, size.width, size.height);
-        g.setColor(this.playingCard.getTextColor());
-        this.writeEdgeLegend(g, p, size);
+        this.paintBlankCard(g, p, size);
         if (this.playingCard.isCourtCard()) {
             this.drawRoyal(g, p, size);
         } else {
             this.drawPips(g, p, size);
         }
-        g.setColor(Color.YELLOW);
+        this.writeEdgeLegend(g, p, size);
+        g.setColor(Color.MAGENTA);
+        g.setFont(new Font("Courier New", Font.BOLD, 56));
         g.drawString("DRAFT", p.x + 20, p.y + 250);
+        // TODO: Delete previous line after first fail on the tests
     }
     
     public void paintFaceDown(Graphics g, final Point p, final Dimension size) {
         // TODO: Write tests for this
+        this.paintBlankCard(g, p, size);
         g.setColor(Color.YELLOW);
         g.drawString("TODO: Write tests for this", p.x, p.y);
     }
@@ -80,6 +101,7 @@ public class CardImage {
             throw new NullPointerException(excMsg);
         }
         this.playingCard = card;
+        this.textColor = this.playingCard.getTextColor();
     }
     
 }

@@ -46,6 +46,8 @@ public class MockGraphicsTest {
     private static final Font[] FONTS 
             = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
     
+    private static final int TOTAL_NUMBER_OF_FONTS = FONTS.length;
+    
     private static final Random RANDOM = new Random();
     
     @Test
@@ -106,6 +108,46 @@ public class MockGraphicsTest {
         Font actFont = g.getFont();
         assertEquals(expColor, actColor);
         assertEquals(expFont, actFont);
+    }
+    
+    @Test
+    public void testConstructorRejectsNullColor() {
+        int index = RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS);
+        Font font = FONTS[index];
+        try {
+            Graphics badGraphics = new MockGraphics(null, font);
+            String msg = "Should not have been able to create " 
+                    + badGraphics.toString() + " with null color and " 
+                    + font.getFontName();
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Trying to use null color correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null color";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectsNullFont() {
+        int rgb = RANDOM.nextInt();
+        Color color = new Color(rgb);
+        try {
+            Graphics badGraphics = new MockGraphics(color, null);
+            String msg = "Should not have been able to create " 
+                    + badGraphics.toString() + " with color " + color.toString()
+                    + " and null font";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Trying to use null font correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null font";
+            fail(msg);
+        }
     }
     
     @Test

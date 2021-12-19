@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2021 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -644,7 +644,9 @@ public class PlayingCardTest {
     }
     
     /**
-     * Test of the getTextColor function, of the PlayingCard class.
+     * Test of the getTextColor function, of the PlayingCard class. For cards 
+     * with Spades or Clubs, the color should be black, and for cards with 
+     * Hearts or Diamonds, the color should be red.
      */
     @Test
     public void testGetTextColor() {
