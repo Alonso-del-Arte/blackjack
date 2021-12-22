@@ -24,7 +24,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 
 /**
@@ -36,6 +35,14 @@ public class CardImage {
     private final PlayingCard playingCard;
     
     private final Color textColor;
+    
+    private final Rank rank;
+    
+    private final Suit suit;
+    
+    private final String suitChar;
+    
+    private Font pipFont, invertedPipFont;
     
     private void writeEdgeLegend(Graphics g, final Point p, 
             final Dimension size) {
@@ -55,8 +62,99 @@ public class CardImage {
                 point.x, point.y);
     }
     
+    /* 
+drawMiddlePipCentered: ACE, THREE, FIVE, NINE
+drawCornerPips: FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN
+drawTwoMiddlePips: SIX, SEVEN, EIGHT, TEN
+drawMiddlePipInUpperHalf: SEVEN, EIGHT, TEN
+drawMiddlePipInLowerHalf: EIGHT, TEN
+drawFourMiddlePips: NINE, TEN
+    */
+    
+    private void drawAceOfSpades(Graphics g, final Point p, 
+            final Dimension size) {
+        // TODO: Replace with special Ace of Spades drawing
+        this.drawMiddlePipCentered(g, p, size);
+    }
+    
+    private void drawMiddlePipCentered(Graphics g, final Point p, 
+            final Dimension size) {
+        g.drawString(this.suitChar, p.x + 90, p.y + 210);
+    }
+    
+    private void drawTwoPipsCentered(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
+    private void drawCornerPips(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
+    private void drawTwoMiddlePips(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
+    private void drawMiddlePipInUpperHalf(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
+    private void drawMiddlePipInLowerHalf(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
+    private void drawFourMiddlePips(Graphics g, final Point p, 
+            final Dimension size) {
+        //
+    }
+    
     private void drawPips(Graphics g, final Point p, final Dimension size) {
         g.setColor(this.textColor);
+        this.pipFont = new Font(g.getFont().getFontName(), Font.PLAIN, 72);
+        g.setFont(this.pipFont);
+        if (this.rank.equals(Rank.ACE)) {
+            if (this.suit.equals(Suit.SPADES)) {
+                this.drawAceOfSpades(g, p, size);
+            } else {
+                this.drawMiddlePipCentered(g, p, size);
+            }
+        } else {
+            this.invertedPipFont = new Font(g.getFont().getFontName(), 
+                    Font.PLAIN, -72);
+            switch (this.rank) {
+                case THREE:
+                    this.drawMiddlePipCentered(g, p, size);
+                case TWO:
+                    this.drawTwoPipsCentered(g, p, size);
+                    break;
+                case FIVE:
+                    this.drawMiddlePipCentered(g, p, size);
+                case FOUR:
+                    this.drawCornerPips(g, p, size);
+                    break;
+                case SEVEN:
+                    this.drawMiddlePipInUpperHalf(g, p, size);
+                case SIX:
+                    this.drawCornerPips(g, p, size);
+                    this.drawTwoMiddlePips(g, p, size);
+                    break;
+                case TEN:
+                    this.drawMiddlePipInLowerHalf(g, p, size);
+                case NINE:
+                    this.drawMiddlePipInUpperHalf(g, p, size);
+                case EIGHT:
+                    this.drawFourMiddlePips(g, p, size);
+                    this.drawCornerPips(g, p, size);
+                    break;
+                default:
+                    throw new RuntimeException("Unexpected rank: " 
+                            + this.rank.toString());
+            }
+        }
     }
     
     private void drawRoyal(Graphics g, final Point p, final Dimension size) {
@@ -102,6 +200,9 @@ public class CardImage {
         }
         this.playingCard = card;
         this.textColor = this.playingCard.getTextColor();
+        this.rank = this.playingCard.getRank();
+        this.suit = this.playingCard.getSuit();
+        this.suitChar = Character.toString(this.suit.getChar());
     }
     
 }
