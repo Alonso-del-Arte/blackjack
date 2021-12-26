@@ -20,15 +20,13 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 
 /**
  * A subclass of <code>Graphics</code> that does little besides log calls. 
@@ -39,6 +37,9 @@ import java.util.logging.Logger;
  * @author Alonso del Arte
  */
 public class MockGraphics extends Graphics {
+    
+    private static ArrayList<GraphicsCommandRecord> commandsList 
+            = new ArrayList<>();
     
     private Color currColor;
     
@@ -288,10 +289,10 @@ public class MockGraphics extends Graphics {
      * @throws NullPointerException If <code>color</code> is null.
      */
     MockGraphics(Color color, Font font) {
-//        if (color == null || font == null) {
-//            String excMsg = "Neither color nor font can be null";
-//            throw new NullPointerException(excMsg);
-//        }
+        if (color == null || font == null) {
+            String excMsg = "Neither color nor font can be null";
+            throw new NullPointerException(excMsg);
+        }
         this.currColor = color;
         this.currFont = font;
     }
