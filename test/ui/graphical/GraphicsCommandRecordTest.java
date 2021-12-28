@@ -54,11 +54,8 @@ public class GraphicsCommandRecordTest {
         Color color = new Color(RANDOM.nextInt());
         Font font = FONTS[0];
         try {
-            GraphicsCommandRecord badRecord 
-                    = GraphicsCommandRecord.PassThrough.getInstance(null, 0, 0, 
-                            0, 0, 0, 0, 0, 0, 0, 0, null, null, color, null, 
-                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, font, 
-                            null);
+            GraphicsCommandRecord badRecord = new GraphicsCommandRecord(null, 
+                    color, font);
             String msg = "Should not have been able to create " 
                     + badRecord.toString() + " with null command name";
             fail(msg);
@@ -77,11 +74,8 @@ public class GraphicsCommandRecordTest {
         String cmd = "doSomething";
         Font font = FONTS[1];
         try {
-            GraphicsCommandRecord badRecord 
-                    = GraphicsCommandRecord.PassThrough.getInstance(cmd, 0, 0, 
-                            0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, 
-                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, font, 
-                            null);
+            GraphicsCommandRecord badRecord = new GraphicsCommandRecord(cmd, 
+                    null, font);
             String msg = "Should not have been able to create " 
                     + badRecord.toString() + " with null color";
             fail(msg);
@@ -100,11 +94,8 @@ public class GraphicsCommandRecordTest {
         String cmd = "doSomething";
         Color color = new Color(RANDOM.nextInt());
         try {
-            GraphicsCommandRecord badRecord 
-                    = GraphicsCommandRecord.PassThrough.getInstance(cmd, 0, 0, 
-                            0, 0, 0, 0, 0, 0, 0, 0, null, null, color, null, 
-                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, null, 
-                            null);
+            GraphicsCommandRecord badRecord = new GraphicsCommandRecord(cmd, 
+                    color, null);
             String msg = "Should not have been able to create " 
                     + badRecord.toString() + " with null font";
             fail(msg);
