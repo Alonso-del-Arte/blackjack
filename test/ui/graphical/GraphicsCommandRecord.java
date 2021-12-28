@@ -38,15 +38,15 @@ public class GraphicsCommandRecord {
     private final Font currFont;
     
     public String getCommandName() {
-        return "Sorry, not implemented yet...";
+        return this.commName;
     }
     
     public Color getCurrentColor() {
-        return Color.BLACK;
+        return this.currColor;
     }
     
     public Font getCurrentFont() {
-        return null;
+        return this.currFont;
     }
     
     /**
