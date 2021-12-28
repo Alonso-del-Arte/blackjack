@@ -38,6 +38,84 @@ import static org.junit.Assert.*;
  */
 public class GraphicsCommandRecordTest {
     
+    private static final Font[] FONTS 
+            = GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+    
+    private static final int TOTAL_NUMBER_OF_FONTS = FONTS.length;
+    
     private static final Random RANDOM = new Random();
+    
+    private static final int[] EMPTY_ARRAY = {};
+    
+    // TODO: Write null safety tests for all chained constructors
+    
+    @Test
+    public void testPrimaryConstructorRejectsNullCommandName() {
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[0];
+        try {
+            GraphicsCommandRecord badRecord 
+                    = GraphicsCommandRecord.PassThrough.getInstance(null, 0, 0, 
+                            0, 0, 0, 0, 0, 0, 0, 0, null, null, color, null, 
+                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, font, 
+                            null);
+            String msg = "Should not have been able to create " 
+                    + badRecord.toString() + " with null command name";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null command name correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null command name";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testPrimaryConstructorRejectsNullColor() {
+        String cmd = "doSomething";
+        Font font = FONTS[1];
+        try {
+            GraphicsCommandRecord badRecord 
+                    = GraphicsCommandRecord.PassThrough.getInstance(cmd, 0, 0, 
+                            0, 0, 0, 0, 0, 0, 0, 0, null, null, null, null, 
+                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, font, 
+                            null);
+            String msg = "Should not have been able to create " 
+                    + badRecord.toString() + " with null color";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null color correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null color";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testPrimaryConstructorRejectsNullFont() {
+        String cmd = "doSomething";
+        Color color = new Color(RANDOM.nextInt());
+        try {
+            GraphicsCommandRecord badRecord 
+                    = GraphicsCommandRecord.PassThrough.getInstance(cmd, 0, 0, 
+                            0, 0, 0, 0, 0, 0, 0, 0, null, null, color, null, 
+                            EMPTY_ARRAY, EMPTY_ARRAY, null, null, null, null, 
+                            null);
+            String msg = "Should not have been able to create " 
+                    + badRecord.toString() + " with null font";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null font correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null font";
+            fail(msg);
+        }
+    }
     
 }
