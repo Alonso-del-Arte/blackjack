@@ -45,9 +45,41 @@ public class GraphicsCommandRecordTest {
     
     private static final Random RANDOM = new Random();
     
-    private static final int[] EMPTY_ARRAY = {};
+    @Test
+    public void testGetCommandName() {
+        System.out.println("getCommandName");
+        String expected = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        GraphicsCommandRecord record = new GraphicsCommandRecord(expected, 
+                color, font);
+        String actual = record.getCommandName();
+        assertEquals(expected, actual);
+    }
     
-    // TODO: Write null safety tests for all chained constructors
+    @Test
+    public void testGetCurrentColor() {
+        System.out.println("getCurrentColor");
+        String command = "command" + RANDOM.nextInt();
+        Color expected = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        GraphicsCommandRecord record = new GraphicsCommandRecord(command, 
+                expected, font);
+        Color actual = record.getCurrentColor();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetCurrentFont() {
+        System.out.println("getCurrentFont");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font expected = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        GraphicsCommandRecord record = new GraphicsCommandRecord(command, 
+                color, expected);
+        Font actual = record.getCurrentFont();
+        assertEquals(expected, actual);
+    }
     
     @Test
     public void testPrimaryConstructorRejectsNullCommandName() {

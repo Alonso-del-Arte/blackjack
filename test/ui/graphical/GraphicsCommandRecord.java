@@ -37,6 +37,18 @@ public class GraphicsCommandRecord {
     
     private final Font currFont;
     
+    public String getCommandName() {
+        return "Sorry, not implemented yet...";
+    }
+    
+    public Color getCurrentColor() {
+        return Color.BLACK;
+    }
+    
+    public Font getCurrentFont() {
+        return null;
+    }
+    
     /**
      * Constructor. Use this for any of the following commands: 
      * <code>create()</code>, <code>dispose()</code>, <code>getClip()</code>, 
@@ -44,7 +56,7 @@ public class GraphicsCommandRecord {
      * <code>getFont()</code>, <code>getFontMetrics()</code>, 
      * <code>setColor()</code>, <code>setFont()</code>, 
      * <code>setPaintMode()</code>, <code>setXORMode()</code>.
-     * @param name The name of the command. For example, "drawRect".
+     * @param name The name of the command. For example, "create".
      * @param color The current color, the one that <code>getColor()</code> from 
      * the <code>Graphics</code> instance would return. However, when recording 
      * a <code>setColor()</code> command, send the new color that is being set.
@@ -53,6 +65,14 @@ public class GraphicsCommandRecord {
      * a <code>setFont()</code> command, send the new font that is being set.
      */
     public GraphicsCommandRecord(String name, Color color, Font font) {
+        if (name == null) {
+            String excMsg = "Command name must not be null";
+            throw new NullPointerException(excMsg);
+        }
+        if (color == null || font == null) {
+            String excMsg = "Both color and font must be non-null";
+            throw new NullPointerException(excMsg);
+        }
         this.commName = name;
         this.currColor = color;
         this.currFont = font;
