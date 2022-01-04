@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -26,7 +26,8 @@ import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 
 /**
- *
+ * Base class for classes that record commands to <code>Graphics</code> 
+ * instances. However, it's not abstract and may be used for a few commands.
  * @author Alonso del Arte
  */
 public class GraphicsCommandRecord {
@@ -56,13 +57,17 @@ public class GraphicsCommandRecord {
      * <code>getFont()</code>, <code>getFontMetrics()</code>, 
      * <code>setColor()</code>, <code>setFont()</code>, 
      * <code>setPaintMode()</code>, <code>setXORMode()</code>.
-     * @param name The name of the command. For example, "create".
+     * @param name The name of the command. For example, "create". Must not be 
+     * null.
      * @param color The current color, the one that <code>getColor()</code> from 
      * the <code>Graphics</code> instance would return. However, when recording 
-     * a <code>setColor()</code> command, send the new color that is being set.
+     * a <code>setColor()</code> command, send the new color that is being set. 
+     *  Must not be null.
      * @param font The current font, the one that <code>getFont()</code> from 
      * the <code>Graphics</code> instance would return. However, when recording 
-     * a <code>setFont()</code> command, send the new font that is being set.
+     * a <code>setFont()</code> command, send the new font that is being set. 
+     * Must not be null.
+     * @throws NullPointerException If any of the parameters is null.
      */
     public GraphicsCommandRecord(String name, Color color, Font font) {
         if (name == null) {
@@ -76,6 +81,212 @@ public class GraphicsCommandRecord {
         this.commName = name;
         this.currColor = color;
         this.currFont = font;
+    }
+    
+    /**
+     * Records a command involving a <code>Shape</code> parameter.
+     */
+    public static class WithShape extends GraphicsCommandRecord {
+        
+        private final Shape commShape;
+        
+        /**
+         * Retrieves the shape that this record was instantiated with.
+         * @return The shape that this record was instantiated with.
+         */
+        public Shape getShape() {
+            return this.commShape;
+        }
+        
+        /**
+         * Constructor. Use this for either the version of the 
+         * <code>setClip()</code> command that takes a <code>Shape</code> 
+         * object.
+         * @param name The name of the command. For example, "setClip". Must not 
+         * be null.
+         * @param color The current color. For example, 
+         * <code>Color.BLACK</code>. Must not be null.
+         * @param font The current font. For example, 12-point Arial. Must not 
+         * be null.
+         * @param shape The shape, such as for example an instance of 
+         * <code>RoundRectangle2D</code>. Must not be null.
+         * @throws NullPointerException If any of the parameters is null.
+         */
+        public WithShape(String name, Color color, Font font, Shape shape) {
+            super(name, color, font);
+            if (shape == null) {
+                String excMsg = "Shape must not be null";
+                throw new NullPointerException(excMsg);
+            }
+            this.commShape = shape;
+        }
+        
+    }
+    
+    /**
+     * Records a <code>Graphics</code> command with <i>x</i> and <i>y</i> 
+     * parameters.
+     */
+    public static class WithXAndY extends GraphicsCommandRecord {
+        
+        private final int commX, commY;
+        
+        /**
+         * Retrieves the <i>x</i> and <i>y</i> parameters that this record was 
+         * constructed with.
+         * @return The <i>x</i> and <i>y</i> parameters bundled into a 
+         * <code>Point</code> object.
+         */
+        public Point getPoint() {
+            return new Point(this.commX, this.commY);
+        }
+        
+        /**
+         * Constructor. Use this for the <code>translate()</code> command.
+         * @param name The name of the command. For example, "translate". Must 
+         * not be null.
+         * @param color The current color. For example, <code>Color.RED</code>. 
+         *  Must not be null.
+         * @param font The current font. For example, 12-point Courier. Must not 
+         * be null.
+         * @param x The <code>x</code> parameter.
+         * @param y The <code>y</code> parameter.
+         * @throws NullPointerException If <code>name</code>, <code>color</code> 
+         * or <code>font</code> is null.
+         */
+        public WithXAndY(String name, Color color, Font font, int x, int y) {
+            super(name, color, font);
+            this.commX = x;
+            this.commY = y;
+        }
+        
+    }
+    
+    /**
+     * Records a <code>drawString()</code> command to a <code>Graphics</code> 
+     * instance. The command includes <i>x</i> and <i>y</i> parameters.
+     */
+    public static class WithString extends WithXAndY {
+        
+        private final String commText;
+        
+        /**
+         * Retrieves the text this object was constructed with.
+         * @return The text this object was constructed with.
+         */
+        public String getText() {
+            return this.commText;
+        }
+        
+        /**
+         * Constructor. Use this for the version of <code>drawString()</code> 
+         * that a <code>String</code> parameter.
+         * @param name The name of the command. For example, "drawString". Must 
+         * not be null.
+         * @param color The current color. For example, 
+         * <code>Color.YELLOW</code>. Must not be null.
+         * @param font The current font. For example, 12-point Georgia. Must not 
+         * be null.
+         * @param x The <code>x</code> parameter.
+         * @param y The <code>y</code> parameter.
+         * @param text The text to write to the <code>Graphics</code> context. 
+         * Must not be null.
+         * @throws NullPointerException If <code>name</code>, 
+         * <code>color</code>, <code>font</code> or <code>text</code> is null.
+         */
+        public WithString(String name, Color color, Font font, int x, int y, 
+                String text) {
+            super(name, color, font, x, y);
+            if (text == null) {
+                String excMsg = "Iterator must not be null";
+                throw new NullPointerException(excMsg);
+            }
+            this.commText = text;
+        }
+        
+    }
+    
+    public static class WithAttributedCharacterIterator extends WithXAndY {
+        
+        private final AttributedCharacterIterator commCharIter;
+        
+        // TODO: Write test for this
+        public AttributedCharacterIterator getCharacterIterator() {
+            return null;
+        }
+        
+        /**
+         * Constructor. Use this for the version of <code>drawString()</code> 
+         * that takes an <code>AttributedCharacterIterator</code>.
+         * @param name The name of the command. For example, "create". Must not 
+         * be null.
+         * @param color The current color, the one that <code>getColor()</code> 
+         * from the <code>Graphics</code> instance would return. Must not be 
+         * null.
+         * @param font The current font, the one that <code>getFont()</code> 
+         * from the <code>Graphics</code> instance would return. However, when 
+         * recording a <code>setFont()</code> command, send the new font that is 
+         * being set. Must not be null.
+         * @param x The <code>x</code> parameter.
+         * @param y The <code>y</code> parameter.
+         * @param iterator The character iterator with the attributes.
+         * @throws NullPointerException If <code>name</code>, 
+         * <code>color</code>, <code>font</code> or <code>iterator</code> is 
+         * null.
+         */
+        public WithAttributedCharacterIterator(String name, Color color, 
+                Font font, int x, int y, AttributedCharacterIterator iterator) {
+            super(name, color, font, x, y);
+            if (iterator == null) {
+                String excMsg = "Iterator must not be null";
+                throw new NullPointerException(excMsg);
+            }
+            this.commCharIter = iterator;
+        }
+    }
+    
+    /**
+     * Records a <code>Graphics</code> command that takes four integer 
+     * parameters. The first two integer parameters are <i>x</i> and <i>y</i>. 
+     * The second two parameters can either be another <i>x</i> and <i>y</i> 
+     * pair or width and height parameters for a dimension.
+     */
+    public static class WithSecondXAndY extends WithXAndY {
+        
+        private final int comm2ndX, comm2ndY;
+        
+        public Point getSecondPoint() {
+            return new Point(this.comm2ndX, this.comm2ndY);
+        }
+        
+        public Dimension getDimension() {
+            return new Dimension(this.comm2ndX, this.comm2ndY);
+        }
+        
+        /**
+         * Constructor. Use this for any of the following commands: 
+         * <code>drawLine()</code>, <code>drawOval()</code>, the version of 
+         * <code>setClip()</code> that takes four integers.
+         * @param name The name of the command. For example, "drawLine". Must 
+         * not be null.
+         * @param color The current color. For example, <code>Color.BLUE</code>. 
+         * Must not be null.
+         * @param font The current font. For example, 12-point Zapf Dingbats. 
+         * Must not be null.
+         * @param x The <code>x1</code> parameter.
+         * @param y The <code>y1</code> parameter.
+         * @param dx The <code>x2</code> or <code>width</code> parameter.
+         * @param dy The <code>y2</code> or <code>height</code> parameter.
+         * @throws NullPointerException If <code>name</code>, <code>color</code> 
+         * or <code>font</code> is null.
+         */
+        public WithSecondXAndY(String name, Color color, Font font, int x, 
+                int y, int dx, int dy) {
+            super(name, color, font, x, y);
+            this.comm2ndX = dx;
+            this.comm2ndY = dy;
+        }
+        
     }
     
 }

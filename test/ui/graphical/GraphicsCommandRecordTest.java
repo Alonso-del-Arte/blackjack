@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -17,12 +17,14 @@
 package ui.graphical;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.ImageObserver;
@@ -137,6 +139,165 @@ public class GraphicsCommandRecordTest {
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
                     + " is the wrong exception for null font";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testGetXAndY() {
+        System.out.println("WithXAndY.getPoint");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        GraphicsCommandRecord.WithXAndY record 
+                = new GraphicsCommandRecord.WithXAndY(command, color, font, 
+                        x, y);
+        Point expected = new Point(x, y);
+        Point actual = record.getPoint();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetText() {
+        System.out.println("WithString.getText");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        String expected = "Some text " + RANDOM.nextInt();
+        GraphicsCommandRecord.WithString record 
+                = new GraphicsCommandRecord.WithString(command, color, font, x, 
+                        y, expected);
+        String actual = record.getText();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testConstructorRejectsNullText() {
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        try {
+            GraphicsCommandRecord.WithString badRecord 
+                    = new GraphicsCommandRecord.WithString(command, color, font, 
+                            x, y, null);
+            String msg = "should not have been able to create " 
+                    + badRecord.toString() + " with null text";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null text correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null text";
+            fail(msg);
+        }
+    }
+    
+    // TODO: Write test for non-null AttributedCharacterIterator
+    
+    @Test
+    public void testConstructorRejectsNullAttributedCharacterIterator() {
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        try {
+            GraphicsCommandRecord.WithAttributedCharacterIterator badRecord 
+                    = new GraphicsCommandRecord
+                            .WithAttributedCharacterIterator(command, color, 
+                                    font, x, y, null);
+            String msg = "should not have been able to create " 
+                    + badRecord.toString() + " with null character iterator";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null character iterator correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null character iterator";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testGetSecondPoint() {
+        System.out.println("getSecondPoint");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        int dx = RANDOM.nextInt(1920);
+        int dy = RANDOM.nextInt(1080);
+        GraphicsCommandRecord.WithSecondXAndY record 
+                = new GraphicsCommandRecord.WithSecondXAndY(command, color, 
+                        font, x, y, dx, dy);
+        Point expected = new Point(dx, dy);
+        Point actual = record.getSecondPoint();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetDimension() {
+        System.out.println("getDimension");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int x = RANDOM.nextInt(1920);
+        int y = RANDOM.nextInt(1080);
+        int height = RANDOM.nextInt(1920);
+        int width = RANDOM.nextInt(1080);
+        GraphicsCommandRecord.WithSecondXAndY record 
+                = new GraphicsCommandRecord.WithSecondXAndY(command, color, 
+                        font, x, y, height, width);
+        Dimension expected = new Dimension(height, width);
+        Dimension actual = record.getDimension();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetShape() {
+        System.out.println("WithShape.getShape");
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        int height = RANDOM.nextInt(1920) + 1;
+        int width = RANDOM.nextInt(1080) + 1;
+        int x = RANDOM.nextInt(height) + 1;
+        int y = RANDOM.nextInt(width) + 1;
+        Shape expected = new Rectangle(x, y, height, width);
+        GraphicsCommandRecord.WithShape record 
+                = new GraphicsCommandRecord.WithShape(command, color, font, 
+                        expected);
+        Shape actual = record.getShape();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testWithShapeConstructorRejectsNullShape() {
+        String command = "command" + RANDOM.nextInt();
+        Color color = new Color(RANDOM.nextInt());
+        Font font = FONTS[RANDOM.nextInt(TOTAL_NUMBER_OF_FONTS)];
+        try {
+            GraphicsCommandRecord.WithShape badRecord 
+                    = new GraphicsCommandRecord.WithShape(command, color, font, 
+                            null);
+            String msg = "Should not have been able to create " 
+                    + badRecord.toString() + " with null shape";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Trying to use null shape correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null shape";
             fail(msg);
         }
     }
