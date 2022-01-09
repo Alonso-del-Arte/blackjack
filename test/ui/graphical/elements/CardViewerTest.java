@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,18 +18,12 @@ package ui.graphical.elements;
 
 import playingcards.CardDeck;
 import playingcards.CardProvider;
+import playingcards.CardServer;
 import playingcards.PlayingCard;
+import playingcards.Rank;
 import playingcards.Suit;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import playingcards.Rank;
+import java.awt.event.ActionEvent;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -41,6 +35,8 @@ import static org.junit.Assert.*;
 public class CardViewerTest {
     
     private static final CardProvider CARD_PROVIDER = new CardProvider();
+    
+    private static final CardServer CARD_SERVER = new CardServer();
     
     @Test
     public void testConstructorRejectsNull() {
@@ -109,6 +105,23 @@ public class CardViewerTest {
             actual = viewer.getDisplayedCard();
             assertEquals(expected, actual);
         }
+    }
+    
+    @Test
+    public void testNinePipsSymmetricalToggling() {
+        if (!CardImage.ninePipsAreSymmetrical()) {
+            CardImage.toggleNinePipsAreSymmetrical();
+        }
+        PlayingCard nine = CARD_SERVER.giveCard(Rank.NINE);
+        CardViewer viewer = new CardViewer(nine);
+        ActionEvent event = new ActionEvent(this, ActionEvent.ACTION_FIRST, 
+                CardViewer.NINE_PIPS_LABEL);
+        viewer.actionPerformed(event);
+        assert !CardImage.ninePipsAreSymmetrical() 
+                : "Nine pips should be asymmetrical after toggling off";
+        viewer.actionPerformed(event);
+        assert CardImage.ninePipsAreSymmetrical() 
+                : "Nine pips should be symmetrical after toggling back on";
     }
     
 }

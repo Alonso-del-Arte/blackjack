@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -27,11 +27,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 /**
- *
+ * Paints an image of a playing card to a <code>Graphics</code> context. The 
+ * card may be drawn face up or face down.
  * @author Alonso del Arte
  */
 public class CardImage {
     
+    private static boolean ninePipsSymmetrical = true;
+
     private final PlayingCard playingCard;
     
     private final Color textColor;
@@ -43,6 +46,14 @@ public class CardImage {
     private final String suitChar;
     
     private Font pipFont, invertedPipFont;
+    
+    public static boolean ninePipsAreSymmetrical() {
+        return ninePipsSymmetrical;
+    }
+    
+    public static void toggleNinePipsAreSymmetrical() {
+        ninePipsSymmetrical = !ninePipsSymmetrical;
+    }
     
     private void writeEdgeLegend(Graphics g, final Point p, 
             final Dimension size) {
@@ -61,16 +72,7 @@ public class CardImage {
         g.drawString(Character.toString(this.playingCard.getSuit().getChar()), 
                 point.x, point.y);
     }
-    
-    /* 
-drawMiddlePipCentered: ACE, THREE, FIVE, NINE
-drawCornerPips: FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN
-drawTwoMiddlePips: SIX, SEVEN, EIGHT, TEN
-drawMiddlePipInUpperHalf: SEVEN, EIGHT, TEN
-drawMiddlePipInLowerHalf: EIGHT, TEN
-drawFourMiddlePips: NINE, TEN
-    */
-    
+        
     private void drawAceOfSpades(Graphics g, final Point p, 
             final Dimension size) {
         // TODO: Replace with special Ace of Spades drawing
@@ -79,37 +81,58 @@ drawFourMiddlePips: NINE, TEN
     
     private void drawMiddlePipCentered(Graphics g, final Point p, 
             final Dimension size) {
-        g.drawString(this.suitChar, p.x + 90, p.y + 210);
+        g.drawString(this.suitChar, p.x + 90, p.y + 205);
     }
     
     private void drawTwoPipsCentered(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.drawString(this.suitChar, p.x + 90, p.y + 85);
+        g.setFont(this.invertedPipFont);
+        g.drawString(this.suitChar, p.x + 150, p.y + 270);
     }
     
-    private void drawCornerPips(Graphics g, final Point p, 
+    private void drawFourCornerPips(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.drawString(this.suitChar, p.x + 45, p.y + 85);
+        g.drawString(this.suitChar, p.x + 145, p.y + 85);
+        g.setFont(this.invertedPipFont);
+        g.drawString(this.suitChar, p.x + 105, p.y + 270);
+        g.drawString(this.suitChar, p.x + 205, p.y + 270);
     }
     
     private void drawTwoMiddlePips(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.drawString(this.suitChar, p.x + 45, p.y + 200);
+        g.drawString(this.suitChar, p.x + 145, p.y + 200);
     }
     
     private void drawMiddlePipInUpperHalf(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.drawString(this.suitChar, p.x + 90, p.y + 135);
     }
     
     private void drawMiddlePipInLowerHalf(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.setFont(this.invertedPipFont);
+        g.drawString(this.suitChar, p.x + 150, p.y + 225);
+        g.setFont(this.pipFont);
     }
     
     private void drawFourMiddlePips(Graphics g, final Point p, 
             final Dimension size) {
-        //
+        g.setFont(this.pipFont);
+        g.drawString(this.suitChar, p.x + 45, p.y + 150);
+        g.drawString(this.suitChar, p.x + 145, p.y + 150);
+        g.setFont(this.invertedPipFont);
+        g.drawString(this.suitChar, p.x + 105, p.y + 180);
+        g.drawString(this.suitChar, p.x + 205, p.y + 180);
+    }
+    
+    private void drawNinePipsSymmetrically(Graphics g, final Point p, 
+            final Dimension size) {
+        this.drawMiddlePipCentered(g, p, size);
+        this.drawFourCornerPips(g, p, size);
+        this.drawFourMiddlePips(g, p, size);
     }
     
     private void drawPips(Graphics g, final Point p, final Dimension size) {
@@ -125,6 +148,10 @@ drawFourMiddlePips: NINE, TEN
         } else {
             this.invertedPipFont = new Font(g.getFont().getFontName(), 
                     Font.PLAIN, -72);
+            if (ninePipsSymmetrical && this.rank.equals(Rank.NINE)) {
+                this.drawNinePipsSymmetrically(g, p, size);
+                return;
+            }
             switch (this.rank) {
                 case THREE:
                     this.drawMiddlePipCentered(g, p, size);
@@ -134,21 +161,21 @@ drawFourMiddlePips: NINE, TEN
                 case FIVE:
                     this.drawMiddlePipCentered(g, p, size);
                 case FOUR:
-                    this.drawCornerPips(g, p, size);
+                    this.drawFourCornerPips(g, p, size);
                     break;
                 case SEVEN:
                     this.drawMiddlePipInUpperHalf(g, p, size);
                 case SIX:
-                    this.drawCornerPips(g, p, size);
                     this.drawTwoMiddlePips(g, p, size);
+                    this.drawFourCornerPips(g, p, size);
                     break;
                 case TEN:
                     this.drawMiddlePipInLowerHalf(g, p, size);
                 case NINE:
                     this.drawMiddlePipInUpperHalf(g, p, size);
                 case EIGHT:
+                    this.drawFourCornerPips(g, p, size);
                     this.drawFourMiddlePips(g, p, size);
-                    this.drawCornerPips(g, p, size);
                     break;
                 default:
                     throw new RuntimeException("Unexpected rank: " 
@@ -171,6 +198,14 @@ drawFourMiddlePips: NINE, TEN
         g.fillRoundRect(p.x + 1, p.y + 1, size.width, size.height, 10, 10);
     }
     
+    // TODO: Correct Javadoc once all tests are passing
+    /**
+     * This will paint a card face up.
+     * @param g The <code>Graphics</code> context in which to paint the card, 
+     * such as one passed in 
+     * @param p The point for the top left corner of the face up card.
+     * @param size The size of the card. At least for the [FINISH WRITING]
+     */
     public void paintFaceUp(Graphics g, final Point p, final Dimension size) {
         // TODO: Write tests for this
         this.paintBlankCard(g, p, size);

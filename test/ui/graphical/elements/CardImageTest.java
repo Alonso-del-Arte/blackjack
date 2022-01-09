@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -32,6 +32,16 @@ import static org.junit.Assert.*;
  * @author Alonso del Arte
  */
 public class CardImageTest {
+    
+    @Test
+    public void testToggleNinePipsAreSymmetrical() {
+        System.out.println("toggleNinePipsAreSymmetrical");
+        boolean expected = !CardImage.ninePipsAreSymmetrical();
+        CardImage.toggleNinePipsAreSymmetrical();
+        assertEquals(expected, CardImage.ninePipsAreSymmetrical());
+        CardImage.toggleNinePipsAreSymmetrical();
+        assertEquals(!expected, CardImage.ninePipsAreSymmetrical());
+    }
     
     @Test
     public void testConstructorRejectsNullCard() {

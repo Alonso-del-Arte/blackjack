@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,6 +18,7 @@ package ui.graphical.elements;
 
 import playingcards.CardProvider;
 import playingcards.PlayingCard;
+import playingcards.Rank;
 import playingcards.Suit;
 
 import java.awt.BorderLayout;
@@ -33,19 +34,16 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
 import javax.swing.JFrame;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-
-import playingcards.CardProvider;
-import playingcards.Rank;
-import playingcards.Suit;
 
 /**
  * Just a simple program to display playing card images. This is not meant to 
  * supplant automated tests, but rather to help me write those tests.
  * @author Alonso del Arte
  */
-public class CardViewer extends JPanel implements ItemListener {
+public class CardViewer extends JPanel implements ActionListener, ItemListener {
     
     private static final Color BACKGROUND_COLOR = new Color(0, 128, 0);
     
@@ -70,6 +68,11 @@ public class CardViewer extends JPanel implements ItemListener {
     private boolean faceUp = true;
     
     private CardImage cardImage;
+    
+    static final String NINE_PIPS_LABEL = "Nine pips symmetrical";
+    
+    private final JCheckBox ninePipsCheckBox = new JCheckBox(NINE_PIPS_LABEL, 
+            CardImage.ninePipsAreSymmetrical());
     
     PlayingCard getDisplayedCard() {
         return this.currCard;
@@ -102,7 +105,23 @@ public class CardViewer extends JPanel implements ItemListener {
         this.currCard = CARD_GIVER.giveCard(rank, suit);
         this.cardImage = new CardImage(this.currCard);
         this.frame.setTitle("Card Viewer: " + this.currCard.toString());
+        this.ninePipsCheckBox.setEnabled(this.currCard.getRank()
+                .equals(Rank.NINE));
         this.repaint();
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+//        String command = ae.getActionCommand();
+//        switch (command) {
+//            case NINE_PIPS_LABEL:
+                CardImage.toggleNinePipsAreSymmetrical();
+                this.repaint();
+//                break;
+//            default:
+//                System.err.println("Command \"" + command 
+//                        + "\" not recognized");
+//        }
     }
     
     public void setUpViewer() {
@@ -116,6 +135,12 @@ public class CardViewer extends JPanel implements ItemListener {
         this.suitList.addItemListener(this);
         this.frame.add(dropDowns, BorderLayout.PAGE_START);
         this.frame.add(this, BorderLayout.CENTER);
+        this.ninePipsCheckBox.addActionListener(this);
+        this.ninePipsCheckBox.setEnabled(this.currCard.getRank()
+                .equals(Rank.NINE));
+        JPanel ninePipsCheckBoxPanel = new JPanel();
+        ninePipsCheckBoxPanel.add(this.ninePipsCheckBox);
+        this.frame.add(ninePipsCheckBoxPanel, BorderLayout.PAGE_END);
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.pack();
         this.frame.setVisible(true);
