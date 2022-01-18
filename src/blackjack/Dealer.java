@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -43,18 +43,6 @@ public class Dealer {
         return pairs;
     }
     
-    // STUB TO FAIL THE FIRST TEST
-    HashSet<RankPairSpec> giveTenPairs() {
-        HashSet<RankPairSpec> pairs = new HashSet<>();
-        return pairs;
-    }
-    
-    // STUB TO FAIL THE FIRST TEST
-    HashSet<RankPairSpec> giveSixteenPairs() {
-        HashSet<RankPairSpec> pairs = new HashSet<>();
-        return pairs;
-    }
-    
     private static int plasticCardPlace() {
         return ((int) Math.floor(Math.random() * 15) + 60);
     }
@@ -63,7 +51,17 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
+    /**
+     * Sole constructor.
+     * @param pairs The set pairs which this dealer will allow to be split. If 
+     * empty, the dealer will not allow any pairs to be split.
+     */
     Dealer(HashSet<RankPairSpec> pairs) {
+        if (pairs == null) {
+            String excMsg 
+                    = "Set of pair specs may be empty but should not be null";
+            throw new NullPointerException(excMsg);
+        }
         this.splitSpecs = pairs;
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
         this.hand = null;// new Hand();

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -24,9 +24,11 @@ import java.util.ArrayList;
  */
 public class Player {
     
-    // TODO: Write it
-    
     private final ArrayList<Hand> hands = new ArrayList<>();
+    
+    public String getName() {
+        return "Not implemented yet";
+    }
     
     ArrayList<Hand> getHands() {
         return new ArrayList<>(this.hands);
@@ -36,8 +38,7 @@ public class Player {
         this.hands.add(hand);
     }
     
-    Player(Hand initialHand) {
-        this.hands.add(initialHand);
+    Player(String name) {
     }
     
 }
