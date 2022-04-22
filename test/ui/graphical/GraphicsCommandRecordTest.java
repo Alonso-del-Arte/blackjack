@@ -27,6 +27,7 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Shape;
+import java.awt.image.BufferedImage;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import java.util.Random;
@@ -300,6 +301,12 @@ public class GraphicsCommandRecordTest {
                     + " is the wrong exception for null shape";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testGetImage() {
+        System.out.println("WithImage.getImage");
+        fail("Haven't written test yet");
     }
     
 }

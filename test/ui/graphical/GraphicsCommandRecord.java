@@ -165,6 +165,13 @@ public class GraphicsCommandRecord {
     /**
      * Records a <code>drawString()</code> command to a <code>Graphics</code> 
      * instance. The command includes <i>x</i> and <i>y</i> parameters.
+     * <p>Maybe this can also be used for <code>drawBytes()</code> or 
+     * <code>drawChars()</code>. But given that the former is not recommended on 
+     * account of being limited to ASCII characters and the latter takes a 
+     * <code>char</code> array that can easily be converted to a 
+     * <code>String</code> instance, I just don't see much need for recording 
+     * either of those two commands like I see a need to record 
+     * <code>drawString()</code> commands.</p>
      */
     public static class WithString extends WithXAndY {
         
@@ -285,6 +292,58 @@ public class GraphicsCommandRecord {
             super(name, color, font, x, y);
             this.comm2ndX = dx;
             this.comm2ndY = dy;
+        }
+        
+    }
+    
+    public static class WithImage extends WithSecondXAndY {
+        
+        private final Image commImage;
+        
+        private final ImageObserver commObserver;
+        
+        private final Color commBackgroundColor;
+        
+        // TODO: Write tests for this
+        public Image getImage() {
+            return null;
+        }
+        
+        // TODO: Write tests for this
+        public ImageObserver getObserver() {
+            return null;
+        }
+        
+        // TODO: Write tests for this
+        public Color getBackgroundColor() {
+            return Color.MAGENTA;
+        }
+        
+        /**
+         * Primary constructor.
+         * @param name
+         * @param color
+         * @param font
+         * @param image The image to be drawn. Must not be null.
+         * @param observer The observer to keep track of the image. Must not be 
+         * null.
+         * @param bgColor The background color. May be null.
+         * @param x
+         * @param y
+         * @param dx
+         * @param dy
+         * @param sx1
+         * @param sy1
+         * @param sx2
+         * @param sy2 
+         */
+        public WithImage(String name, Color color, Font font, Image image, 
+                ImageObserver observer, Color bgColor, int x, int y, int dx, 
+                int dy, int sx1, int sy1, int sx2, int sy2) {
+            super(name, color, font, x, y, dx, dy);
+            this.commImage = image;
+            this.commObserver = observer;
+            this.commBackgroundColor = bgColor;
         }
         
     }
