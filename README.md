@@ -1,7 +1,9 @@
 # blackjack
 The blackjack, or 21, game
 
-For now, this is a console application limited to a dealer and only one player. There is for now no option to split a pair, double down nor make an insurance bet.
+The game is ready to play on the console or terminal (text only), limited to a dealer and only one player. I am working on a graphical user interface for this.
+
+There is for now no option to split a pair, double down nor make an insurance bet.
 
 ## The rules of blackjack, as I understand them
 
