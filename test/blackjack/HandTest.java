@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -46,13 +46,16 @@ public class HandTest {
     private static Dealer dealer;
     
     /**
-     * Sets up a new card server with six decks
+     * Sets up a new card server with six decks.
      */
     @Before
     public void setUp() {
         this.server = new CardServer(6);
     }
     
+    /**
+     * Test of the getWager function, of the Hand class.
+     */
     @Test
     public void testGetWager() {
         Currency yen = Currency.getInstance(Locale.JAPAN);
@@ -64,7 +67,7 @@ public class HandTest {
     }
     
     /**
-     * Test of cardsValue method, of class Hand.
+     * Test of the cardsValue function, of the Hand class.
      */
     @Test
     public void testCardsValue() {
@@ -74,22 +77,23 @@ public class HandTest {
     }
     
     /**
-     * Another test of cardsValue method, of class Hand. A Jack of any suit 
-     * should be valued at 10.
+     * Another test of the cardsValue function, of the Hand class. A Jack of any 
+     * suit should be valued at 10.
      */
     @Test
     public void testCardsValueAfterAddingJack() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = this.server.giveCard(Rank.JACK);
         hand.add(card);
-        assertEquals("Hand with Jack should have value 10", 10, hand.cardsValue());
+        assertEquals("Hand with Jack should have value 10", 10, 
+                hand.cardsValue());
     }
     
     /**
-     * Another test of cardsValue method, of class Hand. Two Aces valued at 11 
-     * each would mean the hand has gone bust. However, when a hand has two 
-     * Aces, one or both of them should be revalued at 1, so that the hand's 
-     * value is then less than 22.
+     * Another test of the cardsValue function, of the Hand class. Two Aces 
+     * valued at 11 each would mean the hand has gone bust. However, when a hand 
+     * has two Aces, one or both of them should be revalued at 1, so that the 
+     * hand's value is then less than 22.
      */
     @Test
     public void testTwoAcesCantBust() {
@@ -103,8 +107,8 @@ public class HandTest {
     }
     
     /**
-     * Another test of cardsValue method, of class Hand. The court cards should 
-     * each be valued at 10.
+     * Another test of the cardsValue function, of the Hand class. The court 
+     * cards should each be valued at 10.
      */
     @Test
     public void testCourtCardsAreTenEach() {
@@ -119,7 +123,7 @@ public class HandTest {
     }
     
     /**
-     * Test of inspectCards method of class Hand.
+     * Test of the inspectCards function, of the Hand class.
      */
     @Test
     public void testInspectCards() {
@@ -132,16 +136,15 @@ public class HandTest {
         hand.add(expected[3]);
         PlayingCard[] actual = hand.inspectCards();
         assertArrayEquals(expected, actual);
-        String assertionMessage;
+        String msg;
         for (PlayingCard card : actual) {
-            assertionMessage = card.toString() 
-                    + " came from the test class's card server";
-            assert this.server.provenance(card) : assertionMessage;
+            msg = card.toString() + " came from the test class's card server";
+            assert this.server.provenance(card) : msg;
         }
     }
     
     /**
-     * Test of isSplittableHand method of class Hand.
+     * Test of the isSplittableHand function, of the Hand class.
      */
     @Test
     public void testIsSplittableHand() {
@@ -151,13 +154,13 @@ public class HandTest {
         PlayingCard secondSix = this.server.giveCard(Rank.SIX);
         splittableHand.add(firstSix);
         splittableHand.add(secondSix);
-        String assertionMessage = "Hand with " + firstSix.toString() + " and " 
+        String msg = "Hand with " + firstSix.toString() + " and " 
                 + secondSix.toString() + " should be considered splittable";
-        assert splittableHand.isSplittableHand(dealer) : assertionMessage;
+        assert splittableHand.isSplittableHand(dealer) : msg;
     }
     
     /**
-     * Another test of isSplittableHand method of class Hand.
+     * Another test of the isSplittableHand function, of the Hand class.
      */
     @Test
     public void testNotSplittableHand() {
@@ -168,14 +171,14 @@ public class HandTest {
         hand.add(firstSix);
         hand.add(secondSix);
         hand.add(seven);
-        String assertionMessage = "Hand with " + firstSix.toString() + ", " 
+        String msg = "Hand with " + firstSix.toString() + ", " 
                 + secondSix.toString() + " and " + seven.toString() 
                 + " should not be considered splittable";
-        assert !hand.isSplittableHand(dealer) : assertionMessage;
+        assert !hand.isSplittableHand(dealer) : msg;
     }
     
     /**
-     * Another test of split method of class Hand.
+     * Another test of the split function, of the Hand class.
      */
     @Test
     public void testCanNotSplitNewHand() {
@@ -185,7 +188,7 @@ public class HandTest {
             System.out.println("Somehow created " + splitOff.toString() 
                     + " valued at " + splitOff.cardsValue() 
                     + " from new hand with no cards");
-            String msg = "Shouldn't've been able to split off from no-card hand";
+            String msg = "Shouldn't've been able to split off from 0-card hand";
             fail(msg);
         } catch (IllegalStateException ise) {
             System.out.println("Split from empty caused IllegalStateException");
@@ -198,7 +201,7 @@ public class HandTest {
     }
     
     /**
-     * Test of split method, of class Hand.
+     * Test of the split function, of the Hand class.
      */
     @Test
     public void testSplit() {
@@ -212,12 +215,16 @@ public class HandTest {
         assertEquals(8, firstHand.cardsValue());
         assertEquals(8, splitOffHand.cardsValue());
         PlayingCard[] cards = splitOffHand.inspectCards();
-        String assertionMessage = cards[0].toString() 
+        String msg = cards[0].toString() 
                 + " should have came from the same source as " 
                 + firstEight.toString();
-        assert this.server.provenance(cards[0]) : assertionMessage;
+        assert this.server.provenance(cards[0]) : msg;
     }
     
+    /**
+     * Another test of the split function, of the Hand class. When a hand is 
+     * split, the wager should also be split among the hands.
+     */
     @Test
     public void testSplitAlsoSplitsWager() {
         long originalWagerCents = 128000L;
@@ -241,10 +248,10 @@ public class HandTest {
     }
     
     /**
-     * Another test of split method, of class Hand. Some casinos allow a player 
-     * to split any hand that consists of two cards valued at 10 each, even if 
-     * they are not the same rank, such as, for example, 10&#9824; and Q&#9830;. 
-     * However, in this blackjack implementation, that is not allowed.
+     * Another test of the split function, of the Hand class. Some casinos allow 
+     * a player to split any hand that consists of two cards valued at 10 each, 
+     * even if they are not the same rank, such as, for example, 10&#9824; and 
+     * Q&#9830;. However, in this blackjack implementation, that is not allowed.
      */
     @Test
     public void testMayNotSplitSameValuedCardsIfDiffRanks() {
@@ -255,10 +262,10 @@ public class HandTest {
         hand.add(queen);
         try {
             Hand splitOffHand = hand.split(dealer);
-            String failMsg = "Trying to split off hand consisting of " 
+            String msg = "Trying to split off hand consisting of " 
                     + ten.toString() + " and " + queen.toString() 
                     + " should not have created " + splitOffHand.toString();
-            fail(failMsg);
+            fail(msg);
         } catch (IllegalStateException ise) {
             System.out.println("Trying to split off hand consisting of " 
                     + ten.toASCIIString() + " and " + queen.toASCIIString() 

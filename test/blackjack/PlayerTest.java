@@ -25,9 +25,13 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     
-//    @Test
+    @Test
     public void testGetName() {
         System.out.println("getName");
+        String expected = "John Q. Player";
+        Player player = new Player(expected);
+        String actual = player.getName();
+        assertEquals(expected, actual);
     }
     
     @Test

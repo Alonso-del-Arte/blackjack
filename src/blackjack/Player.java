@@ -24,21 +24,39 @@ import java.util.ArrayList;
  */
 public class Player {
     
+    private final String playerName;
+    
     private final ArrayList<Hand> hands = new ArrayList<>();
     
     public String getName() {
-        return "Not implemented yet";
+        return this.playerName;
     }
     
-    ArrayList<Hand> getHands() {
-        return new ArrayList<>(this.hands);
+    ArrayList<Hand> getHands() {return null;
+//        return new ArrayList<>(this.hands);
     }
     
     void add(Hand hand) {
         this.hands.add(hand);
     }
     
-    Player(String name) {
+    /**
+     * Sole constructor.
+     * @param name The player's name. For example, "Marla". Must not be null. 
+     * Must not be empty.
+     * @throws IllegalArgumentException If <code>name</code> is "".
+     * @throws NullPointerException  If <code>name</code> is null.
+     */
+    public Player(String name) {
+        if (name == null) {
+            String excMsg = "Player name must not be null";
+            throw new NullPointerException(excMsg);
+        }
+        if (name.equals("")) {
+            String excMsg = "Player name must not be empty";
+            throw new IllegalArgumentException(excMsg);
+        }
+        this.playerName = name;
     }
     
 }

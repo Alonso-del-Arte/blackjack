@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -108,14 +108,14 @@ public class Hand {
      * valued 10. There is no stricture on splitting Aces, Fours, Fives or Tens 
      * (which some British casinos might enforce).
      */
-    boolean isSplittableHand(Dealer dealer) {
+    public boolean isSplittableHand(Dealer dealer) {
         return (this.cards.size() == 2 
                 && this.cards.get(0).isSameRank(this.cards.get(1)));
     }
     
     // TODO: Update Javadoc once dealer param is actually used    
     /**
-     * Splits off one of a pair to a separate hand.If the split occurs 
+     * Splits off one of a pair to a separate hand. If the split occurs 
      * successfully, this hand will then contain one card and the other hand 
      * will contain the other card. The value of this hand is reduced 
      * accordingly. Some casinos may limit how many times one player may split a 
@@ -135,7 +135,8 @@ public class Hand {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
         }
-        CurrencyAmount splitAmount = this.associatedWager.getAmount().divides(2);
+        CurrencyAmount splitAmount 
+                = this.associatedWager.getAmount().divides(2);
         this.associatedWager = new Wager(splitAmount);
         Hand splitOffHand = new Hand(this.associatedWager);
         splitOffHand.add(this.cards.remove(1));
@@ -148,7 +149,7 @@ public class Hand {
      * @return True if the hand is new or has cards valued at 2 to 20, false 
      * otherwise.
      */
-    boolean isOpenHand() {
+    public boolean isOpenHand() {
         return this.openFlag;
     }
     
@@ -159,7 +160,7 @@ public class Hand {
      * @return True if and only if this hand is valued at 21, false otherwise, 
      * without regard to how this hand compares to other players' hands.
      */
-    boolean isWinningHand() {
+    public boolean isWinningHand() {
         return this.winFlag;
     }
     
@@ -168,7 +169,7 @@ public class Hand {
      * @return True if cards' aggregate value is in excess of 21 (even after 
      * counting all Aces as 1 each), false otherwise.
      */
-    boolean isBustedHand() {
+    public boolean isBustedHand() {
         return this.bustFlag;
     }
     
@@ -176,7 +177,7 @@ public class Hand {
      * Indicates if no more cards may be added to this hand.
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
-    boolean isClosedHand() {
+    public boolean isClosedHand() {
         return this.closedFlag;
     }
     
@@ -184,7 +185,7 @@ public class Hand {
         this.settleFlag = true;
     }
     
-    boolean isSettledHand() {
+    public boolean isSettledHand() {
         return this.settleFlag;
     }
 

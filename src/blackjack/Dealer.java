@@ -21,6 +21,7 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a blackjack dealer. The dealer is responsible for dealing cards, 
@@ -28,6 +29,8 @@ import java.util.HashSet;
  * @author Alonso del Arte
  */
 public class Dealer {
+    
+    public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = 7;
     
     private MultiDeckCardDispenser cardDispenser;
     
