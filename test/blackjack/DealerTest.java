@@ -55,7 +55,15 @@ public class DealerTest {
 
     @Test
     public void testGiveSplittablePairsDoesNotLeakReference() {
-        fail("Haven't written test yet");
+        RankPairSpec pairSpec1 = new RankPairSpec(Rank.EIGHT, Rank.EIGHT);
+        Set<RankPairSpec> pairSpecSet = new HashSet<>();
+        pairSpecSet.add(pairSpec1);
+        Dealer dealer = new Dealer(pairSpecSet);
+        Set<RankPairSpec> retrievedPairSpecSet1 = dealer.giveSplittablePairs();
+        RankPairSpec pairSpec2 = new RankPairSpec(Rank.NINE, Rank.NINE);
+        retrievedPairSpecSet1.add(pairSpec2);
+        Set<RankPairSpec> retrievedPairSpecSet2 = dealer.giveSplittablePairs();
+        assertNotEquals(retrievedPairSpecSet1, retrievedPairSpecSet2);
     }
     
     @Test
@@ -75,6 +83,18 @@ public class DealerTest {
                     + " is the wrong exception for null constructor parameter";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testConstructorMakesNewPairSpecSetFromParam() {
+        RankPairSpec pairSpec1 = new RankPairSpec(Rank.EIGHT, Rank.EIGHT);
+        Set<RankPairSpec> pairSpecSet = new HashSet<>();
+        pairSpecSet.add(pairSpec1);
+        Dealer dealer = new Dealer(pairSpecSet);
+        RankPairSpec pairSpec2 = new RankPairSpec(Rank.NINE, Rank.NINE);
+        pairSpecSet.add(pairSpec2);
+        Set<RankPairSpec> retrievedPairSpecSet = dealer.giveSplittablePairs();
+        assertNotEquals(pairSpecSet, retrievedPairSpecSet);
     }
     
 }

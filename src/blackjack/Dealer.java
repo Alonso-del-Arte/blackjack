@@ -40,9 +40,8 @@ public class Dealer {
     
     // TODO: Flesh out
     
-    Set<RankPairSpec> giveSplittablePairs() {
-//        return new HashSet<>(this.splitSpecs);
-return this.splitSpecs;
+    public Set<RankPairSpec> giveSplittablePairs() {
+        return new HashSet<>(this.splitSpecs);
     }
     
     private static int plasticCardPlace() {
@@ -53,19 +52,24 @@ return this.splitSpecs;
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
+    // TODO: Write tests for this
+    public Dealer() {
+        this(new HashSet<RankPairSpec>());
+    }
+    
     /**
-     * Sole constructor.
+     * Primary constructor.
      * @param pairs The set pairs which this dealer will allow to be split. If 
      * empty, the dealer will not allow any pairs to be split.
      * @throws NullPointerException If <code>pairs</code> is null.
      */
-    Dealer(Set<RankPairSpec> pairs) {
+    public Dealer(Set<RankPairSpec> pairs) {
         if (pairs == null) {
             String excMsg 
                     = "Set of pair specs may be empty but should not be null";
             throw new NullPointerException(excMsg);
         }
-        this.splitSpecs = pairs;
+        this.splitSpecs = new HashSet<>(pairs);
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
         this.hand = null;// new Hand();
     }
