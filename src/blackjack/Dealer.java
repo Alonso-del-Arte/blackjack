@@ -34,15 +34,15 @@ public class Dealer {
     
     private MultiDeckCardDispenser cardDispenser;
     
-    private final HashSet<RankPairSpec> splitSpecs;
+    private final Set<RankPairSpec> splitSpecs;
     
     private Hand hand;
     
     // TODO: Flesh out
     
     // STUB TO FAIL THE FIRST TEST
-    HashSet<RankPairSpec> giveUsualPairs() {
-        HashSet<RankPairSpec> pairs = new HashSet<>();
+    Set<RankPairSpec> giveSplittablePairs() {
+        Set<RankPairSpec> pairs = new HashSet<>();
         return pairs;
     }
     
@@ -58,8 +58,9 @@ public class Dealer {
      * Sole constructor.
      * @param pairs The set pairs which this dealer will allow to be split. If 
      * empty, the dealer will not allow any pairs to be split.
+     * @throws NullPointerException If <code>pairs</code> is null.
      */
-    Dealer(HashSet<RankPairSpec> pairs) {
+    Dealer(Set<RankPairSpec> pairs) {
         if (pairs == null) {
             String excMsg 
                     = "Set of pair specs may be empty but should not be null";
