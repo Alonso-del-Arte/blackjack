@@ -19,7 +19,11 @@ package blackjack;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -29,12 +33,34 @@ import static org.junit.Assert.*;
  * @author Alonso del Arte
  */
 public class DealerTest {
-
-    // TODO: Write more tests
+    
+    private static final Random RANDOM = new Random();
     
     @Test
-    public void testDealerRejectsNullSet() {
-        HashSet<RankPairSpec> badSet = null;
+    public void testGiveSplittablePairs() {
+        System.out.println("giveSplittablePairs");
+        List<RankPairSpec> pairSpecs = new ArrayList<>();
+        Rank[] ranks = Rank.values();
+        for (Rank rank : ranks) {
+            RankPairSpec pairSpec = new RankPairSpec(rank, rank);
+            pairSpecs.add(pairSpec);
+        }
+        int index = RANDOM.nextInt(pairSpecs.size());
+        pairSpecs.remove(index);
+        Set<RankPairSpec> expected = new HashSet<>(pairSpecs);
+        Dealer dealer = new Dealer(expected);
+        Set<RankPairSpec> actual = dealer.giveSplittablePairs();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testGiveSplittablePairsDoesNotLeakReference() {
+        fail("Haven't written test yet");
+    }
+    
+    @Test
+    public void testConstructorRejectsNullSet() {
+        Set<RankPairSpec> badSet = null;
         try {
             Dealer badDealer = new Dealer(badSet);
             String msg = "Should not have been able to create " 

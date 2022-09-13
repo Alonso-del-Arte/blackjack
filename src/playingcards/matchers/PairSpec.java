@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -33,6 +33,32 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     private static final int HASH_SEP = 65536;
     
     private final E elementA, elementB;
+    
+    /**
+     * Determines whether the specified characteristics match this pair 
+     * specification. This function should be called by the classes implementing 
+     * this abstract class.
+     * @param fromCardA The characteristic of one of the cards.
+     * @param fromCardB The characteristic of the other card of the pair.
+     * @return True if the characteristics match this pair specification, false 
+     * otherwise. Order does not matter.
+     */
+    protected boolean matches(E fromCardA, E fromCardB) {
+        return (this.elementA.equals(fromCardA) 
+                && this.elementB.equals(fromCardB)) 
+                || (this.elementA.equals(fromCardB) 
+                && this.elementB.equals(fromCardA));
+    }
+    
+    /**
+     * Determines whether or not two cards match this pair specification. Order 
+     * should not matter. This function should be implemented by calling the 
+     * protected <code>matches(E, E)</code> function.
+     * @param cardA One card of the pair.
+     * @param cardB The other card of the pair.
+     * @return 
+     */
+    public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
     /**
      * Determines whether an object is equal to this pair specification.
@@ -71,30 +97,16 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     }
     
     /**
-     * Determines whether the specified characteristics match this pair 
-     * specification. This function should be called by the classes implementing 
-     * this abstract class.
-     * @param fromCardA The characteristic of one of the cards.
-     * @param fromCardB The characteristic of the other card of the pair.
-     * @return True if the characteristics match this pair specification, false 
-     * otherwise. Order does not matter.
+     * Identifies the two card specifications of this pair. This override is 
+     * provided only for the sake of testing.
+     * @return "(a, b)", where "a" stands for the first card specification and 
+     * "b" stands for the second card classification.
      */
-    protected boolean matches(E fromCardA, E fromCardB) {
-        return (this.elementA.equals(fromCardA) 
-                && this.elementB.equals(fromCardB)) 
-                || (this.elementA.equals(fromCardB) 
-                && this.elementB.equals(fromCardA));
+    @Override
+    public String toString() {
+        return "(" + this.elementA.getWord() + ", " + this.elementB.getWord() 
+                + ")";
     }
-    
-    /**
-     * Determines whether or not two cards match this pair specification. Order 
-     * should not matter. This function should be implemented by calling the 
-     * protected <code>matches(E, E)</code> function.
-     * @param cardA One card of the pair.
-     * @param cardB The other card of the pair.
-     * @return 
-     */
-    public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
     /**
      * Superclass constructor. This constructor takes care of making sure the 

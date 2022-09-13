@@ -40,10 +40,9 @@ public class Dealer {
     
     // TODO: Flesh out
     
-    // STUB TO FAIL THE FIRST TEST
     Set<RankPairSpec> giveSplittablePairs() {
-        Set<RankPairSpec> pairs = new HashSet<>();
-        return pairs;
+//        return new HashSet<>(this.splitSpecs);
+return this.splitSpecs;
     }
     
     private static int plasticCardPlace() {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,6 +22,7 @@ import playingcards.Rank;
 import playingcards.TestingSpec;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -86,8 +87,8 @@ public class PairSpecTest {
     @Test
     public void testHashCodeBySetSizes() {
         TestingSpec[] classifs = TestingSpec.values();
-        HashSet<PairSpec> specs = new HashSet<>();
-        HashSet<Integer> hashes = new HashSet<>();
+        Set<PairSpec> specs = new HashSet<>();
+        Set<Integer> hashes = new HashSet<>();
         PairSpec spec;
         int hash;
         for (TestingSpec outer : classifs) {
@@ -104,6 +105,9 @@ public class PairSpecTest {
         assertEquals(msg, specSetSize, hashSetSize);
     }
     
+    /**
+     * Test of the hashCode function, of the PairSpec class.
+     */
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
@@ -115,7 +119,23 @@ public class PairSpecTest {
     }
     
     /**
-     * Test of matches method, of class PairSpec.
+     * Test of the toString function, of the PairSpec class.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        TestingSpec[] specs = TestingSpec.values();
+        for (TestingSpec spec : specs) {
+            PairSpec pair = new PairSpecImpl(spec, spec);
+            String specWord = spec.getWord();
+            String expected = "(" + specWord + "," + specWord + ")";
+            String actual = pair.toString().replace(" ", "");
+            assertEquals(expected, actual);
+        }
+    }
+
+    /**
+     * Test of the matches function, of the PairSpec class.
      */
     @Test
     public void testMatches() {
@@ -133,7 +153,7 @@ public class PairSpecTest {
     }
 
     /**
-     * Another test of matches method, of class PairSpec.
+     * Another test of the matches function, of the PairSpec class.
      */
     @Test
     public void testDoesNotMatch() {
@@ -150,7 +170,7 @@ public class PairSpecTest {
     }
 
     /**
-     * Another test of matches method, of class PairSpec.
+     * Another test of the matches function, of the PairSpec class.
      */
     @Test
     public void testMatchesRegardlessOrder() {
@@ -165,7 +185,7 @@ public class PairSpecTest {
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
-
+    
     class PairSpecImpl extends PairSpec<TestingSpec> {
         
         private TestingSpec classify(PlayingCard card) {
