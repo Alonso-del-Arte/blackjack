@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -26,6 +26,7 @@ import java.util.Currency;
 import java.util.HashSet;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * The blackjack game. This will eventually have a graphical user interface. For 
@@ -34,6 +35,19 @@ import java.util.Scanner;
  * @author Alonso del Arte
  */
 public class BlackJack {
+    
+    private static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
+    
+    private static final Set<RankPairSpec> DISTINCT_ADD_TO_16 = new HashSet<>();
+    
+//    static {
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.QUEEN));
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.KING));
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.QUEEN));
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.KING));
+//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.QUEEN, Rank.KING));
+//    }
     
     // These flags are for when splitting functionality is enabled. For now, 
     // these flags don't actually do anything.
@@ -48,7 +62,7 @@ public class BlackJack {
     
     private static boolean splitOptionsChanged = false;
     
-    private final static HashSet<RankPairSpec> SPLITTABLE_PAIRS = new HashSet<>();
+    private final static Set<RankPairSpec> SPLITTABLE_PAIRS = new HashSet<>();
     
     private static Dealer dealer;
     
@@ -80,7 +94,8 @@ public class BlackJack {
             CurrencyAmount playersWagerAmount = new CurrencyAmount(wager * 100, 
                     DOLLARS);
             Wager playersWager = new Wager(playersWagerAmount);
-            MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(6, 75);
+            MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(6, 
+                    75);
             Hand dealerHand = new Hand(DEALERS_WAGER);
             Hand playerHand = new Hand(playersWager);
             PlayingCard card = dispenser.getNextCard();
@@ -88,12 +103,14 @@ public class BlackJack {
             System.out.println("Your first card is " + card.toASCIIString());
             card = dispenser.getNextCard();
             dealerHand.add(card);
-            System.out.println("Dealer's face-up card is " + card.toASCIIString());
+            System.out.println("Dealer's face-up card is " 
+                    + card.toASCIIString());
             System.out.println();
             card = dispenser.getNextCard();
             playerHand.add(card);
             System.out.println("Your second card is " + card.toASCIIString());
-            System.out.println("Your hand's value is " + playerHand.cardsValue());
+            System.out.println("Your hand's value is " 
+                    + playerHand.cardsValue());
             System.out.println();
             PlayingCard faceDownCard = dispenser.getNextCard();
             dealerHand.add(faceDownCard);
@@ -104,11 +121,15 @@ public class BlackJack {
             // TODO: Give option for insurance bet
             if (playerHand.isWinningHand()) {
                 if (dealerHand.isWinningHand()) {
-                    System.out.println("You have natural blackjack, but so does the dealer");
+                    System.out.println(
+                            "You have natural blackjack, but so does the dealer"
+                    );
                     System.out.println("You keep your $" + wager);
                 } else {
                     int payout = wager * 3 / 2;
-                    System.out.println("Congratulations, you have a natural blackjack");
+                    System.out.println(
+                            "Congratulations, you have a natural blackjack"
+                    );
                     System.out.println("*** YOU WIN $" + payout + " ****");
                 }
             } else {
@@ -163,7 +184,8 @@ public class BlackJack {
                         case 1921:
                         case 2021:
                         case 3021:
-                            System.out.println("*** YOU WIN $" + wager + " ****");
+                            System.out.println("*** YOU WIN $" + wager 
+                                    + " ****");
                             break;
                         case 1717:
                         case 1818:
@@ -178,7 +200,8 @@ public class BlackJack {
                         case 1820:
                         case 1920:
                             System.out.println("As you have a higher score,");
-                            System.out.println("*** YOU WIN $" + wager + " ****");
+                            System.out.println("*** YOU WIN $" + wager 
+                                    + " ****");
                             break;
                         case 3012:
                         case 3013:
@@ -189,13 +212,19 @@ public class BlackJack {
                         case 3018:
                         case 3019:
                         case 3020:
-                            System.out.println("Since you stood and the dealer went bust,");
-                            System.out.println("*** YOU WIN $" + wager + " ****");
+                            System.out.println(
+                                    "Since you stood and the dealer went bust,"
+                            );
+                            System.out.println("*** YOU WIN $" + wager 
+                                    + " ****");
                             break;
                         case 3030:
-                            System.out.println("Even though the dealer also went bust...");
+                            System.out.println(
+                                    "Even though the dealer also went bust..."
+                            );
                         default:
-                            System.out.println("Dealer collects your $" + wager);
+                            System.out.println("Dealer collects your $" 
+                                    + wager);
                             System.out.println("Better luck next time...");
                     }
                 }
@@ -211,7 +240,7 @@ public class BlackJack {
             System.out.println("You may split at any point in the game");
         }
         if (splitDiffTensAllowed) {
-            System.out.println("You may split cards valued at 10 even if they're not the same");
+            System.out.println("You may split tens even if not the same");
         }
         if (split16Allowed) {
             System.out.println("You may split any pair valued at 16");
@@ -223,13 +252,13 @@ public class BlackJack {
             System.out.println("You can split Aces more than once");
         }
         if (multDrawSplitAcesAllowed) {
-            System.out.println("You can draw more than one card after splitting aces");
+            System.out.println("You can draw more than one after split aces");
         }
         if (discardSplitAllowed) {
             System.out.println("You may discard a split hand");
         }
         // TODO: Remove next line once splitting IS implemented
-        System.out.println("Note that splitting hands is not actually implemented yet");
+        System.out.println("Splitting hands is not actually implemented yet");
         System.out.println();
     }
     
@@ -255,17 +284,23 @@ public class BlackJack {
                     break;
                 case "-splitdifftens":
                     splitDiffTensAllowed = true;
+                    splitOptionsChanged = splitOptionsChanged 
+                            || SPLITTABLE_PAIRS.addAll(DISTINCT_TEN_PAIRS);
                     break;
                 case "-nosplitdifftens":
                     splitDiffTensAllowed = false;
-                    splitOptionsChanged = true;
+                    splitOptionsChanged = splitOptionsChanged 
+                            || SPLITTABLE_PAIRS.removeAll(DISTINCT_TEN_PAIRS);
                     break;
                 case "-split16":
                     split16Allowed = true;
-                    splitOptionsChanged = true;
+                    splitOptionsChanged = splitOptionsChanged 
+                            || SPLITTABLE_PAIRS.addAll(DISTINCT_ADD_TO_16);
                     break;
                 case "-nosplit16":
                     split16Allowed = false;
+                    splitOptionsChanged = splitOptionsChanged 
+                            || SPLITTABLE_PAIRS.removeAll(DISTINCT_ADD_TO_16);
                     break;
                 case "-resplit":
                     resplitAllowed = true;
@@ -296,13 +331,13 @@ public class BlackJack {
                     discardSplitAllowed = false;
                     break;
                 case "-text": // TODO: Revise once GUI's available
-                    System.out.println("Since the graphical version isn't available yet,");
-                    System.out.println("this game is only available as text on the command line.");
+                    System.out.println("Since the GUI isn't available yet,");
+                    System.out.println("game's only available on the terminal");
                     System.out.println();
                     break;
                 case "-v":
                 case "-version":
-                    System.out.println("Version 0.2");
+                    System.out.println("Version 0.3");
                     System.out.println();
                     break;
                 default:
