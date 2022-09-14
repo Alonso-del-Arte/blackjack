@@ -36,9 +36,9 @@ import java.util.Set;
  */
 public class BlackJack {
     
-    private static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
+    public static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
     
-    private static final Set<RankPairSpec> DISTINCT_ADD_TO_16 = new HashSet<>();
+    public static final Set<RankPairSpec> DISTINCT_ADD_TO_16 = new HashSet<>();
     
 //    static {
 //        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
