@@ -49,7 +49,7 @@ public class Hand {
     private void updateCardsValue() {
         int cumulRank = 0;
         int aceCount = 0;
-        for (PlayingCard card : cards) {
+        for (PlayingCard card : this.cards) {
             if (card.isCourtCard()) {
                 cumulRank += 10;
             } else {
@@ -88,6 +88,7 @@ public class Hand {
      * @return An array of the cards. For example, a 2-element array containing 
      * an Ace of Spades (A&#9824;) and a Two of Hearts (2&#9829;).
      */
+    // TODO: Refactor
     PlayingCard[] inspectCards() {
         PlayingCard[] cardsToShow = new PlayingCard[this.cards.size()];
         for (int i = 0; i < this.cards.size(); i++) {
@@ -131,17 +132,17 @@ public class Hand {
      * {@link #isSplittableHand()}.
      */
     Hand split(Dealer dealer) {
-        if (!this.isSplittableHand(dealer)) {
+//        if (!this.isSplittableHand(dealer)) {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
-        }
-        CurrencyAmount splitAmount 
-                = this.associatedWager.getAmount().divides(2);
-        this.associatedWager = new Wager(splitAmount);
-        Hand splitOffHand = new Hand(this.associatedWager);
-        splitOffHand.add(this.cards.remove(1));
-        this.updateCardsValue();
-        return splitOffHand;
+//        }
+//        CurrencyAmount splitAmount 
+//                = this.associatedWager.getAmount().divides(2);
+//        this.associatedWager = new Wager(splitAmount);
+//        Hand splitOffHand = new Hand(this.associatedWager);
+//        splitOffHand.add(this.cards.remove(1));
+//        this.updateCardsValue();
+//        return splitOffHand;
     }
     
     /**
@@ -156,9 +157,11 @@ public class Hand {
     /**
      * Indicates if this is a winning hand. This depends only on the value of 
      * the cards in this hand, not how it compares to other players' hands 
-     * (e.g., if this hand is not a natural blackjack but another player's is).
+     * (e.g., if this hand is not a natural blackjack but another player's is) 
+     * nor the dealer's hand.
      * @return True if and only if this hand is valued at 21, false otherwise, 
-     * without regard to how this hand compares to other players' hands.
+     * without regard to how this hand compares to other players' hands nor the 
+     * dealer's hand.
      */
     public boolean isWinningHand() {
         return this.winFlag;
@@ -196,7 +199,8 @@ public class Hand {
      */
     void add(PlayingCard card) {
         if (this.closedFlag) {
-            String excMsg = "Can't add card to hand vlaued at " + this.handScore;
+            String excMsg = "Can't add card to hand vlaued at " 
+                    + this.handScore;
             throw new IllegalStateException(excMsg);
         }
         int index = 0;
@@ -225,5 +229,7 @@ public class Hand {
         this.associatedWager = wager;
         this.cards = new ArrayList<>();
     }
+    
+    // TODO: Write constructor Hand(Wager wager, PlayingCard firstCard)
 
 }
