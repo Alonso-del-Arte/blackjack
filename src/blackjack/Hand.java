@@ -16,7 +16,6 @@
  */
 package blackjack;
 
-import currency.CurrencyAmount;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 
@@ -40,7 +39,7 @@ public class Hand {
     private boolean closedFlag = false;
     private boolean settleFlag = false;
     
-    private Wager associatedWager;
+    private final Wager associatedWager;
     
     public Wager getWager() {
         return this.associatedWager;
@@ -110,8 +109,9 @@ public class Hand {
      * (which some British casinos might enforce).
      */
     public boolean isSplittableHand(Dealer dealer) {
-        return (this.cards.size() == 2 
-                && this.cards.get(0).isSameRank(this.cards.get(1)));
+        return false;
+//        return (this.cards.size() == 2 
+//                && this.cards.get(0).isSameRank(this.cards.get(1)));
     }
     
     // TODO: Update Javadoc once dealer param is actually used    

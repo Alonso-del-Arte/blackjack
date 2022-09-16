@@ -24,7 +24,6 @@ import playingcards.Rank;
 import java.util.Currency;
 import java.util.Locale;
 
-import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -41,17 +40,9 @@ public class HandTest {
     
     private static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
     
-    private CardServer server;
+    private final CardServer SERVER = new CardServer(6);
     
-    private static Dealer dealer;
-    
-    /**
-     * Sets up a new card server with six decks.
-     */
-    @Before
-    public void setUp() {
-        this.server = new CardServer(6);
-    }
+    private static final Dealer DEALER = new Dealer();
     
     /**
      * Test of the getWager function, of the Hand class.
@@ -83,7 +74,7 @@ public class HandTest {
     @Test
     public void testCardsValueAfterAddingJack() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.giveCard(Rank.JACK);
+        PlayingCard card = this.SERVER.giveCard(Rank.JACK);
         hand.add(card);
         assertEquals("Hand with Jack should have value 10", 10, 
                 hand.cardsValue());
@@ -98,9 +89,9 @@ public class HandTest {
     @Test
     public void testTwoAcesCantBust() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
         hand.add(ace);
-        ace = this.server.giveCard(Rank.ACE);
+        ace = this.SERVER.giveCard(Rank.ACE);
         hand.add(ace);
         int value = hand.cardsValue();
         assert value < 22 : "Two Aces shouldn't bust";
@@ -113,9 +104,9 @@ public class HandTest {
     @Test
     public void testCourtCardsAreTenEach() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
-        PlayingCard queen = this.server.giveCard(Rank.QUEEN);
-        PlayingCard king = this.server.giveCard(Rank.KING);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
+        PlayingCard king = this.SERVER.giveCard(Rank.KING);
         hand.add(jack);
         hand.add(queen);
         hand.add(king);
@@ -129,7 +120,7 @@ public class HandTest {
     public void testInspectCards() {
         System.out.println("inspectCards");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard[] expected = this.server.giveCards(Rank.TWO, 4);
+        PlayingCard[] expected = this.SERVER.giveCards(Rank.TWO, 4);
         hand.add(expected[0]);
         hand.add(expected[1]);
         hand.add(expected[2]);
@@ -139,7 +130,7 @@ public class HandTest {
         String msg;
         for (PlayingCard card : actual) {
             msg = card.toString() + " came from the test class's card server";
-            assert this.server.provenance(card) : msg;
+            assert this.SERVER.provenance(card) : msg;
         }
     }
     
@@ -149,32 +140,15 @@ public class HandTest {
     @Test
     public void testIsSplittableHand() {
         System.out.println("isSplittableHand");
+        fail("Rework this test");
         Hand splittableHand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstSix = this.server.giveCard(Rank.SIX);
-        PlayingCard secondSix = this.server.giveCard(Rank.SIX);
+        PlayingCard firstSix = this.SERVER.giveCard(Rank.SIX);
+        PlayingCard secondSix = this.SERVER.giveCard(Rank.SIX);
         splittableHand.add(firstSix);
         splittableHand.add(secondSix);
         String msg = "Hand with " + firstSix.toString() + " and " 
                 + secondSix.toString() + " should be considered splittable";
-        assert splittableHand.isSplittableHand(dealer) : msg;
-    }
-    
-    /**
-     * Another test of the isSplittableHand function, of the Hand class.
-     */
-    @Test
-    public void testNotSplittableHand() {
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstSix = this.server.giveCard(Rank.SIX);
-        PlayingCard secondSix = this.server.giveCard(Rank.SIX);
-        PlayingCard seven = this.server.giveCard(Rank.SEVEN);
-        hand.add(firstSix);
-        hand.add(secondSix);
-        hand.add(seven);
-        String msg = "Hand with " + firstSix.toString() + ", " 
-                + secondSix.toString() + " and " + seven.toString() 
-                + " should not be considered splittable";
-        assert !hand.isSplittableHand(dealer) : msg;
+        assert splittableHand.isSplittableHand(DEALER) : msg;
     }
     
     /**
@@ -184,7 +158,7 @@ public class HandTest {
     public void testCanNotSplitNewHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         try {
-            Hand splitOff = hand.split(dealer);
+            Hand splitOff = hand.split(DEALER);
             System.out.println("Somehow created " + splitOff.toString() 
                     + " valued at " + splitOff.cardsValue() 
                     + " from new hand with no cards");
@@ -206,19 +180,20 @@ public class HandTest {
     @Test
     public void testSplit() {
         System.out.println("split");
+        fail("Rework this test");
         Hand firstHand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstEight = this.server.giveCard(Rank.EIGHT);
-        PlayingCard secondEight = this.server.giveCard(Rank.EIGHT);
+        PlayingCard firstEight = this.SERVER.giveCard(Rank.EIGHT);
+        PlayingCard secondEight = this.SERVER.giveCard(Rank.EIGHT);
         firstHand.add(firstEight);
         firstHand.add(secondEight);
-        Hand splitOffHand = firstHand.split(dealer);
+        Hand splitOffHand = firstHand.split(DEALER);
         assertEquals(8, firstHand.cardsValue());
         assertEquals(8, splitOffHand.cardsValue());
         PlayingCard[] cards = splitOffHand.inspectCards();
         String msg = cards[0].toString() 
                 + " should have came from the same source as " 
                 + firstEight.toString();
-        assert this.server.provenance(cards[0]) : msg;
+        assert this.SERVER.provenance(cards[0]) : msg;
     }
     
     /**
@@ -227,6 +202,7 @@ public class HandTest {
      */
     @Test
     public void testSplitAlsoSplitsWager() {
+        fail("Rework this test");
         long originalWagerCents = 128000L;
         CurrencyAmount originalWagerAmount 
                 = new CurrencyAmount(originalWagerCents, DOLLARS);
@@ -234,11 +210,11 @@ public class HandTest {
         Hand firstHand = new Hand(originalWager);
         long splitWagerCents = originalWagerCents / 2;
         CurrencyAmount expected = new CurrencyAmount(splitWagerCents, DOLLARS);
-        PlayingCard firstTen = this.server.giveCard(Rank.TEN);
-        PlayingCard secondTen = this.server.giveCard(Rank.TEN);
+        PlayingCard firstTen = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard secondTen = this.SERVER.giveCard(Rank.TEN);
         firstHand.add(firstTen);
         firstHand.add(secondTen);
-        Hand secondHand = firstHand.split(dealer);
+        Hand secondHand = firstHand.split(DEALER);
         Wager splitWager = firstHand.getWager();
         CurrencyAmount actual = splitWager.getAmount();
         assertEquals(expected, actual);
@@ -247,6 +223,7 @@ public class HandTest {
         assertEquals(expected, actual);
     }
     
+    // TODO: Rewrite this test
     /**
      * Another test of the split function, of the Hand class. Some casinos allow 
      * a player to split any hand that consists of two cards valued at 10 each, 
@@ -255,13 +232,14 @@ public class HandTest {
      */
     @Test
     public void testMayNotSplitSameValuedCardsIfDiffRanks() {
+        fail("Rethink this test");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
-        PlayingCard queen = this.server.giveCard(Rank.QUEEN);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
         hand.add(ten);
         hand.add(queen);
         try {
-            Hand splitOffHand = hand.split(dealer);
+            Hand splitOffHand = hand.split(DEALER);
             String msg = "Trying to split off hand consisting of " 
                     + ten.toString() + " and " + queen.toString() 
                     + " should not have created " + splitOffHand.toString();
@@ -275,20 +253,21 @@ public class HandTest {
     }
     
     /**
-     * Another test of split method, of class Hand. A few casinos do not allow a 
-     * player to split a pair of Aces, such as, for example, A&#9827; and 
-     * A&#9829;. In line with most casinos, splitting Aces is allowed in this  
-     * blackjack implementation.
+     * Another test of the split function, of the Hand class. A few casinos do 
+     * not allow a player to split a pair of Aces, such as, for example, 
+     * A&#9827; and A&#9829;. In line with most casinos, splitting Aces is 
+     * allowed in this blackjack implementation.
      */
     @Test
     public void testMaySplitPairOfAces() {
+        fail("Rework this test");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstAce = this.server.giveCard(Rank.ACE);
-        PlayingCard secondAce = this.server.giveCard(Rank.ACE);
+        PlayingCard firstAce = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard secondAce = this.SERVER.giveCard(Rank.ACE);
         hand.add(firstAce);
         hand.add(secondAce);
         try {
-            Hand splitOffHand = hand.split(dealer);
+            Hand splitOffHand = hand.split(DEALER);
             System.out.println("Trying to split off hand consisting of " 
                     + firstAce.toASCIIString() + " and " 
                     + secondAce.toASCIIString() 
@@ -303,14 +282,14 @@ public class HandTest {
     }
     
     /**
-     * Test of isWinningHand method of class Hand.
+     * Test of the isWinningHand function of the Hand clas.
      */
     @Test
     public void testIsWinningHand() {
         System.out.println("isWinningHand");
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         winningHand.add(ace);
         winningHand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -321,86 +300,86 @@ public class HandTest {
     @Test
     public void testOpenHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         hand.add(card);
-        String assertionMessage = "Hand with just " + card.toString()
+        String msg = "Hand with just " + card.toString() 
                 + " should not be considered a winning hand";
-        assert !hand.isWinningHand() : assertionMessage;
+        assert !hand.isWinningHand() : msg;
     }
     
     @Test
     public void testBustedHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.server.giveCard(Rank.EIGHT);
-        PlayingCard four = this.server.giveCard(Rank.FOUR);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
+        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         hand.add(eight);
         hand.add(four);
         hand.add(ten);
-        String assertionMessage = "Hand with " + eight.toString() + ", " 
-                + four.toString() + " and " + ten.toString() 
+        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
+                + " and " + ten.toString() 
                 + " should not be considered a winning hand";
-        assert !hand.isWinningHand() : assertionMessage;
+        assert !hand.isWinningHand() : msg;
     }
 
     /**
-     * Test of isBustedHand method of class Hand.
+     * Test of the isBustedHand function of the Hand class.
      */
     @Test
     public void testIsBustedHand() {
         System.out.println("isBustedHand");
         Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.server.giveCard(Rank.EIGHT);
-        PlayingCard four = this.server.giveCard(Rank.FOUR);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
+        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         bustedHand.add(eight);
         bustedHand.add(four);
         bustedHand.add(ten);
-        String assertionMessage = "Hand with " + eight.toString() + ", " 
-                + four.toString() + " and " + ten.toString() 
+        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
+                + " and " + ten.toString() 
                 + " should be considered a busted hand";
-        assert bustedHand.isBustedHand() : assertionMessage;
+        assert bustedHand.isBustedHand() : msg;
     }
 
     @Test
     public void testWinningHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
-        String assertionMessage = ace.toString() + " and " + jack.toString() 
+        String msg = ace.toString() + " and " + jack.toString() 
                 + " should not be considered a busted hand";
-        assert !hand.isBustedHand() : assertionMessage;
+        assert !hand.isBustedHand() : msg;
     }
     
     @Test
     public void testOpenHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         hand.add(card);
-        String assertionMessage = "Hand with just " + card.toString()
+        String msg = "Hand with just " + card.toString() 
                 + " should not be considered a busted hand";
-        assert !hand.isBustedHand() : assertionMessage;
+        assert !hand.isBustedHand() : msg;
     }
     
     @Test
     public void testWinningHandIsClosedHand() {
         System.out.println("isClosedHand");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
-        String assertionMessage = ace.toString() + " and " + jack.toString() 
+        String msg = ace.toString() + " and " + jack.toString() 
                 + " should be considered a closed hand";
-        assert hand.isClosedHand() : assertionMessage;
+        assert hand.isClosedHand() : msg;
     }
     
     @Test
     public void testOpenHandIsNotClosedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should not be considered a closed hand";
@@ -410,9 +389,9 @@ public class HandTest {
     @Test
     public void testBustedHandIsClosedHand() {
         Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.server.giveCard(Rank.EIGHT);
-        PlayingCard four = this.server.giveCard(Rank.FOUR);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
+        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         bustedHand.add(eight);
         bustedHand.add(four);
         bustedHand.add(ten);
@@ -425,8 +404,8 @@ public class HandTest {
     @Test
     public void testWinningHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -441,7 +420,7 @@ public class HandTest {
     public void testIsOpenHand() {
         System.out.println("isOpenHand");
         Hand openHand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         openHand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should be considered an open hand";
@@ -451,9 +430,9 @@ public class HandTest {
     @Test
     public void testBustedHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.server.giveCard(Rank.EIGHT);
-        PlayingCard four = this.server.giveCard(Rank.FOUR);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
+        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         hand.add(eight);
         hand.add(four);
         hand.add(ten);
@@ -469,7 +448,7 @@ public class HandTest {
         PlayingCard card;
         String msg = "Open flag should be opposite of closed flag";
         while (hand.cardsValue() < 21) {
-            card = this.server.getNextCard();
+            card = this.SERVER.getNextCard();
             hand.add(card);
             assert hand.isOpenHand() == !hand.isClosedHand() : msg;
         }
@@ -485,9 +464,9 @@ public class HandTest {
     @Test
     public void testMarkSettled() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstCard = server.giveCard(Rank.JACK);
+        PlayingCard firstCard = SERVER.giveCard(Rank.JACK);
         hand.add(firstCard);
-        PlayingCard secondCard = server.giveCard(Rank.ACE);
+        PlayingCard secondCard = SERVER.giveCard(Rank.ACE);
         hand.add(secondCard);
         hand.markSettled();
         String msg = "Hand with " + firstCard.toString() + " and " 
@@ -497,12 +476,12 @@ public class HandTest {
     }
 
     /**
-     * Test of add method, of class Hand.
+     * Test of the add procedure, of the Hand class.
      */
     @Test
     public void testAdd() {
         System.out.println("add");
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         Hand hand = new Hand(DEFAULT_WAGER);
         hand.add(card);
         String msg = "Value should be greater than 0 after adding " 
@@ -512,12 +491,12 @@ public class HandTest {
     }
     
     /**
-     * Another test of add method, of class Hand.
+     * Another test of the add procedure, of the Hand class.
      */
     @Test
     public void testCantAddSameCardTwice() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.server.getNextCard();
+        PlayingCard card = this.SERVER.getNextCard();
         hand.add(card);
         try {
             hand.add(card);
@@ -536,14 +515,17 @@ public class HandTest {
         }
     }
     
+    /**
+     * Another test of the add procedure, of the Hand class.
+     */
     @Test
     public void testCantAddCardAfterWinning() {
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.server.giveCard(Rank.ACE);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         winningHand.add(ace);
         winningHand.add(jack);
-        PlayingCard someCard = this.server.getNextCard();
+        PlayingCard someCard = this.SERVER.getNextCard();
         try {
             winningHand.add(someCard);
             String msg = "Should not have been able to add " 
@@ -568,19 +550,19 @@ public class HandTest {
     @Test
     public void testCantAddCardAfterBusting() {
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ten = this.server.giveCard(Rank.TEN);
-        PlayingCard jack = this.server.giveCard(Rank.JACK);
-        PlayingCard queen = this.server.giveCard(Rank.QUEEN);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
         winningHand.add(ten);
         winningHand.add(jack);
         winningHand.add(queen);
-        PlayingCard someCard = this.server.getNextCard();
+        PlayingCard someCard = this.SERVER.getNextCard();
         try {
             winningHand.add(someCard);
-            String failMsg = "Should not have been able to add " 
+            String msg = "Should not have been able to add " 
                     + someCard.toString() + " after " + ten.toString() + ", " 
                     + jack.toString() + " and " + queen.toString();
-            fail(failMsg);
+            fail(msg);
         } catch (IllegalStateException ise) {
             System.out.println("Trying to add " + someCard.toASCIIString() 
                     + " after " + ten.toASCIIString() + ", " 
@@ -588,11 +570,11 @@ public class HandTest {
                     + " correctly caused IllegalStateException");
             System.out.println("\"" + ise.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() 
+            String msg = re.getClass().getName() 
                     + " is the wrong exception to throw for trying to add "
                     + someCard.toString() + " after " + ten.toString() + " and " 
                     + jack.toString() + " and " + queen.toString();
-            fail(failMsg);
+            fail(msg);
         }
     }
     
