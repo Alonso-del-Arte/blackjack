@@ -31,23 +31,35 @@ import java.util.Set;
 /**
  * The blackjack game. This will eventually have a graphical user interface. For 
  * the time being, it's only a command line application.
- * @version 0.2.
+ * @version 0.3.
  * @author Alonso del Arte
  */
 public class BlackJack {
+    
+    public static final Set<RankPairSpec> SAME_RANK_PAIRS = new HashSet<>();
     
     public static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
     
     public static final Set<RankPairSpec> DISTINCT_ADD_TO_16 = new HashSet<>();
     
-//    static {
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.QUEEN));
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.KING));
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.QUEEN));
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.KING));
-//        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.QUEEN, Rank.KING));
-//    }
+    static {
+        Rank[] ranks = Rank.values();
+        for (Rank rank : ranks) {
+            SAME_RANK_PAIRS.add(new RankPairSpec(rank, rank));
+        }
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.QUEEN));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.KING));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.QUEEN));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.KING));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.QUEEN, Rank.KING));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.ACE, Rank.FIVE));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.TEN));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.JACK));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.QUEEN));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.KING));
+        DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SEVEN, Rank.NINE));
+    }
     
     // These flags are for when splitting functionality is enabled. For now, 
     // these flags don't actually do anything.

@@ -22,10 +22,13 @@ import playingcards.PlayingCard;
 import playingcards.Rank;
 
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import playingcards.matchers.RankPairSpec;
 
 /**
  * Tests of the Hand class.
@@ -43,6 +46,44 @@ public class HandTest {
     private final CardServer SERVER = new CardServer(6);
     
     private static final Dealer DEALER = new Dealer();
+    
+    private static final Rank[] RANKS = Rank.values();
+    
+    private Set<RankPairSpec> makeRankPairSpecSet() {
+        Set<RankPairSpec> pairSpecs 
+                = new HashSet<>(BlackJack.DISTINCT_TEN_PAIRS);
+        int stop = RANKS.length;
+        for (int i = 0; i < stop; i++) {
+            PlayingCard cardA = this.SERVER.getNextCard();
+            PlayingCard cardB = this.SERVER.getNextCard();
+            RankPairSpec pairSpec = new RankPairSpec(cardA.getRank(), 
+                    cardB.getRank());
+            pairSpecs.add(pairSpec);
+        }
+        return pairSpecs;
+    }
+    
+    /**
+     * Test of the toString function, of the Hand class.
+     */
+    @Test
+    public void testToString() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        hand.add(firstCard);
+        PlayingCard secondCard = this.SERVER.getNextCard();
+        hand.add(secondCard);
+        String expected = "(" + firstCard.toString() + "," 
+                + secondCard.toString() + ")";
+        String actual = hand.toString().replace(" ", "");
+        assertEquals(expected, actual);
+        PlayingCard thirdCard = this.SERVER.getNextCard();
+        hand.add(thirdCard);
+        expected = expected.replace("\u0029", "," + thirdCard.toString() 
+                + "\u0029");
+        actual = hand.toString().replace(" ", "");
+        assertEquals(expected, actual);
+    }
     
     /**
      * Test of the getWager function, of the Hand class.
@@ -140,15 +181,30 @@ public class HandTest {
     @Test
     public void testIsSplittableHand() {
         System.out.println("isSplittableHand");
-        fail("Rework this test");
-        Hand splittableHand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstSix = this.SERVER.giveCard(Rank.SIX);
-        PlayingCard secondSix = this.SERVER.giveCard(Rank.SIX);
-        splittableHand.add(firstSix);
-        splittableHand.add(secondSix);
-        String msg = "Hand with " + firstSix.toString() + " and " 
-                + secondSix.toString() + " should be considered splittable";
-        assert splittableHand.isSplittableHand(DEALER) : msg;
+        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Dealer dealer = new Dealer(pairSpecs);
+        int maxPairs = 39;
+        for (int i = 0; i < maxPairs; i++) {
+            PlayingCard cardA = this.SERVER.getNextCard();
+            PlayingCard cardB = this.SERVER.getNextCard();
+            Hand hand = new Hand(DEFAULT_WAGER);
+            hand.add(cardA);
+            hand.add(cardB);
+            RankPairSpec pairSpec = new RankPairSpec(cardA.getRank(), 
+                    cardB.getRank());
+            boolean expected = pairSpecs.contains(pairSpec);
+            boolean actual = hand.isSplittableHand(dealer);
+            String msg = "Since test dealer is said to " 
+                    + (expected ? "allow" : "not allow") + " splitting " 
+                    + pairSpec.toString() + ", player should " 
+                    + (expected ? "" : "not") + " be allowed to split " 
+                    + hand.toString();
+            if (expected) {
+                assert actual : msg;
+            } else {
+                assert !actual : msg;
+            }
+        }
     }
     
     /**
@@ -174,26 +230,40 @@ public class HandTest {
         }
     }
     
+    private static void assertCanSplit(Hand hand, Dealer dealer) {
+        PlayingCard[] cards = hand.inspectCards();
+        fail("Finish writing this");
+    }
+    
+    private static void assertCantSplit(Hand hand, Dealer dealer) {
+        fail("Finish writing this");
+    }
+    
     /**
      * Test of the split function, of the Hand class.
      */
     @Test
     public void testSplit() {
         System.out.println("split");
-        fail("Rework this test");
-        Hand firstHand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstEight = this.SERVER.giveCard(Rank.EIGHT);
-        PlayingCard secondEight = this.SERVER.giveCard(Rank.EIGHT);
-        firstHand.add(firstEight);
-        firstHand.add(secondEight);
-        Hand splitOffHand = firstHand.split(DEALER);
-        assertEquals(8, firstHand.cardsValue());
-        assertEquals(8, splitOffHand.cardsValue());
-        PlayingCard[] cards = splitOffHand.inspectCards();
-        String msg = cards[0].toString() 
-                + " should have came from the same source as " 
-                + firstEight.toString();
-        assert this.SERVER.provenance(cards[0]) : msg;
+        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Dealer dealer = new Dealer(pairSpecs);
+        for (Rank firstCardRank : RANKS) {
+            PlayingCard firstCard = this.SERVER.giveCard(firstCardRank);
+            for (Rank secondCardRank : RANKS) {
+                PlayingCard secondCard = this.SERVER.giveCard(secondCardRank);
+                Hand hand = new Hand(DEFAULT_WAGER);
+                hand.add(firstCard);
+                hand.add(secondCard);
+                RankPairSpec pairSpec = new RankPairSpec(firstCardRank, 
+                        secondCardRank);
+                boolean maySplit = pairSpecs.contains(pairSpec);
+                if (maySplit) {
+                    assertCanSplit(hand, dealer);
+                } else {
+                    assertCantSplit(hand, dealer);
+                }
+            }
+        }
     }
     
     /**

@@ -16,10 +16,13 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
 import playingcards.PlayingCard;
 import playingcards.Rank;
+import playingcards.matchers.RankPairSpec;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * A class to represent a blackjack hand, and keep track of its status (in play, 
@@ -39,7 +42,7 @@ public class Hand {
     private boolean closedFlag = false;
     private boolean settleFlag = false;
     
-    private final Wager associatedWager;
+    private Wager associatedWager;
     
     public Wager getWager() {
         return this.associatedWager;
@@ -109,9 +112,14 @@ public class Hand {
      * (which some British casinos might enforce).
      */
     public boolean isSplittableHand(Dealer dealer) {
-        return false;
-//        return (this.cards.size() == 2 
-//                && this.cards.get(0).isSameRank(this.cards.get(1)));
+        if (this.cards.size() == 2) {
+            RankPairSpec pairSpec 
+                    = new RankPairSpec(this.cards.get(0).getRank(), 
+                            this.cards.get(1).getRank());
+            return dealer.giveSplittablePairs().contains(pairSpec);
+        } else {
+            return false;
+        }
     }
     
     // TODO: Update Javadoc once dealer param is actually used    
@@ -132,18 +140,17 @@ public class Hand {
      * {@link #isSplittableHand()}.
      */
     Hand split(Dealer dealer) {
-        return this;
-//        if (!this.isSplittableHand(dealer)) {
-//            String excMsg = "Can't split this hand";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        CurrencyAmount splitAmount 
-//                = this.associatedWager.getAmount().divides(2);
-//        this.associatedWager = new Wager(splitAmount);
-//        Hand splitOffHand = new Hand(this.associatedWager);
-//        splitOffHand.add(this.cards.remove(1));
-//        this.updateCardsValue();
-//        return splitOffHand;
+        if (!this.isSplittableHand(dealer)) {
+            String excMsg = "Can't split this hand";
+            throw new IllegalStateException(excMsg);
+        }
+        CurrencyAmount splitAmount 
+                = this.associatedWager.getAmount().divides(2);
+        this.associatedWager = new Wager(splitAmount);
+        Hand splitOffHand = new Hand(this.associatedWager);
+        splitOffHand.add(this.cards.remove(1));
+        this.updateCardsValue();
+        return splitOffHand;
     }
     
     /**
@@ -200,7 +207,7 @@ public class Hand {
      */
     void add(PlayingCard card) {
         if (this.closedFlag) {
-            String excMsg = "Can't add card to hand vlaued at " 
+            String excMsg = "Can't add card to hand valued at " 
                     + this.handScore;
             throw new IllegalStateException(excMsg);
         }
@@ -221,7 +228,17 @@ public class Hand {
         this.cards.add(card);
         this.updateCardsValue();
     }
-
+    
+    @Override
+    public String toString() {
+        StringBuilder intermediate = new StringBuilder("(");
+        for (PlayingCard card : this.cards) {
+            intermediate.append(card.toString()).append(", ");
+        }
+        intermediate.append(")");
+        return intermediate.toString().replace(", \u0029", "\u0029");
+    }
+    
     /**
      * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
      * cards using {@link #add(playingcards.PlayingCard) add()}.

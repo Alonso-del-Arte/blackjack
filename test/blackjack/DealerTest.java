@@ -36,6 +36,17 @@ public class DealerTest {
     
     private static final Random RANDOM = new Random();
     
+    private static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
+    
+    static {
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.QUEEN));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.KING));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.QUEEN));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.KING));
+        DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.QUEEN, Rank.KING));
+    }
+    
     @Test
     public void testGiveSplittablePairs() {
         System.out.println("giveSplittablePairs");
@@ -50,7 +61,8 @@ public class DealerTest {
         Set<RankPairSpec> expected = new HashSet<>(pairSpecs);
         Dealer dealer = new Dealer(expected);
         Set<RankPairSpec> actual = dealer.giveSplittablePairs();
-        assertEquals(expected, actual);
+        assert actual.containsAll(expected);
+        assertEquals(expected.size(), actual.size());
     }
 
     @Test
