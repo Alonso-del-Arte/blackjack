@@ -132,9 +132,10 @@ public class Hand {
      * {@link #isSplittableHand()}.
      */
     Hand split(Dealer dealer) {
+        return this;
 //        if (!this.isSplittableHand(dealer)) {
-            String excMsg = "Can't split this hand";
-            throw new IllegalStateException(excMsg);
+//            String excMsg = "Can't split this hand";
+//            throw new IllegalStateException(excMsg);
 //        }
 //        CurrencyAmount splitAmount 
 //                = this.associatedWager.getAmount().divides(2);
