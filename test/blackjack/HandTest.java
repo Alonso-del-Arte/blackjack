@@ -20,6 +20,7 @@ import currency.CurrencyAmount;
 import playingcards.CardServer;
 import playingcards.PlayingCard;
 import playingcards.Rank;
+import playingcards.matchers.RankPairSpec;
 
 import java.util.Currency;
 import java.util.HashSet;
@@ -28,7 +29,6 @@ import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import playingcards.matchers.RankPairSpec;
 
 /**
  * Tests of the Hand class.
@@ -43,7 +43,7 @@ public class HandTest {
     
     private static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
     
-    private final CardServer SERVER = new CardServer(6);
+    private final CardServer SERVER = new CardServer(50);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -231,12 +231,33 @@ public class HandTest {
     }
     
     private static void assertCanSplit(Hand hand, Dealer dealer) {
-        PlayingCard[] cards = hand.inspectCards();
-        fail("Finish writing this");
+        PlayingCard[] cardsBeforeSplit = hand.inspectCards();
+        assert cardsBeforeSplit.length == 2 : "Hand should only have two cards";
+        Hand splitOffHand = hand.split(dealer);
+        PlayingCard[] cardsA = hand.inspectCards();
+        PlayingCard[] cardsB = splitOffHand.inspectCards();
+        String msg = "Right after split, hand should only have one card";
+        assert cardsA.length == 1 : msg;
+        assert cardsB.length == 1 : msg;
+        if (cardsA[0].equals(cardsBeforeSplit[0])) {
+            assertEquals(cardsBeforeSplit[1], cardsB[0]);
+        } else {
+            assertEquals(cardsBeforeSplit[0], cardsB[0]);
+        }
     }
     
     private static void assertCantSplit(Hand hand, Dealer dealer) {
-        fail("Finish writing this");
+        String prevHandStr = hand.toString();
+        try {
+            Hand splitOffHand = hand.split(dealer);
+            String msg = "Should not have been able to split " + prevHandStr 
+                    + " to " + hand.toString() + " and " 
+                    + splitOffHand.toString();
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            String excMsg = ise.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+        }
     }
     
     /**
