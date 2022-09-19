@@ -314,64 +314,6 @@ public class HandTest {
         assertEquals(expected, actual);
     }
     
-    // TODO: Rewrite this test
-    /**
-     * Another test of the split function, of the Hand class. Some casinos allow 
-     * a player to split any hand that consists of two cards valued at 10 each, 
-     * even if they are not the same rank, such as, for example, 10&#9824; and 
-     * Q&#9830;. However, in this blackjack implementation, that is not allowed.
-     */
-    @Test
-    public void testMayNotSplitSameValuedCardsIfDiffRanks() {
-        fail("Rethink this test");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
-        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
-        hand.add(ten);
-        hand.add(queen);
-        try {
-            Hand splitOffHand = hand.split(DEALER);
-            String msg = "Trying to split off hand consisting of " 
-                    + ten.toString() + " and " + queen.toString() 
-                    + " should not have created " + splitOffHand.toString();
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to split off hand consisting of " 
-                    + ten.toASCIIString() + " and " + queen.toASCIIString() 
-                    + " correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        }
-    }
-    
-    /**
-     * Another test of the split function, of the Hand class. A few casinos do 
-     * not allow a player to split a pair of Aces, such as, for example, 
-     * A&#9827; and A&#9829;. In line with most casinos, splitting Aces is 
-     * allowed in this blackjack implementation.
-     */
-    @Test
-    public void testMaySplitPairOfAces() {
-        fail("Rework this test");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstAce = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard secondAce = this.SERVER.giveCard(Rank.ACE);
-        hand.add(firstAce);
-        hand.add(secondAce);
-        try {
-            Hand splitOffHand = hand.split(DEALER);
-            System.out.println("Trying to split off hand consisting of " 
-                    + firstAce.toASCIIString() + " and " 
-                    + secondAce.toASCIIString() 
-                    + " correctly created " + splitOffHand.toString());
-        } catch (IllegalStateException ise) {
-            String msg = "Trying to split off hand consisting of " 
-                    + firstAce.toString() + " and " + secondAce.toString() 
-                    + " should not have caused IllegalStateException";
-            System.out.println("\"" + ise.getMessage() + "\"");
-            fail(msg);
-        }
-    }
-    
     /**
      * Test of the isWinningHand function of the Hand clas.
      */
