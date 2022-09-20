@@ -1,29 +1,57 @@
 # blackjack
 The blackjack, or 21, game
 
-The game is ready to play on the console or terminal (text only), limited to a dealer and only one player. I am working on a graphical user interface for this.
+The game is ready to play on the console or terminal (text only), limited to a 
+dealer and only one player. I am working on a graphical user interface for this.
 
-There is for now no option to split a pair, double down nor make an insurance bet.
+There is for now no option to split a pair, double down nor make an insurance 
+bet.
 
 ## The rules of blackjack, as I understand them
 
-The concept seems simple enough. You make a wager. The dealer gives you cards ("hit") until you want no more cards ("stand") or you win by having a score of 21 or you lose by going over 21 ("going bust").
+The concept seems simple enough. You make a wager. The dealer gives you cards 
+("hit") until you want no more cards ("stand") or you win by having a score of 
+21 or you lose by going over 21 ("going bust").
 
-The court cards (J&#9824;, Q&#9824;, K&#9824;, J&#9829;, etc.) are valued at 10 each. Aces are valued at 1 or 11 at the player's discretion (though in practice it's assumed the player wants them valued to win).
+The court cards (J&#9824;, Q&#9824;, K&#9824;, J&#9829;, etc.) are valued at 10 
+each. Aces are valued at 1 or 11 at the player's discretion (though in practice 
+it's assumed the player wants them valued to win).
 
-If you win, the dealer pays up. If you lose, the dealer collects your wager. Simple, right? Well, there are plenty of subtleties that threaten to make a blackjack program into a mess of heavily indented nested If statements (the current state of the console application source).
+If you win, the dealer pays up. If you lose, the dealer collects your wager. 
+Simple, right? Well, there are plenty of subtleties that threaten to make a 
+blackjack program into a mess of heavily indented nested If statements (the 
+current state of the console application source).
 
-After the players make their initial wagers, the dealer gives each player two cards face up. The dealer also gets two cards, but one of them is face down. If the dealer's face-up card is an Ace, players may make side bets ("insurance") that the dealer's face-down card is a Ten or a court card. Insurance is not yet implemented in the console application.
+After the players make their initial wagers, the dealer gives each player two 
+cards face up. The dealer also gets two cards, but one of them is face down. If 
+the dealer's face-up card is an Ace, players may make side bets ("insurance") 
+that the dealer's face-down card is a Ten or a court card. Insurance is not yet 
+implemented in the console application.
 
-When a player's first two cards add up to 9, 10 or 11, that player may make another wager equal to their original wager ("doubling down"). The dealer then gives that player a card face down, which stays face down until other bets are settled. Doubling down is also not yet implemented in the console application.
+When a player's first two cards add up to 9, 10 or 11, that player may make 
+another wager equal to their original wager ("doubling down"). The dealer then 
+gives that player a card face down, which stays face down until other bets are 
+settled. Doubling down is also not yet implemented in the console application.
 
-If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 7&#9827;), the player may split them into separate hands. Some casinos don't allow certain splits, and other casinos allow some splits of cards of unequal rank. Although the `Hand` class has support for most splits of cards of equal rank, this is not yet used in any form in the console application.
+If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 
+7&#9827;), the player may split them into separate hands. Some casinos don't 
+allow certain splits, and other casinos allow some splits of cards of unequal 
+rank. Although the `Hand` class has support for most splits of cards of equal 
+rank, this is not yet used in any form in the console application.
 
-If any player hits 21 from the first two cards, they have a "natural" blackjack, and the dealer should pay 3/2 times the player's wager.
+If any player hits 21 from the first two cards, they have a "natural" blackjack, 
+and the dealer should pay 3/2 times the player's wager.
 
-It's not possible to go bust from the first two cards. Most likely no player has a natural blackjack at this point, so they must decide either to get more cards to try for 21 or stick to their cards in the hopes that the dealer goes bust. Players who bust lose their wager even if the dealer also goes bust. Players who hit 21 at this stage are paid their wager by the dealer.
+It's not possible to go bust from the first two cards. Most likely no player has 
+a natural blackjack at this point, so they must decide either to get more cards 
+to try for 21 or stick to their cards in the hopes that the dealer goes bust. 
+Players who bust lose their wager even if the dealer also goes bust. Players who 
+hit 21 at this stage are paid their wager by the dealer.
 
-At this point, if I'm understanding correctly, the dealer reveals their face-down card. If the dealer is under 17, the dealer must take cards until going over 16, even though this risks going bust. Once over 17, the dealer must stand.
+At this point, if I'm understanding correctly, the dealer reveals their 
+face-down card. If the dealer is under 17, the dealer must take cards until 
+going over 16, even though this risks going bust. Once over 17, the dealer must 
+stand.
 
 If the dealer stands, the dealer pays up players who have a higher score without going over 21, and collects the wagers of players with a lower score. And if the dealer and a player have the same score without going over, it's a stand-off, and no wager is paid nor collected.
 
@@ -32,7 +60,8 @@ If the dealer stands, the dealer pays up players who have a higher score without
 ### Win with natural blackjack
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -55,7 +84,8 @@ Note the 3/2 payout.
 ### Win with regular blackjack
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -85,7 +115,8 @@ Dealer's hand value is 19
 ### Win after standing because dealer has lower score
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -117,7 +148,8 @@ As you have a higher score,
 ### Win after standing because dealer went bust
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -148,7 +180,8 @@ Since you stood and the dealer went bust,
 ### Lose after standing
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -176,7 +209,8 @@ Better luck next time...
 ### Lose even though the dealer also went bust
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -216,7 +250,8 @@ The House always wins.
 ### Lose after hitting recklessly
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
@@ -246,7 +281,8 @@ Better luck next time...
 ### Tie due to stand-off
 
 ```
-C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes blackjack.BlackJack
+C:\Users\AL\Documents\NetBeansProjects\BlackJack\build>java -cp classes 
+blackjack.BlackJack
 
 BLACKJACK
 
