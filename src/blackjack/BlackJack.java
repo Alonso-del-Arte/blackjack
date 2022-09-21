@@ -40,6 +40,9 @@ public class BlackJack {
     
     public static final Set<RankPairSpec> DISTINCT_TEN_PAIRS = new HashSet<>();
     
+    public static final Set<RankPairSpec> DEFAULT_SPLITTABLE_PAIRS 
+            = new HashSet<>();
+    
     public static final Set<RankPairSpec> DISTINCT_ADD_TO_16 = new HashSet<>();
     
     static {
