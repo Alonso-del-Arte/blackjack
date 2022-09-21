@@ -50,12 +50,14 @@ public class BlackJack {
         for (Rank rank : ranks) {
             SAME_RANK_PAIRS.add(new RankPairSpec(rank, rank));
         }
+        DEFAULT_SPLITTABLE_PAIRS.addAll(SAME_RANK_PAIRS);
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.JACK));
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.QUEEN));
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.TEN, Rank.KING));
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.QUEEN));
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.JACK, Rank.KING));
         DISTINCT_TEN_PAIRS.add(new RankPairSpec(Rank.QUEEN, Rank.KING));
+        DEFAULT_SPLITTABLE_PAIRS.addAll(DISTINCT_TEN_PAIRS);
         DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.ACE, Rank.FIVE));
         DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.TEN));
         DISTINCT_ADD_TO_16.add(new RankPairSpec(Rank.SIX, Rank.JACK));

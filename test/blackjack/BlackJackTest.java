@@ -20,7 +20,6 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.HashSet;
-import java.util.Scanner;
 import java.util.Set;
 
 import org.junit.Test;
@@ -58,6 +57,17 @@ public class BlackJackTest {
                 + " and no others";
         assert BlackJack.DISTINCT_TEN_PAIRS.containsAll(pairs) : msg;
         assertEquals(msg, pairs.size(), BlackJack.DISTINCT_TEN_PAIRS.size());
+    }
+    
+    @Test
+    public void testDefaultSplittablePairs() {
+        Set<RankPairSpec> pairs = new HashSet<>(BlackJack.SAME_RANK_PAIRS);
+        pairs.addAll(BlackJack.DISTINCT_TEN_PAIRS);
+        String msg = "DEFAULT_SPLITTABLE_PAIRS should contain " 
+                + pairs.toString() + " and no others";
+        assert BlackJack.DEFAULT_SPLITTABLE_PAIRS.containsAll(pairs) : msg;
+        assertEquals(msg, pairs.size(), 
+                BlackJack.DEFAULT_SPLITTABLE_PAIRS.size());
     }
     
     @Test

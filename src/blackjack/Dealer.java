@@ -52,23 +52,24 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
-    // TODO: Write tests for this
+    /**
+     * Auxiliary constructor. The dealer will allow splitting pairs of the same 
+     * rank (e.g., 8&#9824; and 8&#9829;) and cards valued at 10 of different 
+     * ranks (e.g., 10&#9830; and Q&#9827;) but not cards of distinct ranks that 
+     * add up to 16.
+     */
     public Dealer() {
-        this(new HashSet<RankPairSpec>());
+        this(new HashSet<RankPairSpec>(BlackJack.DEFAULT_SPLITTABLE_PAIRS));
     }
     
     /**
      * Primary constructor.
-     * @param pairs The set pairs which this dealer will allow to be split. If 
-     * empty, the dealer will not allow any pairs to be split.
+     * @param pairs The set of pairs which this dealer will allow to be split. 
+     * May be empty, must not be null. If empty, the dealer will not allow any 
+     * pairs to be split.
      * @throws NullPointerException If <code>pairs</code> is null.
      */
     public Dealer(Set<RankPairSpec> pairs) {
-        if (pairs == null) {
-            String excMsg 
-                    = "Set of pair specs may be empty but should not be null";
-            throw new NullPointerException(excMsg);
-        }
         this.splitSpecs = new HashSet<>(pairs);
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
         this.hand = null;// new Hand();
