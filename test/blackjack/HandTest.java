@@ -292,15 +292,11 @@ public class HandTest {
      * split, the wager should also be split among the hands.
      */
     @Test
-    public void testSplitAlsoSplitsWager() {
-        fail("Rework this test");
-        long originalWagerCents = 128000L;
-        CurrencyAmount originalWagerAmount 
-                = new CurrencyAmount(originalWagerCents, DOLLARS);
-        Wager originalWager = new Wager(originalWagerAmount);
+    public void testSplitOffHandHasSameWager() {
+        long wagerInCents = 12800L;
+        CurrencyAmount expected = new CurrencyAmount(wagerInCents, DOLLARS);
+        Wager originalWager = new Wager(expected);
         Hand firstHand = new Hand(originalWager);
-        long splitWagerCents = originalWagerCents / 2;
-        CurrencyAmount expected = new CurrencyAmount(splitWagerCents, DOLLARS);
         PlayingCard firstTen = this.SERVER.giveCard(Rank.TEN);
         PlayingCard secondTen = this.SERVER.giveCard(Rank.TEN);
         firstHand.add(firstTen);
