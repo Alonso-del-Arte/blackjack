@@ -39,8 +39,17 @@ allow certain splits, and other casinos allow some splits of cards of unequal
 rank. Although the `Hand` class has support for most splits of cards of equal 
 rank, this is not yet used in any form in the console application.
 
+At first I misunderstood wagers for splits. Suppose that you have wagered $100 
+and you decide to split your hand. I mistakenly thought that then both of your 
+hands would have $50 wagers. But I've been told that in such a case, the player 
+is expected to put a new wager equal to the original wager on the split off 
+hand. That is, the player is expected to put more money on the table. So in the 
+example, both of your hands would have $100 wagers each, not $50 each.
+
 If any player hits 21 from the first two cards, they have a "natural" blackjack, 
-and the dealer should pay 3/2 times the player's wager.
+and the dealer should pay 3/2 times the player's wager. For example, you wager 
+$100 on a hand and the dealer gives you an Ace and a Queen, that's natural 
+blackjack and the dealer should pay you $150.
 
 It's not possible to go bust from the first two cards. Most likely no player has 
 a natural blackjack at this point, so they must decide either to get more cards 
