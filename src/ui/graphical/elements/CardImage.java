@@ -198,6 +198,13 @@ public class CardImage {
         g.fillRoundRect(p.x + 1, p.y + 1, size.width, size.height, 10, 10);
     }
     
+    private void markCardImageAsDraft(Graphics g, final Point p, 
+            final Dimension size) {
+        g.setColor(Color.MAGENTA);
+        g.setFont(new Font("Courier New", Font.BOLD, 56));
+        g.drawString("DRAFT", p.x + 20, p.y + 250);
+    }
+    
     // TODO: Correct Javadoc once all tests are passing
     /**
      * This will paint a card face up.
@@ -211,14 +218,14 @@ public class CardImage {
         this.paintBlankCard(g, p, size);
         if (this.playingCard.isCourtCard()) {
             this.drawRoyal(g, p, size);
+            this.markCardImageAsDraft(g, p, size);
+            // TODO: Delete previous line after first fail on the tests
         } else {
             this.drawPips(g, p, size);
+            this.markCardImageAsDraft(g, p, size);
+            // TODO: Delete previous line after first fail on the tests
         }
         this.writeEdgeLegend(g, p, size);
-        g.setColor(Color.MAGENTA);
-        g.setFont(new Font("Courier New", Font.BOLD, 56));
-        g.drawString("DRAFT", p.x + 20, p.y + 250);
-        // TODO: Delete previous line after first fail on the tests
     }
     
     public void paintFaceDown(Graphics g, final Point p, final Dimension size) {
