@@ -226,12 +226,17 @@ public class Hand {
         this.updateCardsValue();
     }
     
+    // TODO: Write tests for this
+    public Wager.Settlement getSettlement() {
+        return null;
+    }
+    
     @Override
     public String toString() {
         StringBuilder intermediate = new StringBuilder("(");
-        for (PlayingCard card : this.cards) {
+        this.cards.forEach((card) -> {
             intermediate.append(card.toString()).append(", ");
-        }
+        });
         intermediate.append(")");
         return intermediate.toString().replace(", \u0029", "\u0029");
     }
