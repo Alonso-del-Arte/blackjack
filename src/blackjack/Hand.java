@@ -228,7 +228,8 @@ public class Hand {
     
     // TODO: Write tests for this
     public Wager.Settlement getSettlement() {
-        return null;
+        this.associatedWager.settle(Wager.Outcome.INSURANCE_LOST);
+        return this.associatedWager.getSettlement();
     }
     
     @Override
