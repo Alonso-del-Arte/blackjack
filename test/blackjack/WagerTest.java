@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -42,6 +42,14 @@ public class WagerTest {
         Wager wager = new Wager(expected);
         CurrencyAmount actual = wager.getAmount();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testNewWagerShouldNotBeSettledAlready() {
+        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
+        Wager wager = new Wager(expected);
+        String msg = "New wager should not be settled already";
+        assert !wager.isSettled() : msg;
     }
     
     @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,6 +18,9 @@ package blackjack;
 
 import currency.CurrencyAmount;
 
+import java.util.Currency;
+import java.util.Locale;
+
 /**
  * Represents a wager for a blackjack hand or bet.
  * @author Alonso del Arte
@@ -30,6 +33,20 @@ public class Wager {
         return this.wagerAmount;
     }
     
+    // TODO: Write tests for this
+    public boolean isSettled() {
+        return true;
+    }
+    
+    void settle(Outcome outcome) {
+        // TODO: Write tests for this
+    }
+    
+    // TODO: Write tests for this
+    public Settlement getSettlement() {
+        return new Settlement(Outcome.BUST, this.wagerAmount);
+    }
+    
     public Wager(CurrencyAmount amount) {
         if (amount.getAmountInCents() < 1) {
             String excMsg = "Non-positive amount " + amount.toString() 
@@ -37,6 +54,79 @@ public class Wager {
             throw new IllegalArgumentException(excMsg);
         }
         this.wagerAmount = amount;
+    }
+    
+    public static enum Outcome {
+        
+        /**
+         * The player's first two cards are an ace and a ten or a royal card. 
+         * Usually merits a 3/2 payout.
+         */
+        NATURAL_BLACKJACK, 
+        
+        /**
+         * The player's hand of more than two cards is valued at 21. The player 
+         * wins.
+         */
+        BLACKJACK, 
+        
+        /**
+         * The player stood below 21 but the dealer has a lower score or busted. 
+         * For example, say the player stood at 20 and the dealer drew to 19. 
+         * The player wins the wager. Or say the player stood at 20 but the 
+         * dealer busted at 22. The player also wins.
+         */
+        BETTER_SCORE,
+        
+        /**
+         * The player wins an insurance bet that the dealer has a blackjack. The 
+         * wager is usually equal to half the hand's wager and pays 2 to 1.
+         */
+        INSURANCE_WON,
+        
+        /**
+         * Neither the dealer nor the player has blackjack but they're tied 
+         * below 21. The dealer does not collect the player's wager for the hand 
+         * (but might collect a player's insurance bet).
+         */
+        STANDOFF, 
+        
+        /**
+         * The player loses an insurance bet that the dealer has a blackjack. 
+         * The wager is usually equal to half the hand's wager and pays 2 to 1.
+         */
+        INSURANCE_LOST, 
+        
+        /**
+         * The player's hand is valued at more than 21. The dealer collects the 
+         * player's wager even if the dealer also goes bust.
+         */
+        BUST, 
+        
+        /**
+         * The player did not get blackjack nor go bust, but the dealer has a 
+         * higher score without busting. The dealer collects the player's wager.
+         */
+        LOWER_SCORE
+        
+    }
+    
+    public class Settlement {
+        
+        // TODO: Write tests for this
+        public Outcome getOutcome() {
+            return Outcome.STANDOFF;
+        }
+        
+        // TODO: Write tests for this
+        public CurrencyAmount getAmount() {
+            return new CurrencyAmount(0, Currency.getInstance(Locale.ITALY));
+        }
+        
+        private Settlement(Outcome outcome, CurrencyAmount amount) {
+            //
+        }
+        
     }
     
 }
