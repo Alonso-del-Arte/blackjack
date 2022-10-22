@@ -228,6 +228,10 @@ public class Hand {
     
     // TODO: Write tests for this
     public Wager.Settlement getSettlement() {
+        if (!this.settleFlag) {
+            String excMsg = "No settlement for this hand yet";
+            throw new IllegalStateException(excMsg);
+        }
         this.associatedWager.settle(Wager.Outcome.INSURANCE_LOST);
         return this.associatedWager.getSettlement();
     }

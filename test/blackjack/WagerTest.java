@@ -32,13 +32,16 @@ public class WagerTest {
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
+    private static final CurrencyAmount DEFAULT_WAGER_AMOUNT 
+            = new CurrencyAmount(10000, DOLLARS);
+    
     /**
      * Test of getAmount method, of class Wager.
      */
     @Test
     public void testGetAmount() {
         System.out.println("getAmount");
-        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(12500, DOLLARS);
         Wager wager = new Wager(expected);
         CurrencyAmount actual = wager.getAmount();
         assertEquals(expected, actual);
@@ -46,10 +49,28 @@ public class WagerTest {
     
     @Test
     public void testNewWagerShouldNotBeSettledAlready() {
-        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
-        Wager wager = new Wager(expected);
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
         String msg = "New wager should not be settled already";
         assert !wager.isSettled() : msg;
+    }
+    
+    @Test
+    public void testTryingToGetSettlementBeforeSettleCausesException() {
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
+        try {
+            Wager.Settlement invalidSettlement = wager.getSettlement();
+            String msg = "Should not have gotten invalid settlement " 
+                    + invalidSettlement.toString() 
+                    + " because wager is not settled yet";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Premature settlement fetch caused exception");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for premature settlement fetch";
+            fail(msg);
+        }
     }
     
     @Test

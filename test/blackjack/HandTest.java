@@ -607,4 +607,22 @@ public class HandTest {
         }
     }
     
+    @Test
+    public void testNoSettlementBeforeMarkingSettled() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        try {
+            Wager.Settlement badSettlement = hand.getSettlement();
+            String msg = "Settlement from new hand should not be " 
+                    + badSettlement.toString() + ", should've caused exception";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Premature wager settlement caused exception");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for premature wager settlement";
+            fail(msg);
+        }
+    }
+    
 }

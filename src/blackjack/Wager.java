@@ -29,21 +29,28 @@ public class Wager {
     
     private final CurrencyAmount wagerAmount;
     
+    private boolean settleFlag = false;
+    
     public CurrencyAmount getAmount() {
         return this.wagerAmount;
     }
     
     // TODO: Write tests for this
     public boolean isSettled() {
-        return true;
+        return false;
     }
     
+    // TODO: Write tests for this
     void settle(Outcome outcome) {
-        // TODO: Write tests for this
+        this.settleFlag = true;
     }
     
     // TODO: Write tests for this
     public Settlement getSettlement() {
+        if (!this.settleFlag) {
+            String excMsg = "Wager is not settled yet";
+            throw new IllegalStateException(excMsg);
+        }
         return new Settlement(Outcome.BUST, this.wagerAmount);
     }
     
