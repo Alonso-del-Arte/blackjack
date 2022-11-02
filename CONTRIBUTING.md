@@ -1,10 +1,14 @@
-I intend to open this project to Hacktoberfest 2022.
+This project will be open to Hacktoberfest 2023.
 
-# Guidelines for Hacktoberfest 2022 Contributors
+# Guidelines for Hacktoberfest 2023 Contributors
 
 I will definitely consider pull requests associated with an issue and maybe 
 consider pull requests associated with a TODO (considered an Action Item in 
 NetBeans).
+
+Issues about build tools will be deleted. It's one thing for me to deal with 
+Maven headaches at my day job, I don't want to deal with Maven headaches on my 
+free time. Just use whatever build tool your IDE uses by default.
 
 Contributors should have a proper Java IDE (most are available for free) and 
 JUnit. This project uses Java 8 and JUnit 4. Contributors may use later versions 
