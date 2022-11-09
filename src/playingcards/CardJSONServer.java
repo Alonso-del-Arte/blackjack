@@ -109,6 +109,10 @@ public class CardJSONServer {
             // TODO: Write tests for this
         }
         
+        Shoe(int deckQty) {
+            // TODO: Write tests for this
+        }
+        
     }
     
 }
