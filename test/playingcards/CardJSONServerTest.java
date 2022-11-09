@@ -34,9 +34,35 @@ public class CardJSONServerTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void getDeckHash() {
+        System.out.println("ProvenanceInscribedPlayingCard.getDeckHash");
+        int expected = RANDOM.nextInt();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                        = new CardJSONServer
+                                .ProvenanceInscribedPlayingCard(rank, suit, 
+                                        expected, 0);
+                int actual = card.getDeckHash();
+                assertEquals(expected, actual);
+            }
+        }
+    }
+    
+    @Test
+    public void getShoeHash() {
+        System.out.println("ProvenanceInscribedPlayingCard.getShoeHash");
+        int expected = RANDOM.nextInt();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                        = new CardJSONServer
+                                .ProvenanceInscribedPlayingCard(rank, suit, 
+                                        0, expected);
+                int actual = card.getShoeHash();
+                assertEquals(expected, actual);
+            }
+        }
     }
     
 }
