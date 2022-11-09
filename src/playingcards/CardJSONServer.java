@@ -27,14 +27,12 @@ public class CardJSONServer {
         
         private final int deckHashCode, shoeHashCode;
 
-        // TODO: Write tests for this
         public int getDeckHash() {
-            return 0;
+            return this.deckHashCode;
         }
         
-        // TODO: Write tests for this
         public int getShoeHash() {
-            return 0;
+            return this.shoeHashCode;
         }
 
         ProvenanceInscribedPlayingCard(Rank rank, Suit suit, 
