@@ -105,6 +105,20 @@ public class CardJSONServerTest {
         }
     }
     
+    @Test
+    public void testDeckDiffProvenance() {
+        CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
+        CardSupplier diffDeck = new CardDeck();
+        while (diffDeck.hasNext()) {
+            PlayingCard card = diffDeck.getNextCard();
+            String msg = card.toASCIIString() + " that was drawn from deck " 
+                    + diffDeck.toString() 
+                    + " should not be acknowledged as coming from " 
+                    + deck.toString();
+            assert !deck.provenance(card) : msg;
+        }
+    }
+    
     //@Test
     public void testDeckInscribesCardsWithProvenance() {
         

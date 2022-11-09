@@ -78,7 +78,14 @@ public class CardJSONServer {
 
         @Override
         public boolean provenance(PlayingCard card) {
-            return true;
+            boolean found = false;
+            int index = 0;
+            int hash = System.identityHashCode(card);
+            while (!found && index < this.cards.size()) {
+                found = hash == System.identityHashCode(this.cards.get(index));
+                index++;
+            }
+            return found;
         }
         
         public void shuffle() {
