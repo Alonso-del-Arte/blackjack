@@ -71,7 +71,7 @@ public class CardJSONServerTest {
     
     @Test
     public void testDeckHasNext() {
-        System.out.println("deck.hasNext");
+        System.out.println("Deck.hasNext");
         CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
         List<PlayingCard> cards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
@@ -79,6 +79,30 @@ public class CardJSONServerTest {
             cards.add(deck.getNextCard());
         }
         assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, cards.size());
+    }
+    
+    @Test
+    public void testDeckGetNextCard() {
+        System.out.println("Deck.getNextCard");
+        CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
+        Set<PlayingCard> cards 
+                = new HashSet<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (deck.hasNext()) {
+            cards.add(deck.getNextCard());
+        }
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, cards.size());
+    }
+    
+    @Test
+    public void testDeckProvenance() {
+        System.out.println("Deck.provenance");
+        CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            String msg = card.toASCIIString() + " that was drawn from deck " 
+                    + deck.toString() + " should not be disavowed";
+            assert deck.provenance(card) : msg;
+        }
     }
     
     //@Test

@@ -61,25 +61,24 @@ public class CardJSONServer {
     
     public static class Deck implements CardSupplier {
         
-        private int dispensedSoFar = 0;
+        private int dealCount = 0;
+        
+        private  List<PlayingCard> cards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
 
         @Override
         public boolean hasNext() {
-            return this.dispensedSoFar 
-                    < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+            return this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         }
 
-        // TODO: Write tests for this
         @Override
         public PlayingCard getNextCard() {
-            this.dispensedSoFar++;
-            return new PlayingCard(Rank.JACK, Suit.DIAMONDS);
+            return this.cards.get(this.dealCount++);
         }
 
-        // TODO: Write tests for this
         @Override
         public boolean provenance(PlayingCard card) {
-            return false;
+            return true;
         }
         
         public void shuffle() {
@@ -87,7 +86,11 @@ public class CardJSONServer {
         }
         
         Deck(int shoeID) {
-            // TODO: Write tests for this
+            for (Suit suit : Suit.values()) {
+                for (Rank rank : Rank.values()) {
+                    this.cards.add(new PlayingCard(rank, suit));
+                }
+            }
         }
         
     }
