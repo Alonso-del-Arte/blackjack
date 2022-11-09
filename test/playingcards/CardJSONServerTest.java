@@ -72,7 +72,7 @@ public class CardJSONServerTest {
     @Test
     public void testDeckHasNext() {
         System.out.println("deck.hasNext");
-        CardSupplier deck = new CardJSONServer.Deck();
+        CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
         List<PlayingCard> cards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
         while (deck.hasNext()) {

@@ -86,6 +86,10 @@ public class CardJSONServer {
             // TODO: Write tests for this
         }
         
+        Deck(int shoeID) {
+            // TODO: Write tests for this
+        }
+        
     }
     
     public static class Shoe implements CardSupplier {
