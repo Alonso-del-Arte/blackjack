@@ -60,16 +60,19 @@ public class CardJSONServer {
     }
     
     public static class Deck implements CardSupplier {
+        
+        private int dispensedSoFar = 0;
 
-        // TODO: Write tests for this
         @Override
         public boolean hasNext() {
-            return false;
+            return this.dispensedSoFar 
+                    < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         }
 
         // TODO: Write tests for this
         @Override
         public PlayingCard getNextCard() {
+            this.dispensedSoFar++;
             return new PlayingCard(Rank.JACK, Suit.DIAMONDS);
         }
 
