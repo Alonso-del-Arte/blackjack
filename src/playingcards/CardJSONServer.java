@@ -16,6 +16,21 @@
  */
 package playingcards;
 
+import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpServer;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.InetSocketAddress;
+import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Provides playing cards in JSON format. The cards are inscribed with the hash 
  * codes of the deck and the shoe they came from.
@@ -64,6 +79,10 @@ public class CardJSONServer {
             return false;
         }
         
+        public void shuffle() {
+            // TODO: Write tests for this
+        }
+        
     }
     
     public static class Shoe implements CardSupplier {
@@ -84,6 +103,10 @@ public class CardJSONServer {
         @Override
         public boolean provenance(PlayingCard card) {
             return false;
+        }
+        
+        public void shuffle() {
+            // TODO: Write tests for this
         }
         
     }
