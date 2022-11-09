@@ -16,7 +16,11 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,6 +67,28 @@ public class CardJSONServerTest {
                 assertEquals(expected, actual);
             }
         }
+    }
+    
+    @Test
+    public void testDeckHasNext() {
+        System.out.println("deck.hasNext");
+        CardSupplier deck = new CardJSONServer.Deck();
+        List<PlayingCard> cards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (deck.hasNext()) {
+            cards.add(deck.getNextCard());
+        }
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, cards.size());
+    }
+    
+    //@Test
+    public void testDeckInscribesCardsWithProvenance() {
+        
+        //
+        
+        //
+        
+        fail("Haven't written test yet");
     }
     
 }
