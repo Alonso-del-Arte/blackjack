@@ -38,6 +38,10 @@ import java.util.Map;
  */
 public class CardJSONServer {
     
+    /**
+     * A playing card inscribed with information about the deck and shoe from 
+     * whence it came. Also provides a JSON function.
+     */
     public static class ProvenanceInscribedPlayingCard extends PlayingCard {
         
         private final int deckHashCode, shoeHashCode;
@@ -49,7 +53,19 @@ public class CardJSONServer {
         public int getShoeHash() {
             return this.shoeHashCode;
         }
+        
+        public String toJSONString() {
+            return "[\"NOT IMPLEMENTED YET, SORRY\"]";
+        }
 
+        /**
+         * Sole constructor. Just like the {@link PlayingCard} constructor, this 
+         * one is package private.
+         * @param rank The rank of the card. For example, Ten.
+         * @param suit The suit of the card. For example, Diamonds.
+         * @param deckHash The deck's hash code. For example, 716143810.
+         * @param shoeHash The shoe's hash code.
+         */
         ProvenanceInscribedPlayingCard(Rank rank, Suit suit, 
                 int deckHash, int shoeHash) {
             super(rank, suit);
@@ -128,8 +144,19 @@ public class CardJSONServer {
             // TODO: Write tests for this
         }
         
+        /**
+         * Sole constructor. Note that it is package private.
+         * @param deckQty The number of decks to put into the shoe. For example, 
+         * 6. Should not be 0 nor any negative number.
+         * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
+         * less.
+         */
         Shoe(int deckQty) {
-            // TODO: Write tests for this
+            if (deckQty < 1) {
+                String excMsg = "Deck quantity " + deckQty 
+                        + " is too low, should be at least 1";
+                throw new IllegalArgumentException(excMsg);
+            }
         }
         
     }
