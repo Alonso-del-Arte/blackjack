@@ -119,13 +119,29 @@ public class CardJSONServerTest {
         }
     }
     
-    //@Test
+    @Test
     public void testDeckInscribesCardsWithProvenance() {
-        
-        //
-        
-        //
-        
+        CardJSONServer.Deck deck = new CardJSONServer.Deck(this.hashCode());
+        int expected = deck.hashCode();
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            String typeMsg = "Card " + card.toASCIIString() 
+                    + " should be a ProvenanceInscribedPlayingCard";
+            assert card instanceof CardJSONServer.ProvenanceInscribedPlayingCard 
+                    : typeMsg;
+            int actual = ((CardJSONServer.ProvenanceInscribedPlayingCard) 
+                    card).getDeckHash();
+            assertEquals(expected, actual);
+        }
+    }
+    
+    //@Test
+    public void testShoeRejectsNegativeDeckQuantity() {
+        fail("Haven't written test yet");
+    }
+    
+    //@Test
+    public void testShoeRejectsDeckQuantityZero() {
         fail("Haven't written test yet");
     }
     
