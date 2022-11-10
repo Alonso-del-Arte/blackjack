@@ -59,11 +59,11 @@ public class CardJSONServer {
         
     }
     
-    public static class Deck implements CardSupplier {
+    public static final class Deck implements CardSupplier {
         
         private int dealCount = 0;
         
-        private  List<ProvenanceInscribedPlayingCard> cards 
+        private final List<ProvenanceInscribedPlayingCard> cards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
 
         @Override
@@ -93,10 +93,11 @@ public class CardJSONServer {
         }
         
         Deck(int shoeID) {
+            int deckID = this.hashCode();
             for (Suit suit : Suit.values()) {
                 for (Rank rank : Rank.values()) {
                     this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
-                            suit, 0, 0));
+                            suit, deckID, 0));
                 }
             }
         }
