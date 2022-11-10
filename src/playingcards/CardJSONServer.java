@@ -63,7 +63,7 @@ public class CardJSONServer {
         
         private int dealCount = 0;
         
-        private  List<PlayingCard> cards 
+        private  List<ProvenanceInscribedPlayingCard> cards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
 
         @Override
@@ -72,7 +72,7 @@ public class CardJSONServer {
         }
 
         @Override
-        public PlayingCard getNextCard() {
+        public ProvenanceInscribedPlayingCard getNextCard() {
             return this.cards.get(this.dealCount++);
         }
 
@@ -95,7 +95,8 @@ public class CardJSONServer {
         Deck(int shoeID) {
             for (Suit suit : Suit.values()) {
                 for (Rank rank : Rank.values()) {
-                    this.cards.add(new PlayingCard(rank, suit));
+                    this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
+                            suit, 0, 0));
                 }
             }
         }
