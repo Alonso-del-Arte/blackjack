@@ -110,14 +110,12 @@ public class CardJSONServer {
 
         @Override
         public boolean provenance(PlayingCard card) {
-            boolean found = false;
-            int index = 0;
-            int hash = System.identityHashCode(card);
-            while (!found && index < this.dealCount) {
-                found = hash == System.identityHashCode(this.cards.get(index));
-                index++;
+            if (card instanceof ProvenanceInscribedPlayingCard) {
+                return this.hashCode() 
+                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
+            } else {
+                return false;
             }
-            return found;
         }
         
         public void shuffle() {
