@@ -46,14 +46,26 @@ public class CardJSONServer {
         
         private final int deckHashCode, shoeHashCode;
 
+        /**
+         * Gives the hash code for the deck this card came from. The deck is 
+         * supposed to identify itself to the card constructor.
+         * @return The deck's hash code. For example, 716143810.
+         */
         public int getDeckHash() {
             return this.deckHashCode;
         }
         
+        /**
+         * Gives the hash code for the shoe this card came from. The shoe is 
+         * supposed to identify itself to the deck constructor, which in turn 
+         * identifies itself and the shoe to the card constructor.
+         * @return The deck's hash code.
+         */
         public int getShoeHash() {
             return this.shoeHashCode;
         }
         
+        // TODO: Write tests for this
         public String toJSONString() {
             return "[\"NOT IMPLEMENTED YET, SORRY\"]";
         }
@@ -75,6 +87,10 @@ public class CardJSONServer {
         
     }
     
+    /**
+     * Holds together a standard complement of provenance-inscribed cards. Its 
+     * hash code is used to identify that a card came from this deck.
+     */
     public static final class Deck implements CardSupplier {
         
         private int dealCount = 0;
@@ -97,7 +113,7 @@ public class CardJSONServer {
             boolean found = false;
             int index = 0;
             int hash = System.identityHashCode(card);
-            while (!found && index < this.cards.size()) {
+            while (!found && index < this.dealCount) {
                 found = hash == System.identityHashCode(this.cards.get(index));
                 index++;
             }
@@ -108,6 +124,10 @@ public class CardJSONServer {
             // TODO: Write tests for this
         }
         
+        /**
+         * Sole constructor. Note that this constructor is package private.
+         * @param shoeID The shoe's hash code.
+         */
         Deck(int shoeID) {
             int deckID = this.hashCode();
             for (Suit suit : Suit.values()) {
