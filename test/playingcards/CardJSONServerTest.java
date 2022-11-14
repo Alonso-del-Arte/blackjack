@@ -120,6 +120,26 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testDeckShuffle() {
+        System.out.println("Deck.shuffle");
+        CardSupplier firstDeck = new CardJSONServer.Deck(this.hashCode());
+        List<PlayingCard> originalOrderCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (firstDeck.hasNext()) {
+            originalOrderCards.add(firstDeck.getNextCard());
+        }
+        CardJSONServer.Deck secondDeck 
+                = new CardJSONServer.Deck(this.hashCode());
+        secondDeck.shuffle();
+        List<PlayingCard> shuffledCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (secondDeck.hasNext()) {
+            shuffledCards.add(secondDeck.getNextCard());
+        }
+        assertNotEquals(originalOrderCards, shuffledCards);
+    }
+    
+    @Test
     public void testDeckInscribesCardsWithProvenance() {
         CardJSONServer.Deck deck = new CardJSONServer.Deck(this.hashCode());
         int expected = deck.hashCode();
