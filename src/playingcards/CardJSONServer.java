@@ -27,6 +27,7 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +38,33 @@ import java.util.Map;
  * @author Alonso del Arte
  */
 public class CardJSONServer {
+    
+    private static final int DEFAULT_NUMBER_OF_DECKS = 6;
+    
+    private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
+    
+    private final int numberOfDecks;
+    
+    private final int plasticCardIndex;
+    
+    private Shoe shoe;
+    
+    /**
+     * Sole constructor.
+     * @param deckQty How many decks of cards to put in the shoe.
+     * @param stop How many cards from the bottommost card in the shoe to place 
+     * a figurative plastic card. Thus cards under the plastic card are 
+     * unavailable for play.
+     */
+    public CardJSONServer(int deckQty, int stop) {
+        // TODO: Write tests for this
+        this.numberOfDecks = 2;
+        this.plasticCardIndex = 1;
+    }
+    
+    public static void main(String[] args) {
+        // TODO: Write tests for this?
+    }
     
     /**
      * A playing card inscribed with information about the deck and shoe from 
@@ -119,7 +147,7 @@ public class CardJSONServer {
         }
         
         public void shuffle() {
-            // TODO: Write tests for this
+            Collections.shuffle(this.cards);
         }
         
         /**
