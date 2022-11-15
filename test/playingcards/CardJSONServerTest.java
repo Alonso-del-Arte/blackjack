@@ -172,7 +172,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testShoeRejectsNegativeDeckQuantity() {
+    public void testShoeConstructorRejectsNegativeDeckQuantity() {
         int badQty = -RANDOM.nextInt(256) - 4;
         try {
             CardJSONServer.Shoe badShoe = new CardJSONServer.Shoe(badQty);
@@ -192,7 +192,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testShoeRejectsDeckQuantityZero() {
+    public void testShoeConstructorRejectsDeckQuantityZero() {
         int badQty = 0;
         try {
             CardJSONServer.Shoe badShoe = new CardJSONServer.Shoe(badQty);
@@ -207,6 +207,28 @@ public class CardJSONServerTest {
             String msg = re.getClass().getName() 
                     + " is the wrong exception to throw for bad deck quantity " 
                     + badQty;
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testShoeConstructorRejectsNegativeStop() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int badStop = -RANDOM.nextInt(256) - 4;
+        try {
+            CardJSONServer.Shoe badShoe = new CardJSONServer.Shoe(deckQty, 
+                    badStop);
+            String msg = "Should not have been able to create " 
+                    + badShoe.toString() + " with bad stop " + badStop;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad stop " + badStop 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck stop " 
+                    + badStop;
             fail(msg);
         }
     }

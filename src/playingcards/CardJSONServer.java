@@ -64,6 +64,7 @@ public class CardJSONServer {
     
     public static void main(String[] args) {
         // TODO: Write tests for this?
+        System.out.println("Starting card server...");
     }
     
     /**
@@ -194,13 +195,25 @@ public class CardJSONServer {
         }
         
         /**
-         * Sole constructor. Note that it is package private.
+         * Auxiliary constructor. All cards are available for dealing.
          * @param deckQty The number of decks to put into the shoe. For example, 
-         * 6. Should not be 0 nor any negative number.
+         * 6. Should not be 0 nor any negative number, preferably more than 2.
+         */
+        Shoe(int deckQty) {
+            this(deckQty, 0);
+        }
+        
+        /**
+         * Primary constructor. Note that it is package private.
+         * @param deckQty The number of decks to put into the shoe. For example, 
+         * 6. Should not be 0 nor any negative number, preferably more than 2.
+         * @param stop How many cards from the bottommost card in the shoe to 
+         * place a figurative plastic card. Thus cards under the plastic card 
+         * are unavailable for play.
          * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
          * less.
          */
-        Shoe(int deckQty) {
+        Shoe(int deckQty, int stop) {
             if (deckQty < 1) {
                 String excMsg = "Deck quantity " + deckQty 
                         + " is too low, should be at least 1";
