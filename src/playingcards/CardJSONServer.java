@@ -43,6 +43,8 @@ public class CardJSONServer {
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
+    private final int portNumber;
+    
     private final int numberOfDecks;
     
     private final int plasticCardIndex;
@@ -51,13 +53,26 @@ public class CardJSONServer {
     
     /**
      * Sole constructor.
-     * @param deckQty How many decks of cards to put in the shoe.
+     * @param port Which local host port to send the cards to. Should probably 
+     * be 80 or 445 or greater than 1024.
+     * @param deckQty How many decks of cards to put in the shoe. Should be at 
+     * least 1, preferably more than 2.
      * @param stop How many cards from the bottommost card in the shoe to place 
      * a figurative plastic card. Thus cards under the plastic card are 
-     * unavailable for play.
+     * unavailable for play. Should be at least 0, preferably more than 52 but 
+     * less than 78, and certainly less than <code>deckQty</code> times 52.
+     * @throws IllegalArgumentException If <code>port</code> is outside the 
+     * range 0 to 65535 (other exceptions might occur for ports 0 to 1023), or 
+     * if <code>deckQty</code> is less than 1, or if <code>stop</code> is less 
+     * than 0.
      */
-    public CardJSONServer(int deckQty, int stop) {
-        // TODO: Write tests for this
+    public CardJSONServer(int port, int deckQty, int stop) {
+        if (port < 0 || port > 4 * Short.MAX_VALUE || deckQty < 1 || stop < 0) {
+            String excMsg = "Check port number " + port + ", deck quantity " 
+                    + deckQty + ", stop " + stop;
+            throw new IllegalArgumentException(excMsg);
+        }
+        this.portNumber = 81;
         this.numberOfDecks = 2;
         this.plasticCardIndex = 1;
     }

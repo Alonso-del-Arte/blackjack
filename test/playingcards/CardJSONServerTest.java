@@ -32,6 +32,8 @@ import static org.junit.Assert.*;
  */
 public class CardJSONServerTest {
     
+    private static final int DEFAULT_HTTPS_PORT = 443;
+    
     private static final Random RANDOM = new Random();
     
     @Test
@@ -192,7 +194,7 @@ public class CardJSONServerTest {
         try {
             CardJSONServer.Shoe badShoe = new CardJSONServer.Shoe(badQty);
             String msg = "Should not have been able to create " 
-                    + badShoe.toString() + " with bad quantity " + badQty;
+                    + badShoe.toString() + " with bad deck quantity " + badQty;
             fail(msg);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad quantity " + badQty 
@@ -212,7 +214,7 @@ public class CardJSONServerTest {
         try {
             CardJSONServer.Shoe badShoe = new CardJSONServer.Shoe(badQty);
             String msg = "Should not have been able to create " 
-                    + badShoe.toString() + " with bad quantity " + badQty;
+                    + badShoe.toString() + " with bad deck quantity " + badQty;
             fail(msg);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad quantity " + badQty 
@@ -249,18 +251,114 @@ public class CardJSONServerTest {
     }
     
 //    @Test
+    public void testSomethingOrOther() {
+        //
+    }
+    
+    @Test
+    public void testConstructorRejectsNegativePort() {
+        int badPort = -RANDOM.nextInt(Short.MAX_VALUE) - 1;
+        try {
+            CardJSONServer badServer = new CardJSONServer(badPort, 1, 0);
+            String msg = "Should not have been able to create " 
+                    + badServer.toString() + " with bad port number " + badPort;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad port number " + badPort 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad port number " 
+                    + badPort;
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectsOutOfRangePort() {
+        int badPort = 4 * Short.MAX_VALUE + RANDOM.nextInt(Byte.MAX_VALUE) + 1;
+        try {
+            CardJSONServer badServer = new CardJSONServer(badPort, 1, 0);
+            String msg = "Should not have been able to create " 
+                    + badServer.toString() + " with bad port number " + badPort;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad port number " + badPort 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad port number " 
+                    + badPort;
+            fail(msg);
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNegativeDeckQuantity() {
-        fail("Haven't written test yet");
+        int badQty = -RANDOM.nextInt(256) - 4;
+        try {
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+                    badQty, 0);
+            String msg = "Should not have been able to create " 
+                    + badServer.toString() + " with bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad quantity " + badQty 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        }
     }
     
-//    @Test
+    @Test
     public void testConstructorRejectsDeckQuantityZero() {
-        fail("Haven't written test yet");
+        int badQty = 0;
+        try {
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+                    badQty, 0);
+            String msg = "Should not have been able to create " 
+                    + badServer.toString() + " with bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad quantity " + badQty 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        }
     }
     
-//    @Test
+    @Test
     public void testConstructorRejectsNegativeStop() {
-        fail("Haven't written test yet");
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int badStop = -RANDOM.nextInt(256) - 4;
+        try {
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+                    deckQty, badStop);
+            String msg = "Should not have been able to create " 
+                    + badServer.toString() + " with bad stop " + badStop;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad stop " + badStop 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck stop " 
+                    + badStop;
+            fail(msg);
+        }
     }
     
 }
