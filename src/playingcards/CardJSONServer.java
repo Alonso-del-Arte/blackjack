@@ -220,7 +220,8 @@ public class CardJSONServer {
                         + " should be at least 0";
                 throw new IllegalArgumentException(excMsg);
             }
-            this.max = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+            this.max = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                    - stop;
         }
         
     }
