@@ -166,6 +166,21 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testShoeHasNextLimitedByStop() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - stop;
+        CardSupplier shoe = new CardJSONServer.Shoe(deckQty, stop);
+        List<PlayingCard> cards = new ArrayList<>(expected);
+        while (shoe.hasNext()) {
+            cards.add(shoe.getNextCard());
+        }
+        int actual = cards.size();
+        assertEquals(expected, actual);
+    }
+    
 //    @Test
     public void testShoeInscribesCardWithProvenance() {
         //
@@ -231,6 +246,21 @@ public class CardJSONServerTest {
                     + badStop;
             fail(msg);
         }
+    }
+    
+//    @Test
+    public void testConstructorRejectsNegativeDeckQuantity() {
+        fail("Haven't written test yet");
+    }
+    
+//    @Test
+    public void testConstructorRejectsDeckQuantityZero() {
+        fail("Haven't written test yet");
+    }
+    
+//    @Test
+    public void testConstructorRejectsNegativeStop() {
+        fail("Haven't written test yet");
     }
     
 }
