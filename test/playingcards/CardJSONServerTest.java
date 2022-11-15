@@ -34,9 +34,6 @@ public class CardJSONServerTest {
     
     private static final Random RANDOM = new Random();
     
-    public CardJSONServerTest() {
-    }
-
     @Test
     public void getDeckHash() {
         System.out.println("ProvenanceInscribedPlayingCard.getDeckHash");
@@ -153,6 +150,25 @@ public class CardJSONServerTest {
                     card).getDeckHash();
             assertEquals(expected, actual);
         }
+    }
+    
+    @Test
+    public void testShoeHasNext() {
+        System.out.println("Shoe.hasNext");
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        CardSupplier shoe = new CardJSONServer.Shoe(deckQty);
+        List<PlayingCard> cards = new ArrayList<>(expected);
+        while (shoe.hasNext()) {
+            cards.add(shoe.getNextCard());
+        }
+        int actual = cards.size();
+        assertEquals(expected, actual);
+    }
+    
+//    @Test
+    public void testShoeInscribesCardWithProvenance() {
+        //
     }
     
     @Test

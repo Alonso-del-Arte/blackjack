@@ -168,15 +168,18 @@ public class CardJSONServer {
     
     public static class Shoe implements CardSupplier {
         
-        // TODO: Write tests for this
+        private int dealCount = 0;
+        
+        private final int max;
+        
         @Override
         public boolean hasNext() {
-            return false;
+            return this.dealCount < max;
         }
 
-        // TODO: Write tests for this
         @Override
         public PlayingCard getNextCard() {
+            this.dealCount++;
             return new PlayingCard(Rank.EIGHT, Suit.CLUBS);
         }
 
@@ -203,6 +206,7 @@ public class CardJSONServer {
                         + " is too low, should be at least 1";
                 throw new IllegalArgumentException(excMsg);
             }
+            this.max = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         }
         
     }
