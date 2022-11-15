@@ -214,9 +214,10 @@ public class CardJSONServer {
          * less.
          */
         Shoe(int deckQty, int stop) {
-            if (deckQty < 1) {
+            if (deckQty < 1 || stop < 0) {
                 String excMsg = "Deck quantity " + deckQty 
-                        + " is too low, should be at least 1";
+                        + " should be at least 1 and plastic card stop " + stop 
+                        + " should be at least 0";
                 throw new IllegalArgumentException(excMsg);
             }
             this.max = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
