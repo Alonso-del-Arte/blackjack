@@ -128,7 +128,7 @@ public class CardJSONServer {
 
         @Override
         public boolean hasNext() {
-            return this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+            return this.dealCount <= CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         }
 
         @Override
