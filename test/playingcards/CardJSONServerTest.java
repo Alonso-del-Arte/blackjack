@@ -34,6 +34,8 @@ public class CardJSONServerTest {
     
     private static final int DEFAULT_HTTPS_PORT = 443;
     
+    private static final int DEFAULT_STOP = 75;
+    
     private static final Random RANDOM = new Random();
     
     @Test
@@ -250,9 +252,49 @@ public class CardJSONServerTest {
         }
     }
     
-//    @Test
-    public void testSomethingOrOther() {
-        //
+    @Test
+    public void testNoDoubleActivation() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+                DEFAULT_STOP);
+        server.activate();
+        try {
+            server.activate();
+            String msg = "Should not have been able to activate " 
+                    + server.toString() + " twice in a row";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to activate " + server.toString() 
+                    + " twice in a row correctly caused IllegalStateException");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to activate " 
+                    + server.toString() + " twice in a row";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testNoDeactivationForInactive() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+                DEFAULT_STOP);
+        try {
+            server.deactivate();
+            String msg = "Should not have been able to deactivate " 
+                    + server.toString() + " because it was already inactive";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to activate " + server.toString() 
+                    + " twice correctly caused IllegalStateException");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to activate " 
+                    + server.toString() + " twice";
+            fail(msg);
+        }
     }
     
     @Test
