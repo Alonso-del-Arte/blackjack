@@ -49,14 +49,23 @@ public class CardJSONServer {
     
     private final int plasticCardIndex;
     
+    private boolean active = false;
+    
     private Shoe shoe;
     
     public void activate() {
-        // TODO: Write tests for this
+        if (this.active) {
+            String excMsg = "Can't activate, already active";
+            throw new IllegalStateException(excMsg);
+        }
+        this.active = true;
     }
     
     public void deactivate() {
-        // TODO: Write tests for this
+        if (!this.active) {
+            String excMsg = "Can't deactivate, already inactive";
+            throw new IllegalStateException(excMsg);
+        }
     }
     
     /**
