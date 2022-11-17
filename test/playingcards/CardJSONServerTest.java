@@ -17,8 +17,10 @@
 package playingcards;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -39,7 +41,7 @@ public class CardJSONServerTest {
     private static final Random RANDOM = new Random();
     
     @Test
-    public void getDeckHash() {
+    public void testGetDeckHash() {
         System.out.println("ProvenanceInscribedPlayingCard.getDeckHash");
         int expected = RANDOM.nextInt();
         for (Suit suit : Suit.values()) {
@@ -55,7 +57,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void getShoeHash() {
+    public void testGetShoeHash() {
         System.out.println("ProvenanceInscribedPlayingCard.getShoeHash");
         int expected = RANDOM.nextInt();
         for (Suit suit : Suit.values()) {
@@ -185,8 +187,42 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testShoeGetNextCard() {
+        System.out.println("Shoe.getNextCard");
+        int expected = RANDOM.nextInt(8) + 2;
+        CardSupplier shoe = new CardJSONServer.Shoe(expected);
+        Map<PlayingCard, Integer> counts 
+                = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (shoe.hasNext()) {
+            PlayingCard card = shoe.getNextCard();
+            if (counts.containsKey(card)) {
+                counts.put(card, counts.get(card) + 1);
+            } else {
+                counts.put(card, 1);
+            }
+        }
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String containsMsg = "Map of card counts should have " 
+                        + card.toString();
+                assert counts.containsKey(card) : containsMsg;
+                int actual = counts.get(card);
+                String msg = "Shoe with " + expected 
+                        + " decks should have as many of " + card.toString();
+                assertEquals(msg, expected, actual);
+            }
+        }
+    }
+    
 //    @Test
     public void testShoeInscribesCardWithProvenance() {
+        //
+    }
+    
+//    @Test
+    public void testShoeShuffle() {
         //
     }
     
