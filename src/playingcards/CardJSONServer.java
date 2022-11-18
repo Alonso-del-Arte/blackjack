@@ -206,6 +206,8 @@ public class CardJSONServer {
         
         private final int max;
         
+        private final List<ProvenanceInscribedPlayingCard> cards;
+        
         @Override
         public boolean hasNext() {
             return this.dealCount < max;
@@ -213,8 +215,10 @@ public class CardJSONServer {
 
         @Override
         public PlayingCard getNextCard() {
+            ProvenanceInscribedPlayingCard card 
+                    = this.cards.get(this.dealCount);
             this.dealCount++;
-            return new PlayingCard(Rank.EIGHT, Suit.CLUBS);
+            return card;
         }
 
         // TODO: Write tests for this
@@ -253,8 +257,19 @@ public class CardJSONServer {
                         + " should be at least 0";
                 throw new IllegalArgumentException(excMsg);
             }
-            this.max = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
-                    - stop;
+            int total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+            this.cards = new ArrayList<>(total);
+            this.max =  total - stop;
+            Deck[] decks = new Deck[deckQty];
+            for (int i = 0; i < deckQty; i++) {
+                decks[i] = new Deck(Integer.MIN_VALUE);
+            }
+            for (Deck deck : decks) {
+                deck.shuffle();
+                while (deck.hasNext()) {
+                    this.cards.add(deck.getNextCard());
+                }
+            }
         }
         
     }
