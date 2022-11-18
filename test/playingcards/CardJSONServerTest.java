@@ -196,10 +196,12 @@ public class CardJSONServerTest {
                 = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
         while (shoe.hasNext()) {
             PlayingCard card = shoe.getNextCard();
-            if (counts.containsKey(card)) {
-                counts.put(card, counts.get(card) + 1);
+            PlayingCard transferCard = new PlayingCard(card.getRank(), 
+                    card.getSuit());
+            if (counts.containsKey(transferCard)) {
+                counts.put(transferCard, counts.get(transferCard) + 1);
             } else {
-                counts.put(card, 1);
+                counts.put(transferCard, 1);
             }
         }
         for (Suit suit : Suit.values()) {
