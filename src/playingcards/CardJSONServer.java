@@ -267,7 +267,7 @@ public class CardJSONServer {
                 decks[i] = new Deck(this.hashCode());
             }
             for (Deck deck : decks) {
-                deck.shuffle();
+//                deck.shuffle();
                 while (deck.hasNext()) {
                     this.cards.add(deck.getNextCard());
                 }
