@@ -167,6 +167,11 @@ public class CardJSONServer {
 
         @Override
         public ProvenanceInscribedPlayingCard getNextCard() {
+            if (this.dealCount >= CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+                String excMsg = "Already gave out all " 
+                        + CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+                throw new RanOutOfCardsException(excMsg);
+            }
             return this.cards.get(this.dealCount++);
         }
 
@@ -193,14 +198,14 @@ public class CardJSONServer {
             for (Suit suit : Suit.values()) {
                 for (Rank rank : Rank.values()) {
                     this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
-                            suit, deckID, 0));
+                            suit, deckID, shoeID));
                 }
             }
         }
         
     }
     
-    public static class Shoe implements CardSupplier {
+    public static final class Shoe implements CardSupplier {
         
         private int dealCount = 0;
         
@@ -215,10 +220,7 @@ public class CardJSONServer {
 
         @Override
         public PlayingCard getNextCard() {
-            ProvenanceInscribedPlayingCard card 
-                    = this.cards.get(this.dealCount);
-            this.dealCount++;
-            return card;
+            return this.cards.get(this.dealCount++);
         }
 
         // TODO: Write tests for this
@@ -262,7 +264,7 @@ public class CardJSONServer {
             this.max =  total - stop;
             Deck[] decks = new Deck[deckQty];
             for (int i = 0; i < deckQty; i++) {
-                decks[i] = new Deck(Integer.MIN_VALUE);
+                decks[i] = new Deck(this.hashCode());
             }
             for (Deck deck : decks) {
                 deck.shuffle();
