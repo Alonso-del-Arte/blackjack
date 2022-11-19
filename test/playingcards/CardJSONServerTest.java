@@ -269,6 +269,7 @@ public class CardJSONServerTest {
         int expected = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(expected, stop);
+        shoe.shuffle();
         Set<Integer> hashes = new HashSet<>(expected);
         int sampleSize = 3 * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
         int curr = 0;
