@@ -266,28 +266,20 @@ public class CardJSONServerTest {
     @Test
     public void testShoeShuffle() {
         System.out.println("Shoe.shuffle");
-        int deckQty = RANDOM.nextInt(8) + 2;
+        int expected = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
-        CardSupplier firstShoe = new CardJSONServer.Shoe(deckQty, stop);
-        int capacity = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
-                - stop;
-        List<PlayingCard> originalOrderCards = new ArrayList<>(capacity);
-        while (firstShoe.hasNext()) {
-            PlayingCard card = firstShoe.getNextCard();
-            PlayingCard transferCard = new PlayingCard(card.getRank(), 
-                    card.getSuit());
-            originalOrderCards.add(transferCard);
+        CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(expected, stop);
+        Set<Integer> hashes = new HashSet<>(expected);
+        int sampleSize = 3 * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
+        int curr = 0;
+        while (curr < sampleSize) {
+            CardJSONServer.ProvenanceInscribedPlayingCard card 
+                    = shoe.getNextCard();
+            hashes.add(card.getDeckHash());
+            curr++;
         }
-        CardJSONServer.Shoe secondShoe = new CardJSONServer.Shoe(deckQty, stop);
-        secondShoe.shuffle();
-        List<PlayingCard> shuffledCards = new ArrayList<>(capacity);
-        while (secondShoe.hasNext()) {
-            PlayingCard card = secondShoe.getNextCard();
-            PlayingCard transferCard = new PlayingCard(card.getRank(), 
-                    card.getSuit());
-            shuffledCards.add(transferCard);
-        }
-        assertNotEquals(originalOrderCards, shuffledCards);
+        int actual = hashes.size();
+        assertEquals(expected, actual);
     }
     
 //    @Test
