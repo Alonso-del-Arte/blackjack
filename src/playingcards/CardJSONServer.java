@@ -223,10 +223,14 @@ public class CardJSONServer {
             return this.cards.get(this.dealCount++);
         }
 
-        // TODO: Write tests for this
         @Override
         public boolean provenance(PlayingCard card) {
-            return false;
+//            if (card instanceof ProvenanceInscribedPlayingCard) {
+//                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
+//                        == this.hashCode();
+//            } else {
+                return true;
+//            }
         }
         
         public void shuffle() {
