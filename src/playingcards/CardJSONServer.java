@@ -230,7 +230,7 @@ public class CardJSONServer {
         }
         
         public void shuffle() {
-            // TODO: Write tests for this
+            Collections.shuffle(this.cards);
         }
         
         /**
