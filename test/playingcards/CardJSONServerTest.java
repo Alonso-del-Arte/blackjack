@@ -102,7 +102,7 @@ public class CardJSONServerTest {
         CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
         while (deck.hasNext()) {
             PlayingCard card = deck.getNextCard();
-            String msg = card.toASCIIString() + " that was drawn from deck " 
+            String msg = card.toString() + " that was drawn from deck " 
                     + deck.toString() + " should not be disavowed";
             assert deck.provenance(card) : msg;
         }
@@ -242,6 +242,20 @@ public class CardJSONServerTest {
                         + " decks should have as many of " + card.toString();
                 assertEquals(msg, expected, actual);
             }
+        }
+    }
+    
+    @Test
+    public void testShoeProvenance() {
+        System.out.println("Shoe.provenance");
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardSupplier shoe = new CardJSONServer.Shoe(deckQty, stop);
+        while (shoe.hasNext()) {
+            PlayingCard card = shoe.getNextCard();
+            String msg = card.toString() + " that was drawn from shoe " 
+                    + shoe.toString() + " should not be disavowed";
+            assert shoe.provenance(card) : msg;
         }
     }
     
