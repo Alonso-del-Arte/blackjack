@@ -143,6 +143,33 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testDeckThrowsExceptionWhenOutOfCards() {
+        CardJSONServer.Deck deck = new CardJSONServer.Deck(this.hashCode());
+        deck.shuffle();
+        PlayingCard lastGivenCard = new PlayingCard(Rank.ACE, Suit.SPADES);
+        while (deck.hasNext()) {
+            lastGivenCard = deck.getNextCard();
+        }
+        String msgPart = "After giving last card " + lastGivenCard.toString() 
+                + ", trying to get another card ";
+        try {
+            PlayingCard badCard = deck.getNextCard();
+            String msg = msgPart + "should not have given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println(msgPart 
+                    + "correctly caused RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart 
+                    + "should have caused RanOutOfCardsException, not " 
+                    + re.getClass().getName();
+            fail(msg);
+        }
+    }
+    
+    @Test
     public void testDeckInscribesCardsWithProvenance() {
         CardJSONServer.Deck deck = new CardJSONServer.Deck(this.hashCode());
         int expected = deck.hashCode();
@@ -218,14 +245,56 @@ public class CardJSONServerTest {
         }
     }
     
-//    @Test
+    @Test
     public void testShoeInscribesCardWithProvenance() {
-        //
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(deckQty, stop);
+        int expected = shoe.hashCode();
+        while (shoe.hasNext()) {
+            PlayingCard card = shoe.getNextCard();
+            String typeMsg = "Card " + card.toASCIIString() 
+                    + " should be a ProvenanceInscribedPlayingCard";
+            assert card instanceof CardJSONServer.ProvenanceInscribedPlayingCard 
+                    : typeMsg;
+            int actual = ((CardJSONServer.ProvenanceInscribedPlayingCard) 
+                    card).getShoeHash();
+            assertEquals(expected, actual);
+        }
     }
     
 //    @Test
     public void testShoeShuffle() {
         //
+    }
+    
+//    @Test
+    public void testShoeThrowsExceptionWhenOutOfCards() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(deckQty, stop);
+        shoe.shuffle();
+        PlayingCard lastGivenCard = new PlayingCard(Rank.ACE, Suit.SPADES);
+        while (shoe.hasNext()) {
+            lastGivenCard = shoe.getNextCard();
+        }
+        String msgPart = "After giving last card " + lastGivenCard.toString() 
+                + ", trying to get another card ";
+        try {
+            PlayingCard badCard = shoe.getNextCard();
+            String msg = msgPart + "should not have given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println(msgPart 
+                    + "correctly caused RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart 
+                    + "should have caused RanOutOfCardsException, not " 
+                    + re.getClass().getName();
+            fail(msg);
+        }
     }
     
     @Test
