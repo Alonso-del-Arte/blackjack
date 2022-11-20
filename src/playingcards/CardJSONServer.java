@@ -140,27 +140,16 @@ public class CardJSONServer {
         
         @Override
         public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
+            if (super.equals(obj)) {
+                ProvenanceInscribedPlayingCard other 
+                        = (ProvenanceInscribedPlayingCard) obj;
+                if (this.deckHashCode != other.deckHashCode) {
+                    return false;
+                }
+                return this.shoeHashCode == other.shoeHashCode;
+            } else {
                 return false;
             }
-            if (!this.getClass().equals(obj.getClass())) {
-                return false;
-            }
-            ProvenanceInscribedPlayingCard other 
-                    = (ProvenanceInscribedPlayingCard) obj;
-            if (!this.getRank().equals(other.getRank())) {
-                return false;
-            }
-            if (!this.getSuit().equals(other.getSuit())) {
-                return false;
-            }
-            if (this.deckHashCode != other.deckHashCode) {
-                return false;
-            }
-            return this.shoeHashCode == other.shoeHashCode;
         }
         
         // TODO: Write tests for this
