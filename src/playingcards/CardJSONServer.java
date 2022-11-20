@@ -131,6 +131,24 @@ public class CardJSONServer {
         public String toJSONString() {
             return "[\"NOT IMPLEMENTED YET, SORRY\"]";
         }
+        
+        // TODO: Write tests for this
+        static ProvenanceInscribedPlayingCard parseJSON(String s) {
+            return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 
+                    DEFAULT_NUMBER_OF_DECKS, DEFAULT_NUMBER_OF_DECKS);
+        }
+        
+        // TODO: Write tests for this
+        @Override
+        public boolean equals(Object obj) {
+            return false;
+        }
+        
+        // TODO: Write tests for this
+        @Override
+        public int hashCode() {
+            return 0;
+        }
 
         /**
          * Sole constructor. Just like the {@link PlayingCard} constructor, this 
