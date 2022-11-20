@@ -73,6 +73,71 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testCardReferentialEquality() {
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard card 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(Rank.JACK, 
+                        Suit.CLUBS, deckHash, shoeHash);
+        assertEquals(card, card);
+    }
+    
+    @Test
+    public void testCardNotEqualsNull() {
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard card 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(Rank.JACK, 
+                        Suit.CLUBS, deckHash, shoeHash);
+        assertNotEquals(card, null);
+    }
+    
+    @Test
+    public void testCardNotEqualsDiffClass() {
+        Rank rank = Rank.ACE;
+        Suit suit = Suit.SPADES;
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard card 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHash, shoeHash);
+        PlayingCard diffClassCard = new PlayingCard(rank, suit);
+        assertNotEquals(card, diffClassCard);
+    }
+    
+    @Test
+    public void testCardNotEqualsDiffRank() {
+        Rank rankA = Rank.ACE;
+        Rank rankB = Rank.TWO;
+        Suit suit = Suit.SPADES;
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard cardA 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rankA, suit, 
+                        deckHash, shoeHash);
+        CardJSONServer.ProvenanceInscribedPlayingCard cardB 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rankB, suit, 
+                        deckHash, shoeHash);
+        assertNotEquals(cardA, cardB);
+    }
+    
+    @Test
+    public void testEquals() {
+        System.out.println("ProvenanceInscribedPlayingCard.equals");
+        Rank rank = Rank.THREE;
+        Suit suit = Suit.HEARTS;
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard someCard
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHash, shoeHash);
+        CardJSONServer.ProvenanceInscribedPlayingCard sameCard
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHash, shoeHash);
+        assertEquals(someCard, sameCard);
+    }
+    
+    @Test
     public void testDeckHasNext() {
         System.out.println("Deck.hasNext");
         CardSupplier deck = new CardJSONServer.Deck(this.hashCode());

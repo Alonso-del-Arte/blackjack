@@ -138,10 +138,18 @@ public class CardJSONServer {
                     DEFAULT_NUMBER_OF_DECKS, DEFAULT_NUMBER_OF_DECKS);
         }
         
-        // TODO: Write tests for this
         @Override
         public boolean equals(Object obj) {
-            return false;
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!this.getClass().equals(obj.getClass())) {
+                return false;
+            }
+            return this.getRank().equals(((PlayingCard) obj).getRank());
         }
         
         // TODO: Write tests for this
