@@ -149,7 +149,18 @@ public class CardJSONServer {
             if (!this.getClass().equals(obj.getClass())) {
                 return false;
             }
-            return this.getRank().equals(((PlayingCard) obj).getRank());
+            ProvenanceInscribedPlayingCard other 
+                    = (ProvenanceInscribedPlayingCard) obj;
+            if (!this.getRank().equals(other.getRank())) {
+                return false;
+            }
+            if (!this.getSuit().equals(other.getSuit())) {
+                return false;
+            }
+            if (this.deckHashCode != other.deckHashCode) {
+                return false;
+            }
+            return this.shoeHashCode == other.shoeHashCode;
         }
         
         // TODO: Write tests for this

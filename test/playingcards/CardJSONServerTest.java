@@ -138,6 +138,54 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testCardNotEqualsDiffSuit() {
+        Rank rank = Rank.FIVE;
+        Suit suitA = Suit.CLUBS;
+        Suit suitB = Suit.DIAMONDS;
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard cardA 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suitA, 
+                        deckHash, shoeHash);
+        CardJSONServer.ProvenanceInscribedPlayingCard cardB 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suitB, 
+                        deckHash, shoeHash);
+        assertNotEquals(cardA, cardB);
+    }
+    
+    @Test
+    public void testCardNotEqualsDiffDeckHash() {
+        Rank rank = Rank.SIX;
+        Suit suit = Suit.SPADES;
+        int deckHashA = RANDOM.nextInt();
+        int deckHashB = deckHashA + 1;
+        int shoeHash = RANDOM.nextInt();
+        CardJSONServer.ProvenanceInscribedPlayingCard cardA 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHashA, shoeHash);
+        CardJSONServer.ProvenanceInscribedPlayingCard cardB 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHashB, shoeHash);
+        assertNotEquals(cardA, cardB);
+    }
+    
+    @Test
+    public void testCardNotEqualsDiffShoeHash() {
+        Rank rank = Rank.SIX;
+        Suit suit = Suit.SPADES;
+        int deckHash = RANDOM.nextInt();
+        int shoeHashA = RANDOM.nextInt();
+        int shoeHashB = shoeHashA + 1;
+        CardJSONServer.ProvenanceInscribedPlayingCard cardA 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHash, shoeHashA);
+        CardJSONServer.ProvenanceInscribedPlayingCard cardB 
+                = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
+                        deckHash, shoeHashB);
+        assertNotEquals(cardA, cardB);
+    }
+    
+    @Test
     public void testDeckHasNext() {
         System.out.println("Deck.hasNext");
         CardSupplier deck = new CardJSONServer.Deck(this.hashCode());
