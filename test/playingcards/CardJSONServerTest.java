@@ -242,13 +242,17 @@ public class CardJSONServerTest {
         System.out.println("ProvenanceInscribedPlayingCard.parseJSON");
         int shoeHash = RANDOM.nextInt();
         int deckHash = RANDOM.nextInt();
-        fail("Haven't finished writing test");
         for (Rank rank : Rank.values()) {
             for (Suit suit : Suit.values()) {
-                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                CardJSONServer.ProvenanceInscribedPlayingCard expected 
                         = new CardJSONServer
                                 .ProvenanceInscribedPlayingCard(rank, suit, 
                                         deckHash, shoeHash);
+                String json = expected.toJSONString();
+                CardJSONServer.ProvenanceInscribedPlayingCard actual 
+                        = CardJSONServer.ProvenanceInscribedPlayingCard
+                                .parseJSON(json);
+                assertEquals(expected, actual);
             }
         }
     }
