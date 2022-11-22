@@ -104,7 +104,7 @@ public class CardJSONServer {
      * A playing card inscribed with information about the deck and shoe from 
      * whence it came. Also provides a JSON function.
      */
-    public static class ProvenanceInscribedPlayingCard extends PlayingCard {
+    static final class ProvenanceInscribedPlayingCard extends PlayingCard {
         
         private final int deckHashCode, shoeHashCode;
 
@@ -113,7 +113,7 @@ public class CardJSONServer {
          * supposed to identify itself to the card constructor.
          * @return The deck's hash code. For example, 716143810.
          */
-        public int getDeckHash() {
+        int getDeckHash() {
             return this.deckHashCode;
         }
         
@@ -123,13 +123,17 @@ public class CardJSONServer {
          * identifies itself and the shoe to the card constructor.
          * @return The deck's hash code.
          */
-        public int getShoeHash() {
+        int getShoeHash() {
             return this.shoeHashCode;
         }
         
-        // TODO: Write tests for this
-        public String toJSONString() {
-            return "[\"NOT IMPLEMENTED YET, SORRY\"]";
+        String toJSONString() {
+            return "{\"name\":\"" + this.toString() + "\",\"rank\":\"" 
+                    + this.cardRank.getWord() + "\",\"suit\":\"" 
+                    + this.cardSuit.getWord() + "\",\"shoeID\":" 
+                    + this.shoeHashCode + ",\"deckID\":" + this.deckHashCode 
+                    + ",\"unicodeSMPChar\":\"" + this.toUnicodeSMPChar() 
+                    + "\"}";
         }
         
         // TODO: Write tests for this
@@ -140,22 +144,26 @@ public class CardJSONServer {
         
         @Override
         public boolean equals(Object obj) {
-            if (super.equals(obj)) {
+            if (obj instanceof ProvenanceInscribedPlayingCard) {
                 ProvenanceInscribedPlayingCard other 
                         = (ProvenanceInscribedPlayingCard) obj;
-                if (this.deckHashCode != other.deckHashCode) {
+                if (!this.cardRank.equals(other.cardRank) 
+                        || !this.cardSuit.equals(other.cardSuit)) {
                     return false;
                 }
-                return this.shoeHashCode == other.shoeHashCode;
+                if (this.shoeHashCode != other.shoeHashCode) {
+                    return false;
+                }
+                return this.deckHashCode == other.deckHashCode;
             } else {
                 return false;
             }
         }
         
-        // TODO: Write tests for this
         @Override
         public int hashCode() {
-            return 0;
+            int hash = (this.deckHashCode * this.shoeHashCode) << 16;
+            return hash + super.hashCode();
         }
 
         /**

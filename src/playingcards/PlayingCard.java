@@ -30,8 +30,8 @@ import java.awt.Color;
  */
 public class PlayingCard {
 
-    private final Rank cardRank;
-    private final Suit cardSuit;
+    final Rank cardRank;
+    final Suit cardSuit;
 
     /**
      * Indicates whether this playing card is equal to another object.

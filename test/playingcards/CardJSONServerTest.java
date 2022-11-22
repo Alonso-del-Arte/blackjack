@@ -41,7 +41,7 @@ public class CardJSONServerTest {
     private static final Random RANDOM = new Random();
     
     @Test
-    public void testGetDeckHash() {
+    public void testCardGetDeckHash() {
         System.out.println("ProvenanceInscribedPlayingCard.getDeckHash");
         int expected = RANDOM.nextInt();
         for (Suit suit : Suit.values()) {
@@ -57,7 +57,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testGetShoeHash() {
+    public void testCardGetShoeHash() {
         System.out.println("ProvenanceInscribedPlayingCard.getShoeHash");
         int expected = RANDOM.nextInt();
         for (Suit suit : Suit.values()) {
@@ -67,6 +67,29 @@ public class CardJSONServerTest {
                                 .ProvenanceInscribedPlayingCard(rank, suit, 
                                         0, expected);
                 int actual = card.getShoeHash();
+                assertEquals(expected, actual);
+            }
+        }
+    }
+    
+    @Test
+    public void testCardToJSONString() {
+        System.out.println("ProvenanceInscribedPlayingCard.toJSONString");
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                        = new CardJSONServer
+                                .ProvenanceInscribedPlayingCard(rank, suit, 
+                                        deckHash, shoeHash);
+                String expected = "{\"name\":\"" + card.toString() 
+                        + "\",\"rank\":\"" + card.getRank().getWord() 
+                        + "\",\"suit\":\"" + card.getSuit().getWord() 
+                        + "\",\"shoeID\":" + card.getShoeHash() + ",\"deckID\":" 
+                        + card.getDeckHash() + ",\"unicodeSMPChar\":\"" 
+                        + card.toUnicodeSMPChar() + "\"}";
+                String actual = card.toJSONString();
                 assertEquals(expected, actual);
             }
         }
@@ -122,7 +145,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testEquals() {
+    public void testCardEquals() {
         System.out.println("ProvenanceInscribedPlayingCard.equals");
         Rank rank = Rank.THREE;
         Suit suit = Suit.HEARTS;
@@ -183,6 +206,51 @@ public class CardJSONServerTest {
                 = new CardJSONServer.ProvenanceInscribedPlayingCard(rank, suit, 
                         deckHash, shoeHashB);
         assertNotEquals(cardA, cardB);
+    }
+    
+    /**
+     * Test of the hashCode function of the ProvenanceInscribedPlayingCard, a 
+     * static class nested in CardJSONServer. The hash code of a 
+     * ProvenanceInscribedPlayingCard should not be equal to that of the 
+     * corresponding plain PlayingCard instance, but they should match modulo 
+     * 65536.
+     */
+    @Test
+    public void testCardHashCode() {
+        System.out.println("ProvenanceInscribedPlayingCard.hashCode");
+        int deckHash = RANDOM.nextInt();
+        int shoeHash = RANDOM.nextInt();
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                        = new CardJSONServer
+                                .ProvenanceInscribedPlayingCard(rank, suit, 
+                                        deckHash, shoeHash);
+                PlayingCard correspondingCard = new PlayingCard(rank, suit);
+                int plainCardHash = correspondingCard.hashCode();
+                int expected = ((deckHash * shoeHash) << 16) + plainCardHash;
+                int actual = card.hashCode();
+                String msg = "Expecting hash code for " + card.toString() 
+                        + " to correspond to hash code " + plainCardHash;
+                assertEquals(msg, expected, actual);
+            }
+        }
+    }
+    
+    @Test
+    public void testCardParseJSON() {
+        System.out.println("ProvenanceInscribedPlayingCard.parseJSON");
+        int shoeHash = RANDOM.nextInt();
+        int deckHash = RANDOM.nextInt();
+        fail("Haven't finished writing test");
+        for (Rank rank : Rank.values()) {
+            for (Suit suit : Suit.values()) {
+                CardJSONServer.ProvenanceInscribedPlayingCard card 
+                        = new CardJSONServer
+                                .ProvenanceInscribedPlayingCard(rank, suit, 
+                                        deckHash, shoeHash);
+            }
+        }
     }
     
     @Test

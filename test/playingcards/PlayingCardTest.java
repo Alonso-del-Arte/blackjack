@@ -38,7 +38,6 @@ public class PlayingCardTest {
      */
     @Test
     public void testReferentialEquality() {
-        System.out.println("equals");
         PlayingCard clubsFive = new PlayingCard(Rank.FIVE, Suit.CLUBS);
         assertEquals(clubsFive, clubsFive);
     }
@@ -94,7 +93,8 @@ public class PlayingCardTest {
      * the same rank.
      */
     @Test
-    public void testEqualsSameRankSameSuit() {
+    public void testEquals() {
+        System.out.println("equals");
         PlayingCard someCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
         PlayingCard sameCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
         assertEquals(someCard, sameCard);
@@ -121,7 +121,7 @@ public class PlayingCardTest {
      * distinct cards, there should 52 distinct hash codes.
      */
     @Test
-    public void testHashCodeUniqueness() {
+    public void testHashCode() {
         System.out.println("hashCode");
         PlayingCard currCard;
         HashSet<PlayingCard> deck = new HashSet<>();
@@ -135,8 +135,8 @@ public class PlayingCardTest {
         }
         int expected = deck.size();
         int actual = hashes.size();
-        System.out.println("Deck has " + expected + " cards.");
-        System.out.println("There are " + actual + " hash codes.");
+        System.out.println("Deck has " + expected + " cards");
+        System.out.println("There are " + actual + " hash codes");
         assertEquals(expected, actual);
     }
 
