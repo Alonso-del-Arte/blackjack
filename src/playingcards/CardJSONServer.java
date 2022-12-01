@@ -17,10 +17,13 @@
 package playingcards;
 
 import com.sun.net.httpserver.Headers;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URLDecoder;
@@ -43,6 +46,11 @@ public class CardJSONServer {
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
+    private static final Charset UTF8 = StandardCharsets.UTF_8;
+    
+    private static final String CONTENT_TYPE_SPECIFICATION 
+            = "application/json; charset=" + UTF8.toString();
+    
     private final int portNumber;
     
     private final int numberOfDecks;
@@ -52,6 +60,38 @@ public class CardJSONServer {
     private boolean active = false;
     
     private Shoe shoe;
+    
+    private HttpServer httpServer;
+    
+    ProvenanceInscribedPlayingCard giveCard() {
+        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 0, 0);
+    }
+    
+    private final HttpHandler handler = (HttpExchange exchange) -> {
+        final Headers headers = exchange.getResponseHeaders();
+        System.out.println("Got response headers " + headers.toString());
+        final String method = exchange.getRequestMethod().toUpperCase();
+        System.out.println("Request method is " + method);
+//        switch (method) {
+//            case "GET":
+                String responseBody = this.giveCard().toJSONString();
+                System.out.println("Response body is " + responseBody);
+                headers.set("Content-Type", CONTENT_TYPE_SPECIFICATION);
+                byte[] rawResponseBody = responseBody.getBytes(UTF8);
+                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 
+                        rawResponseBody.length);
+                exchange.getResponseBody().write(rawResponseBody);
+//                break;
+//            case "OPTIONS":
+//                headers.set("Allow", "GET,OPTIONS,PUT");
+//                exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, -1);
+//                break;
+//            default:
+//                headers.set("Allow", "GET,OPTIONS,PUT");
+//                exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_METHOD, 
+//                        -1);
+//        }
+    };
     
     public void activate() {
         if (this.active) {
@@ -91,20 +131,25 @@ public class CardJSONServer {
             throw new IllegalArgumentException(excMsg);
         }
         this.portNumber = 81;
-        this.numberOfDecks = 2;
+        this.numberOfDecks = 7;
         this.plasticCardIndex = 1;
+        this.shoe = new Shoe(6, 75);
     }
     
     public static void main(String[] args) {
         // TODO: Write tests for this?
         System.out.println("Starting card server...");
+        CardJSONServer server = new CardJSONServer(8080, 
+                DEFAULT_NUMBER_OF_DECKS, DEFAULT_PLASTIC_CARD_INDEX);
+        server.activate();
     }
     
     /**
      * A playing card inscribed with information about the deck and shoe from 
      * whence it came. Also provides a JSON function.
      */
-    static final class ProvenanceInscribedPlayingCard extends PlayingCard {
+    public static final class ProvenanceInscribedPlayingCard 
+            extends PlayingCard {
         
         private final int deckHashCode, shoeHashCode;
 
