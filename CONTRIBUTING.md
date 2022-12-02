@@ -1,4 +1,4 @@
-This project will be open to Hacktoberfest 2023.
+This project will probably be open to Hacktoberfest 2023.
 
 # Guidelines for Hacktoberfest 2023 Contributors
 
@@ -23,11 +23,13 @@ please update your clone or fork before making any pull requests.
 * Prefer spaces to tabs.
 * Opening curly braces should not go on lines by themselves.
 * As much as is practical, each class in Source Packages should have a 
-corresponding test class in Test Packages.
+corresponding test class in Test Packages. That includes abstract classes as 
+well as interfaces having one or more default implementations.
 * Do not delete test classes nor test stubs without explanation.
-* Do not add dependencies.
+* Do not add dependencies, except Hamcrest and JUnit if your IDE does not have 
+those in the project at the outset.
 * No comments except Javadoc, TODO or FIXME.
 * Prefer small commits. But avoid making a pull request for a single commit 
- (unless it's to fix a defect).
+(unless it's to fix a defect).
 * Pull requests should address a TODO or FIXME comment in the source, or an open 
- issue on GitHub.
+issue on GitHub.

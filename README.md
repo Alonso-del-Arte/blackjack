@@ -7,6 +7,11 @@ dealer and only one player. I am working on a graphical user interface for this.
 There is for now no option to split a pair, double down nor make an insurance 
 bet.
 
+If you're interested in participating in Hacktoberfest 2023, see 
+[CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
+that your contribution is accepted for Hacktoberfest, but also that it persists 
+in the main branch after Hacktoberfest.
+
 ## The rules of blackjack, as I understand them
 
 The concept seems simple enough. You make a wager. The dealer gives you cards 
