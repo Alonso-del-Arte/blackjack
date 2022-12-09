@@ -168,25 +168,45 @@ public enum Rank implements CardSpec {
     }
     
     /**
-     * 
-     * @param s
-     * @return 
+     * Determines which rank corresponds to a given <code>String</code>.
+     * @param s The <code>String</code> to parse. For example, "Five".
+     * @return The <code>Rank</code> corresponding to <code>s</code>. For 
+     * example, {@link #FIVE}.
+     * @throws NoSuchElementException If <code>s</code> does not correspond to 
+     * any of the <code>Rank</code> values.
      */
     static Rank parseRank(String s) {
-        boolean noMatchYet = true;
-        int index = 0;
-        Rank[] ranks = Rank.values();
-        Rank rank = Rank.ACE;
-        while (noMatchYet && index < ranks.length) {
-            rank = ranks[index];
-            noMatchYet = !rank.getWord().equals(s);
-            index++;
+        switch (s) {
+            case "Ace":
+                return Rank.ACE;
+            case "Two":
+                return Rank.TWO;
+            case "Three":
+                return Rank.THREE;
+            case "Four":
+                return Rank.FOUR;
+            case "Five":
+                return Rank.FIVE;
+            case "Six":
+                return Rank.SIX;
+            case "Seven":
+                return Rank.SEVEN;
+            case "Eight":
+                return Rank.EIGHT;
+            case "Nine":
+                return Rank.NINE;
+            case "Ten":
+                return Rank.TEN;
+            case "Jack":
+                return Rank.JACK;
+            case "Queen":
+                return Rank.QUEEN;
+            case "King":
+                return Rank.KING;
+            default:
+                String excMsg = "No rank for \"" + s + "\"";
+                throw new NoSuchElementException(excMsg);
         }
-        if (noMatchYet) {
-            String excMsg = "No matching rank found for \"" + s + "\"";
-            throw new NoSuchElementException(excMsg);
-        }
-        return rank;
     }
     
     Rank(int n, char ch, String nChars, String word, boolean cr) {

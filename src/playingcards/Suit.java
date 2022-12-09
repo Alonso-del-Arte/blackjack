@@ -127,25 +127,27 @@ public enum Suit implements CardSpec {
     }
     
     /**
-     * 
-     * @param s
-     * @return 
+     * Determines which suit corresponds to a given <code>String</code>.
+     * @param s The <code>String</code> to parse. For example, "Diamonds".
+     * @return The <code>Suit</code> corresponding to <code>s</code>. For 
+     * example, {@link #DIAMONDS}.
+     * @throws NoSuchElementException If <code>s</code> does not correspond to 
+     * any of the <code>Suit</code> values.
      */
     static Suit parseSuit(String s) {
-        boolean noMatchYet = true;
-        int index = 0;
-        Suit[] suits = Suit.values();
-        Suit suit = Suit.CLUBS;
-        while (noMatchYet && index < suits.length) {
-            suit = suits[index];
-            noMatchYet = !suit.getWord().equals(s);
-            index++;
+        switch (s) {
+            case "Spades":
+                return Suit.SPADES;
+            case "Hearts":
+                return Suit.HEARTS;
+            case "Clubs":
+                return Suit.CLUBS;
+            case "Diamonds":
+                return Suit.DIAMONDS;
+            default:
+                String excMsg = "No matching suit found for \"" + s + "\"";
+                throw new NoSuchElementException(excMsg);
         }
-        if (noMatchYet) {
-            String excMsg = "No matching suit found for \"" + s + "\"";
-            throw new NoSuchElementException(excMsg);
-        }
-        return suit;
     }
     
     /**
