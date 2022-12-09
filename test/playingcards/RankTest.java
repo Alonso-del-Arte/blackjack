@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -15,6 +15,8 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
+
+import java.util.NoSuchElementException;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -385,6 +387,36 @@ public class RankTest {
                         + expected + "'";
                 assertEquals(msg, expected, actual);
             }
+        }
+    }
+    
+    @Test
+    public void testParseRankExceptionForInvalidInput() {
+        String s = "For testing purposes";
+        try {
+            Rank badRank = Rank.parseRank(s);
+            String msg = "Parse input \"" + s 
+                    + "\" should have caused exception, not given " 
+                    + badRank.getWord();
+            fail(msg);
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Parse input \"" + s 
+                    + "\" correctly caused NoSuchElementException");
+            System.out.println("\"" + nsee.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for parse input \"" + s + "\"";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testParseRank() {
+        System.out.println("parseRank");
+        Rank[] ranks = Rank.values();
+        for (Rank expected : ranks) {
+            Rank actual = Rank.parseRank(expected.getWord());
+            assertEquals(expected, actual);
         }
     }
     

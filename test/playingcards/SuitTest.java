@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.awt.Color;
+import java.util.NoSuchElementException;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -142,6 +143,36 @@ public class SuitTest {
         assertEquals(Color.RED, Suit.HEARTS.getTextColor());
         assertEquals(Color.RED, Suit.DIAMONDS.getTextColor());
         assertEquals(Color.BLACK, Suit.CLUBS.getTextColor());
+    }
+    
+    @Test
+    public void testParseSuitExceptionForInvalidInput() {
+        String s = "For testing purposes";
+        try {
+            Suit badSuit = Suit.parseSuit(s);
+            String msg = "Parse input \"" + s 
+                    + "\" should have caused exception, not given " 
+                    + badSuit.getWord();
+            fail(msg);
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Parse input \"" + s 
+                    + "\" correctly caused NoSuchElementException");
+            System.out.println("\"" + nsee.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for parse input \"" + s + "\"";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testParseSuit() {
+        System.out.println("parseSuit");
+        Suit[] suits = Suit.values();
+        for (Suit expected : suits) {
+            Suit actual = Suit.parseSuit(expected.getWord());
+            assertEquals(expected, actual);
+        }
     }
     
 }
