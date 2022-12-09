@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.awt.Color;
+import java.util.NoSuchElementException;
 
 /**
  * Enumerates the suits of a standard deck of playing cards. These suits are 
@@ -125,9 +126,26 @@ public enum Suit implements CardSpec {
         return this.textColor;
     }
     
-    // TODO: Write tests for this
+    /**
+     * 
+     * @param s
+     * @return 
+     */
     static Suit parseSuit(String s) {
-        return Suit.CLUBS;
+        boolean noMatchYet = true;
+        int index = 0;
+        Suit[] suits = Suit.values();
+        Suit suit = Suit.CLUBS;
+        while (noMatchYet && index < suits.length) {
+            suit = suits[index];
+            noMatchYet = !suit.getWord().equals(s);
+            index++;
+        }
+        if (noMatchYet) {
+            String excMsg = "No matching suit found for \"" + s + "\"";
+            throw new NoSuchElementException(excMsg);
+        }
+        return suit;
     }
     
     /**

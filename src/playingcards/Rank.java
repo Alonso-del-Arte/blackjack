@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import java.util.NoSuchElementException;
+
 /**
  * Enumerates the ranks of the playing cards: Aces, Twos, Threes, ..., Queens, 
  * Kings. Provides certain basic information, but no image data. This 
@@ -165,9 +167,26 @@ public enum Rank implements CardSpec {
         return this.faceCardFlag;
     }
     
-    // TODO: Write tests for this
+    /**
+     * 
+     * @param s
+     * @return 
+     */
     static Rank parseRank(String s) {
-        return Rank.ACE;
+        boolean noMatchYet = true;
+        int index = 0;
+        Rank[] ranks = Rank.values();
+        Rank rank = Rank.ACE;
+        while (noMatchYet && index < ranks.length) {
+            rank = ranks[index];
+            noMatchYet = !rank.getWord().equals(s);
+            index++;
+        }
+        if (noMatchYet) {
+            String excMsg = "No matching rank found for \"" + s + "\"";
+            throw new NoSuchElementException(excMsg);
+        }
+        return rank;
     }
     
     Rank(int n, char ch, String nChars, String word, boolean cr) {
