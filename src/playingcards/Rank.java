@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2022 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -163,6 +163,11 @@ public enum Rank implements CardSpec {
      */
     public boolean isCourtRank() {
         return this.faceCardFlag;
+    }
+    
+    // TODO: Write tests for this
+    static Rank parseRank(String s) {
+        return Rank.ACE;
     }
     
     Rank(int n, char ch, String nChars, String word, boolean cr) {
