@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Set;
 
@@ -234,6 +235,29 @@ public class CardJSONServerTest {
                         + " to correspond to hash code " + plainCardHash;
                 assertEquals(msg, expected, actual);
             }
+        }
+    }
+    
+    @Test
+    public void testCardParseJSONThrowsExceptionForInvalidInput() {
+        String s = "For testing purposes only";
+        try {
+            PlayingCard badCard 
+                    = CardJSONServer.ProvenanceInscribedPlayingCard
+                            .parseJSON(s);
+            String msg = "\"" + s 
+                    + "\" should have caused an exception, not given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (NoSuchElementException nsee) {
+            System.out.println("Bad parse input \"" + s 
+                    + "\" correctly caused NoSuchElementException");
+            System.out.println("\"" + nsee.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for bad parse input \"" + s 
+                    + "\"";
+            fail(msg);
         }
     }
     
