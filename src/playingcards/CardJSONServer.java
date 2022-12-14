@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Map;
 
 /**
@@ -65,8 +66,7 @@ public class CardJSONServer {
     
     ProvenanceInscribedPlayingCard giveCard() {
         return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 0, 0);
-    }
-    
+    }    
     private final HttpHandler handler = (HttpExchange exchange) -> {
         final Headers headers = exchange.getResponseHeaders();
         System.out.println("Got response headers " + headers.toString());
@@ -181,8 +181,24 @@ public class CardJSONServer {
                     + "\"}";
         }
         
-        // TODO: Write tests for this
+        /**
+         * 
+         * @param s
+         * @return 
+         * @throws NoSuchElementException If <code>s</code> lacks the elements 
+         * expected in a {@link #giveCard()} response.
+         */
         static ProvenanceInscribedPlayingCard parseJSON(String s) {
+            int rankIndex = s.indexOf("\"rank\":");
+            int suitIndex = s.indexOf("\"suit\":");
+            int shoeIndex = s.indexOf("\"shoeID\":");
+            int deckIndex = s.indexOf("\"deckID\":");
+            int absentFlag = rankIndex | suitIndex | shoeIndex | deckIndex;
+            if (absentFlag < 0) {
+                String excMsg = "Input \"" + s 
+                        + "\" does not represent a valid card";
+                throw new NoSuchElementException(excMsg);
+            }
             return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 
                     DEFAULT_NUMBER_OF_DECKS, DEFAULT_NUMBER_OF_DECKS);
         }
