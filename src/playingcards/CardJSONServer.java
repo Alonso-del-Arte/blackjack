@@ -343,7 +343,7 @@ public class CardJSONServer {
                 return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
                         == this.hashCode();
             } else {
-                return true;
+                return false;
             }
         }
         
