@@ -485,6 +485,19 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testShoeProvenanceNotInscribedCard() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardSupplier shoe = new CardJSONServer.Shoe(deckQty, stop);
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        PlayingCard nonInscribedCard = deck.getNextCard();
+        String msg = "Card " + nonInscribedCard.toString() 
+                + " is not provenance-inscribed, should not be avowed by shoe";
+        assert !shoe.provenance(nonInscribedCard) : msg;
+    }
+    
+    @Test
     public void testShoeInscribesCardWithProvenance() {
         int deckQty = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
