@@ -12,7 +12,7 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License along with 
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
 
@@ -64,9 +64,6 @@ public class CardJSONServer {
     
     private HttpServer httpServer;
     
-    ProvenanceInscribedPlayingCard giveCard() {
-        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 0, 0);
-    }    
     private final HttpHandler handler = (HttpExchange exchange) -> {
         final Headers headers = exchange.getResponseHeaders();
         System.out.println("Got response headers " + headers.toString());
@@ -93,6 +90,9 @@ public class CardJSONServer {
 //        }
     };
     
+    ProvenanceInscribedPlayingCard giveCard() {
+        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 0, 0);
+    }    
     public void activate() {
         if (this.active) {
             String excMsg = "Can't activate, already active";
@@ -133,7 +133,7 @@ public class CardJSONServer {
         this.portNumber = 81;
         this.numberOfDecks = 7;
         this.plasticCardIndex = 1;
-        this.shoe = new Shoe(6, 75);
+        this.shoe = new Shoe(2, 75);
     }
     
     public static void main(String[] args) {

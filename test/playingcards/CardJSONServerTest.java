@@ -621,6 +621,24 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testGiveCard() {
+        System.out.println("giveCard");
+        int port = 8080;
+        int deckQty = 2;
+        int expected = 75;
+        Set<CardJSONServer.ProvenanceInscribedPlayingCard> cards 
+                = new HashSet<>(expected);
+        CardJSONServer server = new CardJSONServer(port, deckQty, expected);
+        int index = 0;
+        while (index < expected) {
+            cards.add(server.giveCard());
+            index++;
+        }
+        int actual = cards.size();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testNoDeactivationForInactive() {
         int deckQty = RANDOM.nextInt(8) + 2;
         CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
