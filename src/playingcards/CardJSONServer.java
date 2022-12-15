@@ -182,11 +182,21 @@ public class CardJSONServer {
         }
         
         /**
-         * 
-         * @param s
-         * @return 
+         * Parses a JSON response to reconstruct the provenance-inscribed 
+         * playing card object. This function is provided mainly for the sake of 
+         * testing, and is therefore package private.
+         * @param s The <code>String</code> to parse. For example, "{"name": 
+         * "10&#9829;", "rank": "Ten", "suit": "Hearts", "shoeID": 135721597, 
+         * "deckID": 250421012, "unicodeSMPChar": "&#127162;"}".
+         * @return A <code>ProvenanceInscribedPlayingCard</code> with the rank, 
+         * suit, shoe ID and deck ID specified by <code>s</code>. For example, 
+         * the Ten of Hearts with shoe ID 135721597 and deck ID 250421012.
          * @throws NoSuchElementException If <code>s</code> lacks the elements 
          * expected in a {@link #giveCard()} response.
+         * @throws NumberFormatException If <code>s</code> has the JSON fields 
+         * "rank", "suit", "shoeID" and "deckID", the first two of those fields 
+         * have a valid rank and suit combination, but the last two of those 
+         * fields don't contain parseable integers.
          */
         static ProvenanceInscribedPlayingCard parseJSON(String s) {
             int rankIndex = s.indexOf("\"rank\":");
@@ -199,8 +209,16 @@ public class CardJSONServer {
                         + "\" does not represent a valid card";
                 throw new NoSuchElementException(excMsg);
             }
-            return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 
-                    DEFAULT_NUMBER_OF_DECKS, DEFAULT_NUMBER_OF_DECKS);
+            Rank rank = Rank.parseRank(s.substring(rankIndex + 8, 
+                    s.indexOf('"', rankIndex + 9)));
+            Suit suit = Suit.parseSuit(s.substring(suitIndex + 8, 
+                    s.indexOf('"', suitIndex + 9)));
+            int shoeID = Integer.parseInt(s.substring(shoeIndex + 9, 
+                    s.indexOf(',', shoeIndex + 11)));
+            int deckID = Integer.parseInt(s.substring(deckIndex + 9, 
+                    s.indexOf(',', deckIndex + 11)));
+            return new ProvenanceInscribedPlayingCard(rank, suit, deckID, 
+                    shoeID);
         }
         
         @Override
