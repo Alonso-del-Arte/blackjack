@@ -91,8 +91,9 @@ public class CardJSONServer {
     };
     
     ProvenanceInscribedPlayingCard giveCard() {
-        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 0, 0);
-    }    
+        return this.shoe.getNextCard();
+    }
+    
     public void activate() {
         if (this.active) {
             String excMsg = "Can't activate, already active";
