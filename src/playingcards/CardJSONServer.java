@@ -339,12 +339,12 @@ public class CardJSONServer {
 
         @Override
         public boolean provenance(PlayingCard card) {
-//            if (card instanceof ProvenanceInscribedPlayingCard) {
-//                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
-//                        == this.hashCode();
-//            } else {
+            if (card instanceof ProvenanceInscribedPlayingCard) {
+                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
+                        == this.hashCode();
+            } else {
                 return true;
-//            }
+            }
         }
         
         public void shuffle() {
