@@ -329,7 +329,7 @@ public class CardJSONServer {
         
         @Override
         public boolean hasNext() {
-            return this.dealCount < max;
+            return this.dealCount < this.max;
         }
 
         @Override

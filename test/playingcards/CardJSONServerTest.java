@@ -469,6 +469,22 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testShoeProvenanceFromDifferentShoe() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardSupplier shoeA = new CardJSONServer.Shoe(deckQty, stop);
+        CardSupplier shoeB = new CardJSONServer.Shoe(deckQty, stop);
+        PlayingCard cardFromShoeA = shoeA.getNextCard();
+        PlayingCard cardFromShoeB = shoeB.getNextCard();
+        String msgA = "Card " + cardFromShoeA.toString() 
+                + " from Shoe A should not be said to be from Shoe B";
+        assert !shoeB.provenance(cardFromShoeA) : msgA;
+        String msgB = "Card " + cardFromShoeB.toString() 
+                + " from Shoe B should not be said to be from Shoe A";
+        assert !shoeA.provenance(cardFromShoeB) : msgB;
+    }
+    
+    @Test
     public void testShoeInscribesCardWithProvenance() {
         int deckQty = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
