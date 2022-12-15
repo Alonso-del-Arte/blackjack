@@ -625,10 +625,12 @@ public class CardJSONServerTest {
         System.out.println("giveCard");
         int port = 8080;
         int deckQty = 2;
-        int expected = 75;
+        int stop = 25;
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - stop;
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         Set<CardJSONServer.ProvenanceInscribedPlayingCard> cards 
                 = new HashSet<>(expected);
-        CardJSONServer server = new CardJSONServer(port, deckQty, expected);
         int index = 0;
         while (index < expected) {
             cards.add(server.giveCard());
@@ -636,6 +638,38 @@ public class CardJSONServerTest {
         }
         int actual = cards.size();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
+        int port = 8080;
+        int deckQty = 2;
+        int stop = 25;
+        int initialCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - stop;
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        Set<Integer> deckIDNumbers = new HashSet<>(initialCardQty);
+        int index = 0;
+        while (index < initialCardQty) {
+            deckIDNumbers.add(server.giveCard().getDeckHash());
+            index++;
+        }
+        try {
+            CardJSONServer.ProvenanceInscribedPlayingCard card 
+                    = server.giveCard();
+            System.out.println("After running out of the first " 
+                    + initialCardQty 
+                    + " cards, server correctly replenished cards");
+            assertEquals(deckQty, deckIDNumbers.size());
+            deckIDNumbers.add(card.getDeckHash());
+            String msg = "Card " + card.toString() 
+                    + " should come from replenishment deck";
+            assert deckIDNumbers.size() > deckQty : msg;
+        } catch (RanOutOfCardsException roce) {
+            System.out.println("\"" + roce.getMessage() + "\"");
+            String msg = "RanOutOfCardsException should not have occurred";
+            fail(msg);
+        }
     }
     
     @Test
