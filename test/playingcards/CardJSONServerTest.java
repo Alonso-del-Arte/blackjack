@@ -409,7 +409,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testShoeHasNextLimitedByStop() {
+    public void testShoeGetNextLimitedByStop() {
         int deckQty = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
         int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
@@ -421,6 +421,20 @@ public class CardJSONServerTest {
         }
         int actual = cards.size();
         assertEquals(expected, actual);
+        try {
+            PlayingCard badCard = shoe.getNextCard();
+            String msg = "After giving out all " + expected 
+                    + " expected cards, shoe should not have then given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println("Trying to get card past stop caused exception");
+            System.out.println("\"" + roce.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for giving cards after stop";
+            fail(msg);
+        }
     }
     
     @Test
@@ -649,7 +663,7 @@ public class CardJSONServerTest {
         }
     }
     
-    @Test
+//    @Test
     public void testGiveCard() {
         System.out.println("giveCard");
         int port = 8080;
@@ -669,7 +683,7 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
-    @Test
+//    @Test
     public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
         int port = 8080;
         int deckQty = 2;
