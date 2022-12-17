@@ -334,11 +334,11 @@ public class CardJSONServer {
 
         @Override
         public ProvenanceInscribedPlayingCard getNextCard() {
-            if (this.dealCount == this.max) {
-                String excMsg = "After giving out " + this.max 
-                        + " cards, there are no more cards to give";
-                throw new RanOutOfCardsException(excMsg);
-            }
+//            if (this.dealCount == this.max) {
+//                String excMsg = "After giving out " + this.max 
+//                        + " cards, there are no more cards to give";
+//                throw new RanOutOfCardsException(excMsg);
+//            }
             return this.cards.get(this.dealCount++);
         }
 
@@ -384,7 +384,7 @@ public class CardJSONServer {
             }
             int total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
             this.cards = new ArrayList<>(total);
-            this.max =  total - stop;
+            this.max = total - stop;
             Deck[] decks = new Deck[deckQty];
             for (int i = 0; i < deckQty; i++) {
                 decks[i] = new Deck(this.hashCode());
