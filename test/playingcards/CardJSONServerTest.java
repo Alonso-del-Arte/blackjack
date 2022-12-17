@@ -12,7 +12,7 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License along with 
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
 
@@ -409,7 +409,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testShoeGetNextLimitedByStop() {
+    public void testShoeHasNextLimitedByStop() {
         int deckQty = RANDOM.nextInt(8) + 2;
         int stop = 75 + RANDOM.nextInt(15);
         int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
@@ -421,20 +421,6 @@ public class CardJSONServerTest {
         }
         int actual = cards.size();
         assertEquals(expected, actual);
-        try {
-            PlayingCard badCard = shoe.getNextCard();
-            String msg = "After giving out all " + expected 
-                    + " expected cards, shoe should not have then given " 
-                    + badCard.toString();
-            fail(msg);
-        } catch (RanOutOfCardsException roce) {
-            System.out.println("Trying to get card past stop caused exception");
-            System.out.println("\"" + roce.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for giving cards after stop";
-            fail(msg);
-        }
     }
     
     @Test
@@ -532,7 +518,7 @@ public class CardJSONServerTest {
     @Test
     public void testShoeShuffle() {
         System.out.println("Shoe.shuffle");
-        int expected = RANDOM.nextInt(8) + 2;
+        int expected = RANDOM.nextInt(8) + 3;
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(expected, stop);
         shoe.shuffle();
@@ -549,9 +535,9 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
-//    @Test
+    @Test
     public void testShoeThrowsExceptionWhenOutOfCards() {
-        int deckQty = RANDOM.nextInt(8) + 2;
+        int deckQty = RANDOM.nextInt(8) + 4;
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(deckQty, stop);
         shoe.shuffle();
