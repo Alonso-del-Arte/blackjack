@@ -522,16 +522,16 @@ public class CardJSONServerTest {
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(expected, stop);
         shoe.shuffle();
-        Set<Integer> hashes = new HashSet<>(expected);
+        Set<Integer> deckHashes = new HashSet<>(expected);
         int sampleSize = 3 * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
         int curr = 0;
         while (curr < sampleSize) {
             CardJSONServer.ProvenanceInscribedPlayingCard card 
                     = shoe.getNextCard();
-            hashes.add(card.getDeckHash());
+            deckHashes.add(card.getDeckHash());
             curr++;
         }
-        int actual = hashes.size();
+        int actual = deckHashes.size();
         assertEquals(expected, actual);
     }
     
@@ -669,7 +669,7 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
-//    @Test
+    @Test
     public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
         int port = 8080;
         int deckQty = 2;
@@ -703,7 +703,7 @@ public class CardJSONServerTest {
     
     @Test
     public void testNoDeactivationForInactive() {
-        int deckQty = RANDOM.nextInt(8) + 2;
+        int deckQty = RANDOM.nextInt(8) + 3;
         CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
                 DEFAULT_STOP);
         try {
@@ -721,6 +721,45 @@ public class CardJSONServerTest {
                     + server.toString() + " twice";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
+        int deckQty = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(25);
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+                stop);
+        int totalCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - stop;
+        PlayingCard lastCard = new PlayingCard(Rank.JACK, Suit.CLUBS);
+        int curr = 0;
+        try {
+            while (curr < totalCardQty) {
+                lastCard = server.giveCard();
+                curr++;
+            }
+            System.out.println("Gave out " + totalCardQty 
+                    + " cards, last of which was " + lastCard.toASCIIString());
+        } catch (RanOutOfCardsException roce) {
+            String msg = "Given shoe with " + totalCardQty 
+                    + " cards, exception should not have occurred after " + curr 
+                    + " cards, last of which was " + lastCard.toString();
+            System.out.println("\"" + roce.getMessage() + "\"");
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testConstructorShufflesShoe() {
+        int expected = RANDOM.nextInt(8) + 3;
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, expected, 
+                DEFAULT_STOP);
+        Set<Integer> deckHashes = new HashSet<>(expected);
+        for (int i = 0; i < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; i++) {
+            deckHashes.add(server.giveCard().getDeckHash());
+        }
+        int actual = deckHashes.size();
+        assertEquals(expected, actual);
     }
     
     @Test

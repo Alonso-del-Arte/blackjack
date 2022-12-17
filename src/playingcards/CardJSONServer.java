@@ -91,9 +91,13 @@ public class CardJSONServer {
     };
     
     ProvenanceInscribedPlayingCard giveCard() {
-//        return this.shoe.getNextCard();
-        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 
-                portNumber, portNumber);
+        if (this.shoe.hasNext()) {
+            return this.shoe.getNextCard();
+        } else {
+            this.shoe = new Shoe(DEFAULT_NUMBER_OF_DECKS, 
+                    DEFAULT_PLASTIC_CARD_INDEX);
+            return this.shoe.getNextCard();
+        }
     }
     
     public void activate() {
@@ -134,9 +138,10 @@ public class CardJSONServer {
             throw new IllegalArgumentException(excMsg);
         }
         this.portNumber = 81;
-        this.numberOfDecks = 7;
-        this.plasticCardIndex = 1;
-        this.shoe = new Shoe(2, 0);
+        this.numberOfDecks = deckQty;
+        this.plasticCardIndex = stop;
+        this.shoe = new Shoe(this.numberOfDecks, this.plasticCardIndex);
+        this.shoe.shuffle();
     }
     
     public static void main(String[] args) {
