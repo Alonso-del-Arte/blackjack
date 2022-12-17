@@ -649,7 +649,7 @@ public class CardJSONServerTest {
         }
     }
     
-//    @Test
+    @Test
     public void testGiveCard() {
         System.out.println("giveCard");
         int port = 8080;
