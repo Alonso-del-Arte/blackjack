@@ -91,13 +91,11 @@ public class CardJSONServer {
     };
     
     ProvenanceInscribedPlayingCard giveCard() {
-        if (this.shoe.hasNext()) {
-            return this.shoe.getNextCard();
-        } else {
+        if (!this.shoe.hasNext()) {
             this.shoe = new Shoe(DEFAULT_NUMBER_OF_DECKS, 
                     DEFAULT_PLASTIC_CARD_INDEX);
-            return this.shoe.getNextCard();
         }
+        return this.shoe.getNextCard();
     }
     
     public void activate() {
