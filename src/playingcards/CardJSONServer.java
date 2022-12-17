@@ -134,7 +134,7 @@ public class CardJSONServer {
         this.portNumber = 81;
         this.numberOfDecks = 7;
         this.plasticCardIndex = 1;
-        this.shoe = new Shoe(2, 75);
+        this.shoe = new Shoe(2, 0);
     }
     
     public static void main(String[] args) {
