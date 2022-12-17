@@ -334,11 +334,11 @@ public class CardJSONServer {
 
         @Override
         public ProvenanceInscribedPlayingCard getNextCard() {
-//            if (this.dealCount == this.max) {
-//                String excMsg = "After giving out " + this.max 
-//                        + " cards, there are no more cards to give";
-//                throw new RanOutOfCardsException(excMsg);
-//            }
+            if (this.dealCount == this.max) {
+                String excMsg = "After giving out " + this.max 
+                        + " cards, there are no more cards to give";
+                throw new RanOutOfCardsException(excMsg);
+            }
             return this.cards.get(this.dealCount++);
         }
 
