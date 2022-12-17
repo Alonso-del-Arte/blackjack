@@ -91,7 +91,9 @@ public class CardJSONServer {
     };
     
     ProvenanceInscribedPlayingCard giveCard() {
-        return this.shoe.getNextCard();
+//        return this.shoe.getNextCard();
+        return new ProvenanceInscribedPlayingCard(Rank.JACK, Suit.CLUBS, 
+                portNumber, portNumber);
     }
     
     public void activate() {
