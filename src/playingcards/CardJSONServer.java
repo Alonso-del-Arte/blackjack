@@ -92,7 +92,8 @@ public class CardJSONServer {
     
     ProvenanceInscribedPlayingCard giveCard() {
         if (!this.shoe.hasNext()) {
-            this.shoe = new Shoe(16, 0);
+            this.shoe = new Shoe(this.numberOfDecks, this.plasticCardIndex);
+            this.shoe.shuffle();
         }
         return this.shoe.getNextCard();
     }
