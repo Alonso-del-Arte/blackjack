@@ -702,6 +702,51 @@ public class CardJSONServerTest {
     }
     
     @Test
+    public void testGiveCardReplenishesWithSameDeckQtyAndStop() {
+        int port = 8080;
+        int expected = RANDOM.nextInt(10) + 4;
+        int stop = 75 + RANDOM.nextInt(15);
+        int initialCardQty = expected 
+                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - stop;
+        CardJSONServer server = new CardJSONServer(port, expected, stop);
+        Set<Integer> initialDeckHashes = new HashSet<>(initialCardQty);
+        int index = 0;
+        while (index < initialCardQty) {
+            initialDeckHashes.add(server.giveCard().getDeckHash());
+            index++;
+        }
+        Set<Integer> replenishmentDeckHashes = new HashSet<>(initialCardQty);
+        index = 0;
+        int midwayCheckPoint = initialCardQty / 2;
+        while (index < midwayCheckPoint) {
+            int hash = server.giveCard().getDeckHash();
+            replenishmentDeckHashes.add(hash);
+            index++;
+            String msg = "Replenishment deck hash " + hash + " of card indexed "
+                    + index 
+                    + " should not be present among initial deck hashes";
+            assert !initialDeckHashes.contains(hash) : msg;
+        }
+        int actual = replenishmentDeckHashes.size();
+        assertEquals(expected, actual);
+        while (index < initialCardQty) {
+            int hash = server.giveCard().getDeckHash();
+            assert !replenishmentDeckHashes.add(hash) 
+                    : "All replenishment deck hashes should already be known";
+            index++;
+            String msg = "Replenishment deck hash " + hash + " of card indexed "
+                    + index 
+                    + " should not be present among initial deck hashes";
+            assert !initialDeckHashes.contains(hash) : msg;
+        }
+        int hash = server.giveCard().getDeckHash();
+        String msg = "Second replenishment deck hash " + hash 
+                + " should not be an initial hash nor first replenishment hash";
+        assert !initialDeckHashes.contains(hash) : msg;
+        assert !replenishmentDeckHashes.contains(hash) : msg;
+    }
+    
+    @Test
     public void testNoDeactivationForInactive() {
         int deckQty = RANDOM.nextInt(8) + 3;
         CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
