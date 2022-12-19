@@ -56,7 +56,7 @@ public class CardJSONServer {
      * How many seconds to wait before closing down the server socket. May close 
      * sooner if there are no pending requests.
      */
-    private static final int DEFAULT_CLOSING_DELAY = 5;
+    public static final int DEFAULT_CLOSING_DELAY = 5;
     
     private final int portNumber;
     
@@ -129,7 +129,7 @@ public class CardJSONServer {
             String excMsg = "Can't deactivate, already inactive";
             throw new IllegalStateException(excMsg);
         }
-        this.httpServer.stop(this.portNumber);
+        this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
     /**

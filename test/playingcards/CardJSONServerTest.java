@@ -36,12 +36,14 @@ import static org.junit.Assert.*;
 
 /**
  * Tests of the CardJSONServer class. And also of the static classes nested 
- * within it.
+ * within it. Depending on how many seconds are specified by {@link 
+ * CardJSONServer#DEFAULT_CLOSING_DELAY}, these tests may take twice or thrice 
+ * as long to complete.
  * @author Alonso del Arte
  */
 public class CardJSONServerTest {
     
-    private static final int DEFAULT_HTTPS_PORT = 443;
+    private static final int DEFAULT_HTTP_PORT = 8080;
     
     private static final int DEFAULT_STOP = 75;
     
@@ -524,7 +526,7 @@ public class CardJSONServerTest {
     @Test
     public void testShoeShuffle() {
         System.out.println("Shoe.shuffle");
-        int expected = RANDOM.nextInt(8) + 3;
+        int expected = RANDOM.nextInt(8) + 4;
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer.Shoe shoe = new CardJSONServer.Shoe(expected, stop);
         shoe.shuffle();
@@ -635,19 +637,22 @@ public class CardJSONServerTest {
     @Test
     public void testNoDoubleActivation() {
         int deckQty = RANDOM.nextInt(8) + 2;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
                 DEFAULT_STOP);
         server.activate();
         try {
             server.activate();
             String msg = "Should not have been able to activate " 
                     + server.toString() + " twice in a row";
+            server.deactivate();
             fail(msg);
         } catch (IllegalStateException ise) {
             System.out.println("Trying to activate " + server.toString() 
                     + " twice in a row correctly caused IllegalStateException");
             System.out.println("\"" + ise.getMessage() + "\"");
+            server.deactivate();
         } catch (RuntimeException re) {
+            server.deactivate();
             String msg = re.getClass().getName() 
                     + " is the wrong exception for trying to activate " 
                     + server.toString() + " twice in a row";
@@ -780,8 +785,8 @@ public class CardJSONServerTest {
     
     @Test
     public void testNoDeactivationForInactive() {
-        int deckQty = RANDOM.nextInt(8) + 3;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+        int deckQty = RANDOM.nextInt(8) + 4;
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
                 DEFAULT_STOP);
         try {
             server.deactivate();
@@ -804,7 +809,7 @@ public class CardJSONServerTest {
     public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
         int deckQty = RANDOM.nextInt(8) + 4;
         int stop = 75 + RANDOM.nextInt(25);
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, deckQty, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
                 stop);
         int totalCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - stop;
@@ -829,7 +834,7 @@ public class CardJSONServerTest {
     @Test
     public void testConstructorShufflesShoe() {
         int expected = RANDOM.nextInt(8) + 3;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTPS_PORT, expected, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, expected, 
                 DEFAULT_STOP);
         Set<Integer> deckHashes = new HashSet<>(expected);
         for (int i = 0; i < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; i++) {
@@ -883,7 +888,7 @@ public class CardJSONServerTest {
     public void testConstructorRejectsNegativeDeckQuantity() {
         int badQty = -RANDOM.nextInt(256) - 4;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     badQty, 0);
             String msg = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
@@ -905,7 +910,7 @@ public class CardJSONServerTest {
     public void testConstructorRejectsDeckQuantityZero() {
         int badQty = 0;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     badQty, 0);
             String msg = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
@@ -928,7 +933,7 @@ public class CardJSONServerTest {
         int deckQty = RANDOM.nextInt(8) + 2;
         int badStop = -RANDOM.nextInt(256) - 4;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTPS_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     deckQty, badStop);
             String msg = "Should not have been able to create " 
                     + badServer.toString() + " with bad stop " + badStop;
