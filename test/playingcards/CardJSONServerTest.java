@@ -16,6 +16,12 @@
  */
 package playingcards;
 
+import java.io.InputStream;
+import java.io.IOException;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -744,6 +750,32 @@ public class CardJSONServerTest {
                 + " should not be an initial hash nor first replenishment hash";
         assert !initialDeckHashes.contains(hash) : msg;
         assert !replenishmentDeckHashes.contains(hash) : msg;
+    }
+    
+    @Test
+    public void testServerRespondsOnSpecifiedPort() {
+        int port = 8080 + RANDOM.nextInt(1000);
+        int deckQty = RANDOM.nextInt(10) + 4;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        server.activate();
+        System.out.println("Expecting localhost response on port " + port);
+        String locator = "http://localhost:" + port + "/dealcard";
+        String key = "User-Agent";
+        String value = "Java/" + System.getProperty("java.version");
+        try {
+            URL url = new URL(locator);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty(key, value);
+            int expected = HttpURLConnection.HTTP_OK;
+            int actual = conn.getResponseCode();
+            server.deactivate();
+            assertEquals(expected, actual);
+        } catch (IOException ioe) {
+            server.deactivate();
+            String msg = ioe.getClass().getName() + " should not have occurred";
+            fail(msg);
+        }
     }
     
     @Test
