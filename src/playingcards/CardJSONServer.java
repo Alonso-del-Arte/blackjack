@@ -52,6 +52,12 @@ public class CardJSONServer {
     private static final String CONTENT_TYPE_SPECIFICATION 
             = "application/json; charset=" + UTF8.toString();
     
+    /**
+     * How many seconds to wait before closing down the server socket. May close 
+     * sooner if there are no pending requests.
+     */
+    private static final int DEFAULT_CLOSING_DELAY = 5;
+    
     private final int portNumber;
     
     private final int numberOfDecks;
@@ -103,6 +109,18 @@ public class CardJSONServer {
             String excMsg = "Can't activate, already active";
             throw new IllegalStateException(excMsg);
         }
+        String hostName = "localhost";
+        try {
+            this.httpServer = HttpServer
+                    .create(new InetSocketAddress(hostName, this.portNumber), 
+                            1);
+            this.httpServer.createContext("/dealcard", this.handler);
+            this.httpServer.start();
+            System.out.println("Started server " + hostName + " on port " 
+                    + this.portNumber);
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
         this.active = true;
     }
     
@@ -111,6 +129,7 @@ public class CardJSONServer {
             String excMsg = "Can't deactivate, already inactive";
             throw new IllegalStateException(excMsg);
         }
+        this.httpServer.stop(this.portNumber);
     }
     
     /**
@@ -135,7 +154,7 @@ public class CardJSONServer {
                     + deckQty + ", stop " + stop;
             throw new IllegalArgumentException(excMsg);
         }
-        this.portNumber = 81;
+        this.portNumber = port;
         this.numberOfDecks = deckQty;
         this.plasticCardIndex = stop;
         this.shoe = new Shoe(this.numberOfDecks, this.plasticCardIndex);
