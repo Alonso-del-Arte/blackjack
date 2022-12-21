@@ -56,7 +56,7 @@ public class CardJSONServer {
      * How many seconds to wait before closing down the server socket. May close 
      * sooner if there are no pending requests.
      */
-    public static final int DEFAULT_CLOSING_DELAY = 5;
+    public static final int DEFAULT_CLOSING_DELAY = 2;
     
     private final int portNumber;
     
