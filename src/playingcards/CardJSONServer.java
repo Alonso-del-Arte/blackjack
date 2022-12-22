@@ -43,7 +43,9 @@ import java.util.Map;
  */
 public class CardJSONServer {
     
-    private static final int DEFAULT_NUMBER_OF_DECKS = 6;
+    private static final int DEFAULT_PORT = 8080;
+    
+    private static final int DEFAULT_NUMBER_OF_DECKS = 10;
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
@@ -72,13 +74,10 @@ public class CardJSONServer {
     
     private final HttpHandler handler = (HttpExchange exchange) -> {
         final Headers headers = exchange.getResponseHeaders();
-        System.out.println("Got response headers " + headers.toString());
         final String method = exchange.getRequestMethod().toUpperCase();
-        System.out.println("Request method is " + method);
 //        switch (method) {
 //            case "GET":
                 String responseBody = this.giveCard().toJSONString();
-                System.out.println("Response body is " + responseBody);
                 headers.set("Content-Type", CONTENT_TYPE_SPECIFICATION);
                 byte[] rawResponseBody = responseBody.getBytes(UTF8);
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 
@@ -163,9 +162,26 @@ public class CardJSONServer {
     
     public static void main(String[] args) {
         // TODO: Write tests for this?
+        int port = DEFAULT_PORT;
+        int deckQty = DEFAULT_NUMBER_OF_DECKS;
+        int stop = DEFAULT_PLASTIC_CARD_INDEX;
+        int numAckCmdLineParams = args.length > 2 ? 3 : args.length;
+        switch (numAckCmdLineParams) {
+            case 0:
+                System.out.println("Using default parameters");
+                break;
+            case 3:
+                stop = Integer.parseInt(args[2]);
+            case 2:
+                deckQty = Integer.parseInt(args[1]);
+            case 1:
+                port = Integer.parseInt(args[0]);
+        }
+        System.out.println("Port " + port);
+        System.out.println("Deck quantity " + deckQty);
+        System.out.println("Plastic card index " + stop);
         System.out.println("Starting card server...");
-        CardJSONServer server = new CardJSONServer(8080, 
-                DEFAULT_NUMBER_OF_DECKS, DEFAULT_PLASTIC_CARD_INDEX);
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         server.activate();
     }
     
