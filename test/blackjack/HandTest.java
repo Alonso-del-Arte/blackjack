@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -311,7 +311,7 @@ public class HandTest {
     }
     
     /**
-     * Test of the isWinningHand function of the Hand clas.
+     * Test of the isWinningHand function of the Hand class.
      */
     @Test
     public void testIsWinningHand() {
@@ -623,6 +623,20 @@ public class HandTest {
                     + " is the wrong exception for premature wager settlement";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testGetSettlement() {
+        System.out.println("getSettlement");
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        hand.add(ace);
+        hand.add(ten);
+        hand.markSettled();
+        Wager.Outcome expected = Wager.Outcome.NATURAL_BLACKJACK;
+//        Wager.Outcome actual = hand.getSettlement();
+fail("Finish writing test");
     }
     
 }
