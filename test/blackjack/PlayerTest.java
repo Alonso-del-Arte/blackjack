@@ -35,6 +35,8 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     
+    private static final String DEFAULT_PLAYER_NAME = "Test Player";
+    
     private final CardServer SERVER = new CardServer(50);
     
     @Test
@@ -55,12 +57,29 @@ public class PlayerTest {
         Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
         secondHand.add(SERVER.giveCard(Rank.EIGHT));
         secondHand.add(SERVER.getNextCard());
-        Player player = new Player("Test Player");
+        Player player = new Player(DEFAULT_PLAYER_NAME);
         player.add(firstHand);
         player.add(secondHand);
         List<Hand> expected = new ArrayList<>(2);
         expected.add(firstHand);
         expected.add(secondHand);
+        List<Hand> actual = player.getHands();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetHandsDoesNotLeakList() {
+        Hand hand = new Hand(HandTest.DEFAULT_WAGER);
+        hand.add(SERVER.getNextCard());
+        hand.add(SERVER.getNextCard());
+        Player player = new Player(DEFAULT_PLAYER_NAME);
+        player.add(hand);
+        List<Hand> firstOutput = player.getHands();
+        List<Hand> expected = new ArrayList<>(firstOutput);
+        Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
+        secondHand.add(SERVER.getNextCard());
+        secondHand.add(SERVER.getNextCard());
+        firstOutput.add(secondHand);
         List<Hand> actual = player.getHands();
         assertEquals(expected, actual);
     }
