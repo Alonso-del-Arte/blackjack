@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -17,6 +17,7 @@
 package blackjack;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a player at a blackjack table.
@@ -32,8 +33,8 @@ public class Player {
         return this.playerName;
     }
     
-    ArrayList<Hand> getHands() {return null;
-//        return new ArrayList<>(this.hands);
+    List<Hand> getHands() {
+        return new ArrayList<>();
     }
     
     void add(Hand hand) {

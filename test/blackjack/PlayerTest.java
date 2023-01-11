@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,6 +16,16 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import playingcards.CardServer;
+import playingcards.PlayingCard;
+import playingcards.Rank;
+import playingcards.matchers.RankPairSpec;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -25,12 +35,33 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
     
+    private final CardServer SERVER = new CardServer(50);
+    
     @Test
     public void testGetName() {
         System.out.println("getName");
         String expected = "John Q. Player";
         Player player = new Player(expected);
         String actual = player.getName();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetHands() {
+        System.out.println("getHands");
+        Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
+        firstHand.add(SERVER.giveCard(Rank.EIGHT));
+        firstHand.add(SERVER.getNextCard());
+        Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
+        secondHand.add(SERVER.giveCard(Rank.EIGHT));
+        secondHand.add(SERVER.getNextCard());
+        Player player = new Player("Test Player");
+        player.add(firstHand);
+        player.add(secondHand);
+        List<Hand> expected = new ArrayList<>(2);
+        expected.add(firstHand);
+        expected.add(secondHand);
+        List<Hand> actual = player.getHands();
         assertEquals(expected, actual);
     }
     

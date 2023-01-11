@@ -41,7 +41,7 @@ public class HandTest {
     private static final CurrencyAmount HUNDRED_BUCKS 
             = new CurrencyAmount(10000, DOLLARS);
     
-    private static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
+    static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
     
     private final CardServer SERVER = new CardServer(50);
     
