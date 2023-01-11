@@ -34,8 +34,7 @@ public class Player {
     }
     
     List<Hand> getHands() {
-        return this.hands;
-//        return new ArrayList<>();
+        return new ArrayList<>(this.hands);
     }
     
     void add(Hand hand) {
