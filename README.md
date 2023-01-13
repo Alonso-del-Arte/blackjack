@@ -2,7 +2,9 @@
 The blackjack, or 21, game
 
 The game is ready to play on the console or terminal (text only), limited to a 
-dealer and only one player. I am working on a graphical user interface for this.
+dealer and only one player. I am working on a graphical user interface for this, 
+using Java Swing. I also plan to do a card server, so as to enable the game as a 
+website.
 
 There is for now no option to split a pair, double down nor make an insurance 
 bet.
