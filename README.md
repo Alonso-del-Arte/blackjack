@@ -322,3 +322,5 @@ Dealer's face-down card is Ten of Diamonds
 Dealer's hand value is 20
 Stand-off
 ```
+
+TODO: Once splitting enabled, add sample play with split
