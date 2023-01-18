@@ -33,6 +33,10 @@ public class Player {
         return this.playerName;
     }
     
+    public int getActiveHandsCount() {
+        return Integer.MIN_VALUE;
+    }
+    
     List<Hand> getHands() {
         return new ArrayList<>(this.hands);
     }
