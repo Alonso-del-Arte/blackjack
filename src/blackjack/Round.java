@@ -27,6 +27,10 @@ public class Round {
             String excMsg = "Dealer must not be null";
             throw new NullPointerException(excMsg);
         }
+        if (players.length == 0) {
+            String excMsg = "At least one player required";
+            throw new IllegalArgumentException(excMsg);
+        }
     }
     
 }
