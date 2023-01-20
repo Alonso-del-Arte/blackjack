@@ -17,6 +17,7 @@
 package blackjack;
 
 import playingcards.MultiDeckCardDispenser;
+import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
@@ -50,6 +51,16 @@ public class Dealer {
     
     private void replenishDispenser() {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
+    }
+    
+    // TODO: Write tests for this
+    public PlayingCard hit(Player player) {
+        return null;
+    }
+    
+    // TODO: Write tests for this
+    public boolean split(Player player) {
+        return false;
     }
     
     /**
