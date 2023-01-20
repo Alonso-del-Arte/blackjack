@@ -26,6 +26,24 @@ import static org.junit.Assert.*;
 public class RoundTest {
     
     @Test
+    public void testConstructorRequiresAtLeastOnePlayer() {
+        Dealer dealer = new Dealer();
+        try {
+            Round badRound = new Round(dealer);
+            String msg = "Should not have been able to create " 
+                    + badRound.toString() + " with zero players";
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Zero players for round caused exception");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for zero players";
+            fail(msg);
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullDealer() {
         Player player = new Player("Johnny Q. Test");
         try {
