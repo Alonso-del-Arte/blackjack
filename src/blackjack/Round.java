@@ -23,7 +23,10 @@ package blackjack;
 public class Round {
     
     public Round(Dealer dealer, Player... players) {
-        //
+        if (dealer == null) {
+            String excMsg = "Dealer must not be null";
+            throw new NullPointerException(excMsg);
+        }
     }
     
 }
