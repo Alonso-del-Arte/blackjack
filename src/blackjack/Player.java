@@ -37,6 +37,15 @@ public class Player {
         return Integer.MIN_VALUE;
     }
     
+    public Hand getCurrentActiveHand() {
+        java.util.Currency currency = java.util.Currency
+                .getInstance(java.util.Locale.ITALY);
+        currency.CurrencyAmount amount 
+                = new currency.CurrencyAmount(100, currency);
+        Wager wager = new Wager(amount);
+        return new Hand(wager);
+    }
+    
     List<Hand> getHands() {
         return new ArrayList<>(this.hands);
     }
