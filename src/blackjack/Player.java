@@ -34,7 +34,7 @@ public class Player {
     }
     
     public int getActiveHandsCount() {
-        return Integer.MIN_VALUE;
+        return this.hands.size();
     }
     
     public Hand getCurrentActiveHand() {
