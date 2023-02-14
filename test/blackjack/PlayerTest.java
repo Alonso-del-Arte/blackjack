@@ -49,6 +49,28 @@ public class PlayerTest {
     }
     
     @Test
+    public void testGetActiveHandsCount() {
+        System.out.println("getActiveHandsCount");
+        Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
+        firstHand.add(SERVER.giveCard(Rank.EIGHT));
+        firstHand.add(SERVER.getNextCard());
+        Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
+        secondHand.add(SERVER.giveCard(Rank.EIGHT));
+        secondHand.add(SERVER.getNextCard());
+        Hand thirdHand = new Hand(HandTest.DEFAULT_WAGER);
+        thirdHand.add(SERVER.giveCard(Rank.EIGHT));
+        thirdHand.add(SERVER.getNextCard());
+        Player player = new Player(DEFAULT_PLAYER_NAME);
+        assertEquals(0, player.getActiveHandsCount());
+        player.add(firstHand);
+        assertEquals(1, player.getActiveHandsCount());
+        player.add(secondHand);
+        assertEquals(2, player.getActiveHandsCount());
+        player.add(thirdHand);
+        assertEquals(3, player.getActiveHandsCount());
+    }
+    
+    @Test
     public void testGetHands() {
         System.out.println("getHands");
         Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
