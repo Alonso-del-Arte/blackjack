@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -306,7 +306,21 @@ public class GraphicsCommandRecordTest {
     @Test
     public void testGetImage() {
         System.out.println("WithImage.getImage");
-        fail("Haven't written test yet");
+        int width = 480;
+        int height = 270;
+        BufferedImage expected = new BufferedImage(width, height, 
+                BufferedImage.TYPE_INT_RGB);
+        Graphics2D g = expected.createGraphics();
+        g.setColor(Color.CYAN);
+        g.fillRect(0, 0, width, height);
+        g.setColor(Color.BLACK);
+        g.drawString("image", width / 16, height / 9);
+        Font font = FONTS[RANDOM.nextInt(FONTS.length)];
+//        GraphicsCommandRecord.WithImage record 
+//                = new GraphicsCommandRecord.WithImage("drawImage", Color.BLACK, 
+//                        font, expected, observer, Color.yellow, width, width, 
+//                        width, width, width, width, width, width)
+        fail("Haven't finished written test yet");
     }
     
 }
