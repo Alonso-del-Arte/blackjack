@@ -34,13 +34,8 @@ public class Player {
     }
     
     public int getActiveHandsCount() {
-        int count = 0;
-        for (Hand hand : this.hands) {
-            if (!hand.isSettledHand()) {
-                count++;
-            }
-        }
-        return count;
+        return (int) this.hands.stream().filter(hand -> !hand.isSettledHand())
+                .count();
     }
     
     public Hand getCurrentActiveHand() {
