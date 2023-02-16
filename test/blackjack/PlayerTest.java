@@ -71,6 +71,20 @@ public class PlayerTest {
     }
     
     @Test
+    public void testSettledHandDoesNotCountAsActive() {
+        Hand hand = new Hand(HandTest.DEFAULT_WAGER);
+        hand.add(SERVER.giveCard(Rank.TEN));
+        hand.add(SERVER.giveCard(Rank.TEN));
+        Player player = new Player(DEFAULT_PLAYER_NAME);
+        player.add(hand);
+        assertEquals(1, player.getActiveHandsCount());
+        hand.markSettled();
+        String msg = "After player stands on hand " + hand.toString() 
+                + ", that hand should not count as active";
+        assertEquals(msg, 0, player.getActiveHandsCount());
+    }
+    
+    @Test
     public void testGetHands() {
         System.out.println("getHands");
         Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
