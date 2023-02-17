@@ -161,4 +161,15 @@ public class PlayerTest {
         }
     }
     
+    @Test
+    public void testPrimaryConstructorReflectsInitialBankroll() {
+        int usualWagerCents = (int) DEFAULT_INITIAL_BANKROLL.getAmountInCents();
+        int cents = usualWagerCents 
+                + DealerTest.RANDOM.nextInt(usualWagerCents);
+        CurrencyAmount expected = new CurrencyAmount(cents, WagerTest.DOLLARS);
+        Player player = new Player(DEFAULT_PLAYER_NAME, expected);
+        CurrencyAmount actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+    
 }

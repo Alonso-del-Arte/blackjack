@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -30,7 +30,7 @@ import static org.junit.Assert.*;
  */
 public class WagerTest {
     
-    private static final Currency DOLLARS = Currency.getInstance(Locale.US);
+    static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
     private static final CurrencyAmount DEFAULT_WAGER_AMOUNT 
             = new CurrencyAmount(10000, DOLLARS);

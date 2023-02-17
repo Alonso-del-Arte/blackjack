@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
  */
 public class DealerTest {
     
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
     
     @Test
     public void testGiveSplittablePairs() {
@@ -67,6 +67,11 @@ public class DealerTest {
         retrievedPairSpecSet1.add(pairSpec2);
         Set<RankPairSpec> retrievedPairSpecSet2 = dealer.giveSplittablePairs();
         assertNotEquals(retrievedPairSpecSet1, retrievedPairSpecSet2);
+    }
+    
+//    @Test
+    public void test() {
+        fail("TEST PLACEHOLDER");
     }
     
     @Test
