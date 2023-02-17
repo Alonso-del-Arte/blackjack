@@ -58,7 +58,7 @@ public class Player {
     
     // TODO: Write tests for this
     public CurrencyAmount getBalance() {
-        return new CurrencyAmount(-1, java.util.Currency.getInstance("XCD"));
+        return this.bankroll;
     }
     
     void add(Hand hand) {
@@ -100,6 +100,7 @@ public class Player {
             throw new IllegalArgumentException(excMsg);
         }
         this.playerName = name;
+        this.bankroll = initialBankroll;
     }
     
 }
