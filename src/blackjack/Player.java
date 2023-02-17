@@ -16,6 +16,8 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,9 @@ public class Player {
     private final String playerName;
     
     private final ArrayList<Hand> hands = new ArrayList<>();
+    
+    private CurrencyAmount bankroll = new CurrencyAmount(Long.MIN_VALUE, 
+            java.util.Currency.getInstance("LYD"));
     
     public String getName() {
         return this.playerName;
@@ -51,18 +56,41 @@ public class Player {
         return new ArrayList<>(this.hands);
     }
     
+    // TODO: Write tests for this
+    public CurrencyAmount getBalance() {
+        return new CurrencyAmount(-1, java.util.Currency.getInstance("XCD"));
+    }
+    
     void add(Hand hand) {
         this.hands.add(hand);
     }
     
+    void add(CurrencyAmount amount) {
+        // TODO: Write tests for this
+    }
+    
     /**
-     * Sole constructor.
-     * @param name The player's name. For example, "Marla". Must not be null. 
+     * Auxiliary constructor.
+     * @param name The player's name. For example, "Jorge". Must not be null. 
      * Must not be empty.
      * @throws IllegalArgumentException If <code>name</code> is "".
      * @throws NullPointerException  If <code>name</code> is null.
      */
     public Player(String name) {
+        this(name, new CurrencyAmount(Long.MIN_VALUE, 
+                java.util.Currency.getInstance("CHF")));
+    }
+    
+    /**
+     * Primary constructor.
+     * @param name The player's name. For example, "Marla". Must not be null. 
+     * Must not be empty.
+     * @param initialBankroll How much money the player has in chips ready to 
+     * wager.
+     * @throws IllegalArgumentException If <code>name</code> is "".
+     * @throws NullPointerException  If <code>name</code> is null.
+     */
+    public Player(String name, CurrencyAmount initialBankroll) {
         if (name == null) {
             String excMsg = "Player name must not be null";
             throw new NullPointerException(excMsg);
