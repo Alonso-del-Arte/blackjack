@@ -90,9 +90,29 @@ public class WagerTest {
         assert wager.isSettled() : msg;
     }
     
-//    @Test
+    @Test
     public void testCanNotSettleTwice() {
-        fail("Haven't written test yet");
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
+        Wager.Outcome firstOutcome = pickOutcome();
+        wager.settle(firstOutcome);
+        Wager.Outcome secondOutcome = pickOutcome();
+        String msgPart = "After settling with outcome " 
+                + firstOutcome.toString() 
+                + " trying to settle a second time with outcome " 
+                + secondOutcome.toString() + " ";
+        try {
+            wager.settle(secondOutcome);
+            String msg = msgPart + "should not have been allowed";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println(msgPart 
+                    + "correctly caused IllegalStateException");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart + "should not have caused " 
+                    + re.getClass().getName();
+            fail(msg);
+        }
     }
     
 //    @Test
