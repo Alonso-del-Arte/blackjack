@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,7 +22,8 @@ import java.util.Currency;
 import java.util.Locale;
 
 /**
- * Represents a wager for a blackjack hand or bet.
+ * Represents a wager for a blackjack hand or bet. Includes an enumeration of 
+ * possible outcomes &mdash; natural blackjack, standoff, insurance lost, etc.
  * @author Alonso del Arte
  */
 public class Wager {
@@ -35,9 +36,13 @@ public class Wager {
         return this.wagerAmount;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells whether the wager is settled or not. A wager is settled with a call 
+     * to {@link #settle(blackjack.Wager.Outcome) settle()}.
+     * @return True if the wager is settled, false otherwise.
+     */
     public boolean isSettled() {
-        return false;
+        return this.settleFlag;
     }
     
     // TODO: Write tests for this
