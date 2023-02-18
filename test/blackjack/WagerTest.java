@@ -35,6 +35,12 @@ public class WagerTest {
     private static final CurrencyAmount DEFAULT_WAGER_AMOUNT 
             = new CurrencyAmount(10000, DOLLARS);
     
+    private static Wager.Outcome pickOutcome() {
+        Wager.Outcome[] outcomes = Wager.Outcome.values();
+        int index = DealerTest.RANDOM.nextInt(outcomes.length);
+        return outcomes[index];
+    }
+    
     /**
      * Test of getAmount method, of class Wager.
      */
@@ -71,6 +77,28 @@ public class WagerTest {
                     + " is the wrong exception for premature settlement fetch";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testIsSettled() {
+        System.out.println("isSettled");
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
+        Wager.Outcome outcome = pickOutcome();
+        wager.settle(outcome);
+        String msg = "After settling wager with outcome " + outcome.toString() 
+                + ", wager should be settled";
+        assert wager.isSettled() : msg;
+    }
+    
+//    @Test
+    public void testCanNotSettleTwice() {
+        fail("Haven't written test yet");
+    }
+    
+//    @Test
+    public void testGetSettlement() {
+        System.out.println("getSettlement");
+        fail("Haven't written test yet");
     }
     
     @Test
