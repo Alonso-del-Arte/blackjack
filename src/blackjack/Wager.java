@@ -18,9 +18,6 @@ package blackjack;
 
 import currency.CurrencyAmount;
 
-import java.util.Currency;
-import java.util.Locale;
-
 /**
  * Represents a wager for a blackjack hand or bet. Includes an enumeration of 
  * possible outcomes &mdash; natural blackjack, standoff, insurance lost, etc.
@@ -31,6 +28,8 @@ public class Wager {
     private final CurrencyAmount wagerAmount;
     
     private boolean settleFlag = false;
+    
+    private Settlement settlement = null;
     
     public CurrencyAmount getAmount() {
         return this.wagerAmount;
@@ -48,6 +47,7 @@ public class Wager {
     // TODO: Write tests for this
     void settle(Outcome outcome) {
         this.settleFlag = true;
+        this.settlement = new Settlement(Outcome.BETTER_SCORE);
     }
     
     // TODO: Write tests for this
@@ -56,7 +56,7 @@ public class Wager {
             String excMsg = "Wager is not settled yet";
             throw new IllegalStateException(excMsg);
         }
-        return new Settlement(Outcome.BUST, this.wagerAmount);
+        return this.settlement;
     }
     
     public Wager(CurrencyAmount amount) {
@@ -68,6 +68,11 @@ public class Wager {
         this.wagerAmount = amount;
     }
     
+    /**
+     * Enumerates the possible outcomes of a blackjack wager. This includes the 
+     * result of a player's hand compared to the dealer's, as well as winning or 
+     * losing an insurance bet.
+     */
     public static enum Outcome {
         
         /**
@@ -123,20 +128,60 @@ public class Wager {
         
     }
     
+    /**
+     * Represents the settlement of a wager.
+     */
     public class Settlement {
         
-        // TODO: Write tests for this
+        private final Outcome wagerOutcome;
+        
+        private final CurrencyAmount outcomeAmount;
+        
+        /**
+         * Gives the outcome that was settled.
+         * @return One of {@link Outcome#NATURAL_BLACKJACK}, 
+         * {@link Outcome#BLACKJACK}, {@link Outcome#BETTER_SCORE}, {@link 
+         * Outcome#STANDOFF}, {@link Outcome#BUST} or {@link 
+         * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
+         * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
+         * of an insurance bet.
+         */
         public Outcome getOutcome() {
-            return Outcome.STANDOFF;
+            return this.wagerOutcome;
         }
         
-        // TODO: Write tests for this
+        /**
+         * Gives the amount that was settled. 
+         * @return The amount.
+         */
         public CurrencyAmount getAmount() {
-            return new CurrencyAmount(0, Currency.getInstance(Locale.ITALY));
+            return this.outcomeAmount;
         }
         
-        private Settlement(Outcome outcome, CurrencyAmount amount) {
-            //
+        private Settlement(Outcome outcome) {
+            switch (outcome) {
+                case NATURAL_BLACKJACK:
+//                    this.outcomeAmount = Wager.this.wagerAmount.times(3)
+//                            .divides(2);
+//                    break;
+                case BLACKJACK:
+                case BETTER_SCORE:
+                case INSURANCE_WON:
+                    this.outcomeAmount = Wager.this.wagerAmount;
+                    break;
+                case STANDOFF:
+//                    this.outcomeAmount = new CurrencyAmount(0, 
+//                            Wager.this.wagerAmount.getCurrency());
+//                    break;
+                case INSURANCE_LOST:
+                case BUST:
+                case LOWER_SCORE:
+//                    this.outcomeAmount = Wager.this.wagerAmount.negate();
+//                    break;
+                default:
+                    this.outcomeAmount = Wager.this.wagerAmount;
+            }
+            this.wagerOutcome = outcome;
         }
         
     }
