@@ -46,6 +46,10 @@ public class Wager {
     
     // TODO: Write tests for this
     void settle(Outcome outcome) {
+        if (this.settleFlag) {
+            String excMsg = "Wager was already settled";
+            throw new IllegalStateException(excMsg);
+        }
         this.settleFlag = true;
         this.settlement = new Settlement(Outcome.BETTER_SCORE);
     }
