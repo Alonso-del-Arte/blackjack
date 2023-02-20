@@ -44,14 +44,13 @@ public class Wager {
         return this.settleFlag;
     }
     
-    // TODO: Write tests for this
     void settle(Outcome outcome) {
         if (this.settleFlag) {
             String excMsg = "Wager was already settled";
             throw new IllegalStateException(excMsg);
         }
         this.settleFlag = true;
-        this.settlement = new Settlement(Outcome.BETTER_SCORE);
+        this.settlement = new Settlement(outcome);
     }
     
     // TODO: Write tests for this
@@ -87,7 +86,8 @@ public class Wager {
         
         /**
          * The player's hand of more than two cards is valued at 21. The player 
-         * wins.
+         * wins, unless the dealer also has a blackjack, in which case it's a 
+         * standoff.
          */
         BLACKJACK, 
         
@@ -162,28 +162,42 @@ public class Wager {
             return this.outcomeAmount;
         }
         
+        /**
+         * Constructor. The idea here is that when a hand is settled, the wager 
+         * amount goes back to the player's bankroll. And then the settlement 
+         * amount will be positive for winning bets, zero for standoffs, or 
+         * negative for losing bets, and then that settlement amount is added to 
+         * the player's bankroll.
+         * @param outcome The outcome, one of {@link Outcome#NATURAL_BLACKJACK}, 
+         * {@link Outcome#BLACKJACK}, {@link Outcome#BETTER_SCORE}, {@link 
+         * Outcome#STANDOFF}, {@link Outcome#BUST} or {@link 
+         * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
+         * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
+         * of an insurance bet.
+         */
         private Settlement(Outcome outcome) {
             switch (outcome) {
                 case NATURAL_BLACKJACK:
-//                    this.outcomeAmount = Wager.this.wagerAmount.times(3)
-//                            .divides(2);
-//                    break;
+                    this.outcomeAmount = Wager.this.wagerAmount.times(3)
+                            .divides(2);
+                    break;
                 case BLACKJACK:
                 case BETTER_SCORE:
                 case INSURANCE_WON:
                     this.outcomeAmount = Wager.this.wagerAmount;
                     break;
                 case STANDOFF:
-//                    this.outcomeAmount = new CurrencyAmount(0, 
-//                            Wager.this.wagerAmount.getCurrency());
-//                    break;
+                    this.outcomeAmount = new CurrencyAmount(0, 
+                            Wager.this.wagerAmount.getCurrency());
+                    break;
                 case INSURANCE_LOST:
                 case BUST:
                 case LOWER_SCORE:
-//                    this.outcomeAmount = Wager.this.wagerAmount.negate();
-//                    break;
+                    this.outcomeAmount = Wager.this.wagerAmount.negate();
+                    break;
                 default:
-                    this.outcomeAmount = Wager.this.wagerAmount;
+                    String excMsg = "Unexpected outcome " + outcome.toString();
+                    throw new RuntimeException(excMsg);
             }
             this.wagerOutcome = outcome;
         }
