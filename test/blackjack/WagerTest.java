@@ -30,10 +30,12 @@ import static org.junit.Assert.*;
  */
 public class WagerTest {
     
+    private static final int DEFAULT_CENTS = 10000;
+    
     static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
     private static final CurrencyAmount DEFAULT_WAGER_AMOUNT 
-            = new CurrencyAmount(10000, DOLLARS);
+            = new CurrencyAmount(DEFAULT_CENTS, DOLLARS);
     
     private static Wager.Outcome pickOutcome() {
         Wager.Outcome[] outcomes = Wager.Outcome.values();
@@ -115,10 +117,46 @@ public class WagerTest {
         }
     }
     
-//    @Test
+    @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
-        fail("Haven't written test yet");
+        Wager.Outcome[] outcomes = Wager.Outcome.values();
+        for (Wager.Outcome outcome : outcomes) {
+            int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) 
+                    + DEFAULT_CENTS;
+            CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+            Wager wager = new Wager(amount);
+            wager.settle(outcome);
+            Wager.Settlement settlement = wager.getSettlement();
+            Wager.Outcome actualOutcome = settlement.getOutcome();
+            assertEquals(outcome, actualOutcome);
+            CurrencyAmount expected;
+            CurrencyAmount actual = settlement.getAmount();
+            switch (outcome) {
+                case NATURAL_BLACKJACK:
+                    expected = amount.times(3).divides(2);
+                    break;
+                case BLACKJACK:
+                case BETTER_SCORE:
+                case INSURANCE_WON:
+                    expected = amount;
+                    break;
+                case STANDOFF:
+                    expected = new CurrencyAmount(0, DOLLARS);
+                    break;
+                case INSURANCE_LOST:
+                case BUST:
+                case LOWER_SCORE:
+                    expected = amount.negate();
+                    break;
+                default:
+                    expected = amount;
+                    String msg = "Unexpected outcome " + outcome.toString() 
+                            + "; either add test or remove unexpected outcome";
+                    fail(msg);
+            }
+            assertEquals(expected, actual);
+        }
     }
     
     @Test
