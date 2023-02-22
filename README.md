@@ -74,7 +74,10 @@ face-down card. If the dealer is under 17, the dealer must take cards until
 going over 16, even though this risks going bust. Once over 17, the dealer must 
 stand.
 
-If the dealer stands, the dealer pays up players who have a higher score without going over 21, and collects the wagers of players with a lower score. And if the dealer and a player have the same score without going over, it's a stand-off, and no wager is paid nor collected.
+If the dealer stands, the dealer pays up players who have a higher score without 
+going over 21, and collects the wagers of players with a lower score. And if the 
+dealer and a player have the same score without going over, it's a stand-off, 
+and no wager is paid nor collected.
 
 ## Sample plays of the console applicaton
 
