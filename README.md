@@ -270,3 +270,10 @@ Stand-off
 ```
 
 TODO: Once splitting enabled, add sample play with split
+
+## Help with gambling problems
+
+Although I intend this software to only be used with play money, I suppose I 
+should still give phone numbers for problem gambling hotlines. The number for 
+the National Problem Gambling Helpline (United States) is 1 (800) 522-4700. In 
+Michigan, you can call 1 (800) 270-7117.
