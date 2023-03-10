@@ -62,3 +62,10 @@ If the dealer stands, the dealer pays up players who have a higher score without
 going over 21, and collects the wagers of players with a lower score. And if the 
 dealer and a player have the same score without going over, it's a stand-off, 
 and no wager is paid nor collected.
+
+### References
+
+* Bicycle Cards page for blackjack. 
+https://bicyclecards.com/how-to-play/blackjack/
+* Belinda Levez, *How to Win at Casino Games*, Chapters 4 and 5. London: Teach 
+Yourself Books (1997)
