@@ -83,6 +83,19 @@ public class Wager {
         return this.settlement;
     }
     
+    // TODO: Write tests for this
+    /**
+     * Doubles down on the wager. It is up to the caller to ensure that the 
+     * player has sufficient money to actually double down. It is also up to the 
+     * caller to offer the player the option to double down when it is 
+     * appropriate to do so.
+     * @return A wager. This has not been tested yet
+     * @throws IllegalStateException If already settled?
+     */
+    public Wager doubleDown() {
+        return this;
+    }
+    
     // TODO: Determine if this constructor needs to be public
     /**
      * Sole constructor. Starts a wager that is not settled yet.
@@ -143,6 +156,14 @@ public class Wager {
         STANDOFF, 
         
         /**
+         * The wager has been replaced for a larger wager. This should be the 
+         * case if the player doubles down. Internally, the player's original 
+         * wager is refunded and then replaced with the larger wager, but the 
+         * player should perceive it as one transaction.
+         */
+        REPLACED,
+        
+        /**
          * The player loses an insurance bet that the dealer has a blackjack. 
          * The wager is usually equal to half the hand's wager and pays 2 to 1.
          */
@@ -173,13 +194,16 @@ public class Wager {
         private final CurrencyAmount outcomeAmount;
         
         /**
-         * Gives the outcome that was settled.
+         * Gives the outcome that was settled. This may be a win, a loss or 
+         * neutral.
          * @return One of {@link Outcome#NATURAL_BLACKJACK}, 
          * {@link Outcome#BLACKJACK}, {@link Outcome#BETTER_SCORE}, {@link 
          * Outcome#STANDOFF}, {@link Outcome#BUST} or {@link 
          * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
          * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
-         * of an insurance bet.
+         * of an insurance bet, or {@link Outcome#REPLACED} in the case of 
+         * doubling down (a new <code>Wager</code> object reflecting the larger 
+         * wager amount should be created).
          */
         public Outcome getOutcome() {
             return this.wagerOutcome;
@@ -189,7 +213,8 @@ public class Wager {
          * Gives the amount that was settled. The amount was already calculated 
          * on settlement.
          * @return The amount. For example, $150.00 for a $100.00 wager on a 
-         * natural blackjack.
+         * natural blackjack. Another example: &minus;$100.00 for a $100.00 
+         * wager on a hand that busted.
          */
         public CurrencyAmount getAmount() {
             return this.outcomeAmount;
@@ -198,21 +223,25 @@ public class Wager {
         /**
          * Constructor. The idea here is that when a hand is settled, the wager 
          * amount goes back to the player's bankroll. And then the settlement 
-         * amount will be positive for winning bets, zero for standoffs, or 
-         * negative for losing bets, and then that settlement amount is added to 
-         * the player's bankroll.
+         * amount will be positive for winning bets, zero for standoffs or 
+         * replacements, or negative for losing bets, and then that settlement 
+         * amount is added to the player's bankroll.
          * @param outcome The outcome, one of {@link Outcome#NATURAL_BLACKJACK}, 
          * {@link Outcome#BLACKJACK}, {@link Outcome#BETTER_SCORE}, {@link 
          * Outcome#STANDOFF}, {@link Outcome#BUST} or {@link 
          * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
          * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
-         * of an insurance bet.
+         * of an insurance bet, or {@link Outcome#REPLACED} in the case of 
+         * doubling down (the original <code>Wager</code> object is settled and 
+         * a new <code>Wager</code> object is created to reflect the larger 
+         * wager).
          * @throws RuntimeException In the unlikely event of an unforeseen 
          * outcome.
          */
         private Settlement(Outcome outcome) {
             switch (outcome) {
                 case NATURAL_BLACKJACK:
+                case REPLACED:
                     this.outcomeAmount = Wager.this.wagerAmount.times(3)
                             .divides(2);
                     break;

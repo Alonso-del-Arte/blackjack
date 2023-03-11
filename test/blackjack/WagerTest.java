@@ -159,6 +159,12 @@ public class WagerTest {
         }
     }
     
+//    TODO: Write @Test
+    public void testDoubleDown() {
+        System.out.println("doubleDown");
+        fail("Haven't written test yet");
+    }
+    
     @Test
     public void testConstructorRejectsNegativeAmount() {
         CurrencyAmount badAmount = new CurrencyAmount(-10000, DOLLARS);
