@@ -50,8 +50,13 @@ public class Wager {
     }
     
     /**
-     * Settles the wager.
-     * @param outcome The outcome for the settlement. For example, 
+     * Settles the wager. This procedure can only be called once. After that, 
+     * {@link #isSettled()} should return True and {@link #getSettlement()} 
+     * should return a {@link Settlement} object instead of throwing an 
+     * exception.
+     * @param outcome The outcome to settle the wager on. For example, {@link 
+     * Outcome#INSURANCE_WON}.
+     * @throws IllegalStateException If the wager has already been settled.
      */
     void settle(Outcome outcome) {
         if (this.settleFlag) {
@@ -63,8 +68,12 @@ public class Wager {
     }
     
     /**
-     * Gets the settlement. May only be called after
-     * @return 
+     * Gets the settlement. May only be called after {@link 
+     * #settle(blackjack.Wager.Outcome) settle()} has been called.
+     * @return The settlement object, containing a description of the outcome 
+     * and the settlement amount. For example, blackjack of three or more cards 
+     * to win $100.00.
+     * @throws IllegalStateException If the wager hasn't been settled yet.
      */
     public Settlement getSettlement() {
         if (!this.settleFlag) {
@@ -74,16 +83,19 @@ public class Wager {
         return this.settlement;
     }
     
+    // TODO: Determine if this constructor needs to be public
     /**
-     * Sole constructor.
+     * Sole constructor. Starts a wager that is not settled yet.
      * @param amount The wager amount. For example, $100.00.
+     * @throws IllegalArgumentException If the wager amount is 0 or negative, 
+     * regardless of the currency.
      */
     public Wager(CurrencyAmount amount) {
         if (amount.getAmountInCents() < 1) {
             String excMsg = "Amount " + amount.toString() 
                     + " is not a valid wager amount, needs to be more than " 
                     + amount.getCurrency().getSymbol() + "0";
-            throw new IllegalArgumentException("Sorry");
+            throw new IllegalArgumentException(excMsg);
         }
         this.wagerAmount = amount;
     }
@@ -102,9 +114,10 @@ public class Wager {
         NATURAL_BLACKJACK, 
         
         /**
-         * The player's hand of more than two cards is valued at 21. The player 
-         * wins, unless the dealer also has a blackjack, in which case it's a 
-         * standoff.
+         * The player's hand of more than two cards is valued at 21. For 
+         * example, the player's hand consists of 8&#9824;, 7&#9824; and 
+         * 6&#9829;. The player wins, unless the dealer also has a blackjack, in 
+         * which case it's a standoff.
          */
         BLACKJACK, 
         
@@ -124,8 +137,8 @@ public class Wager {
         
         /**
          * Neither the dealer nor the player has blackjack but they're tied 
-         * below 21. The dealer does not collect the player's wager for the hand 
-         * (but might collect a player's insurance bet).
+         * at or below 21. The dealer does not collect the player's wager for 
+         * the hand (but might collect a player's insurance bet).
          */
         STANDOFF, 
         
@@ -150,7 +163,8 @@ public class Wager {
     }
     
     /**
-     * Represents the settlement of a wager.
+     * Represents the settlement of a wager. This has two components: the kind 
+     * of win or loss, and the amount.
      */
     public class Settlement {
         
@@ -172,8 +186,10 @@ public class Wager {
         }
         
         /**
-         * Gives the amount that was settled. 
-         * @return The amount.
+         * Gives the amount that was settled. The amount was already calculated 
+         * on settlement.
+         * @return The amount. For example, $150.00 for a $100.00 wager on a 
+         * natural blackjack.
          */
         public CurrencyAmount getAmount() {
             return this.outcomeAmount;
@@ -191,6 +207,8 @@ public class Wager {
          * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
          * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
          * of an insurance bet.
+         * @throws RuntimeException In the unlikely event of an unforeseen 
+         * outcome.
          */
         private Settlement(Outcome outcome) {
             switch (outcome) {
