@@ -172,7 +172,12 @@ public class WagerTest {
             System.out.println("Trying to create wager with " 
                     + badAmount.toString() 
                     + " correctly caused IllegalArgumentException");
-            System.out.println("\"" + iae.getMessage() + "\"");
+            String excMsg = iae.getMessage();
+            System.out.println("\"" + excMsg + "\"");
+            String currencySymbol = badAmount.getCurrency().getSymbol();
+            String msg = "Exception message should contain currency symbol " 
+                    + currencySymbol;
+            assert excMsg.contains(currencySymbol) : msg;
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
                     + " is the wrong exception to throw for wager amount " 
@@ -194,7 +199,12 @@ public class WagerTest {
             System.out.println("Trying to create wager with " 
                     + badAmount.toString() 
                     + " correctly caused IllegalArgumentException");
-            System.out.println("\"" + iae.getMessage() + "\"");
+            String excMsg = iae.getMessage();
+            System.out.println("\"" + excMsg + "\"");
+            String currencySymbol = badAmount.getCurrency().getSymbol();
+            String msg = "Exception message should contain currency symbol " 
+                    + currencySymbol;
+            assert excMsg.contains(currencySymbol) : msg;
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
                     + " is the wrong exception to throw for wager amount " 

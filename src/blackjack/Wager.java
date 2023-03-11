@@ -31,6 +31,11 @@ public class Wager {
     
     private Settlement settlement = null;
     
+    /**
+     * Retrieves the wager amount. May be called regardless of whether or not 
+     * the wager has been settled.
+     * @return The wager amount. For example, $100.00.
+     */
     public CurrencyAmount getAmount() {
         return this.wagerAmount;
     }
@@ -44,6 +49,10 @@ public class Wager {
         return this.settleFlag;
     }
     
+    /**
+     * Settles the wager.
+     * @param outcome The outcome for the settlement. For example, 
+     */
     void settle(Outcome outcome) {
         if (this.settleFlag) {
             String excMsg = "Wager was already settled";
@@ -53,7 +62,10 @@ public class Wager {
         this.settlement = new Settlement(outcome);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Gets the settlement. May only be called after
+     * @return 
+     */
     public Settlement getSettlement() {
         if (!this.settleFlag) {
             String excMsg = "Wager is not settled yet";
@@ -62,11 +74,16 @@ public class Wager {
         return this.settlement;
     }
     
+    /**
+     * Sole constructor.
+     * @param amount The wager amount. For example, $100.00.
+     */
     public Wager(CurrencyAmount amount) {
         if (amount.getAmountInCents() < 1) {
-            String excMsg = "Non-positive amount " + amount.toString() 
-                    + " is not a valid wager amount";
-            throw new IllegalArgumentException(excMsg);
+            String excMsg = "Amount " + amount.toString() 
+                    + " is not a valid wager amount, needs to be more than " 
+                    + amount.getCurrency().getSymbol() + "0";
+            throw new IllegalArgumentException("Sorry");
         }
         this.wagerAmount = amount;
     }
