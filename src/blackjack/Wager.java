@@ -241,7 +241,6 @@ public class Wager {
         private Settlement(Outcome outcome) {
             switch (outcome) {
                 case NATURAL_BLACKJACK:
-                case REPLACED:
                     this.outcomeAmount = Wager.this.wagerAmount.times(3)
                             .divides(2);
                     break;
@@ -250,6 +249,7 @@ public class Wager {
                 case INSURANCE_WON:
                     this.outcomeAmount = Wager.this.wagerAmount;
                     break;
+                case REPLACED:
                 case STANDOFF:
                     this.outcomeAmount = new CurrencyAmount(0, 
                             Wager.this.wagerAmount.getCurrency());
