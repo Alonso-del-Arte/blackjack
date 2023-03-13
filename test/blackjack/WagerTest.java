@@ -141,6 +141,7 @@ public class WagerTest {
                 case INSURANCE_WON:
                     expected = amount;
                     break;
+                case REPLACED:
                 case STANDOFF:
                     expected = new CurrencyAmount(0, DOLLARS);
                     break;
