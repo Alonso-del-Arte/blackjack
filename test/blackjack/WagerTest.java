@@ -44,7 +44,7 @@ public class WagerTest {
     }
     
     /**
-     * Test of getAmount method, of class Wager.
+     * Test of the getAmount function, of the Wager class.
      */
     @Test
     public void testGetAmount() {
@@ -81,6 +81,9 @@ public class WagerTest {
         }
     }
     
+    /**
+     * Test of the isSettled function, of the Wager class.
+     */
     @Test
     public void testIsSettled() {
         System.out.println("isSettled");
@@ -117,6 +120,9 @@ public class WagerTest {
         }
     }
     
+    /**
+     * Test of the getSettlement function, of the Wager class.
+     */
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
@@ -160,10 +166,25 @@ public class WagerTest {
         }
     }
     
-//    TODO: Write @Test
+    /**
+     * Test of the doubleDown function, of the Wager class.
+     */
+    @Test
     public void testDoubleDown() {
         System.out.println("doubleDown");
-        fail("Haven't written test yet");
+        int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) + DEFAULT_CENTS;
+        CurrencyAmount originalAmount = new CurrencyAmount(cents, DOLLARS);
+        Wager originalWager = new Wager(originalAmount);
+        Wager doubleDownWager = originalWager.doubleDown();
+        assert originalWager.isSettled() : "Original wager should be settled";
+        Wager.Settlement settlement = originalWager.getSettlement();
+        assertEquals("Original wager should be settled as replaced", 
+                Wager.Outcome.REPLACED, settlement.getOutcome());
+        CurrencyAmount expected = originalAmount.times(2);
+        CurrencyAmount actual = doubleDownWager.getAmount();
+        assertEquals(expected, actual);
+        assert !doubleDownWager.isSettled() 
+                : "Double down wager should not be settled yet";
     }
     
     @Test
