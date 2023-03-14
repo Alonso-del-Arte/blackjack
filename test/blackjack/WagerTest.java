@@ -167,6 +167,32 @@ public class WagerTest {
     }
     
     /**
+     * Another test of the doubleDown function, of the Wager class. The casino 
+     * may or may not allow the player to double down twice, but internally, a 
+     * new Wager object should be created for each increased wager. This means 
+     * that calling doubleDown() twice on the same Wager object should cause an 
+     * IllegalStateException.
+     */
+    @Test
+    public void testNoDoubleDownTwice() {
+        int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) + DEFAULT_CENTS;
+        CurrencyAmount originalAmount = new CurrencyAmount(cents, DOLLARS);
+        Wager wager = new Wager(originalAmount);
+        wager.doubleDown();
+        try {
+            wager.doubleDown();
+            fail("Should not have been able to double down twice");
+        } catch (IllegalStateException ise) {
+            System.out.println("Double down twice same wager caused exception");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is wrong exception for double down twice same wager";
+            fail(msg);
+        }
+    }
+    
+    /**
      * Test of the doubleDown function, of the Wager class.
      */
     @Test
