@@ -94,8 +94,8 @@ public class Wager {
      */
     public Wager doubleDown() {
         this.settle(Outcome.REPLACED);
-        CurrencyAmount twice = this.wagerAmount.times(2);
-        return this;
+        Wager replacementWager = new Wager(this.wagerAmount.times(2));
+        return replacementWager;
     }
     
     // TODO: Determine if this constructor needs to be public
