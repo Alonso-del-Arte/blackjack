@@ -93,6 +93,8 @@ public class Wager {
      * @throws IllegalStateException If already settled?
      */
     public Wager doubleDown() {
+        this.settle(Outcome.REPLACED);
+        CurrencyAmount twice = this.wagerAmount.times(2);
         return this;
     }
     
