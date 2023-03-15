@@ -66,7 +66,7 @@ public class Player {
     }
     
     void add(CurrencyAmount amount) {
-        // TODO: Write tests for this
+        this.bankroll = this.bankroll.plus(amount);
     }
     
     /**
