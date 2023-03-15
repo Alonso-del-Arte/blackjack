@@ -43,6 +43,19 @@ public class PlayerTest {
     private final CardServer SERVER = new CardServer(50);
     
     @Test
+    public void testAddToBankroll() {
+        Player player = new Player(DEFAULT_PLAYER_NAME, 
+                DEFAULT_INITIAL_BANKROLL);
+        int moreCents = DealerTest.RANDOM.nextInt(10000);
+        CurrencyAmount additional = new CurrencyAmount(moreCents, 
+                WagerTest.DOLLARS);
+        player.add(additional);
+        CurrencyAmount expected = DEFAULT_INITIAL_BANKROLL.plus(additional);
+        CurrencyAmount actual = player.getBalance();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testGetName() {
         System.out.println("getName");
         String expected = "John Q. Player";
