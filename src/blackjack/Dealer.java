@@ -16,6 +16,7 @@
  */
 package blackjack;
 
+import playingcards.CardSupplier;
 import playingcards.MultiDeckCardDispenser;
 import playingcards.PlayingCard;
 import playingcards.Rank;
@@ -33,7 +34,7 @@ public class Dealer {
     
     public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = 7;
     
-    private MultiDeckCardDispenser cardDispenser;
+    private CardSupplier cardDispenser;
     
     private final Set<RankPairSpec> splitSpecs;
     
@@ -47,6 +48,10 @@ public class Dealer {
     
     private static int plasticCardPlace() {
         return ((int) Math.floor(Math.random() * 15) + 60);
+    }
+    
+    void changeDispenser(CardSupplier dispenser) {
+        // TODO: Write tests for this
     }
     
     private void replenishDispenser() {
