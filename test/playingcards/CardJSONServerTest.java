@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.junit.Test;
@@ -776,6 +777,38 @@ public class CardJSONServerTest {
             int actual = conn.getResponseCode();
             server.deactivate();
             assertEquals(expected, actual);
+        } catch (IOException ioe) {
+            server.deactivate();
+            String msg = ioe.getClass().getName() + " should not have occurred";
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testServerRespondsToOptionsMethod() {
+        int port = 8080 + RANDOM.nextInt(1000);
+        int deckQty = RANDOM.nextInt(10) + 4;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        server.activate();
+        String locator = "http://localhost:" + port + "/dealcard";
+        String key = "User-Agent";
+        String value = "Java/" + System.getProperty("java.version");
+        try {
+            URL url = new URL(locator);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("OPTIONS");
+            conn.setRequestProperty(key, value);
+            int responseCode = conn.getResponseCode();
+            server.deactivate();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String header = conn.getHeaderField("Allow");
+                assert header != null : "Header \"Allow\" should not be null";
+                String expected = "GET,OPTIONS";
+                String actual = header.toUpperCase()
+                        .replace(" ", "");
+                assertEquals(expected, actual);
+            }
         } catch (IOException ioe) {
             server.deactivate();
             String msg = ioe.getClass().getName() + " should not have occurred";
