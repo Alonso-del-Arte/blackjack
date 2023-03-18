@@ -52,12 +52,13 @@ public class CardQueue implements CardSupplier {
     /**
      * Sole constructor.
      * @param deckQty How many decks to load into the queue.
-     * @throws IllegalArgumentException If <code>deckQty</code> is negative.
+     * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
+     * negative.
      */
     public CardQueue(int deckQty) {
-        if (deckQty < 0) {
+        if (deckQty < 1) {
             String excMsg = "Deck quantity " + deckQty 
-                    + " is not valid, needs to be at least 0";
+                    + " is not valid, needs to be at least 1";
             throw new IllegalArgumentException(excMsg);
         }
     }
