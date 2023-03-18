@@ -25,10 +25,12 @@ package playingcards;
  * @author Alonso del Arte
  */
 public class CardQueue implements CardSupplier {
+    
+    private int currCardQty;
 
     @Override
     public boolean hasNext() {
-        return false;
+        return this.currCardQty > 0;
     }
     
     public void cueUp(Rank rank) {
@@ -41,6 +43,7 @@ public class CardQueue implements CardSupplier {
 
     @Override
     public PlayingCard getNextCard() {
+        this.currCardQty--;
         return new PlayingCard(Rank.JACK, Suit.CLUBS);
     }
 
@@ -61,6 +64,7 @@ public class CardQueue implements CardSupplier {
                     + " is not valid, needs to be at least 1";
             throw new IllegalArgumentException(excMsg);
         }
+        this.currCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     }
     
 }
