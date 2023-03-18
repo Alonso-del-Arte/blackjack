@@ -26,6 +26,25 @@ import static org.junit.Assert.*;
 public class CardQueueTest {
     
     @Test
+    public void testHasNext() {
+        System.out.println("hasNext");
+        int deckQty = CardJSONServerTest.RANDOM.nextInt(10) + 1;
+        CardQueue queue = new CardQueue(deckQty);
+        int cardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        PlayingCard lastCard = null;
+        String msgPart = "Card queue should have next while there are ";
+        while (cardQty > 0) {
+            String msg = msgPart + cardQty + " cards left";
+            assert queue.hasNext() : msg;
+            lastCard = queue.getNextCard();
+            cardQty--;
+        }
+        String msg = "After giving out all cards, last of which was " + lastCard 
+                + ", card queue should not have next";
+        assert !queue.hasNext() : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsDeckQuantityZero() {
         int badQty = 0;
         try {
