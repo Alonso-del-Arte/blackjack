@@ -48,7 +48,7 @@ public class CardJSONServerTest {
     
     private static final int DEFAULT_STOP = 75;
     
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
     
     @Test
     public void testCardGetDeckHash() {

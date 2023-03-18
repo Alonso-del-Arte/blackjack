@@ -25,4 +25,23 @@ import static org.junit.Assert.*;
  */
 public class CardQueueTest {
     
+    @Test
+    public void testConstructorRejectsNegativeDeckQuantity() {
+        int badQty = -CardJSONServerTest.RANDOM.nextInt(1024) - 1;
+        try {
+            CardQueue badQueue = new CardQueue(badQty);
+            String msg = "Should not have been able to create " + badQueue 
+                    + " with deck quantity " + badQty;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to use deck quantity " + badQty 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for deck quantity " + badQty;
+            fail(msg);
+        }
+    }
+    
 }

@@ -17,8 +17,11 @@
 package playingcards;
 
 /**
- * Provides cards of specific ranks or suits. To be used for testing purposes 
- * only.
+ * Provides cards of specific ranks or suits. The idea is that if you need to 
+ * write a test with the dealer giving a player a ten for blackjack or a spade 
+ * for whist, for example, the test procedure can "cue up" such a card, and 
+ * that's what the <code>getNextCard()</code> function gives next. This is to be 
+ * used for testing purposes only.
  * @author Alonso del Arte
  */
 public class CardQueue implements CardSupplier {
@@ -44,6 +47,14 @@ public class CardQueue implements CardSupplier {
     @Override
     public boolean provenance(PlayingCard card) {
         return false;
+    }
+    
+    /**
+     * Sole constructor.
+     * @param deckQty How many decks to load into the queue.
+     */
+    public CardQueue(int deckQty) {
+        //
     }
     
 }
