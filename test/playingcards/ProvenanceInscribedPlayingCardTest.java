@@ -469,4 +469,19 @@ public class ProvenanceInscribedPlayingCardTest {
         }
     }
     
+    @Test
+    public void testNoShoeProvenanceIfDiffType() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        ProvenanceInscribedPlayingCard.Shoe shoe 
+                = new ProvenanceInscribedPlayingCard.Shoe(deckQty);
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        PlayingCard card = deck.getNextCard();
+        String msg = "Card " + card.toString() + " which is of type " 
+                + card.getClass().getName() 
+                + " should not be said to come from shoe of cards of type " 
+                + ProvenanceInscribedPlayingCard.class.getName();
+        assert !shoe.provenance(card) : msg;
+    }
+    
 }
