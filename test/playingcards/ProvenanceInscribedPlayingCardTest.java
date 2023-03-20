@@ -309,6 +309,20 @@ public class ProvenanceInscribedPlayingCardTest {
     }
     
     @Test
+    public void testNoDeckProvenanceIfDiffType() {
+        ProvenanceInscribedPlayingCard.Deck inscribedDeck 
+                = new ProvenanceInscribedPlayingCard.Deck(this.hashCode());
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        PlayingCard card = deck.getNextCard();
+        String msg = "Card " + card.toString() + " which is of type " 
+                + card.getClass().getName() 
+                + " should not be said to come from deck of cards of type " 
+                + ProvenanceInscribedPlayingCard.class.getName();
+        assert !inscribedDeck.provenance(card) : msg;
+    }
+    
+    @Test
     public void testDeckProvenance() {
         System.out.println("Deck.provenance");
         CardSupplier deck = new ProvenanceInscribedPlayingCard
