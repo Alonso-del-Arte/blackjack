@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -29,12 +29,6 @@ import java.net.URI;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Map;
 
 /**
  * Provides playing cards in JSON format. The cards are inscribed with the hash 
@@ -68,7 +62,7 @@ public class CardJSONServer {
     
     private boolean active = false;
     
-    private Shoe shoe;
+    private ProvenanceInscribedPlayingCard.Shoe shoe;
     
     private HttpServer httpServer;
     
@@ -97,7 +91,9 @@ public class CardJSONServer {
     
     ProvenanceInscribedPlayingCard giveCard() {
         if (!this.shoe.hasNext()) {
-            this.shoe = new Shoe(this.numberOfDecks, this.plasticCardIndex);
+            this.shoe 
+                    = new ProvenanceInscribedPlayingCard.Shoe(this
+                            .numberOfDecks, this.plasticCardIndex);
             this.shoe.shuffle();
         }
         return this.shoe.getNextCard();
@@ -156,7 +152,8 @@ public class CardJSONServer {
         this.portNumber = port;
         this.numberOfDecks = deckQty;
         this.plasticCardIndex = stop;
-        this.shoe = new Shoe(this.numberOfDecks, this.plasticCardIndex);
+        this.shoe = new ProvenanceInscribedPlayingCard.Shoe(this.numberOfDecks, 
+                this.plasticCardIndex);
         this.shoe.shuffle();
     }
     
@@ -183,260 +180,6 @@ public class CardJSONServer {
         System.out.println("Starting card server...");
         CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         server.activate();
-    }
-    
-    /**
-     * A playing card inscribed with information about the deck and shoe from 
-     * whence it came. Also provides a JSON function.
-     */
-    public static final class ProvenanceInscribedPlayingCard 
-            extends PlayingCard {
-        
-        private final int deckHashCode, shoeHashCode;
-
-        /**
-         * Gives the hash code for the deck this card came from. The deck is 
-         * supposed to identify itself to the card constructor.
-         * @return The deck's hash code. For example, 716143810.
-         */
-        int getDeckHash() {
-            return this.deckHashCode;
-        }
-        
-        /**
-         * Gives the hash code for the shoe this card came from. The shoe is 
-         * supposed to identify itself to the deck constructor, which in turn 
-         * identifies itself and the shoe to the card constructor.
-         * @return The deck's hash code.
-         */
-        int getShoeHash() {
-            return this.shoeHashCode;
-        }
-        
-        String toJSONString() {
-            return "{\"name\":\"" + this.toString() + "\",\"rank\":\"" 
-                    + this.cardRank.getWord() + "\",\"suit\":\"" 
-                    + this.cardSuit.getWord() + "\",\"shoeID\":" 
-                    + this.shoeHashCode + ",\"deckID\":" + this.deckHashCode 
-                    + ",\"unicodeSMPChar\":\"" + this.toUnicodeSMPChar() 
-                    + "\"}";
-        }
-        
-        /**
-         * Parses a JSON response to reconstruct the provenance-inscribed 
-         * playing card object. This function is provided mainly for the sake of 
-         * testing, and is therefore package private.
-         * @param s The <code>String</code> to parse. For example, "{"name": 
-         * "10&#9829;", "rank": "Ten", "suit": "Hearts", "shoeID": 135721597, 
-         * "deckID": 250421012, "unicodeSMPChar": "&#127162;"}".
-         * @return A <code>ProvenanceInscribedPlayingCard</code> with the rank, 
-         * suit, shoe ID and deck ID specified by <code>s</code>. For example, 
-         * the Ten of Hearts with shoe ID 135721597 and deck ID 250421012.
-         * @throws NoSuchElementException If <code>s</code> lacks the elements 
-         * expected in a {@link #giveCard()} response.
-         * @throws NumberFormatException If <code>s</code> has the JSON fields 
-         * "rank", "suit", "shoeID" and "deckID", the first two of those fields 
-         * have a valid rank and suit combination, but the last two of those 
-         * fields don't contain parseable integers.
-         */
-        static ProvenanceInscribedPlayingCard parseJSON(String s) {
-            int rankIndex = s.indexOf("\"rank\":");
-            int suitIndex = s.indexOf("\"suit\":");
-            int shoeIndex = s.indexOf("\"shoeID\":");
-            int deckIndex = s.indexOf("\"deckID\":");
-            int absentFlag = rankIndex | suitIndex | shoeIndex | deckIndex;
-            if (absentFlag < 0) {
-                String excMsg = "Input \"" + s 
-                        + "\" does not represent a valid card";
-                throw new NoSuchElementException(excMsg);
-            }
-            Rank rank = Rank.parseRank(s.substring(rankIndex + 8, 
-                    s.indexOf('"', rankIndex + 9)));
-            Suit suit = Suit.parseSuit(s.substring(suitIndex + 8, 
-                    s.indexOf('"', suitIndex + 9)));
-            int shoeID = Integer.parseInt(s.substring(shoeIndex + 9, 
-                    s.indexOf(',', shoeIndex + 11)));
-            int deckID = Integer.parseInt(s.substring(deckIndex + 9, 
-                    s.indexOf(',', deckIndex + 11)));
-            return new ProvenanceInscribedPlayingCard(rank, suit, deckID, 
-                    shoeID);
-        }
-        
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof ProvenanceInscribedPlayingCard) {
-                ProvenanceInscribedPlayingCard other 
-                        = (ProvenanceInscribedPlayingCard) obj;
-                if (!this.cardRank.equals(other.cardRank) 
-                        || !this.cardSuit.equals(other.cardSuit)) {
-                    return false;
-                }
-                if (this.shoeHashCode != other.shoeHashCode) {
-                    return false;
-                }
-                return this.deckHashCode == other.deckHashCode;
-            } else {
-                return false;
-            }
-        }
-        
-        @Override
-        public int hashCode() {
-            int hash = (this.deckHashCode * this.shoeHashCode) << 16;
-            return hash + super.hashCode();
-        }
-
-        /**
-         * Sole constructor. Just like the {@link PlayingCard} constructor, this 
-         * one is package private.
-         * @param rank The rank of the card. For example, Ten.
-         * @param suit The suit of the card. For example, Diamonds.
-         * @param deckHash The deck's hash code. For example, 716143810.
-         * @param shoeHash The shoe's hash code.
-         */
-        ProvenanceInscribedPlayingCard(Rank rank, Suit suit, 
-                int deckHash, int shoeHash) {
-            super(rank, suit);
-            this.deckHashCode = deckHash;
-            this.shoeHashCode = shoeHash;
-        }
-        
-    }
-    
-    /**
-     * Holds together a standard complement of provenance-inscribed cards. Its 
-     * hash code is used to identify that a card came from this deck.
-     */
-    public static final class Deck implements CardSupplier {
-        
-        private int dealCount = 0;
-        
-        private final List<ProvenanceInscribedPlayingCard> cards 
-                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
-
-        @Override
-        public boolean hasNext() {
-            return this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-        }
-
-        @Override
-        public ProvenanceInscribedPlayingCard getNextCard() {
-            if (this.dealCount >= CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
-                String excMsg = "Already gave out all " 
-                        + CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-                throw new RanOutOfCardsException(excMsg);
-            }
-            return this.cards.get(this.dealCount++);
-        }
-
-        @Override
-        public boolean provenance(PlayingCard card) {
-            if (card instanceof ProvenanceInscribedPlayingCard) {
-                return this.hashCode() 
-                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
-            } else {
-                return false;
-            }
-        }
-        
-        public void shuffle() {
-            Collections.shuffle(this.cards);
-        }
-        
-        /**
-         * Sole constructor. Note that this constructor is package private.
-         * @param shoeID The shoe's hash code.
-         */
-        Deck(int shoeID) {
-            int deckID = this.hashCode();
-            for (Suit suit : Suit.values()) {
-                for (Rank rank : Rank.values()) {
-                    this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
-                            suit, deckID, shoeID));
-                }
-            }
-        }
-        
-    }
-    
-    public static final class Shoe implements CardSupplier {
-        
-        private int dealCount = 0;
-        
-        private final int max;
-        
-        private final List<ProvenanceInscribedPlayingCard> cards;
-        
-        @Override
-        public boolean hasNext() {
-            return this.dealCount < this.max;
-        }
-
-        @Override
-        public ProvenanceInscribedPlayingCard getNextCard() {
-            if (this.dealCount == this.max) {
-                String excMsg = "After giving out " + this.max 
-                        + " cards, there are no more cards to give";
-                throw new RanOutOfCardsException(excMsg);
-            }
-            return this.cards.get(this.dealCount++);
-        }
-
-        @Override
-        public boolean provenance(PlayingCard card) {
-            if (card instanceof ProvenanceInscribedPlayingCard) {
-                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
-                        == this.hashCode();
-            } else {
-                return false;
-            }
-        }
-        
-        public void shuffle() {
-            Collections.shuffle(this.cards);
-        }
-        
-        /**
-         * Auxiliary constructor. All cards are available for dealing.
-         * @param deckQty The number of decks to put into the shoe. For example, 
-         * 6. Should not be 0 nor any negative number, preferably more than 2.
-         */
-        Shoe(int deckQty) {
-            this(deckQty, 0);
-        }
-        
-        /**
-         * Primary constructor. Note that it is package private.
-         * @param deckQty The number of decks to put into the shoe. For example, 
-         * 6. Should not be 0 nor any negative number, preferably more than 2.
-         * @param stop How many cards from the bottommost card in the shoe to 
-         * place a figurative plastic card. Thus cards under the plastic card 
-         * are unavailable for play.
-         * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
-         * less.
-         */
-        Shoe(int deckQty, int stop) {
-            if (deckQty < 1 || stop < 0) {
-                String excMsg = "Deck quantity " + deckQty 
-                        + " should be at least 1 and plastic card stop " + stop 
-                        + " should be at least 0";
-                throw new IllegalArgumentException(excMsg);
-            }
-            int total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-            this.cards = new ArrayList<>(total);
-            this.max = total - stop;
-            Deck[] decks = new Deck[deckQty];
-            for (int i = 0; i < deckQty; i++) {
-                decks[i] = new Deck(this.hashCode());
-            }
-            for (Deck deck : decks) {
-                deck.shuffle();
-                while (deck.hasNext()) {
-                    this.cards.add(deck.getNextCard());
-                }
-            }
-        }
-        
     }
     
 }

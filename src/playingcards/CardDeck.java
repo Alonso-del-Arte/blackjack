@@ -86,7 +86,7 @@ public class CardDeck implements CardSupplier {
                 break;
             case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1:
             case INITIAL_NUMBER_OF_CARDS_PER_DECK:
-                String excMsg = "Can't shuffle a deck with one or no cards left";
+                String excMsg = "Can't shuffle deck with one or no cards left";
                 throw new IllegalStateException(excMsg);
             default:
                 Collections.shuffle(this.cards.subList(this.dealCount, 
