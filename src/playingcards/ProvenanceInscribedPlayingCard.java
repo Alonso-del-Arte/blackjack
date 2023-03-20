@@ -195,27 +195,26 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
 
         @Override
         public ProvenanceInscribedPlayingCard getNextCard() {
-//            if (this.dealCount == this.max) {
-//                String excMsg = "After giving out " + this.max 
-//                        + " cards, there are no more cards to give";
-//                throw new RanOutOfCardsException(excMsg);
-//            }
+            if (this.dealCount == this.max) {
+                String excMsg = "After giving out " + this.max 
+                        + " cards, there are no more cards to give";
+                throw new RanOutOfCardsException(excMsg);
+            }
             return this.cards.get(this.dealCount++);
         }
 
         @Override
         public boolean provenance(PlayingCard card) {
-            return false;
-//            if (card instanceof ProvenanceInscribedPlayingCard) {
-//                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
-//                        == this.hashCode();
-//            } else {
-//                return false;
-//            }
+            if (card instanceof ProvenanceInscribedPlayingCard) {
+                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
+                        == this.hashCode();
+            } else {
+                return false;
+            }
         }
         
         public void shuffle() {
-//            Collections.shuffle(this.cards);
+            Collections.shuffle(this.cards);
         }
         
         /**
@@ -238,18 +237,18 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
          * less.
          */
         Shoe(int deckQty, int stop) {
-//            if (deckQty < 1 || stop < 0) {
-//                String excMsg = "Deck quantity " + deckQty 
-//                        + " should be at least 1 and plastic card stop " + stop 
-//                        + " should be at least 0";
-//                throw new IllegalArgumentException(excMsg);
-//            }
+            if (deckQty < 1 || stop < 0) {
+                String excMsg = "Deck quantity " + deckQty 
+                        + " should be at least 1 and plastic card stop " + stop 
+                        + " should be at least 0";
+                throw new IllegalArgumentException(excMsg);
+            }
             int total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
             this.cards = new ArrayList<>(total);
             this.max = total - stop;
             Deck[] decks = new Deck[deckQty];
             for (int i = 0; i < deckQty; i++) {
-                decks[i] = new Deck(0);//this.hashCode());
+                decks[i] = new Deck(this.hashCode());
             }
             for (Deck deck : decks) {
 //                deck.shuffle();

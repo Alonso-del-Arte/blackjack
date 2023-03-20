@@ -484,4 +484,152 @@ public class ProvenanceInscribedPlayingCardTest {
         assert !shoe.provenance(card) : msg;
     }
     
+    @Test
+    public void testShoeProvenance() {
+        System.out.println("Shoe.provenance");
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardSupplier shoe = new ProvenanceInscribedPlayingCard.Shoe(deckQty, 
+                stop);
+        while (shoe.hasNext()) {
+            PlayingCard card = shoe.getNextCard();
+            String msg = card.toString() + " that was drawn from shoe " 
+                    + shoe.toString() + " should not be disavowed";
+            assert shoe.provenance(card) : msg;
+        }
+    }
+    
+    @Test
+    public void testShoeProvenanceFromDifferentShoe() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        CardSupplier shoeA 
+                = new ProvenanceInscribedPlayingCard.Shoe(deckQty, stop);
+        CardSupplier shoeB 
+                = new ProvenanceInscribedPlayingCard.Shoe(deckQty, stop);
+        PlayingCard cardFromShoeA = shoeA.getNextCard();
+        PlayingCard cardFromShoeB = shoeB.getNextCard();
+        String msgA = "Card " + cardFromShoeA.toString() 
+                + " from Shoe A should not be said to be from Shoe B";
+        assert !shoeB.provenance(cardFromShoeA) : msgA;
+        String msgB = "Card " + cardFromShoeB.toString() 
+                + " from Shoe B should not be said to be from Shoe A";
+        assert !shoeA.provenance(cardFromShoeB) : msgB;
+    }
+    
+    @Test
+    public void testShoeShuffle() {
+        System.out.println("Shoe.shuffle");
+        int expected = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(15);
+        ProvenanceInscribedPlayingCard.Shoe shoe 
+                = new ProvenanceInscribedPlayingCard.Shoe(expected, stop);
+        shoe.shuffle();
+        Set<Integer> deckHashes = new HashSet<>(expected);
+        int sampleSize = 3 * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
+        int curr = 0;
+        while (curr < sampleSize) {
+            ProvenanceInscribedPlayingCard card = shoe.getNextCard();
+            deckHashes.add(card.getDeckHash());
+            curr++;
+        }
+        int actual = deckHashes.size();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testShoeThrowsExceptionWhenOutOfCards() {
+        int deckQty = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(15);
+        ProvenanceInscribedPlayingCard.Shoe shoe 
+                = new ProvenanceInscribedPlayingCard.Shoe(deckQty, stop);
+        shoe.shuffle();
+        PlayingCard lastGivenCard = new PlayingCard(Rank.ACE, Suit.SPADES);
+        while (shoe.hasNext()) {
+            lastGivenCard = shoe.getNextCard();
+        }
+        String msgPart = "After giving last card " 
+                + lastGivenCard.toASCIIString() 
+                + ", trying to get another card ";
+        try {
+            PlayingCard badCard = shoe.getNextCard();
+            String msg = msgPart + "should not have given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println(msgPart 
+                    + "correctly caused RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart 
+                    + "should have caused RanOutOfCardsException, not " 
+                    + re.getClass().getName();
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testShoeConstructorRejectsNegativeDeckQuantity() {
+        int badQty = -RANDOM.nextInt(256) - 4;
+        try {
+            ProvenanceInscribedPlayingCard.Shoe badShoe 
+                    = new ProvenanceInscribedPlayingCard.Shoe(badQty);
+            String msg = "Should not have been able to create " 
+                    + badShoe.toString() + " with bad deck quantity " + badQty;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad quantity " + badQty 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testShoeConstructorRejectsDeckQuantityZero() {
+        int badQty = 0;
+        try {
+            ProvenanceInscribedPlayingCard.Shoe badShoe 
+                    = new ProvenanceInscribedPlayingCard.Shoe(badQty);
+            String msg = "Should not have been able to create " 
+                    + badShoe.toString() + " with bad deck quantity " + badQty;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad quantity " + badQty 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck quantity " 
+                    + badQty;
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testShoeConstructorRejectsNegativeStop() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int badStop = -RANDOM.nextInt(256) - 4;
+        try {
+            ProvenanceInscribedPlayingCard.Shoe badShoe 
+                    = new ProvenanceInscribedPlayingCard.Shoe(deckQty, badStop);
+            String msg = "Should not have been able to create " 
+                    + badShoe.toString() + " with bad stop " + badStop;
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Bad stop " + badStop 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for bad deck stop " 
+                    + badStop;
+            fail(msg);
+        }
+    }
+    
 }
