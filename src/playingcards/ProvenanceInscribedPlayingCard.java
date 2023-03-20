@@ -16,6 +16,9 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
@@ -119,6 +122,62 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
         super(rank, suit);
         this.deckHashCode = deckHash;
         this.shoeHashCode = shoeHash;
+    }
+    
+    /**
+     * Holds together a standard complement of provenance-inscribed cards. Its 
+     * hash code is used to identify that a card came from this deck.
+     */
+    public static final class Deck implements CardSupplier {
+        
+        private int dealCount = 0;
+        
+        private final List<ProvenanceInscribedPlayingCard> cards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+
+        @Override
+        public boolean hasNext() {
+            return this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        }
+
+        @Override
+        public ProvenanceInscribedPlayingCard getNextCard() {
+            if (this.dealCount >= CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+                String excMsg = "Already gave out all " 
+                        + CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+                throw new RanOutOfCardsException(excMsg);
+            }
+            return this.cards.get(this.dealCount++);
+        }
+
+        @Override
+        public boolean provenance(PlayingCard card) {
+            if (card instanceof ProvenanceInscribedPlayingCard) {
+                return this.hashCode() 
+                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
+            } else {
+                return false;
+            }
+        }
+        
+        public void shuffle() {
+            Collections.shuffle(this.cards);
+        }
+        
+        /**
+         * Sole constructor. Note that this constructor is package private.
+         * @param shoeID The shoe's hash code.
+         */
+        Deck(int shoeID) {
+            int deckID = this.hashCode();
+            for (Suit suit : Suit.values()) {
+                for (Rank rank : Rank.values()) {
+                    this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
+                            suit, deckID, shoeID));
+                }
+            }
+        }
+        
     }
     
 }

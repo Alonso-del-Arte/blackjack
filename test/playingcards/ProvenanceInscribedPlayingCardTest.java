@@ -16,7 +16,11 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -273,6 +277,120 @@ public class ProvenanceInscribedPlayingCardTest {
                         = ProvenanceInscribedPlayingCard.parseJSON(json);
                 assertEquals(expected, actual);
             }
+        }
+    }
+    
+    @Test
+    public void testDeckHasNext() {
+        System.out.println("Deck.hasNext");
+        CardSupplier deck = new ProvenanceInscribedPlayingCard
+                .Deck(this.hashCode());
+        List<PlayingCard> cards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (deck.hasNext()) {
+            cards.add(deck.getNextCard());
+        }
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, cards.size());
+    }
+    
+    @Test
+    public void testDeckGetNextCard() {
+        System.out.println("Deck.getNextCard");
+        CardSupplier deck = new ProvenanceInscribedPlayingCard
+                .Deck(this.hashCode());
+        Set<PlayingCard> cards 
+                = new HashSet<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (deck.hasNext()) {
+            cards.add(deck.getNextCard());
+        }
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, cards.size());
+    }
+    
+    @Test
+    public void testDeckProvenance() {
+        System.out.println("Deck.provenance");
+        CardSupplier deck = new ProvenanceInscribedPlayingCard
+                .Deck(this.hashCode());
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            String msg = card.toString() + " that was drawn from deck " 
+                    + deck.toString() + " should not be disavowed";
+            assert deck.provenance(card) : msg;
+        }
+    }
+    
+    @Test
+    public void testDeckDiffProvenance() {
+        CardSupplier deck = new ProvenanceInscribedPlayingCard
+                .Deck(this.hashCode());
+        CardSupplier diffDeck = new CardDeck();
+        while (diffDeck.hasNext()) {
+            PlayingCard card = diffDeck.getNextCard();
+            String msg = card.toString() + " that was drawn from deck " 
+                    + diffDeck.toString() 
+                    + " should not be acknowledged as coming from " 
+                    + deck.toString();
+            assert !deck.provenance(card) : msg;
+        }
+    }
+    
+    private static PlayingCard removeProvenanceInfo(PlayingCard card) {
+        Rank rank = card.cardRank;
+        Suit suit = card.cardSuit;
+        return new PlayingCard(rank, suit);
+    }
+    
+    @Test
+    public void testDeckShuffle() {
+        System.out.println("Deck.shuffle");
+        CardSupplier firstDeck = new ProvenanceInscribedPlayingCard
+                .Deck(this.hashCode());
+        List<PlayingCard> originalOrderCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (firstDeck.hasNext()) {
+            PlayingCard plainCard 
+                    = removeProvenanceInfo(firstDeck.getNextCard());
+            originalOrderCards.add(plainCard);
+        }
+        ProvenanceInscribedPlayingCard.Deck secondDeck 
+                = new ProvenanceInscribedPlayingCard.Deck(this.hashCode());
+        secondDeck.shuffle();
+        List<PlayingCard> shuffledCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (secondDeck.hasNext()) {
+            PlayingCard plainCard 
+                    = removeProvenanceInfo(secondDeck.getNextCard());
+            shuffledCards.add(plainCard);
+        }
+        assertNotEquals(originalOrderCards, shuffledCards);
+    }
+    
+    @Test
+    public void testDeckThrowsExceptionWhenOutOfCards() {
+        ProvenanceInscribedPlayingCard.Deck deck 
+                = new ProvenanceInscribedPlayingCard.Deck(this.hashCode());
+        deck.shuffle();
+        PlayingCard lastGivenCard = new PlayingCard(Rank.ACE, Suit.SPADES);
+        while (deck.hasNext()) {
+            lastGivenCard = deck.getNextCard();
+        }
+        String msgPart = "After giving last card " 
+                + lastGivenCard.toASCIIString() 
+                + ", trying to get another card ";
+        try {
+            PlayingCard badCard = deck.getNextCard();
+            String msg = msgPart + "should not have given " 
+                    + badCard.toString();
+            fail(msg);
+        } catch (RanOutOfCardsException roce) {
+            System.out.println(msgPart 
+                    + "correctly caused RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = msgPart 
+                    + "should have caused RanOutOfCardsException, not " 
+                    + re.getClass().getName();
+            fail(msg);
         }
     }
     
