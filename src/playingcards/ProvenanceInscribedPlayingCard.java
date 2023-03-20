@@ -152,13 +152,12 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
 
         @Override
         public boolean provenance(PlayingCard card) {
-            return true;
-//            if (card instanceof ProvenanceInscribedPlayingCard) {
-//                return this.hashCode() 
-//                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
-//            } else {
-//                return false;
-//            }
+            if (card instanceof ProvenanceInscribedPlayingCard) {
+                return this.hashCode() 
+                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
+            } else {
+                return false;
+            }
         }
         
         public void shuffle() {
