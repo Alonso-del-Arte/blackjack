@@ -152,12 +152,13 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
 
         @Override
         public boolean provenance(PlayingCard card) {
-            if (card instanceof ProvenanceInscribedPlayingCard) {
-                return this.hashCode() 
-                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
-            } else {
-                return false;
-            }
+            return true;
+//            if (card instanceof ProvenanceInscribedPlayingCard) {
+//                return this.hashCode() 
+//                        == ((ProvenanceInscribedPlayingCard) card).deckHashCode;
+//            } else {
+//                return false;
+//            }
         }
         
         public void shuffle() {
@@ -174,6 +175,87 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
                 for (Rank rank : Rank.values()) {
                     this.cards.add(new ProvenanceInscribedPlayingCard(rank, 
                             suit, deckID, shoeID));
+                }
+            }
+        }
+        
+    }
+    
+    public static final class Shoe implements CardSupplier {
+        
+        private int dealCount = 0;
+        
+        private final int max;
+        
+        private final List<ProvenanceInscribedPlayingCard> cards;
+        
+        @Override
+        public boolean hasNext() {
+            return this.dealCount < this.max;
+        }
+
+        @Override
+        public ProvenanceInscribedPlayingCard getNextCard() {
+//            if (this.dealCount == this.max) {
+//                String excMsg = "After giving out " + this.max 
+//                        + " cards, there are no more cards to give";
+//                throw new RanOutOfCardsException(excMsg);
+//            }
+            return this.cards.get(this.dealCount++);
+        }
+
+        @Override
+        public boolean provenance(PlayingCard card) {
+            return false;
+//            if (card instanceof ProvenanceInscribedPlayingCard) {
+//                return ((ProvenanceInscribedPlayingCard) card).shoeHashCode 
+//                        == this.hashCode();
+//            } else {
+//                return false;
+//            }
+        }
+        
+        public void shuffle() {
+//            Collections.shuffle(this.cards);
+        }
+        
+        /**
+         * Auxiliary constructor. All cards are available for dealing.
+         * @param deckQty The number of decks to put into the shoe. For example, 
+         * 6. Should not be 0 nor any negative number, preferably more than 2.
+         */
+        Shoe(int deckQty) {
+            this(deckQty, 0);
+        }
+        
+        /**
+         * Primary constructor. Note that it is package private.
+         * @param deckQty The number of decks to put into the shoe. For example, 
+         * 6. Should not be 0 nor any negative number, preferably more than 2.
+         * @param stop How many cards from the bottommost card in the shoe to 
+         * place a figurative plastic card. Thus cards under the plastic card 
+         * are unavailable for play.
+         * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
+         * less.
+         */
+        Shoe(int deckQty, int stop) {
+//            if (deckQty < 1 || stop < 0) {
+//                String excMsg = "Deck quantity " + deckQty 
+//                        + " should be at least 1 and plastic card stop " + stop 
+//                        + " should be at least 0";
+//                throw new IllegalArgumentException(excMsg);
+//            }
+            int total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+            this.cards = new ArrayList<>(total);
+            this.max = total - stop;
+            Deck[] decks = new Deck[deckQty];
+            for (int i = 0; i < deckQty; i++) {
+                decks[i] = new Deck(0);//this.hashCode());
+            }
+            for (Deck deck : decks) {
+//                deck.shuffle();
+                while (deck.hasNext()) {
+                    this.cards.add(deck.getNextCard());
                 }
             }
         }

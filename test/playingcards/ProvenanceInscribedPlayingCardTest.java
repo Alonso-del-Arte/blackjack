@@ -17,8 +17,10 @@
 package playingcards;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
@@ -391,6 +393,65 @@ public class ProvenanceInscribedPlayingCardTest {
                     + "should have caused RanOutOfCardsException, not " 
                     + re.getClass().getName();
             fail(msg);
+        }
+    }
+    
+    @Test
+    public void testShoeHasNext() {
+        System.out.println("Shoe.hasNext");
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        CardSupplier shoe = new ProvenanceInscribedPlayingCard.Shoe(deckQty);
+        List<PlayingCard> cards = new ArrayList<>(expected);
+        while (shoe.hasNext()) {
+            cards.add(shoe.getNextCard());
+        }
+        int actual = cards.size();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testShoeHasNextLimitedByStop() {
+        int deckQty = RANDOM.nextInt(8) + 2;
+        int stop = 75 + RANDOM.nextInt(15);
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - stop;
+        CardSupplier shoe = new ProvenanceInscribedPlayingCard.Shoe(deckQty, 
+                stop);
+        List<PlayingCard> cards = new ArrayList<>(expected);
+        while (shoe.hasNext()) {
+            cards.add(shoe.getNextCard());
+        }
+        int actual = cards.size();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testShoeGetNextCard() {
+        System.out.println("Shoe.getNextCard");
+        int expected = RANDOM.nextInt(8) + 2;
+        CardSupplier shoe = new ProvenanceInscribedPlayingCard.Shoe(expected);
+        Map<PlayingCard, Integer> counts 
+                = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (shoe.hasNext()) {
+            PlayingCard transferCard = removeProvenanceInfo(shoe.getNextCard());
+            if (counts.containsKey(transferCard)) {
+                counts.put(transferCard, counts.get(transferCard) + 1);
+            } else {
+                counts.put(transferCard, 1);
+            }
+        }
+        for (Suit suit : Suit.values()) {
+            for (Rank rank : Rank.values()) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String containsMsg = "Map of card counts should have " 
+                        + card.toString();
+                assert counts.containsKey(card) : containsMsg;
+                int actual = counts.get(card);
+                String msg = "Shoe with " + expected 
+                        + " decks should have as many of " + card.toString();
+                assertEquals(msg, expected, actual);
+            }
         }
     }
     
