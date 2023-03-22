@@ -20,7 +20,8 @@ was not originally so. If you cloned or forked prior to the branch rename,
 please update your clone or fork before making any pull requests.
 
 * Column width is 80.
-* Prefer spaces to tabs.
+* Prefer spaces to tabs (this is likely to be an issue only with Eclipse, a 
+simple configuration change should take care of it).
 * Opening curly braces should not go on lines by themselves.
 * As much as is practical, each class in Source Packages should have a 
 corresponding test class in Test Packages. That includes abstract classes as 
@@ -30,6 +31,6 @@ well as interfaces having one or more default implementations.
 those in the project at the outset.
 * No comments except Javadoc, TODO or FIXME.
 * Prefer small commits. But avoid making a pull request for a single commit 
-(unless it's to fix a defect).
+(unless it's to fix a defect affecting end users).
 * Pull requests should address a TODO or FIXME comment in the source, or an open 
 issue on GitHub.
