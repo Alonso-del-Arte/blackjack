@@ -350,7 +350,7 @@ public class ProvenanceInscribedPlayingCardTest {
         }
     }
     
-    private static PlayingCard removeProvenanceInfo(PlayingCard card) {
+    static PlayingCard removeProvenanceInfo(PlayingCard card) {
         Rank rank = card.cardRank;
         Suit suit = card.cardSuit;
         return new PlayingCard(rank, suit);

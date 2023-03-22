@@ -16,6 +16,9 @@
  */
 package playingcards;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -42,6 +45,29 @@ public class CardQueueTest {
         String msg = "After giving out all cards, last of which was " + lastCard 
                 + ", card queue should not have next";
         assert !queue.hasNext() : msg;
+    }
+    
+    @Test
+    public void testGetNextCard() {
+        System.out.println("getNextCard");
+        Map<PlayingCard, Integer> cardCounts 
+                = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        int expected = CardJSONServerTest.RANDOM.nextInt(8) + 2;
+        CardSupplier queue = new CardQueue(expected);
+        while (queue.hasNext()) {
+            PlayingCard card 
+                    = ProvenanceInscribedPlayingCardTest
+                            .removeProvenanceInfo(queue.getNextCard());
+            if (cardCounts.containsKey(card)) {
+                cardCounts.put(card, cardCounts.get(card) + 1);
+            } else {
+                cardCounts.put(card, 1);
+            }
+        }
+        for (PlayingCard card : cardCounts.keySet()) {
+            int actual = cardCounts.get(card);
+            assertEquals(expected, actual);
+        }
     }
     
     @Test
