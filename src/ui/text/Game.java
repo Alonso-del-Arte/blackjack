@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -15,6 +15,15 @@
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package ui.text;
+
+import blackjack.Dealer;
+import blackjack.Hand;
+import blackjack.Outcome;
+import blackjack.Player;
+import blackjack.Round;
+import blackjack.Wager;
+
+import currency.CurrencyAmount;
 
 import playingcards.PlayingCard;
 import playingcards.Rank;
