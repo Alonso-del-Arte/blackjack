@@ -57,7 +57,7 @@ public class CardQueue implements CardSupplier {
             throw new NoSuchElementException(excMsg);
         }
         this.currCardQty--;
-        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+        return this.cards.remove(0);
     }
 
     @Override
