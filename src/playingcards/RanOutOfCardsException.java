@@ -94,6 +94,11 @@ public class RanOutOfCardsException extends RuntimeException {
         this(msg, null, null);
     }
     
+    // TODO: Write tests for this
+    public RanOutOfCardsException(Rank rank) {
+        this("NOT IMPLEMENTED YET", rank);
+    }
+    
     /**
      * Constructs an exception with the specified detail message and card rank. 
      * The rank will then be available through a getter.
@@ -103,6 +108,11 @@ public class RanOutOfCardsException extends RuntimeException {
      */
     public RanOutOfCardsException(String msg, Rank rank) {
         this(msg, rank, null);
+    }
+    
+    // TODO: Write tests for this
+    public RanOutOfCardsException(Suit suit) {
+        this("NOT IMPLEMENTED YET", suit);
     }
     
     /**
