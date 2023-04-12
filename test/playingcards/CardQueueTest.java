@@ -18,6 +18,7 @@ package playingcards;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -45,6 +46,36 @@ public class CardQueueTest {
         String msg = "After giving out all cards, last of which was " + lastCard 
                 + ", card queue should not have next";
         assert !queue.hasNext() : msg;
+    }
+    
+    @Test
+    public void testGetNextCardThrowsExceptionAfterRunningOut() {
+        int deckQty = CardJSONServerTest.RANDOM.nextInt(10) + 1;
+        CardQueue queue = new CardQueue(deckQty);
+        int cardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        PlayingCard lastCard = new PlayingCard(Rank.JACK, Suit.CLUBS);
+        while (cardQty > 0) {
+            assert queue.hasNext() : "Queue should have next";
+            lastCard = queue.getNextCard();
+            cardQty--;
+        }
+        try {
+            PlayingCard nonExistentCard = queue.getNextCard();
+            String msg = "After giving out last card " + lastCard.toString() 
+                    + ", queue should not have given " 
+                    + nonExistentCard.toString();
+            fail(msg);
+        } catch (NoSuchElementException nsee) {
+            System.out.println("After giving out last card " 
+                    + lastCard.toString() 
+                    + " queue correctly threw NoSuchElementException");
+            System.out.println("\"" + nsee.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for next card after last card " 
+                    + lastCard.toString();
+            fail(msg);
+        }
     }
     
     @Test
