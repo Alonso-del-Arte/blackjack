@@ -18,7 +18,6 @@ package playingcards;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -65,11 +64,11 @@ public class CardQueueTest {
                     + ", queue should not have given " 
                     + nonExistentCard.toString();
             fail(msg);
-        } catch (NoSuchElementException nsee) {
+        } catch (RanOutOfCardsException roce) {
             System.out.println("After giving out last card " 
                     + lastCard.toString() 
-                    + " queue correctly threw NoSuchElementException");
-            System.out.println("\"" + nsee.getMessage() + "\"");
+                    + " queue correctly threw RanOutOfCardsException");
+            System.out.println("\"" + roce.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
                     + " is the wrong exception for next card after last card " 
