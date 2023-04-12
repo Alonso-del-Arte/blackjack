@@ -19,7 +19,6 @@ package playingcards;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Provides cards of specific ranks or suits. The idea is that if you need to 
@@ -54,7 +53,7 @@ public class CardQueue implements CardSupplier {
     public PlayingCard getNextCard() {
         if (this.currCardQty == 0) {
             String excMsg = "No more cards left to give";
-            throw new NoSuchElementException(excMsg);
+            throw new RanOutOfCardsException(excMsg);
         }
         this.currCardQty--;
         return this.cards.remove(0);
