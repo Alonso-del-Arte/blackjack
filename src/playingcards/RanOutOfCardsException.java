@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -77,8 +77,12 @@ public class RanOutOfCardsException extends RuntimeException {
         return this.specSuit;
     }
     
+    /**
+     * Zero-parameter constructor. The exception message is "No cards of any 
+     * rank or suit left". No rank or suit deficiency specified.
+     */
     public RanOutOfCardsException() {
-        this("SORRY, NOT IMPLEMENTED YET");
+        this("No cards of any rank or suit left", null, null);
     }
     
     /**
