@@ -16,6 +16,11 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 /**
  * Provides cards of specific ranks or suits. The idea is that if you need to 
  * write a test with the dealer giving a player a ten for blackjack or a spade 
@@ -25,6 +30,10 @@ package playingcards;
  * @author Alonso del Arte
  */
 public class CardQueue implements CardSupplier {
+    
+    private List<PlayingCard> cards;
+    
+    private CardDeck[] decks;
     
     private int currCardQty;
 
@@ -43,6 +52,10 @@ public class CardQueue implements CardSupplier {
 
     @Override
     public PlayingCard getNextCard() {
+        if (this.currCardQty == 0) {
+            String excMsg = "No more cards left to give";
+            throw new NoSuchElementException(excMsg);
+        }
         this.currCardQty--;
         return new PlayingCard(Rank.JACK, Suit.CLUBS);
     }
@@ -65,6 +78,16 @@ public class CardQueue implements CardSupplier {
             throw new IllegalArgumentException(excMsg);
         }
         this.currCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        this.decks = new CardDeck[deckQty];
+        this.cards = new ArrayList<>();
+        for (int i = 0; i < deckQty; i++) {
+            this.decks[i] = new CardDeck();
+//            this.decks[i].shuffle();
+            while (this.decks[i].hasNext()) {
+                this.cards.add(this.decks[i].getNextCard());
+            }
+        }
+//        Collections.shuffle(this.cards);
     }
     
 }
