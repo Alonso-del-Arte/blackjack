@@ -77,6 +77,10 @@ public class RanOutOfCardsException extends RuntimeException {
         return this.specSuit;
     }
     
+    public RanOutOfCardsException() {
+        this("SORRY, NOT IMPLEMENTED YET");
+    }
+    
     /**
      * Constructs an exception with the specified detail message. No rank nor 
      * suit is specified.
