@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,6 +18,7 @@ package playingcards;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * A multi-deck card dispenser with the option of a plastic card to prevent a 
@@ -29,7 +30,7 @@ import java.util.Collections;
  */
 public class MultiDeckCardDispenser implements CardSupplier {
     
-    private ArrayList<PlayingCard> cards;
+    private List<PlayingCard> cards;
     
     private CardDeck[] decks;
     
@@ -59,7 +60,7 @@ public class MultiDeckCardDispenser implements CardSupplier {
     @Override
     public PlayingCard getNextCard() {
         if (this.dispenseIndex == this.cards.size()) {
-            throw new RanOutOfCardsException("Ran out of cards");
+            throw new RanOutOfCardsException();
         }
         return this.cards.get(this.dispenseIndex++);
     }
@@ -74,13 +75,13 @@ public class MultiDeckCardDispenser implements CardSupplier {
      */
     @Override
     public boolean provenance(PlayingCard card) {
-        boolean matchFoundFlag = false;
+        boolean matchFound = false;
         int index = 0;
-        while (!matchFoundFlag && index < this.decks.length) {
-            matchFoundFlag = this.decks[index].provenance(card);
+        while (!matchFound && index < this.decks.length) {
+            matchFound = this.decks[index].provenance(card);
             index++;
         }
-        return matchFoundFlag;
+        return matchFound;
     }
     
     /**
