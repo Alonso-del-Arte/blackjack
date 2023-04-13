@@ -63,7 +63,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * (for example, Queen). May be null.
      */
     public Rank getRank() {
-        return this.specRank;
+        return Rank.ACE;// this.specRank;
     }
     
     /**
@@ -74,7 +74,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * (for example, Spades). May be null.
      */
     public Suit getSuit() {
-        return this.specSuit;
+        return Suit.CLUBS;// this.specSuit;
     }
     
     /**
