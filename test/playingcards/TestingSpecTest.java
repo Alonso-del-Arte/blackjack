@@ -51,10 +51,10 @@ public class TestingSpecTest {
     
     @Test
     public void testGetPluralWord() {
-        System.out.println("getPluraWord");
-        assertEquals("odds", TestingSpec.ODD_PIP.getWord());
-        assertEquals("evens", TestingSpec.EVEN_PIP.getWord());
-        assertEquals("court cards", TestingSpec.COURT.getWord());
+        System.out.println("getPluralWord");
+        assertEquals("odds", TestingSpec.ODD_PIP.getPluralWord());
+        assertEquals("evens", TestingSpec.EVEN_PIP.getPluralWord());
+        assertEquals("court cards", TestingSpec.COURT.getPluralWord());
     }
     
 }
