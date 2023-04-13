@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -55,12 +55,32 @@ public interface CardSpec {
      * the same as {@link #getWord()}, so for now this can be a placeholder for 
      * internationalization.
      * @param loc The locale for which to give the word. For example, 
-     * <code>Locale.ITALY</code>.
+     * <code>Locale.JAPAN</code>.
      * @return The same as {@link #getWord()} if this default implementation is 
      * not overridden.
      */
     default String getWord(Locale loc) {
         return this.getWord();
+    }
+    
+    /**
+     * Gives a plural word associated with the card specification.
+     * @return A plural word associated with the card specification.
+     */
+    String getPluralWord();
+    
+    /**
+     * Gives a plural word associated with the card specification suitable for 
+     * the specified locale. A default implementation is given that merely 
+     * returns the same as {@link #getPluralWord()}, so for now this can be a 
+     * placeholder for internationalization.
+     * @param loc The locale for which to give the word. For example, 
+     * <code>Locale.ITALY</code>.
+     * @return The same as {@link #getPluralWord()} if this default 
+     * implementation is not overridden.
+     */
+    default String getPluralWord(Locale loc) {
+        return this.getPluralWord();
     }
     
 }

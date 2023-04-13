@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -46,6 +46,12 @@ public enum TestingSpec implements CardSpec {
     @Override
     public String getWord() {
         return this.specWord;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public String getPluralWord() {
+        return this.specWord + 'x';
     }
 
     TestingSpec(char ch, String word) {

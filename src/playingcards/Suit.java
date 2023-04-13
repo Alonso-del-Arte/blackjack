@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -115,6 +115,12 @@ public enum Suit implements CardSpec {
         return this.suitWord;
     }
     
+    // TODO: Write tests for this
+    @Override
+    public String getPluralWord() {
+        return "SORRY, NOT IMPLEMENTED YET";
+    }
+
     /**
      * Gives the color to use for text elements on a playing card. The color is 
      * only a suggestion, it may be tweaked or altogether ignored depending on 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -158,6 +158,12 @@ public enum Rank implements CardSpec {
         return this.rankWord;
     }
     
+    // TODO: Write tests for this
+    @Override
+    public String getPluralWord() {
+        return "SORRY, NOT IMPLEMENTED YET";
+    }
+
     /**
      * Tells whether a given rank corresponds to courts card or not. Other terms 
      * for "court card" include "face card," "picture card" and "painting card."
