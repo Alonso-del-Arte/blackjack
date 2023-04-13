@@ -158,10 +158,17 @@ public enum Rank implements CardSpec {
         return this.rankWord;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Gives the plural English word for this rank.
+     * @return "Aces" for ACE, "Twos" for TWO, "Threes" for THREE, ..., "Tens" 
+     * for TEN, "Jacks" for JACK, "Queens" for QUEEN, "Kings" for KING. SIX is a 
+     * special case as it's necessary to interpose an 'e' between the 'x' and 
+     * the ending 's'.
+     */
     @Override
     public String getPluralWord() {
-        return "SORRY, NOT IMPLEMENTED YET";
+        String intersperse = this == Rank.SIX ? "e" : "";
+        return this.rankWord + intersperse + 's';
     }
 
     /**

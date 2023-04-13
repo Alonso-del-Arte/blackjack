@@ -26,12 +26,13 @@ package playingcards;
  */
 public enum TestingSpec implements CardSpec {
     
-    ODD_PIP ('o', "odd"),
-    EVEN_PIP ('e', "even"),
-    COURT ('c', "court");
+    ODD_PIP ('o', "odd", "odds"),
+    EVEN_PIP ('e', "even", "evens"),
+    COURT ('c', "court", "court cards");
     
     private final char specChar;
     private final String specWord;
+    private final String pluralTerm;
 
     @Override
     public char getChar() {
@@ -48,15 +49,15 @@ public enum TestingSpec implements CardSpec {
         return this.specWord;
     }
     
-    // TODO: Write tests for this
     @Override
     public String getPluralWord() {
-        return this.specWord + 'x';
+        return this.pluralTerm;
     }
 
-    TestingSpec(char ch, String word) {
+    TestingSpec(char ch, String word, String term) {
         this.specChar = ch;
         this.specWord = word;
+        this.pluralTerm = term;
     }
 
 }

@@ -115,10 +115,17 @@ public enum Suit implements CardSpec {
         return this.suitWord;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Gives the English word for a suit. Since in English this is already 
+     * plural, the result is the same as calling {@link #getWord()}. With proper 
+     * internationalization, this might actually make a difference for some 
+     * locales.
+     * @return "Spades" for spades, "Hearts" for hearts, "Clubs" for clubs and 
+     * "Diamonds" for diamonds.
+     */
     @Override
     public String getPluralWord() {
-        return "SORRY, NOT IMPLEMENTED YET";
+        return this.getWord();
     }
 
     /**
