@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -95,7 +95,7 @@ public class RankTest {
     
     @Test
     public void testGetRankCharAce() {
-        System.out.println("getRankChar");
+        System.out.println("getChar");
         assertEquals('A', Rank.ACE.getChar());
     }
     
@@ -293,7 +293,7 @@ public class RankTest {
     
     @Test
     public void testGetRankWordAce() {
-        System.out.println("getRankWord");
+        System.out.println("getWord");
         assertEquals("Ace", Rank.ACE.getWord());
     }
     
@@ -355,6 +355,16 @@ public class RankTest {
     @Test
     public void testGetRankWordKing() {
         assertEquals("King", Rank.KING.getWord());
+    }
+    
+    @Test
+    public void testGetPluralWord() {
+        for (Rank rank : Rank.values()) {
+            String intersperse = rank == Rank.SIX ? "e" : "";
+            String expected = rank.getWord() + intersperse + 's';
+            String actual = rank.getPluralWord();
+            assertEquals(expected, actual);
+        }
     }
     
     @Test

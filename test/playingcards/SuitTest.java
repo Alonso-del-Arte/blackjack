@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -30,7 +30,7 @@ public class SuitTest {
     
     @Test
     public void testGetSpadesChar() {
-        System.out.println("getSuitChar");
+        System.out.println("getChar");
         assertEquals('\u2660', Suit.SPADES.getChar());
     }
     
@@ -51,7 +51,7 @@ public class SuitTest {
     
     @Test
     public void testGetSpadesAltChar() {
-        System.out.println("getAltSuitChar");
+        System.out.println("getAltChar");
         assertEquals('\u2664', Suit.SPADES.getAltChar());
     }
     
@@ -72,7 +72,7 @@ public class SuitTest {
     
     @Test
     public void testGetSpadesASCIIChar() {
-        System.out.println("getSuitCharASCII");
+        System.out.println("getCharASCII");
         assertEquals('S', Suit.SPADES.getCharASCII());
     }
     
@@ -93,7 +93,7 @@ public class SuitTest {
     
     @Test
     public void testGetSpadesCharEmojiVariant() {
-        System.out.println("getSuitCharEmojiVariant");
+        System.out.println("getCharEmojiVariant");
         assertEquals("\u2660\uFE0F", Suit.SPADES.getCharEmojiVariant());
     }
     
@@ -114,7 +114,7 @@ public class SuitTest {
     
     @Test
     public void testGetSpadesWord() {
-        System.out.println("getSuitWord");
+        System.out.println("getWord");
         assertEquals("Spades", Suit.SPADES.getWord());
     }
     
@@ -131,6 +131,15 @@ public class SuitTest {
     @Test
     public void testGetClubsWord() {
         assertEquals("Clubs", Suit.CLUBS.getWord());
+    }
+    
+    @Test
+    public void testGetPluralWord() {
+        for (Suit suit : Suit.values()) {
+            String expected = suit.getWord();
+            String actual = suit.getPluralWord();
+            assertEquals(expected, actual);
+        }
     }
     
     /**

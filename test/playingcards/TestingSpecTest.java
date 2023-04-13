@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -47,6 +47,14 @@ public class TestingSpecTest {
         assertEquals("odd", TestingSpec.ODD_PIP.getWord());
         assertEquals("even", TestingSpec.EVEN_PIP.getWord());
         assertEquals("court", TestingSpec.COURT.getWord());
+    }
+    
+    @Test
+    public void testGetPluralWord() {
+        System.out.println("getPluraWord");
+        assertEquals("odds", TestingSpec.ODD_PIP.getWord());
+        assertEquals("evens", TestingSpec.EVEN_PIP.getWord());
+        assertEquals("court cards", TestingSpec.COURT.getWord());
     }
     
 }
