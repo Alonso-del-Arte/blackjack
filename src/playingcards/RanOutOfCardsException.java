@@ -41,7 +41,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * constructed, false otherwise.
      */
     public boolean rankDeficient() {
-        return !this.rankNotNullFlag;
+        return this.rankNotNullFlag;
     }
     
     /**
@@ -52,7 +52,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * constructed, false otherwise.
      */
     public boolean suitDeficient() {
-        return !this.suitNotNullFlag;
+        return this.suitNotNullFlag;
     }
     
     /**
@@ -63,7 +63,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * (for example, Queen). May be null.
      */
     public Rank getRank() {
-        return Rank.ACE;// this.specRank;
+        return this.specRank;
     }
     
     /**
@@ -74,7 +74,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * (for example, Spades). May be null.
      */
     public Suit getSuit() {
-        return Suit.CLUBS;// this.specSuit;
+        return this.specSuit;
     }
     
     /**
