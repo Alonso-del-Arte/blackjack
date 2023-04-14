@@ -25,16 +25,29 @@ import static org.junit.Assert.*;
  */
 public class RanOutOfCardsExceptionTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
+    
+    private static final String EXCEPTION_MESSAGE_PART = "Ran out of ";
+    
+    private static final String EXCEPTION_MESSAGE_ALL_OUT 
+            = "Ran out of all cards";
+    
     /**
      * Test of the rankDeficient function, of the RanOutOfCardsException class.
      */
     @Test
     public void testRankDeficient() {
         System.out.println("rankDeficient");
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Jacks", Rank.JACK);
-        String msg = "Ran out of Jacks should be considered rank-deficient";
-        assert roce.rankDeficient() : msg;
+        String msgPart = " should be considered rank-deficient";
+        for (Rank rank : RANKS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + rank.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, rank);
+            String msg = excMsg + msgPart;
+            assert roce.rankDeficient() : msg;
+        }
     }
 
     /**
@@ -44,7 +57,7 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testNotRankDeficient() {
         RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of all cards");
+                = new RanOutOfCardsException(EXCEPTION_MESSAGE_ALL_OUT);
         String msg = "Ran out of all cards not considered rank-deficient";
         assert !roce.rankDeficient() : msg;
     }
@@ -55,10 +68,14 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testSuitDeficient() {
         System.out.println("suitDeficient");
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Clubs", Suit.CLUBS);
-        String msg = "Ran out of Clubs should be considered suit-deficient";
-        assert roce.suitDeficient() : msg;
+        String msgPart = " should be considered suit-deficient";
+        for (Suit suit : SUITS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + suit.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, suit);
+            String msg = excMsg + msgPart;
+            assert roce.suitDeficient() : msg;
+        }
     }
 
     /**
@@ -68,7 +85,7 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testNotSuitDeficient() {
         RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of all cards");
+                = new RanOutOfCardsException(EXCEPTION_MESSAGE_ALL_OUT);
         String msg = "Ran out of all cards not considered suit-deficient";
         assert !roce.suitDeficient() : msg;
     }
@@ -79,11 +96,13 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testGetRank() {
         System.out.println("getRank");
-        Rank expected = Rank.NINE;
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Nines", expected);
-        Rank actual = roce.getRank();
-        assertEquals(expected, actual);
+        for (Rank expected : RANKS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + expected.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, expected);
+            Rank actual = roce.getRank();
+            assertEquals(expected, actual);
+        }
     }
 
     /**
@@ -93,10 +112,13 @@ public class RanOutOfCardsExceptionTest {
      */
     @Test
     public void testGetRankShouldNotInventRank() {
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Hearts", Suit.HEARTS);
-        Rank rank = roce.getRank();
-        assertNull(rank);
+        for (Suit suit : SUITS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + suit.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, suit);
+            Rank rank = roce.getRank();
+            assertNull(rank);
+        }
     }
 
     /**
@@ -105,11 +127,13 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testGetSuit() {
         System.out.println("getSuit");
-        Suit expected = Suit.HEARTS;
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Hearts", expected);
-        Suit actual = roce.getSuit();
-        assertEquals(expected, actual);
+        for (Suit expected : SUITS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + expected.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, expected);
+            Suit actual = roce.getSuit();
+            assertEquals(expected, actual);
+        }
     }
     
     /**
@@ -120,10 +144,13 @@ public class RanOutOfCardsExceptionTest {
     @Test
     public void testGetSuitShouldNotInventSuit() {
         System.out.println("getSuit");
-        RanOutOfCardsException roce 
-                = new RanOutOfCardsException("Ran out of Hearts", Rank.NINE);
-        Suit suit = roce.getSuit();
-        assertNull(suit);
+        for (Rank rank : RANKS) {
+            String excMsg = EXCEPTION_MESSAGE_PART + rank.getPluralWord();
+            RanOutOfCardsException roce 
+                    = new RanOutOfCardsException(excMsg, rank);
+            Suit suit = roce.getSuit();
+            assertNull(suit);
+        }
     }
     
     @Test
