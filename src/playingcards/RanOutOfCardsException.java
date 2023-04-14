@@ -41,7 +41,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * constructed, false otherwise.
      */
     public boolean rankDeficient() {
-        return this.rankNotNullFlag;
+        return !this.rankNotNullFlag;
     }
     
     /**
@@ -52,7 +52,7 @@ public class RanOutOfCardsException extends RuntimeException {
      * constructed, false otherwise.
      */
     public boolean suitDeficient() {
-        return this.suitNotNullFlag;
+        return !this.suitNotNullFlag;
     }
     
     /**
