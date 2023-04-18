@@ -68,6 +68,10 @@ public class Dealer {
         return false;
     }
     
+    public void stand(Player player) {
+        // TODO: Write tests for this
+    }
+    
     /**
      * Auxiliary constructor. The dealer will allow splitting pairs of the same 
      * rank (e.g., 8&#9824; and 8&#9829;) and cards valued at 10 of different 
