@@ -94,9 +94,14 @@ public class RanOutOfCardsException extends RuntimeException {
         this(msg, null, null);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Constructs an exception with the specified card rank. The rank will then 
+     * be available through a getter.
+     * @param rank The rank that caused this exception. For example, 
+     * <code>Rank.EIGHT</code>.
+     */
     public RanOutOfCardsException(Rank rank) {
-        this("NOT IMPLEMENTED YET", rank);
+        this("Ran out of " + rank.getPluralWord(), rank);
     }
     
     /**
