@@ -179,4 +179,19 @@ public class RanOutOfCardsExceptionTest {
         }
     }
     
+    @Test
+    public void testSuitParamConstructor() {
+        for (Suit suit : SUITS) {
+            RanOutOfCardsException instance = new RanOutOfCardsException(suit);
+            String expected = "Ran out of " + suit.getPluralWord();
+            String actual = instance.getMessage();
+            assertEquals(expected, actual);
+            assertEquals(suit, instance.getSuit());
+            String msg = expected 
+                    + " exception is suit-deficient, not rank-deficient";
+            assert instance.suitDeficient() : msg;
+            assert !instance.rankDeficient() : msg;
+        }
+    }
+    
 }
