@@ -109,15 +109,20 @@ public class RanOutOfCardsException extends RuntimeException {
      * The rank will then be available through a getter.
      * @param msg The detail message. For example, "Ran out of Eights".
      * @param rank The rank that caused this exception. For example, 
-     * <code>Rank.EIGHT</code>.
+     * {@link Rank#EIGHT}.
      */
     public RanOutOfCardsException(String msg, Rank rank) {
         this(msg, rank, null);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Constructs an exception with the specified detail message and card suit. 
+     * The suit will then be available through a getter.
+     * @param suit The suit that caused this exception. For example, {@link 
+     * Suit#DIAMONDS}.
+     */
     public RanOutOfCardsException(Suit suit) {
-        this("NOT IMPLEMENTED YET", suit);
+        this("Ran out of " + suit.getPluralWord(), suit);
     }
     
     /**
