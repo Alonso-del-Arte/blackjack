@@ -40,6 +40,16 @@ public final class AbridgedDeck extends CardDeck {
     }
     
     public AbridgedDeck(Suit... suits) {
+        List<PlayingCard> taggedCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        if (suits.length > 0) {
+            for (PlayingCard card : this.cards) {
+                if (card.getSuit() == suits[0]) {
+                    taggedCards.add(card);
+                }
+            }
+        }
+        this.cards.removeAll(taggedCards);
     }
     
 }
