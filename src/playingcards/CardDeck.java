@@ -33,7 +33,7 @@ public class CardDeck implements CardSupplier {
      */
     public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 52;
 
-    private final ArrayList<PlayingCard> cards;
+    final ArrayList<PlayingCard> cards;
 
     private int dealCount = 0;
 
@@ -43,7 +43,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return (this.dealCount < INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        return (this.dealCount < this.cards.size());
     }
 
     /**
@@ -56,8 +56,8 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public PlayingCard getNextCard() {
-        if (this.dealCount == INITIAL_NUMBER_OF_CARDS_PER_DECK) {
-            throw new RanOutOfCardsException("All cards have been dealt");
+        if (this.dealCount == this.cards.size()) {
+            throw new RanOutOfCardsException();
         }
         return this.cards.get(dealCount++);
     }
@@ -115,7 +115,7 @@ public class CardDeck implements CardSupplier {
      * called.
      */
     public CardDeck() {
-        this.cards = new ArrayList<>();
+        this.cards = new ArrayList<>(INITIAL_NUMBER_OF_CARDS_PER_DECK);
         PlayingCard card;
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {

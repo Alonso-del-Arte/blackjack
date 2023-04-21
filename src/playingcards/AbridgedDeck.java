@@ -16,6 +16,9 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * A deck of cards with certain ranks or suits taken out. This is to be used for 
  * games like Spanish 21, in which the tens are removed.
@@ -24,6 +27,16 @@ package playingcards;
 public final class AbridgedDeck extends CardDeck {
 
     public AbridgedDeck(Rank... ranks) {
+        List<PlayingCard> taggedCards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        if (ranks.length > 0) {
+            for (PlayingCard card : this.cards) {
+                if (card.getRank() == ranks[0]) {
+                    taggedCards.add(card);
+                }
+            }
+        }
+        this.cards.removeAll(taggedCards);
     }
     
     public AbridgedDeck(Suit... suits) {
