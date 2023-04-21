@@ -39,10 +39,18 @@ public class AbridgedDeckTest {
         }
     }
     
-//    @Test
+    @Test
     public void testOmitSingleSuit() {
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        for (Suit omittedSuit : Suit.values()) {
+            AbridgedDeck deck = new AbridgedDeck(omittedSuit);
+            deck.shuffle();
+            String msgPart = " should not be of " + omittedSuit.getPluralWord();
+            while (deck.hasNext()) {
+                PlayingCard card = deck.getNextCard();
+                String msg = card.toString() + msgPart;
+                assert card.getSuit() != omittedSuit : msg;
+            }
+        }
     }
     
 }
