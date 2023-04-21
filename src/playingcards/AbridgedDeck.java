@@ -30,11 +30,10 @@ public final class AbridgedDeck extends CardDeck {
     private void removeCards(Predicate<PlayingCard> predicate) {
         List<PlayingCard> taggedCards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
-            for (PlayingCard card : this.cards) {
-                if (predicate.test(card)) {
-                    taggedCards.add(card);
-                }
-            }
+        this.cards.stream().filter((card) 
+                -> (predicate.test(card))).forEachOrdered((card) -> {
+            taggedCards.add(card);
+        });
         this.cards.removeAll(taggedCards);
     }
 
