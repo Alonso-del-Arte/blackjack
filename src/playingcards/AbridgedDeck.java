@@ -18,6 +18,7 @@ package playingcards;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * A deck of cards with certain ranks or suits taken out. This is to be used for 
@@ -25,31 +26,28 @@ import java.util.List;
  * @author Alonso del Arte
  */
 public final class AbridgedDeck extends CardDeck {
-
-    public AbridgedDeck(Rank... ranks) {
+    
+    private void removeCards(Predicate<PlayingCard> predicate) {
         List<PlayingCard> taggedCards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
-        if (ranks.length > 0) {
             for (PlayingCard card : this.cards) {
-                if (card.getRank() == ranks[0]) {
+                if (predicate.test(card)) {
                     taggedCards.add(card);
                 }
             }
-        }
         this.cards.removeAll(taggedCards);
+    }
+
+    public AbridgedDeck(Rank... ranks) {
+        if (ranks.length > 0) {
+            this.removeCards(card -> (card.getRank() == ranks[0]));
+        }
     }
     
     public AbridgedDeck(Suit... suits) {
-        List<PlayingCard> taggedCards 
-                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
         if (suits.length > 0) {
-            for (PlayingCard card : this.cards) {
-                if (card.getSuit() == suits[0]) {
-                    taggedCards.add(card);
-                }
-            }
+            this.removeCards(card -> (card.getSuit() == suits[0]));
         }
-        this.cards.removeAll(taggedCards);
     }
     
 }
