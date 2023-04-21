@@ -53,4 +53,14 @@ public class AbridgedDeckTest {
         }
     }
     
+    @Test
+    public void testOmitMultipleRanks() {
+        fail("Haven't written test yet");
+    }
+    
+//    @Test
+    public void testOmitMultipleSuits() {
+        fail("Haven't written test yet");
+    }
+    
 }
