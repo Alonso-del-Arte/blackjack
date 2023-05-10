@@ -38,8 +38,8 @@ public final class AbridgedDeck extends CardDeck {
     }
 
     public AbridgedDeck(Rank... ranks) {
-        if (ranks.length > 0) {
-            this.removeCards(card -> (card.getRank() == ranks[0]));
+        for (Rank rankToRemove : ranks) {
+            this.removeCards(card -> (card.getRank() == rankToRemove));
         }
     }
     
