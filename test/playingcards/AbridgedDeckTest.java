@@ -90,20 +90,29 @@ public class AbridgedDeckTest {
     }
     
     private static Suit[] chooseTwoSuitsToOmit() {
-        CardDeck choosingDeck = new CardDeck();
-        choosingDeck.shuffle();
-        Rank rankA = choosingDeck.getNextCard().getRank();
-        Rank rankB = rankA;
-        while (rankA == rankB) {
-            rankB = choosingDeck.getNextCard().getRank();
+        CardDeck choosingDeck = getChoosingDeck();
+        Suit suitA = choosingDeck.getNextCard().getSuit();
+        Suit suitB = suitA;
+        while (suitA == suitB) {
+            suitB = choosingDeck.getNextCard().getSuit();
         }
-        Suit[] suits = {};
+        Suit[] suits = {suitA, suitB};
+        Arrays.sort(suits);
         return suits;
     }
     
-//    @Test
+    @Test
     public void testOmitMultipleSuits() {
-        fail("Haven't written test yet");
+        Suit[] suitsToOmit = chooseTwoSuitsToOmit();
+        CardDeck abridgedDeck = new AbridgedDeck(suitsToOmit);
+        String msgPartA = "After omitting " + Arrays.toString(suitsToOmit) 
+                + ", given card ";
+        String msgPartB = " should not be of an omitted suit";
+        while (abridgedDeck.hasNext()) {
+            PlayingCard card = abridgedDeck.getNextCard();
+            String msg = msgPartA + card.toString() + msgPartB;
+            assert Arrays.binarySearch(suitsToOmit, card.getSuit()) < 0 : msg;
+        }
     }
     
 }
