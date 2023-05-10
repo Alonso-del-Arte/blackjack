@@ -16,6 +16,10 @@
  */
 package playingcards;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -53,9 +57,48 @@ public class AbridgedDeckTest {
         }
     }
     
+    private static CardDeck getChoosingDeck() {
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        return deck;
+    }
+    
+    private static Rank[] chooseRanksToOmit() {
+        CardDeck choosingDeck = getChoosingDeck();
+        int capacity = (choosingDeck.getNextCard().cardValue() % 4) + 2;
+        Set<Rank> rankSet = new HashSet<>(capacity);
+        while (rankSet.size() < capacity) {
+            rankSet.add(choosingDeck.getNextCard().getRank());
+        }
+        Rank[] ranks = new Rank[capacity];
+        Arrays.sort(rankSet.toArray(ranks));
+        return ranks;
+    }
+    
     @Test
     public void testOmitMultipleRanks() {
-        fail("Haven't written test yet");
+        Rank[] ranksToOmit = chooseRanksToOmit();
+        CardDeck abridgedDeck = new AbridgedDeck(ranksToOmit);
+        String msgPartA = "After omitting " + Arrays.toString(ranksToOmit) 
+                + ", given card ";
+        String msgPartB = " should not be of an omitted rank";
+        while (abridgedDeck.hasNext()) {
+            PlayingCard card = abridgedDeck.getNextCard();
+            String msg = msgPartA + card.toString() + msgPartB;
+            assert Arrays.binarySearch(ranksToOmit, card.getRank()) < 0 : msg;
+        }
+    }
+    
+    private static Suit[] chooseTwoSuitsToOmit() {
+        CardDeck choosingDeck = new CardDeck();
+        choosingDeck.shuffle();
+        Rank rankA = choosingDeck.getNextCard().getRank();
+        Rank rankB = rankA;
+        while (rankA == rankB) {
+            rankB = choosingDeck.getNextCard().getRank();
+        }
+        Suit[] suits = {};
+        return suits;
     }
     
 //    @Test
