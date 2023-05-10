@@ -22,7 +22,7 @@ import java.util.function.Predicate;
 
 /**
  * A deck of cards with certain ranks or suits taken out. This is to be used for 
- * games like Spanish 21, in which the tens are removed.
+ * games like Spanish 21, in which the Tens are removed.
  * @author Alonso del Arte
  */
 public final class AbridgedDeck extends CardDeck {
@@ -37,15 +37,33 @@ public final class AbridgedDeck extends CardDeck {
         this.cards.removeAll(taggedCards);
     }
 
+    /**
+     * Constructor to omit the specified ranks. The resulting deck will most 
+     * likely have fewer cards than a regular {@link CardDeck}, but never more 
+     * cards.
+     * @param ranks The rank or ranks to omit. For example, the Eights and the 
+     * Tens. Special cases: no ranks removed means might as well have used the 
+     * <code>CardDeck</code> constructor instead; all ranks removed depletes the 
+     * deck completely before any game can even begin.
+     */
     public AbridgedDeck(Rank... ranks) {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
     }
     
+    /**
+     * Constructor to omit the specified suits. The resulting deck will most 
+     * likely have fewer cards than a regular {@link CardDeck}, but never more 
+     * cards.
+     * @param suits The suit or suits to omit. For example, the Spades and the 
+     * Hearts. Special cases: no suits removed means might as well have used the 
+     * <code>CardDeck</code> constructor instead; all suits removed depletes the 
+     * deck completely before any game can even begin.
+     */
     public AbridgedDeck(Suit... suits) {
-        if (suits.length > 0) {
-            this.removeCards(card -> (card.getSuit() == suits[0]));
+        for (Suit suitToRemove : suits) {
+            this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
     }
     
