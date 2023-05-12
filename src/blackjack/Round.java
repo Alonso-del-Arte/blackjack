@@ -31,6 +31,12 @@ public class Round {
             String excMsg = "At least one player required";
             throw new IllegalArgumentException(excMsg);
         }
+        for (Player player : players) {
+            if (player == null) {
+                String excMsg = "No player may be null";
+                throw new NullPointerException(excMsg);
+            }
+        }
     }
     
 }
