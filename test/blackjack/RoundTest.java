@@ -61,4 +61,24 @@ public class RoundTest {
         }
     }
     
+    @Test
+    public void testConstructorRejectsNullPlayer() {
+        Dealer dealer = new Dealer();
+        Player player1 = new Player("Johnny Q. Test");
+        Player player3 = new Player("Johnny Q. Test, Jr.");
+        try {
+            Round badRound = new Round(dealer, player1, null, player3);
+            String msg = "Should not have been able to create " 
+                    + badRound.toString() + " with any null players";
+            fail(msg);
+        } catch (NullPointerException npe) {
+            System.out.println("Null dealer correctly caused NPE");
+            System.out.println("\"" + npe.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for null player";
+            fail(msg);
+        }
+    }
+    
 }
