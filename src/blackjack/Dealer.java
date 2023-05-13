@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -40,8 +40,6 @@ public class Dealer {
     
     private Hand hand;
     
-    // TODO: Flesh out
-    
     public Set<RankPairSpec> giveSplittablePairs() {
         return new HashSet<>(this.splitSpecs);
     }
@@ -58,17 +56,21 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
+    PlayingCard start(Round round) {
+        return this.cardDispenser.getNextCard();
+    }
+    
     // TODO: Write tests for this
-    public PlayingCard hit(Player player) {
+    PlayingCard hit(Player player) {
         return null;
     }
     
     // TODO: Write tests for this
-    public boolean split(Player player) {
+    boolean split(Player player) {
         return false;
     }
     
-    public void stand(Player player) {
+    void stand(Player player) {
         // TODO: Write tests for this
     }
     
@@ -90,8 +92,23 @@ public class Dealer {
      * @throws NullPointerException If <code>pairs</code> is null.
      */
     public Dealer(Set<RankPairSpec> pairs) {
+        this(pairs, new MultiDeckCardDispenser(6, plasticCardPlace()));
+    }
+    
+    /**
+     * Package private constructor. This is mainly to be used by this class and 
+     * by test classes in this package.
+     * @param pairs The set of pairs which this dealer will allow to be split. 
+     * May be empty, must not be null. If empty, the dealer will not allow any 
+     * pairs to be split.
+     * @param cardSupplier A card supplier. In production use, this should be a 
+     * fresh {@link playingcards.MultiDeckCardDispenser} with six decks and a 
+     * plastic card placed at a somewhat random spot near the bottom.
+     * @throws NullPointerException If <code>pairs</code> is null.
+     */
+    public Dealer(Set<RankPairSpec> pairs, CardSupplier cardSupplier) {
         this.splitSpecs = new HashSet<>(pairs);
-        this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
+        this.cardDispenser = cardSupplier;
         this.hand = null;// new Hand();
     }
     
