@@ -34,3 +34,4 @@ those in the project at the outset.
 (unless it's to fix a defect affecting end users).
 * Pull requests should address a TODO or FIXME comment in the source, or an open 
 issue on GitHub.
+* Do not knowingly violate anyone's copyright or trademarks.
