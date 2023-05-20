@@ -21,7 +21,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * Tests of the AbridgedDeck class.
@@ -102,7 +101,7 @@ public class AbridgedDeckTest {
     }
     
     @Test
-    public void testOmitMultipleSuits() {
+    public void testOmitTwoSuits() {
         Suit[] suitsToOmit = chooseTwoSuitsToOmit();
         CardDeck abridgedDeck = new AbridgedDeck(suitsToOmit);
         String msgPartA = "After omitting " + Arrays.toString(suitsToOmit) 
