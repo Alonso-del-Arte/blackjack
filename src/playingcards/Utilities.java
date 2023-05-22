@@ -24,10 +24,17 @@ import java.util.Comparator;
  */
 public class Utilities {
     
+    /**
+     * Comparator for playing cards in a new standard deck. Note that for now 
+     * {@link PlayingCard} doesn't represent Jokers nor ad cards. The new deck 
+     * order consists of two Jokers, Spades from Ace to King, Diamonds from Ace 
+     * to King, Clubs from King to Ace (notice the reversal) and Hearts from 
+     * King to Ace.
+     */
     public static Comparator<PlayingCard> BRAND_NEW_DECK_ORDER 
             = (PlayingCard cardA, PlayingCard cardB) 
-                    -> Integer.compare(sortingValue(cardA), 
-                            sortingValue(cardB));
+                    -> Integer.compare(sortingValueInNewDeck(cardA), 
+                            sortingValueInNewDeck(cardB));
     
     public static Comparator<PlayingCard> DEFAULT_ORDER 
             = new Comparator<PlayingCard>() {
@@ -42,10 +49,24 @@ public class Utilities {
             
             };
     
+    /**
+     * Gives the sorting value of a rank.
+     * @param rank The rank for which a sorting value is needed. For example, 
+     * {@link Rank#QUEEN}.
+     * @return The sorting value. For example, 12.
+     */
     public static int sortingValue(Rank rank) {
         return rank.ordinal() + 1;
     }
     
+    /**
+     * Gives the sorting value of a suit. The order is Spades, Diamonds, Clubs, 
+     * Hearts. This may or may not match the order in the {@link Suit} 
+     * enumeration.
+     * @param suit The suit for which a sorting value is needed. For example, 
+     * {@link Suit#DIAMONDS}.
+     * @return The sorting value. For example, 1.
+     */
     public static int sortingValue(Suit suit) {
         switch (suit) {
             case SPADES:
@@ -63,9 +84,13 @@ public class Utilities {
         }
     }
     
-    private static int sortingValue(PlayingCard card) {
+    private static int sortingValueInNewDeck(PlayingCard card) {
         int suitValue = sortingValue(card.getSuit()) * 13;
-        return suitValue + sortingValue(card.getRank());
+        int rankValue = sortingValue(card.getRank());
+        if (suitValue > 25) {
+            rankValue = 14 - rankValue;
+        }
+        return suitValue + rankValue;
     }
     
 }
