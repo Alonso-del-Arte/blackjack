@@ -25,17 +25,9 @@ import java.util.Comparator;
 public class Utilities {
     
     public static Comparator<PlayingCard> BRAND_NEW_DECK_ORDER 
-            = new Comparator<PlayingCard>() {
-                
-                // TODO: Write tests for this
-                // TODO: Check if NetBeans still gives lambda expression 
-                //       suggestion
-                @Override
-                public int compare(PlayingCard cardA, PlayingCard cardB) {
-                    return 0;
-                }
-            
-            };
+            = (PlayingCard cardA, PlayingCard cardB) 
+                    -> Integer.compare(sortingValue(cardA), 
+                            sortingValue(cardB));
     
     public static Comparator<PlayingCard> DEFAULT_ORDER 
             = new Comparator<PlayingCard>() {
@@ -51,7 +43,11 @@ public class Utilities {
             };
     
     public static int sortingValue(Rank rank) {
-        return rank.getRank() % 13;
+        if (rank == Rank.KING) {
+            return 13;
+        } else {
+            return rank.getRank() % 13;
+        }
     }
     
     public static int sortingValue(Suit suit) {
@@ -69,6 +65,11 @@ public class Utilities {
                         + " not recognized";
                 throw new RuntimeException(excMsg);
         }
+    }
+    
+    private static int sortingValue(PlayingCard card) {
+        int suitValue = sortingValue(card.getSuit()) * 13;
+        return suitValue + sortingValue(card.getRank());
     }
     
 }
