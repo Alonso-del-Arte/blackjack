@@ -39,12 +39,10 @@ public class Utilities {
     public static Comparator<PlayingCard> DEFAULT_ORDER 
             = new Comparator<PlayingCard>() {
                 
-                // TODO: Write tests for this
-                // TODO: Check if NetBeans still gives lambda expression 
-                //       suggestion
                 @Override
                 public int compare(PlayingCard cardA, PlayingCard cardB) {
-                    return 0;
+                    return Integer.compare(sortingValue(cardA), 
+                            sortingValue(cardB));
                 }
             
             };
@@ -90,6 +88,12 @@ public class Utilities {
         if (suitValue > 25) {
             rankValue = 14 - rankValue;
         }
+        return suitValue + rankValue;
+    }
+    
+    private static int sortingValue(PlayingCard card) {
+        int suitValue = card.getSuit().ordinal() * 13;
+        int rankValue = sortingValue(card.getRank());
         return suitValue + rankValue;
     }
     
