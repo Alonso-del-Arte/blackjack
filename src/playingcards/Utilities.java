@@ -50,9 +50,8 @@ public class Utilities {
             
             };
     
-    // TODO: Write tests for this
     public static int sortingValue(Rank rank) {
-        return -1;
+        return rank.getRank() % 13;
     }
     
     // TODO: Write tests for this
