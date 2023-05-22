@@ -19,7 +19,7 @@ package playingcards;
 import java.util.Comparator;
 
 /**
- *
+ * Utility class for playing cards and collections of playing cards.
  * @author Alonso del Arte
  */
 public class Utilities {
@@ -28,8 +28,10 @@ public class Utilities {
      * Comparator for playing cards in a new standard deck. Note that for now 
      * {@link PlayingCard} doesn't represent Jokers nor ad cards. The new deck 
      * order consists of two Jokers, Spades from Ace to King, Diamonds from Ace 
-     * to King, Clubs from King to Ace (notice the reversal) and Hearts from 
-     * King to Ace.
+     * to King, Clubs from King to Ace (notice the reversal), Hearts from King 
+     * to Ace and two ad cards. In a deck meant for casino use, the two ad cards
+     * are replaced instead by two cards with a rather generic design, and one 
+     * of them has a barcode.
      */
     public static Comparator<PlayingCard> BRAND_NEW_DECK_ORDER 
             = (PlayingCard cardA, PlayingCard cardB) 
@@ -38,7 +40,10 @@ public class Utilities {
     
     /**
      * Comparator for playing cards in the default order as given by {@link 
-     * CardDeck} before calling {@link CardDeck#shuffle() shuffle()}.
+     * CardDeck} before calling {@link CardDeck#shuffle() shuffle()}. The 
+     * constructor for that class simply loops through the rank and suit values 
+     * in the order they appear in the {@link Rank} and {@link Suit} enumerated 
+     * types.
      */
     public static Comparator<PlayingCard> DEFAULT_ORDER 
             = (PlayingCard cardA, PlayingCard cardB) 
@@ -46,7 +51,8 @@ public class Utilities {
                             sortingValue(cardB));
     
     /**
-     * Gives the sorting value of a rank.
+     * Gives the sorting value of a rank. This is just the ordinal in the {@link 
+     * Rank} enumerated type plus 1.
      * @param rank The rank for which a sorting value is needed. For example, 
      * {@link Rank#QUEEN}.
      * @return The sorting value. For example, 12.
@@ -61,7 +67,8 @@ public class Utilities {
      * enumeration.
      * @param suit The suit for which a sorting value is needed. For example, 
      * {@link Suit#DIAMONDS}.
-     * @return The sorting value. For example, 1.
+     * @return The sorting value. For example, 1. Note that this is 
+     * zero-indexed.
      */
     public static int sortingValue(Suit suit) {
         switch (suit) {
