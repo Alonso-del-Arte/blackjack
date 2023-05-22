@@ -43,11 +43,7 @@ public class Utilities {
             };
     
     public static int sortingValue(Rank rank) {
-        if (rank == Rank.KING) {
-            return 13;
-        } else {
-            return rank.getRank() % 13;
-        }
+        return rank.ordinal() + 1;
     }
     
     public static int sortingValue(Suit suit) {
