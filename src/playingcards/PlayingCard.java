@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -25,7 +25,7 @@ import java.awt.Color;
  * two or more decks, I decided to make the constructor package private instead, 
  * so as to allow games to track from which deck a card comes from.
  * <p>No provision for wildcards. Implementing wildcards is left up to the game 
- * implementations.</p>
+ * implementations. No Jokers, no ad cards.</p>
  * @author Alonso del Arte
  */
 public class PlayingCard {

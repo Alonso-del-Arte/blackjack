@@ -34,6 +34,7 @@ public class Utilities {
                 public int compare(PlayingCard cardA, PlayingCard cardB) {
                     return 0;
                 }
+            
             };
     
     public static Comparator<PlayingCard> DEFAULT_ORDER 
@@ -46,6 +47,17 @@ public class Utilities {
                 public int compare(PlayingCard cardA, PlayingCard cardB) {
                     return 0;
                 }
+            
             };
+    
+    // TODO: Write tests for this
+    public static int sortingValue(Rank rank) {
+        return -1;
+    }
+    
+    // TODO: Write tests for this
+    public static int sortingValue(Suit suit) {
+        return -1;
+    }
     
 }
