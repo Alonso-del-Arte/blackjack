@@ -92,4 +92,23 @@ public class UtilitiesTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testDefaultOrderComparator() {
+        List<PlayingCard> expected 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        CardDeck expectedDeck = new CardDeck();
+        while (expectedDeck.hasNext()) {
+            expected.add(expectedDeck.getNextCard());
+        }
+        CardDeck actualDeck = new CardDeck();
+        actualDeck.shuffle();
+        List<PlayingCard> actual 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        while (actualDeck.hasNext()) {
+            actual.add(actualDeck.getNextCard());
+        }
+        Collections.sort(actual, Utilities.DEFAULT_ORDER);
+        assertEquals(expected, actual);
+    }
+    
 }
