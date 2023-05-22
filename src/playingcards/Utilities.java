@@ -36,16 +36,14 @@ public class Utilities {
                     -> Integer.compare(sortingValueInNewDeck(cardA), 
                             sortingValueInNewDeck(cardB));
     
+    /**
+     * Comparator for playing cards in the default order as given by {@link 
+     * CardDeck} before calling {@link CardDeck#shuffle() shuffle()}.
+     */
     public static Comparator<PlayingCard> DEFAULT_ORDER 
-            = new Comparator<PlayingCard>() {
-                
-                @Override
-                public int compare(PlayingCard cardA, PlayingCard cardB) {
-                    return Integer.compare(sortingValue(cardA), 
+            = (PlayingCard cardA, PlayingCard cardB) 
+                    -> Integer.compare(sortingValue(cardA), 
                             sortingValue(cardB));
-                }
-            
-            };
     
     /**
      * Gives the sorting value of a rank.
