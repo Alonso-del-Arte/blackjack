@@ -54,9 +54,21 @@ public class Utilities {
         return rank.getRank() % 13;
     }
     
-    // TODO: Write tests for this
     public static int sortingValue(Suit suit) {
-        return -1;
+        switch (suit) {
+            case SPADES:
+                return 0;
+            case DIAMONDS:
+                return 1;
+            case CLUBS:
+                return 2;
+            case HEARTS:
+                return 3;
+            default:
+                String excMsg = "Suit " + suit.getPluralWord() 
+                        + " not recognized";
+                throw new RuntimeException(excMsg);
+        }
     }
     
 }
