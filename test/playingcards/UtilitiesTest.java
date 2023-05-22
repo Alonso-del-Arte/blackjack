@@ -16,7 +16,6 @@
  */
 package playingcards;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +28,21 @@ import static org.junit.Assert.*;
  * @author Alonso del Arte
  */
 public class UtilitiesTest {
+    
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
+    
+    @Test
+    public void testSortingValueRank() {
+        System.out.println("sortingValue(rank)");
+        for (Rank rank : RANKS) {
+            int expected = rank.getRank() % 13;
+            int actual = Utilities.sortingValue(rank);
+            String msg = "Expecting " + expected + " for " + rank.getWord();
+            assertEquals(msg, expected, actual);
+        }
+    }
     
     @Test
     public void testBrandNewDeckOrderComparator() {
