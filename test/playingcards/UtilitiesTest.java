@@ -45,6 +45,18 @@ public class UtilitiesTest {
     }
     
     @Test
+    public void testSortingValueSuit() {
+        System.out.println("sortingValue(suit)");
+        Suit[] suits = {Suit.SPADES, Suit.DIAMONDS, Suit.CLUBS, Suit.HEARTS};
+        for (int expected = 0; expected < suits.length; expected++) {
+            int actual = Utilities.sortingValue(suits[expected]);
+            String msg = "Expecting " + expected + " for " 
+                    + suits[expected].getWord();
+            assertEquals(msg, expected, actual);
+        }
+    }
+    
+    @Test
     public void testBrandNewDeckOrderComparator() {
         List<PlayingCard> expected 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
