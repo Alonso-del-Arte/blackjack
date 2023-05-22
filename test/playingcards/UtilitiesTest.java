@@ -38,6 +38,9 @@ public class UtilitiesTest {
         System.out.println("sortingValue(rank)");
         for (Rank rank : RANKS) {
             int expected = rank.getRank() % 13;
+            if (expected == 0) {
+                expected = 13;
+            }
             int actual = Utilities.sortingValue(rank);
             String msg = "Expecting " + expected + " for " + rank.getWord();
             assertEquals(msg, expected, actual);
