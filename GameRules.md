@@ -15,7 +15,9 @@ current state of the console application source).
 
 After the players make their initial wagers, the dealer gives each player two 
 cards face up. The dealer also gets two cards, but one of them is face down. 
-However, in British casinos, the dealer at first only gets one card face up.
+However, in British casinos, the dealer at first only gets one card face up (see 
+[Variants.md](Variants.md) for more information on different ways of playing 
+blackjack).
 
 If the dealer's face-up card is an Ace, players may make side bets ("insurance") 
 that the dealer's face-down card is a Ten or a court card. Insurance is not yet 
