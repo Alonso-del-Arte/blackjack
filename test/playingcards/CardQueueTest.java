@@ -134,7 +134,7 @@ public class CardQueueTest {
                 + lastDupFound.toASCIIString());
     }
     
-//    @Test
+    @Test
     public void testProvenance() {
         int deckQty = 2;
         CardSupplier queue = new CardQueue(deckQty);
