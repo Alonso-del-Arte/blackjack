@@ -136,6 +136,7 @@ public class CardQueueTest {
     
     @Test
     public void testProvenance() {
+        System.out.println("provenance");
         int deckQty = 2;
         CardSupplier queue = new CardQueue(deckQty);
         String msgPart = " that was given by " + queue.toString() 
@@ -145,6 +146,23 @@ public class CardQueueTest {
             String msg = "Card " + card.toString() + msgPart;
             assert queue.provenance(card) : msg;
         }
+    }
+    
+    @Test
+    public void testProvenanceDiffQueue() {
+        int deckQty = CardJSONServerTest.RANDOM.nextInt(8) + 2;
+        CardSupplier queueA = new CardQueue(deckQty);
+        CardSupplier queueB = new CardQueue(deckQty);
+        String nameA = queueA.toString();
+        String nameB = queueB.toString();
+        PlayingCard cardA = queueA.getNextCard();
+        PlayingCard cardB = queueB.getNextCard();
+        String msgA = cardA.toString() + " from " + nameA 
+                + " should not be said to be from " + nameB;
+        String msgB = cardB.toString() + " from " + nameB
+                + " should not be said to be from " + nameA;
+        assert !queueA.provenance(cardB) : msgA;
+        assert !queueB.provenance(cardA) : msgB;
     }
     
     @Test
