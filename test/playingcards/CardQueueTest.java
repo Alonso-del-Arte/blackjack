@@ -101,6 +101,53 @@ public class CardQueueTest {
     }
     
     @Test
+    public void testConstructorShufflesCards() {
+        int deckQty = 2;
+        CardSupplier queue = new CardQueue(deckQty);
+        Map<PlayingCard, Integer> cardCounts 
+                = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        for (int dealCount = 0; 
+                dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
+                dealCount++) {
+            PlayingCard card 
+                    = ProvenanceInscribedPlayingCardTest
+                            .removeProvenanceInfo(queue.getNextCard());
+            if (cardCounts.containsKey(card)) {
+                cardCounts.put(card, cardCounts.get(card) + 1);
+            } else {
+                cardCounts.put(card, 1);
+            }
+        }
+        int dupCount = 0;
+        PlayingCard lastDupFound = null;
+        for (PlayingCard card : cardCounts.keySet()) {
+            if (cardCounts.get(card) > 1) {
+                dupCount++;
+                lastDupFound = card;
+            }
+        }
+        String msg = "Expected to find at least one duplicate, found " 
+                + dupCount;
+        assert dupCount > 0 : msg;
+        assert lastDupFound != null;
+        System.out.println("Last duplicate found was " 
+                + lastDupFound.toASCIIString());
+    }
+    
+//    @Test
+    public void testProvenance() {
+        int deckQty = 2;
+        CardSupplier queue = new CardQueue(deckQty);
+        String msgPart = " that was given by " + queue.toString() 
+                + " should not be disavowed";
+        while (queue.hasNext()) {
+            PlayingCard card = queue.getNextCard();
+            String msg = "Card " + card.toString() + msgPart;
+            assert queue.provenance(card) : msg;
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsDeckQuantityZero() {
         int badQty = 0;
         try {
