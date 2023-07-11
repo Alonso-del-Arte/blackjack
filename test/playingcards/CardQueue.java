@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -61,11 +62,8 @@ public class CardQueue implements CardSupplier {
 
     @Override
     public boolean provenance(PlayingCard card) {
-        boolean found = false;
-        for (CardDeck deck : this.decks) {
-            found = found | deck.provenance(card);
-        }
-        return found;
+        return Arrays.stream(this.decks)
+                .anyMatch(deck -> deck.provenance(card));
     }
     
     /**
