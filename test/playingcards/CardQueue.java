@@ -59,9 +59,10 @@ public class CardQueue implements CardSupplier {
         return this.cards.remove(0);
     }
 
+    // TODO: Write one more test for this function
     @Override
     public boolean provenance(PlayingCard card) {
-        return false;
+        return true;
     }
     
     /**
