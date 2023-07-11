@@ -81,12 +81,12 @@ public class CardQueue implements CardSupplier {
         this.cards = new ArrayList<>();
         for (int i = 0; i < deckQty; i++) {
             this.decks[i] = new CardDeck();
-//            this.decks[i].shuffle();
+            this.decks[i].shuffle();
             while (this.decks[i].hasNext()) {
                 this.cards.add(this.decks[i].getNextCard());
             }
         }
-//        Collections.shuffle(this.cards);
+        Collections.shuffle(this.cards);
     }
     
 }
