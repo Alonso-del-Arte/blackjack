@@ -51,8 +51,8 @@ public class CardQueue implements CardSupplier {
     public void cueUp(Rank rank) {
         boolean found = false;
         int index = -1;
-        int len = this.cards.size();
-        while (!found && index <= len) {
+        int len = this.cards.size() - 1;
+        while (!found && index < len) {
             index++;
             found = this.cards.get(index).getRank().equals(rank);
         }
@@ -61,7 +61,7 @@ public class CardQueue implements CardSupplier {
                 Collections.swap(this.cards, 0, index);
             }
         } else {
-            throw new RuntimeException("SORRY");
+            throw new RanOutOfCardsException(rank);
         }
     }
 
