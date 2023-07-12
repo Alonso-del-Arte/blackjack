@@ -174,6 +174,25 @@ public class CardQueueTest {
     }
     
     @Test
+    public void testCueUpRank() {
+        PlayingCard[] cuedUpCards = new PlayingCard[RANKS.length];
+        CardQueue queue = new CardQueue(6);
+        for (Rank expected : RANKS) {
+            queue.cueUp(expected);
+            PlayingCard card = queue.getNextCard();
+            Rank actual = card.getRank();
+            assertEquals(expected, actual);
+            cuedUpCards[expected.ordinal()] = card;
+        }
+        String cardListStr = "";
+        for (PlayingCard card : cuedUpCards) {
+            cardListStr += card.toASCIIString() + ", ";
+        }
+        cardListStr = cardListStr.substring(0, cardListStr.length() - 2);
+        System.out.println("Cue up rank gave " + cardListStr);
+    }
+    
+    @Test
     public void testCueUpRankThrowsExceptionAfterRunningOut() {
         CardQueue queue = new CardQueue(1);
         int numberOfSuits = SUITS.length;
@@ -204,13 +223,13 @@ public class CardQueueTest {
     }
     
     @Test
-    public void testCueUpRank() {
-        PlayingCard[] cuedUpCards = new PlayingCard[RANKS.length];
+    public void testCueUpSuit() {
+        PlayingCard[] cuedUpCards = new PlayingCard[SUITS.length];
         CardQueue queue = new CardQueue(6);
-        for (Rank expected : RANKS) {
+        for (Suit expected : SUITS) {
             queue.cueUp(expected);
             PlayingCard card = queue.getNextCard();
-            Rank actual = card.getRank();
+            Suit actual = card.getSuit();
             assertEquals(expected, actual);
             cuedUpCards[expected.ordinal()] = card;
         }
