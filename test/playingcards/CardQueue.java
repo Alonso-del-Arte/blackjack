@@ -66,7 +66,20 @@ public class CardQueue implements CardSupplier {
     }
 
     public void cueUp(Suit suit) {
-        // TODO: Write tests for this
+        boolean found = false;
+        int index = -1;
+        int len = this.cards.size() - 1;
+        while (!found && index < len) {
+            index++;
+            found = this.cards.get(index).getSuit().equals(suit);
+        }
+        if (found) {
+            if (index > 0) {
+                Collections.swap(this.cards, 0, index);
+            }
+        } else {
+            throw new RanOutOfCardsException(suit);
+        }
     }
 
     @Override
