@@ -42,8 +42,27 @@ public class CardQueue implements CardSupplier {
         return this.currCardQty > 0;
     }
     
+    /**
+     * Cues up a card of a specified rank. Then the next call to {@link 
+     * #getNextCard()} will give a card of that rank. No guarantee as to the 
+     * suit.
+     * @param rank The rank to get a card of. For example, a Ten.
+     */
     public void cueUp(Rank rank) {
-        // TODO: Write tests for this
+        boolean found = false;
+        int index = -1;
+        int len = this.cards.size();
+        while (!found && index <= len) {
+            index++;
+            found = this.cards.get(index).getRank().equals(rank);
+        }
+        if (found) {
+            if (index > 0) {
+                Collections.swap(this.cards, 0, index);
+            }
+        } else {
+            throw new RuntimeException("SORRY");
+        }
     }
 
     public void cueUp(Suit suit) {
