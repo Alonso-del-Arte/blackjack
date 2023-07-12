@@ -238,7 +238,7 @@ public class CardQueueTest {
             cardListStr += card.toASCIIString() + ", ";
         }
         cardListStr = cardListStr.substring(0, cardListStr.length() - 2);
-        System.out.println("Cue up rank gave " + cardListStr);
+        System.out.println("Cue up suit gave " + cardListStr);
     }
     
     @Test
