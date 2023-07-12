@@ -47,7 +47,9 @@ public class CardQueueTest {
             lastCard = queue.getNextCard();
             cardQty--;
         }
-        String msg = "After giving out all cards, last of which was " + lastCard 
+        assert lastCard != null : "Last card should not be null";
+        String msg = "After giving out all cards, last of which was " 
+                + lastCard.toASCIIString() 
                 + ", card queue should not have next";
         assert !queue.hasNext() : msg;
     }
@@ -71,7 +73,7 @@ public class CardQueueTest {
             fail(msg);
         } catch (RanOutOfCardsException roce) {
             System.out.println("After giving out last card " 
-                    + lastCard.toString() 
+                    + lastCard.toASCIIString() 
                     + " queue correctly threw RanOutOfCardsException");
             System.out.println("\"" + roce.getMessage() + "\"");
         } catch (RuntimeException re) {
@@ -218,6 +220,37 @@ public class CardQueueTest {
         }
         cardListStr = cardListStr.substring(0, cardListStr.length() - 2);
         System.out.println("Cue up rank gave " + cardListStr);
+    }
+    
+    @Test
+    public void testCueUpSuitThrowsExceptionAfterRunningOut() {
+        CardQueue queue = new CardQueue(1);
+        int numberOfRanks = RANKS.length;
+        for (Suit expected : SUITS) {
+            int rankIndex = 0;
+            while (rankIndex < numberOfRanks) {
+                queue.cueUp(expected);
+                queue.getNextCard();
+                rankIndex++;
+            }
+            String msgPart = "Trying to get one more " + expected.getWord() 
+                    + " card after depleting available " 
+                    + expected.getPluralWord() 
+                    + " should've caused RanOutOfCardsException";
+            try {
+                queue.cueUp(expected);
+                PlayingCard card = queue.getNextCard();
+                String msg = msgPart + ", not given " + card.toString(); 
+                fail(msg);
+            } catch (RanOutOfCardsException roce) {
+                String msg = msgPart.replace(" should've", "");
+                Suit actual = roce.getSuit();
+                assertEquals(msg, expected, actual);
+            } catch (RuntimeException re) {
+                String msg = msgPart + ", not " + re.getClass().getName();
+                fail(msg);
+            }
+        }
     }
     
     @Test
