@@ -186,6 +186,7 @@ public class CardQueueTest {
                     + " after depleting available " + expected.getPluralWord() 
                     + " should've caused RanOutOfCardsException";
             try {
+                queue.cueUp(expected);
                 PlayingCard card = queue.getNextCard();
                 String msg = msgPart + ", not given " + card.toString(); 
                 fail(msg);
