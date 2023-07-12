@@ -16,7 +16,6 @@
  */
 package playingcards;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -180,7 +179,12 @@ public class CardQueueTest {
             assertEquals(expected, actual);
             cuedUpCards[expected.ordinal()] = card;
         }
-        System.out.println("Cue up rank gave " + Arrays.toString(cuedUpCards));
+        String cardListStr = "";
+        for (PlayingCard card : cuedUpCards) {
+            cardListStr += card.toASCIIString() + ", ";
+        }
+        cardListStr = cardListStr.substring(0, cardListStr.length() - 2);
+        System.out.println("Cue up rank gave " + cardListStr);
     }
     
     @Test
