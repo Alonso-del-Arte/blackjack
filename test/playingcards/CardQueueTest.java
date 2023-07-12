@@ -29,6 +29,10 @@ import static org.junit.Assert.*;
  */
 public class CardQueueTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
+    
     @Test
     public void testHasNext() {
         System.out.println("hasNext");
@@ -168,11 +172,39 @@ public class CardQueueTest {
     }
     
     @Test
+    public void testCueUpRankThrowsExceptionAfterRunningOut() {
+        CardQueue queue = new CardQueue(1);
+        int numberOfSuits = SUITS.length;
+        for (Rank expected : RANKS) {
+            int suitIndex = 0;
+            while (suitIndex < numberOfSuits) {
+                queue.cueUp(expected);
+                queue.getNextCard();
+                suitIndex++;
+            }
+            String msgPart = "Trying to get one more " + expected.getWord() 
+                    + " after depleting available " + expected.getPluralWord() 
+                    + " should've caused RanOutOfCardsException";
+            try {
+                PlayingCard card = queue.getNextCard();
+                String msg = msgPart + ", not given " + card.toString(); 
+                fail(msg);
+            } catch (RanOutOfCardsException roce) {
+                String msg = msgPart.replace(" should've", "");
+                Rank actual = roce.getRank();
+                assertEquals(msg, expected, actual);
+            } catch (RuntimeException re) {
+                String msg = msgPart + ", not " + re.getClass().getName();
+                fail(msg);
+            }
+        }
+    }
+    
+    @Test
     public void testCueUpRank() {
-        Rank[] ranks = Rank.values();
-        PlayingCard[] cuedUpCards = new PlayingCard[ranks.length];
+        PlayingCard[] cuedUpCards = new PlayingCard[RANKS.length];
         CardQueue queue = new CardQueue(6);
-        for (Rank expected : ranks) {
+        for (Rank expected : RANKS) {
             queue.cueUp(expected);
             PlayingCard card = queue.getNextCard();
             Rank actual = card.getRank();
