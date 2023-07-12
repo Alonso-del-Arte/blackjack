@@ -171,14 +171,16 @@ public class CardQueueTest {
     @Test
     public void testCueUpRank() {
         Rank[] ranks = Rank.values();
+        PlayingCard[] cuedUpCards = new PlayingCard[ranks.length];
         CardQueue queue = new CardQueue(6);
-        Map<Rank, PlayingCard> rankMap = new HashMap<>(ranks.length);
         for (Rank expected : ranks) {
             queue.cueUp(expected);
-            Rank actual = queue.getNextCard().getRank();
+            PlayingCard card = queue.getNextCard();
+            Rank actual = card.getRank();
             assertEquals(expected, actual);
+            cuedUpCards[expected.ordinal()] = card;
         }
-        System.out.println("Cue up rank gave " + rankMap.keySet().toString());
+        System.out.println("Cue up rank gave " + Arrays.toString(cuedUpCards));
     }
     
     @Test
