@@ -16,7 +16,9 @@
  */
 package playingcards;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Test;
@@ -94,8 +96,9 @@ public class CardQueueTest {
                 cardCounts.put(card, 1);
             }
         }
-        for (PlayingCard card : cardCounts.keySet()) {
-            int actual = cardCounts.get(card);
+        Iterator<PlayingCard> iterator = cardCounts.keySet().iterator();
+        while (iterator.hasNext()) {
+            int actual = cardCounts.get(iterator.next());
             assertEquals(expected, actual);
         }
     }
@@ -163,6 +166,19 @@ public class CardQueueTest {
                 + " should not be said to be from " + nameA;
         assert !queueA.provenance(cardB) : msgA;
         assert !queueB.provenance(cardA) : msgB;
+    }
+    
+    @Test
+    public void testCueUpRank() {
+        Rank[] ranks = Rank.values();
+        CardQueue queue = new CardQueue(6);
+        Map<Rank, PlayingCard> rankMap = new HashMap<>(ranks.length);
+        for (Rank expected : ranks) {
+            queue.cueUp(expected);
+            Rank actual = queue.getNextCard().getRank();
+            assertEquals(expected, actual);
+        }
+        System.out.println("Cue up rank gave " + rankMap.keySet().toString());
     }
     
     @Test
