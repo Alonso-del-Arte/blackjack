@@ -31,9 +31,9 @@ import java.util.List;
  */
 public class CardQueue implements CardSupplier {
     
-    private List<PlayingCard> cards;
+    private final List<PlayingCard> cards;
     
-    private CardDeck[] decks;
+    private final CardDeck[] decks;
     
     private int currCardQty;
 
@@ -47,6 +47,9 @@ public class CardQueue implements CardSupplier {
      * #getNextCard()} will give a card of that rank. No guarantee as to the 
      * suit.
      * @param rank The rank to get a card of. For example, a Ten.
+     * @throws RanOutOfCardsException If there are no more cards of 
+     * <code>rank</code> to cue up. The only remedy is to initialize the queue 
+     * with more decks.
      */
     public void cueUp(Rank rank) {
         boolean found = false;
@@ -65,6 +68,15 @@ public class CardQueue implements CardSupplier {
         }
     }
 
+    /**
+     * Cues up a card of a specified suit. Then the next call to {@link 
+     * #getNextCard()} will give a card of that suit. No guarantee as to the 
+     * rank.
+     * @param suit The suit to get a card of. For example, Hearts.
+     * @throws RanOutOfCardsException If there are no more cards of 
+     * <code>suit</code> to cue up. The only remedy is to initialize the queue 
+     * with more decks.
+     */
     public void cueUp(Suit suit) {
         boolean found = false;
         int index = -1;
@@ -99,7 +111,8 @@ public class CardQueue implements CardSupplier {
     }
     
     /**
-     * Sole constructor.
+     * Sole constructor. The cards are shuffled twice, no direct mechanism is 
+     * provided for shuffling them any further.
      * @param deckQty How many decks to load into the queue.
      * @throws IllegalArgumentException If <code>deckQty</code> is 0 or 
      * negative.
