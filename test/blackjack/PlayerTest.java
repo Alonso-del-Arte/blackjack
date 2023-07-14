@@ -185,4 +185,54 @@ public class PlayerTest {
         assertEquals(expected, actual);
     }
     
+//    @Test
+    public void testConstructorRejectsBankrollZero() {
+        CurrencyAmount badBankroll = new CurrencyAmount(0, WagerTest.DOLLARS);
+        try {
+            Player badPlayer = new Player(DEFAULT_PLAYER_NAME, badBankroll);
+            String msg = "Should not have initialized player " 
+                    + badPlayer.getName() + " with initial bankroll " 
+                    + badBankroll.toString();
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to initialize player " 
+                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
+                    + badBankroll.toString() 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to initialize player " 
+                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
+                    + badBankroll.toString();
+            fail(msg);
+        }
+    }
+    
+    @Test
+    public void testConstructorRejectsNegativeBankroll() {
+        int badCents = -DealerTest.RANDOM.nextInt(25600) - 1;
+        CurrencyAmount badBankroll = new CurrencyAmount(badCents, 
+                WagerTest.DOLLARS);
+        try {
+            Player badPlayer = new Player(DEFAULT_PLAYER_NAME, badBankroll);
+            String msg = "Should not have initialized player " 
+                    + badPlayer.getName() + " with initial bankroll " 
+                    + badBankroll.toString();
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to initialize player " 
+                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
+                    + badBankroll.toString() 
+                    + " correctly caused IllegalArgumentException");
+            System.out.println("\"" + iae.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to initialize player " 
+                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
+                    + badBankroll.toString();
+            fail(msg);
+        }
+    }
+    
 }
