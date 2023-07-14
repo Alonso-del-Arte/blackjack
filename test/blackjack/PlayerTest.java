@@ -185,7 +185,7 @@ public class PlayerTest {
         assertEquals(expected, actual);
     }
     
-//    @Test
+    @Test
     public void testConstructorRejectsBankrollZero() {
         CurrencyAmount badBankroll = new CurrencyAmount(0, WagerTest.DOLLARS);
         try {
@@ -195,11 +195,14 @@ public class PlayerTest {
                     + badBankroll.toString();
             fail(msg);
         } catch (IllegalArgumentException iae) {
+            String amtStr = badBankroll.toString();
             System.out.println("Trying to initialize player " 
                     + DEFAULT_PLAYER_NAME + " with initial bankroll " 
-                    + badBankroll.toString() 
-                    + " correctly caused IllegalArgumentException");
-            System.out.println("\"" + iae.getMessage() + "\"");
+                    + amtStr + " correctly caused IllegalArgumentException");
+            String excMsg = iae.getMessage();
+            String msg = "Exception message should contain \"" + amtStr + "\"";
+            assert excMsg.contains(amtStr) : msg;
+            System.out.println("\"" + excMsg + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
                     + " is the wrong exception for trying to initialize player " 
