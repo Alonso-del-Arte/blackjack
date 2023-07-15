@@ -28,6 +28,11 @@ This variant originated in European casinos. The dealer at first only has a face
 up card, and it is only right before settling bets that the dealer takes a 
 second card.
 
+## Perfect pairs
+
+If a player's first two cards are of the same value or they're both royal cards, 
+that player wins a side bet.
+
 ## Spanish 21
 
 Standard decks are used but with the Tens removed. This makes blackjack harder 
@@ -42,3 +47,4 @@ either.
 ## Vegas Strip blackjack
 
 Not quite understanding how this one differs from standard blackjack...
+
