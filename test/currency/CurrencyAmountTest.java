@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software; you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -21,14 +21,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Random;
+import java.util.Set;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Tests of the CurrencyAmount class.
  * @author Alonso del Arte
  */
 public class CurrencyAmountTest {
@@ -38,6 +41,8 @@ public class CurrencyAmountTest {
     static final Currency DINARS
             = Currency.getInstance(Locale.forLanguageTag("ar-ly"));
     static final Currency YEN = Currency.getInstance(Locale.JAPAN);
+    
+    private static final Random RANDOM = new Random();
 
     @Test
     public void testToString() {
@@ -154,6 +159,52 @@ public class CurrencyAmountTest {
         DollarAmount amountB = new DollarAmount(2989);
         assertEquals(amountA, amountB);
     }
+    
+    @Test
+    public void testHashCode() {
+        System.out.println("hashCode");
+        int capacity = RANDOM.nextInt(64) + 16;
+        Set<CurrencyAmount> amounts = new HashSet<>(capacity);
+        Set<Integer> hashes = new HashSet<>(capacity);
+        while (amounts.size() < capacity) {
+            int cents = RANDOM.nextInt();
+            CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+            amounts.add(amount);
+            hashes.add(amount.hashCode());
+        }
+        int expected = amounts.size();
+        int actual = hashes.size();
+        String msg = "Collection of " + expected 
+                + " distinct amounts should have as many hashes";
+        assertEquals(msg, expected, actual);
+    }
+    
+    @Test
+    public void testDiffHashCodeForDiffAmount() {
+        int centsA = RANDOM.nextInt();
+        int centsB = centsA + RANDOM.nextInt(centsA) + 1;
+        CurrencyAmount amountA = new CurrencyAmount(centsA, EUROS);
+        CurrencyAmount amountB = new CurrencyAmount(centsB, EUROS);
+        int hashA = amountA.hashCode();
+        int hashB = amountB.hashCode();
+        String msg = amountA.toString() + " hashes to " + hashA 
+                + ", should not be the same as " + amountB.toString() 
+                + " which hashes to " + hashB;
+        assert hashA != hashB : msg;
+    }
+
+    @Test
+    public void testDiffHashCodeForDiffCurrency() {
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(cents, EUROS);
+        int hashA = amountA.hashCode();
+        int hashB = amountB.hashCode();
+        String msg = amountA.toString() + " hashes to " + hashA 
+                + ", should not be the same as " + amountB.toString() 
+                + " which hashes to " + hashB;
+        assert hashA != hashB : msg;
+    }
 
     @Test
     public void testGetAmountInCents() {
@@ -222,8 +273,10 @@ public class CurrencyAmountTest {
     @Ignore
     @Test(expected = ArithmeticException.class)
     public void testPlusTooMuch() {
-        CurrencyAmount amountA = new CurrencyAmount(9000000000000000000L, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, DOLLARS);
+        CurrencyAmount amountA = new CurrencyAmount(9000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, 
+                DOLLARS);
         CurrencyAmount result = amountA.plus(amountB);
         System.out.println("Trying to add " + amountA.toString() + " to "
                 + amountB.toString()
@@ -306,8 +359,10 @@ public class CurrencyAmountTest {
     @Ignore
     @Test(expected = ArithmeticException.class)
     public void testMinusTooMuch() {
-        CurrencyAmount amountA = new CurrencyAmount(-9000000000000000000L, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, DOLLARS);
+        CurrencyAmount amountA = new CurrencyAmount(-9000000000000000000L, 
+                DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, 
+                DOLLARS);
         CurrencyAmount result = amountA.minus(amountB);
         System.out.println("Trying to subtract " + amountB.toString() + " from "
                 + amountA.toString()
