@@ -181,7 +181,7 @@ public class CurrencyAmountTest {
     
     @Test
     public void testDiffHashCodeForDiffAmount() {
-        int centsA = RANDOM.nextInt();
+        int centsA = RANDOM.nextInt(262144);
         int centsB = centsA + RANDOM.nextInt(centsA) + 1;
         CurrencyAmount amountA = new CurrencyAmount(centsA, EUROS);
         CurrencyAmount amountB = new CurrencyAmount(centsB, EUROS);
