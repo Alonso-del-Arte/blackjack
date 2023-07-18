@@ -134,12 +134,13 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
     
     /**
-     * Determines whether this currency amount is not positive.
+     * Determines whether this currency amount is not positive. Remember that 
+     * zero is not positive.
      * @return True if the amount is negative, false otherwise. For example, 
-     * true for &minus;$3.44, false for 89,20&euro;.
+     * true for &minus;$3.44, false for &yen;0, false for 89,20&euro;.
      */
     public boolean isNotPositive() {
-        return this.amountInCents < 0;
+        return this.amountInCents < 1;
     }
     
     public static CurrencyAmount parseAmount(String s) {
