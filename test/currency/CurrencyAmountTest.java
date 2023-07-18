@@ -13,7 +13,7 @@
  *
  * You should have received a copy of the GNU General Public License along with 
  * this program; if not, write to the Free Software Foundation, Inc., 59 Temple 
- * Place - Suite 330, Boston, MA  02111-1307, USA.
+ * Place - Suite 330, Boston, MA 02111-1307, USA.
  */
 package currency;
 
@@ -568,6 +568,16 @@ public class CurrencyAmountTest {
                     + eurosAmount.toString();
             fail(failMsg);
         }
+    }
+    
+    @Test
+    public void testIsNotPositive() {
+        System.out.println("isNotPositive");
+        int cents = RANDOM.nextInt() | Integer.MIN_VALUE;
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
+        String msg = "Amount " + amount.toString() 
+                + " should not be deemed positive";
+        assert amount.isNotPositive() : msg;
     }
     
     @Test
