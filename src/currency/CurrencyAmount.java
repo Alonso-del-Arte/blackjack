@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2023 Alonso del Arte
  *
  * This program is free software; you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -131,6 +131,11 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     public int compareTo(CurrencyAmount other) {
         CurrencyAmount diff = this.minus(other);
         return Long.signum(diff.amountInCents);
+    }
+    
+    // TODO: Write tests for this
+    public boolean isNotPositive() {
+        return false;
     }
     
     public static CurrencyAmount parseAmount(String s) {
