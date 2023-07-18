@@ -581,6 +581,15 @@ public class CurrencyAmountTest {
     }
     
     @Test
+    public void testIsNotPositiveButItIs() {
+        int cents = RANDOM.nextInt() & Integer.MAX_VALUE;
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
+        String msg = "Amount " + amount.toString() 
+                + " should not be deemed not positive";
+        assert !amount.isNotPositive() : msg;
+    }
+    
+    @Test
     public void testParseAmount() {
         System.out.println("parseAmount");
         String s = "$198.97";
