@@ -99,7 +99,7 @@ public class Player {
             String excMsg = "Player name must not be empty";
             throw new IllegalArgumentException(excMsg);
         }
-        if (initialBankroll.getAmountInCents() < 1) {
+        if (initialBankroll.isNotPositive()) {
             String excMsg = "Initial bankroll should be positive, not " 
                     + initialBankroll.toString();
             throw new IllegalArgumentException(excMsg);
