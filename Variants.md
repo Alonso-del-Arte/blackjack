@@ -48,3 +48,6 @@ either.
 
 Not quite understanding how this one differs from standard blackjack...
 
+### Central Las Vegas Strip blackjack
+
+Nor am I sure how this one differs from "regular" Vegas Strip blackjack...
