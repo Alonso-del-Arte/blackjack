@@ -40,6 +40,16 @@ public class RoundTest {
     }
     
     @Test
+    public void testBegin() {
+        Dealer dealer = new Dealer();
+        Player player = PlayerTest.getPlayer();
+        Round round = new Round(dealer, player);
+        round.begin();
+        String msg = "Round should be begun after calling begin()";
+        assert round.begun() : msg;
+    }
+    
+    @Test
     public void testConstructorRequiresAtLeastOnePlayer() {
         Dealer dealer = new Dealer();
         try {
