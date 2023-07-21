@@ -33,8 +33,15 @@ public class Round {
         return this.started;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Begins the round.
+     * @throws IllegalStateException If the round has already begun.
+     */
     public void begin() {
+        if (this.started) {
+            String excMsg = "Round begun already";
+            throw new IllegalStateException(excMsg);
+        }
         this.started = true;
     }
     
