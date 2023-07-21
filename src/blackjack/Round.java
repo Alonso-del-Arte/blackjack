@@ -23,14 +23,19 @@ package blackjack;
  */
 public class Round {
     
-    // TODO: Write tests for this
+    private boolean started = false;
+    
+    /**
+     * Indicates whether or not this round has begun.
+     * @return True if the round has begun, false otherwise.
+     */
     public boolean begun() {
-        return false;
+        return this.started;
     }
     
     // TODO: Write tests for this
     public void begin() {
-        //
+        this.started = true;
     }
     
     // TODO: Write tests for this
