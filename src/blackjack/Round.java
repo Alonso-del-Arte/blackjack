@@ -17,10 +17,36 @@
 package blackjack;
 
 /**
- *
+ * Represents a round of blackjack. A round starts with the dealer and the 
+ * players getting cards, and continues until all wagers have been settled.
  * @author Alonso del Arte
  */
 public class Round {
+    
+    // TODO: Write tests for this
+    public boolean begun() {
+        return true;
+    }
+    
+    // TODO: Write tests for this
+    public void begin() {
+        //
+    }
+    
+    // TODO: Write tests for this
+    public void hit(Player player) {
+        //
+    }
+    
+    // TODO: Write tests for this
+    public void split(Player player) {
+        //
+    }
+    
+    // TODO: Write tests for this
+    public boolean completed() {
+        return true;
+    }
     
     public Round(Dealer dealer, Player... players) {
         if (dealer == null) {
