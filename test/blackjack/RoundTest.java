@@ -50,6 +50,26 @@ public class RoundTest {
     }
     
     @Test
+    public void testNoBeginTwice() {
+        Dealer dealer = new Dealer();
+        Player player = PlayerTest.getPlayer();
+        Round round = new Round(dealer, player);
+        round.begin();
+        try {
+            round.begin();
+            String msg = "Trying to begin twice should've caused exception";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to begin twice caused exception");
+            System.out.println("\"" + ise.getMessage() + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to begin twice";
+            fail(msg);
+        }
+    }
+    
+    @Test
     public void testConstructorRequiresAtLeastOnePlayer() {
         Dealer dealer = new Dealer();
         try {
