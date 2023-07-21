@@ -70,19 +70,7 @@ public class Player {
     }
     
     /**
-     * Auxiliary constructor.
-     * @param name The player's name. For example, "Jorge". Must not be null. 
-     * Must not be empty.
-     * @throws IllegalArgumentException If <code>name</code> is "".
-     * @throws NullPointerException  If <code>name</code> is null.
-     */
-    public Player(String name) {
-        this(name, new CurrencyAmount(Long.MIN_VALUE, 
-                java.util.Currency.getInstance("CHF")));
-    }
-    
-    /**
-     * Primary constructor.
+     * Sole constructor.
      * @param name The player's name. For example, "Marla". Must not be null. 
      * Must not be empty.
      * @param initialBankroll How much money the player has in chips ready to 

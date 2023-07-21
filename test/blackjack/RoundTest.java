@@ -16,6 +16,8 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,6 +26,9 @@ import static org.junit.Assert.*;
  * @author Alonso del Arte
  */
 public class RoundTest {
+
+    private static final CurrencyAmount DEFAULT_INITIAL_BANKROLL_AMOUNT 
+            = new CurrencyAmount(100000, WagerTest.DOLLARS);
     
     @Test
     public void testConstructorRequiresAtLeastOnePlayer() {
@@ -45,7 +50,8 @@ public class RoundTest {
     
     @Test
     public void testConstructorRejectsNullDealer() {
-        Player player = new Player("Johnny Q. Test");
+        Player player = new Player("Johnny Q. Test", 
+                DEFAULT_INITIAL_BANKROLL_AMOUNT);
         try {
             Round badRound = new Round(null, player);
             String msg = "Should not have been able to create " 
@@ -64,8 +70,10 @@ public class RoundTest {
     @Test
     public void testConstructorRejectsNullPlayer() {
         Dealer dealer = new Dealer();
-        Player player1 = new Player("Johnny Q. Test");
-        Player player3 = new Player("Johnny Q. Test, Jr.");
+        Player player1 = new Player("Johnny Q. Test", 
+                DEFAULT_INITIAL_BANKROLL_AMOUNT);
+        Player player3 = new Player("Johnny Q. Test, Jr.", 
+                DEFAULT_INITIAL_BANKROLL_AMOUNT);
         try {
             Round badRound = new Round(dealer, player1, null, player3);
             String msg = "Should not have been able to create " 
