@@ -25,7 +25,7 @@ public class Round {
     
     // TODO: Write tests for this
     public boolean begun() {
-        return true;
+        return false;
     }
     
     // TODO: Write tests for this
