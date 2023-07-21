@@ -42,10 +42,16 @@ public class PlayerTest {
     
     private final CardServer SERVER = new CardServer(50);
     
+    private static final Player DEFAULT_PLAYER = new Player(DEFAULT_PLAYER_NAME, 
+                DEFAULT_INITIAL_BANKROLL);
+    
+    static Player getPlayer() {
+        return new Player(DEFAULT_PLAYER_NAME, DEFAULT_INITIAL_BANKROLL);
+    }
+    
     @Test
     public void testAddToBankroll() {
-        Player player = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
+        Player player = getPlayer();
         int moreCents = DealerTest.RANDOM.nextInt(10000);
         CurrencyAmount additional = new CurrencyAmount(moreCents, 
                 WagerTest.DOLLARS);
@@ -76,8 +82,7 @@ public class PlayerTest {
         Hand thirdHand = new Hand(HandTest.DEFAULT_WAGER);
         thirdHand.add(SERVER.giveCard(Rank.EIGHT));
         thirdHand.add(SERVER.getNextCard());
-        Player player = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
+        Player player = getPlayer();
         assertEquals(0, player.getActiveHandsCount());
         player.add(firstHand);
         assertEquals(1, player.getActiveHandsCount());
@@ -92,8 +97,7 @@ public class PlayerTest {
         Hand hand = new Hand(HandTest.DEFAULT_WAGER);
         hand.add(SERVER.giveCard(Rank.TEN));
         hand.add(SERVER.giveCard(Rank.TEN));
-        Player player = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
+        Player player = getPlayer();
         player.add(hand);
         assertEquals(1, player.getActiveHandsCount());
         hand.markSettled();
@@ -111,8 +115,7 @@ public class PlayerTest {
         Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
         secondHand.add(SERVER.giveCard(Rank.EIGHT));
         secondHand.add(SERVER.getNextCard());
-        Player player = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
+        Player player = getPlayer();
         player.add(firstHand);
         player.add(secondHand);
         List<Hand> expected = new ArrayList<>(2);
@@ -127,8 +130,7 @@ public class PlayerTest {
         Hand hand = new Hand(HandTest.DEFAULT_WAGER);
         hand.add(SERVER.getNextCard());
         hand.add(SERVER.getNextCard());
-        Player player = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
+        Player player = getPlayer();
         player.add(hand);
         List<Hand> firstOutput = player.getHands();
         List<Hand> expected = new ArrayList<>(firstOutput);

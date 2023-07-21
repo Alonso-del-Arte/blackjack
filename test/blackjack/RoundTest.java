@@ -31,6 +31,15 @@ public class RoundTest {
             = new CurrencyAmount(100000, WagerTest.DOLLARS);
     
     @Test
+    public void testNotBegunBeforeCallingBegin() {
+        Dealer dealer = new Dealer();
+        Player player = PlayerTest.getPlayer();
+        Round round = new Round(dealer, player);
+        String msg = "Round should not begin before calling begin()";
+        assert !round.begun() : msg;
+    }
+    
+    @Test
     public void testConstructorRequiresAtLeastOnePlayer() {
         Dealer dealer = new Dealer();
         try {
