@@ -22,9 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import playingcards.CardServer;
-import playingcards.PlayingCard;
 import playingcards.Rank;
-import playingcards.matchers.RankPairSpec;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -42,9 +40,6 @@ public class PlayerTest {
     
     private final CardServer SERVER = new CardServer(50);
     
-    private static final Player DEFAULT_PLAYER = new Player(DEFAULT_PLAYER_NAME, 
-                DEFAULT_INITIAL_BANKROLL);
-    
     static Player getPlayer() {
         return new Player(DEFAULT_PLAYER_NAME, DEFAULT_INITIAL_BANKROLL);
     }
@@ -59,6 +54,35 @@ public class PlayerTest {
         CurrencyAmount expected = DEFAULT_INITIAL_BANKROLL.plus(additional);
         CurrencyAmount actual = player.getBalance();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testNoAddNegativeToBankroll() {
+        Player player = getPlayer();
+        int minusCents = -DealerTest.RANDOM.nextInt(10000) - 1;
+        CurrencyAmount negational = new CurrencyAmount(minusCents, 
+                WagerTest.DOLLARS);
+        String negAmtStr = negational.toString();
+        try {
+            player.add(negational);
+            String msg = "Should not have been able to add " + negAmtStr 
+                    + " to player's bankroll";
+            fail(msg);
+        } catch (IllegalArgumentException iae) {
+            System.out.println("Trying to add " + negAmtStr  
+                    + " to bankroll correctly caused IllegalArgumentException");
+            String excMsg = iae.getMessage();
+            assert excMsg != null : "Message should not be null";
+            String msg = "Exception message should include \"" + negAmtStr 
+                    + "\"";
+            assert excMsg.contains(negAmtStr) : msg;
+            System.out.println("\"" + excMsg + "\"");
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception to throw for trying to add " 
+                    + negAmtStr + " to player's bankroll";
+            fail(msg);
+        }
     }
     
     @Test
