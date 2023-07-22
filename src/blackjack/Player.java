@@ -81,7 +81,22 @@ public class Player {
         this.hands.add(hand);
     }
     
+    /**
+     * Adds money to the player's bankroll. This would be analogous to a player 
+     * in real life buying more chips. This procedure is not meant to be used 
+     * for settling wagers, a different mechanism will be provided for that.
+     * @param amount The amount to be added. For example, $500. Must not be 
+     * negative. May be zero, but there's not much point to that.
+     * @throws currency.CurrencyConversionNeededException If the amount to be 
+     * added is of a different currency. For example, if the player's bankroll 
+     * is $2,000, trying to add 100&euro; would cause this exception.
+     */
     public void add(CurrencyAmount amount) {
+        if (amount.isNegative()) {
+            String excMsg = "Can't add " + amount.toString() 
+                    + " to bankroll, should not be negative";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.bankroll = this.bankroll.plus(amount);
     }
     
