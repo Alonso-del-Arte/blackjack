@@ -135,7 +135,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     
     // TODO: Write tests for this
     public boolean isNegative() {
-        return true;
+        return false;
     }
     
     /**
