@@ -579,10 +579,14 @@ public class CurrencyAmountTest {
         assert !amount.isNegative() : msg;
     }
     
-//    @Test
+    @Test
     public void testIsNegative() {
         System.out.println("isNegative");
-        fail();
+        int cents = RANDOM.nextInt() | Integer.MIN_VALUE;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        String msg = "Amount " + amount.toString() 
+                + " should be deemed to be negative";
+        assert amount.isNegative() : msg;
     }
     
     @Test
