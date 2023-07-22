@@ -133,6 +133,11 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         return Long.signum(diff.amountInCents);
     }
     
+    // TODO: Write tests for this
+    public boolean isNegative() {
+        return true;
+    }
+    
     /**
      * Determines whether this currency amount is not positive. Remember that 
      * zero is not positive.
