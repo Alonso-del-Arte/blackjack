@@ -133,9 +133,13 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         return Long.signum(diff.amountInCents);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Determines whether this currency amount is negative.
+     * @return True if the amount is negative, false otherwise. For example, 
+     * true for &minus;$3.44, false for 89,20&euro;.
+     */
     public boolean isNegative() {
-        return false;
+        return this.amountInCents < 1;
     }
     
     /**
