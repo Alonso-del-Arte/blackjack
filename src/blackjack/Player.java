@@ -38,11 +38,19 @@ public class Player {
         return this.playerName;
     }
     
+    /**
+     * Tells how many active hands this player has. The count does not include 
+     * hands for which the wager has been settled.
+     * @return Usually 1 during a round, but might be 2 or more depending on 
+     * whether the player has split any hands and how many splits are allowed. 
+     * Should be 0 in between rounds.
+     */
     public int getActiveHandsCount() {
         return (int) this.hands.stream().filter(hand -> !hand.isSettledHand())
                 .count();
     }
     
+    // TODO: Write tests for this
     public Hand getCurrentActiveHand() {
         java.util.Currency currency = java.util.Currency
                 .getInstance(java.util.Locale.ITALY);
@@ -52,11 +60,19 @@ public class Player {
         return new Hand(wager);
     }
     
-    List<Hand> getHands() {
+    /**
+     * Gives a list of all the player's hands. This includes hands for which the 
+     * wager has been settled.
+     * @return A fresh list of hands that the caller can modify freely.
+     */
+    public List<Hand> getHands() {
         return new ArrayList<>(this.hands);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells how much the player's bankroll is.
+     * @return The amount of the bankroll.
+     */
     public CurrencyAmount getBalance() {
         return this.bankroll;
     }
@@ -65,7 +81,7 @@ public class Player {
         this.hands.add(hand);
     }
     
-    void add(CurrencyAmount amount) {
+    public void add(CurrencyAmount amount) {
         this.bankroll = this.bankroll.plus(amount);
     }
     
@@ -75,7 +91,8 @@ public class Player {
      * Must not be empty.
      * @param initialBankroll How much money the player has in chips ready to 
      * wager.
-     * @throws IllegalArgumentException If <code>name</code> is "".
+     * @throws IllegalArgumentException If <code>name</code> is "" or if the 
+     * initial bankroll is 0 or negative.
      * @throws NullPointerException  If <code>name</code> is null.
      */
     public Player(String name, CurrencyAmount initialBankroll) {
