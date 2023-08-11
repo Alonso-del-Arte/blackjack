@@ -1,5 +1,8 @@
 ## The rules of blackjack, as I understand them
 
+This document describes the game as it is usually played in American casinos. 
+See [Variants](Variants.md) for variations on the game.
+
 The concept seems simple enough. You make a wager. The dealer gives you cards 
 ("hit") until you want no more cards ("stand") or you win by having a score of 
 21 or you lose by going over 21 ("going bust").
