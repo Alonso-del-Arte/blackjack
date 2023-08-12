@@ -308,9 +308,8 @@ public class GraphicsCommandRecord {
             return this.commImage;
         }
         
-        // TODO: Write tests for this
         public ImageObserver getObserver() {
-            return null;
+            return this.commObserver;
         }
         
         // TODO: Write tests for this
