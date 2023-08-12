@@ -16,6 +16,7 @@
  */
 package ui.graphical;
 
+import java.awt.Checkbox;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -316,11 +317,13 @@ public class GraphicsCommandRecordTest {
         g.setColor(Color.BLACK);
         g.drawString("image", width / 16, height / 9);
         Font font = FONTS[RANDOM.nextInt(FONTS.length)];
-//        GraphicsCommandRecord.WithImage record 
-//                = new GraphicsCommandRecord.WithImage("drawImage", Color.BLACK, 
-//                        font, expected, observer, Color.yellow, width, width, 
-//                        width, width, width, width, width, width)
-        fail("Haven't finished written test yet");
+        ImageObserver observer = new Checkbox();
+        GraphicsCommandRecord.WithImage record 
+                = new GraphicsCommandRecord.WithImage("drawImage", Color.BLACK, 
+                        font, expected, observer, Color.yellow, width, width, 
+                        width, width, width, width, width, width);
+        Image actual = record.getImage();
+        assertEquals(expected, actual);
     }
     
 }
