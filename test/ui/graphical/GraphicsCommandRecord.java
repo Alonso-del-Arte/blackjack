@@ -304,9 +304,8 @@ public class GraphicsCommandRecord {
         
         private final Color commBackgroundColor;
         
-        // TODO: Write tests for this
         public Image getImage() {
-            return null;
+            return this.commImage;
         }
         
         // TODO: Write tests for this
