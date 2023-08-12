@@ -365,7 +365,7 @@ public class GraphicsCommandRecordTest {
         Color expected = new Color(RANDOM.nextInt());
         GraphicsCommandRecord.WithImage record 
                 = new GraphicsCommandRecord.WithImage("drawImage", Color.BLACK, 
-                        font, image, observer, Color.yellow, width, width, 
+                        font, image, observer, expected, width, width, 
                         width, width, width, width, width, width);
         Color actual = record.getBackgroundColor();
         assertEquals(expected, actual);
