@@ -312,9 +312,8 @@ public class GraphicsCommandRecord {
             return this.commObserver;
         }
         
-        // TODO: Write tests for this
         public Color getBackgroundColor() {
-            return Color.MAGENTA;
+            return this.commBackgroundColor;
         }
         
         /**
