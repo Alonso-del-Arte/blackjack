@@ -56,7 +56,7 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
-    PlayingCard start(Round round) {
+    PlayingCard tellFaceUpCard() {
         return this.cardDispenser.getNextCard();
     }
     
