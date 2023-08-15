@@ -75,7 +75,7 @@ public class Dealer {
     
         // TODO: Write tests for this
     CurrencyAmount reportBankroll() {
-        return new CurrencyAmount(-100, java.util.Currency.getInstance("XCD"));
+        return null;
     }
     
     // TODO: Write tests for this
