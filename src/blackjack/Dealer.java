@@ -60,7 +60,7 @@ public class Dealer {
     
     // TODO: Write tests for this
     boolean active() {
-        return true;
+        return false;
     }
     
     void start(Round round) {
