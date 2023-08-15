@@ -38,6 +38,8 @@ public class Dealer {
     
     private final Set<RankPairSpec> splitSpecs;
     
+    private boolean inRound = false;
+    
     private Hand hand;
     
     private CurrencyAmount bankroll;
@@ -58,12 +60,12 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
-    // TODO: Write tests for this
     boolean active() {
-        return false;
+        return this.inRound;
     }
     
     void start(Round round) {
+        this.inRound = true;
 // TODO: Write tests for this
     }
     
