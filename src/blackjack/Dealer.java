@@ -16,10 +16,10 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
 import playingcards.CardSupplier;
 import playingcards.MultiDeckCardDispenser;
 import playingcards.PlayingCard;
-import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.HashSet;
@@ -40,6 +40,8 @@ public class Dealer {
     
     private Hand hand;
     
+    private CurrencyAmount bankroll;
+    
     public Set<RankPairSpec> giveSplittablePairs() {
         return new HashSet<>(this.splitSpecs);
     }
@@ -56,8 +58,22 @@ public class Dealer {
         this.cardDispenser = new MultiDeckCardDispenser(6, plasticCardPlace());
     }
     
+    // TODO: Write tests for this
+    boolean active() {
+        return true;
+    }
+    
+    void start(Round round) {
+// TODO: Write tests for this
+    }
+    
     PlayingCard tellFaceUpCard() {
         return this.cardDispenser.getNextCard();
+    }
+    
+        // TODO: Write tests for this
+    CurrencyAmount reportBankroll() {
+        return new CurrencyAmount(-100, java.util.Currency.getInstance("XCD"));
     }
     
     // TODO: Write tests for this
