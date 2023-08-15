@@ -69,9 +69,11 @@ public class DealerTest {
         assertNotEquals(retrievedPairSpecSet1, retrievedPairSpecSet2);
     }
     
-//    @Test
-    public void test() {
-        fail("TEST PLACEHOLDER");
+    @Test
+    public void testNewlyInstantiatedNotActiveAlready() {
+        Dealer dealer = new Dealer();
+        String msg = "New dealer should not be active in round already";
+        assert !dealer.active() : msg;
     }
     
     @Test
