@@ -77,6 +77,18 @@ public class DealerTest {
     }
     
     @Test
+    public void testActive() {
+        Dealer dealer = new Dealer();
+        Player player = PlayerTest.getPlayer();
+        Round round = new Round(dealer, player);
+        dealer.start(round);
+        String msg = "After starting round with " + dealer.toString() + " and " 
+                + " player " + player.getName() 
+                + ", dealer should be active in round";
+        assert dealer.active() : msg;
+    }
+    
+    @Test
     public void testAuxConstructorHasTypicalSplitPairSpecs() {
         Dealer dealer = new Dealer();
         Set<RankPairSpec> expected = new HashSet<>(BlackJack.SAME_RANK_PAIRS);
