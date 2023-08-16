@@ -25,6 +25,8 @@ public class Round {
     
     private boolean started = false;
     
+    final Player[] gamers;
+    
     /**
      * Indicates whether or not this round has begun.
      * @return True if the round has begun, false otherwise.
@@ -75,6 +77,7 @@ public class Round {
                 throw new NullPointerException(excMsg);
             }
         }
+        this.gamers = players;
     }
     
 }

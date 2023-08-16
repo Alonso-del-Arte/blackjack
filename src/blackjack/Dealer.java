@@ -34,6 +34,12 @@ public class Dealer {
     
     public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = 7;
     
+    /**
+     * How much to multiply the aggregate of the players' combined bankrolls by 
+     * so that the dealer can cover the unlikely event of all the players 
+     * winning their bets and still have money left over. It's not how it's done 
+     * in real casinos with real money.
+     */
     static final double RESERVE_MULTIPLIER = 3.25;
     
     private CardSupplier cardDispenser;
@@ -44,7 +50,7 @@ public class Dealer {
     
     private Hand hand;
     
-    private CurrencyAmount bankroll;
+    private CurrencyAmount bankroll = null;
     
     public Set<RankPairSpec> giveSplittablePairs() {
         return new HashSet<>(this.splitSpecs);
@@ -66,18 +72,28 @@ public class Dealer {
         return this.inRound;
     }
     
+    /**
+     * Starts a round. The players' combined bankroll is tallied up and the 
+     * dealer gets a reserve amount equal to that amount times the {@link 
+     * #RESERVE_MULTIPLIER}.
+     * @param round The round to start.
+     */
     void start(Round round) {
         this.inRound = true;
-// TODO: Write tests for this
+        this.bankroll = new CurrencyAmount(0, 
+                round.gamers[0].getBalance().getCurrency());
+        for (Player player : round.gamers) {
+            this.bankroll = this.bankroll.plus(player.getBalance());
+        }
+        this.bankroll = this.bankroll.times(RESERVE_MULTIPLIER);
     }
     
     PlayingCard tellFaceUpCard() {
         return this.cardDispenser.getNextCard();
     }
     
-        // TODO: Write tests for this
     CurrencyAmount reportBankroll() {
-        return null;
+        return this.bankroll;
     }
     
     // TODO: Write tests for this
