@@ -34,6 +34,8 @@ public class Dealer {
     
     public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = 7;
     
+    static final double RESERVE_MULTIPLIER = -1.02;
+    
     private CardSupplier cardDispenser;
     
     private final Set<RankPairSpec> splitSpecs;
