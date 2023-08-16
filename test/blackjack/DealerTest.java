@@ -37,6 +37,20 @@ public class DealerTest {
     
     static final Random RANDOM = new Random();
     
+    private static Player[] makePlayers() {
+        int numberOfPlayers 
+                = RANDOM.nextInt(Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE) + 1;
+        Player[] players = new Player[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            int cents = RANDOM.nextInt(262144) + 256;
+            CurrencyAmount playerBankroll = new CurrencyAmount(cents, 
+                    WagerTest.DOLLARS);
+            Player player = new Player("Johnny Q. Public " + i, playerBankroll);
+            players[i] = player;
+        }
+        return players;
+    }
+    
     @Test
     public void testConstants() {
         String msgA = "Constant MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = " 
@@ -105,17 +119,21 @@ public class DealerTest {
         assertNull(dealer.reportBankroll());
     }
     
-//    @Test
+    @Test
     public void testReportBankroll() {
         Dealer dealer = new Dealer();
-        int cents = RANDOM.nextInt(16384) + 256;
-        CurrencyAmount playerBankroll = new CurrencyAmount(cents, 
+        Player[] players = makePlayers();
+        CurrencyAmount totalPlayerBankroll = new CurrencyAmount(0, 
                 WagerTest.DOLLARS);
-        Player player = new Player("Johnny Q. Public", playerBankroll);
-        Round round = new Round(dealer, player);
+        for (Player player : players) {
+            totalPlayerBankroll = totalPlayerBankroll.plus(player.getBalance());
+        }
+        Round round = new Round(dealer, players);
         dealer.start(round);
-        CurrencyAmount expected = playerBankroll;
-        fail();
+        CurrencyAmount expected 
+                = totalPlayerBankroll.times(Dealer.RESERVE_MULTIPLIER);
+        CurrencyAmount actual = dealer.reportBankroll();
+        assertEquals(expected, actual);
     }
     
     @Test
