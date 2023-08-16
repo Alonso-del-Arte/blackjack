@@ -16,6 +16,7 @@
  */
 package blackjack;
 
+import currency.CurrencyAmount;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
@@ -35,6 +36,16 @@ import static org.junit.Assert.*;
 public class DealerTest {
     
     static final Random RANDOM = new Random();
+    
+    @Test
+    public void testConstants() {
+        String msgA = "Constant MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = " 
+                + Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE + " should be 7";
+        assertEquals(msgA, 7, Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE);
+        String msgB = "Constant RESERVE_MULTIPLIER = " 
+                + Dealer.RESERVE_MULTIPLIER + " should be more than 1.0";
+        assert Dealer.RESERVE_MULTIPLIER > 1.0 : msgB;
+    }
     
     @Test
     public void testGiveSplittablePairs() {
@@ -94,11 +105,16 @@ public class DealerTest {
         assertNull(dealer.reportBankroll());
     }
     
+//    @Test
     public void testReportBankroll() {
         Dealer dealer = new Dealer();
-        Player player = PlayerTest.getPlayer();
+        int cents = RANDOM.nextInt(16384) + 256;
+        CurrencyAmount playerBankroll = new CurrencyAmount(cents, 
+                WagerTest.DOLLARS);
+        Player player = new Player("Johnny Q. Public", playerBankroll);
         Round round = new Round(dealer, player);
         dealer.start(round);
+        CurrencyAmount expected = playerBankroll;
         fail();
     }
     
