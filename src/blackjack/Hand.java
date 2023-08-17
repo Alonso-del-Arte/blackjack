@@ -22,7 +22,7 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.ArrayList;
-import java.util.Set;
+import java.util.List;
 
 /**
  * A class to represent a blackjack hand, and keep track of its status (in play, 
@@ -32,7 +32,7 @@ import java.util.Set;
  */
 public class Hand {
 
-    private final ArrayList<PlayingCard> cards;
+    private final List<PlayingCard> cards;
     
     private int handScore = 0;
     
@@ -80,7 +80,7 @@ public class Hand {
      * 22 to 30 for a hand that has gone bust. The value 1 should not occur 
      * because a hand with an Ace as the only card is valued at 11.
      */
-    int cardsValue() {
+    public int cardsValue() {
         return this.handScore;
     }
     
@@ -91,11 +91,9 @@ public class Hand {
      * an Ace of Spades (A&#9824;) and a Two of Hearts (2&#9829;).
      */
     // TODO: Refactor
-    PlayingCard[] inspectCards() {
+    public PlayingCard[] inspectCards() {
         PlayingCard[] cardsToShow = new PlayingCard[this.cards.size()];
-        for (int i = 0; i < this.cards.size(); i++) {
-            cardsToShow[i] = this.cards.get(i);
-        }
+        this.cards.toArray(cardsToShow);
         return cardsToShow;
     }
 
