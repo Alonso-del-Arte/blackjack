@@ -177,6 +177,18 @@ public class DealerTest {
         }
     }
     
+    @Test
+    public void testTellFaceUpCard() {
+        System.out.println("tellFaceUpCard");
+        Dealer dealer = new Dealer();
+        Player[] firstRoundPlayers = makePlayers();
+        Round round = new Round(dealer, firstRoundPlayers);
+        dealer.start(round);
+        PlayingCard card = dealer.tellFaceUpCard();
+        assert card != null : "Dealer's face up card shouldn't be null";
+        System.out.println("Dealer's face up card is " + card.toASCIIString());
+    }
+    
 //    @Test
     public void testBankrollCarriesOverToNextRound() {
         fail("Haven't written test yet");
