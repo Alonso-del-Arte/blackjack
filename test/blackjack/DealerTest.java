@@ -17,6 +17,7 @@
 package blackjack;
 
 import currency.CurrencyAmount;
+import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
@@ -99,6 +100,17 @@ public class DealerTest {
         Dealer dealer = new Dealer();
         String msg = "New dealer should not be active in round already";
         assert !dealer.active() : msg;
+    }
+    
+    @Test
+    public void testNoFaceUpCardIfDealerNotActiveInRound() {
+        Dealer dealer = new Dealer();
+        PlayingCard card = dealer.tellFaceUpCard();
+        if (card != null) {
+            String msg = "New dealer shouldn't have face up card " 
+                    + card.toString() + " before first round";
+            fail(msg);
+        }
     }
     
     @Test
