@@ -93,10 +93,10 @@ public class Dealer {
     }
     
     PlayingCard tellFaceUpCard() {
-        if (!this.inRound) {
+//        if (!this.inRound) {
             return null;
-        }
-        return this.cardDispenser.getNextCard();
+//        }
+//        return this.cardDispenser.getNextCard();
     }
     
     CurrencyAmount reportBankroll() {
