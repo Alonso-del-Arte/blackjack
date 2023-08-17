@@ -93,6 +93,9 @@ public class Dealer {
     }
     
     PlayingCard tellFaceUpCard() {
+        if (!this.inRound) {
+            return null;
+        }
         return this.cardDispenser.getNextCard();
     }
     
