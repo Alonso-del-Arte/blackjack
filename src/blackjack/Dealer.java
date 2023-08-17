@@ -79,6 +79,10 @@ public class Dealer {
      * @param round The round to start.
      */
     void start(Round round) {
+        if (this.inRound) {
+            String excMsg = "Earlier round is still active";
+            throw new IllegalStateException(excMsg);
+        }
         this.inRound = true;
         this.bankroll = new CurrencyAmount(0, 
                 round.gamers[0].getBalance().getCurrency());
