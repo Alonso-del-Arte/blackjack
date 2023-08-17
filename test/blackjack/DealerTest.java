@@ -121,6 +121,7 @@ public class DealerTest {
     
     @Test
     public void testReportBankroll() {
+        System.out.println("reportBankroll");
         Dealer dealer = new Dealer();
         Player[] players = makePlayers();
         CurrencyAmount totalPlayerBankroll = new CurrencyAmount(0, 
@@ -134,6 +135,39 @@ public class DealerTest {
                 = totalPlayerBankroll.times(Dealer.RESERVE_MULTIPLIER);
         CurrencyAmount actual = dealer.reportBankroll();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testNoStartNewRoundWhileCurrentRoundActive() {
+        Dealer dealer = new Dealer();
+        Player[] firstRoundPlayers = makePlayers();
+        Round firstRound = new Round(dealer, firstRoundPlayers);
+        dealer.start(firstRound);
+        Player[] secondRoundPlayers = makePlayers();
+        Round secondRound = new Round(dealer, secondRoundPlayers);
+        try {
+            dealer.start(secondRound);
+            String msg = "Should not have been able to start " 
+                    + secondRound.toString() + " while " + firstRound.toString() 
+                    + " is still active";
+            fail(msg);
+        } catch (IllegalStateException ise) {
+            System.out.println("Trying to start " + secondRound.toString() 
+                    + " while " + firstRound.toString() 
+                    + " is still active correctly caused exception");
+            System.out.println("\"" + ise.getMessage());
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
+                    + " is the wrong exception for trying to start "
+                    + secondRound.toString() + " while " + firstRound.toString() 
+                    + " is still active";
+            fail(msg);
+        }
+    }
+    
+//    @Test
+    public void testBankrollCarriesOverToNextRound() {
+        fail("Haven't written test yet");
     }
     
     @Test
