@@ -61,9 +61,8 @@ public class CardQueue implements CardSupplier {
         }
         if (found) {
             if (index > 0) {
-                Collections.swap(this.cards, 0, index);
-                // TODO: Remove next line to get gradual sort test to pass
-                Collections.swap(this.cards, 1, len);
+                PlayingCard card = this.cards.remove(index);
+                this.cards.add(0, card);
             }
         } else {
             throw new RanOutOfCardsException(rank);
@@ -90,8 +89,6 @@ public class CardQueue implements CardSupplier {
         if (found) {
             if (index > 0) {
                 Collections.swap(this.cards, 0, index);
-                // TODO: Remove next line to get gradual sort test to pass
-                Collections.swap(this.cards, 1, len);
             }
         } else {
             throw new RanOutOfCardsException(suit);
