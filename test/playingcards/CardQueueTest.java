@@ -33,6 +33,8 @@ public class CardQueueTest {
     
     private static final Suit[] SUITS = Suit.values();
     
+    private static final int USUAL_NUMBER_OF_DECKS = 6;
+    
     @Test
     public void testHasNext() {
         System.out.println("hasNext");
@@ -176,7 +178,7 @@ public class CardQueueTest {
     @Test
     public void testCueUpRank() {
         PlayingCard[] cuedUpCards = new PlayingCard[RANKS.length];
-        CardQueue queue = new CardQueue(6);
+        CardQueue queue = new CardQueue(USUAL_NUMBER_OF_DECKS);
         for (Rank expected : RANKS) {
             queue.cueUp(expected);
             PlayingCard card = queue.getNextCard();
@@ -190,6 +192,21 @@ public class CardQueueTest {
         }
         cardListStr = cardListStr.substring(0, cardListStr.length() - 2);
         System.out.println("Cue up rank gave " + cardListStr);
+    }
+    
+    @Test
+    public void testCueUpRankCanGraduallySort() {
+        CardQueue queue = new CardQueue(USUAL_NUMBER_OF_DECKS);
+        for (int i = RANKS.length - 1; i > -1; i--) {
+            queue.cueUp(RANKS[i]);
+        }
+        for (Rank expected : RANKS) {
+            PlayingCard card = queue.getNextCard();
+            String msg = "Expecting " + card.toString() + " to be of rank " 
+                    + expected.getWord();
+            Rank actual = card.getRank();
+            assertEquals(msg, expected, actual);
+        }
     }
     
     @Test
@@ -225,7 +242,7 @@ public class CardQueueTest {
     @Test
     public void testCueUpSuit() {
         PlayingCard[] cuedUpCards = new PlayingCard[SUITS.length];
-        CardQueue queue = new CardQueue(6);
+        CardQueue queue = new CardQueue(USUAL_NUMBER_OF_DECKS);
         for (Suit expected : SUITS) {
             queue.cueUp(expected);
             PlayingCard card = queue.getNextCard();
