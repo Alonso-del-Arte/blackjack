@@ -143,28 +143,29 @@ public class CurrencyAmountTest {
         assertNotEquals(amountA, amountB);
     }
 
-//    @Test
+    @Test
     public void testSameCentsSameCurrency() {
         CurrencyAmount amountA = new CurrencyAmount(2989, DOLLARS);
         CurrencyAmount amountB = new CurrencyAmount(2989, DOLLARS);
         assertEquals(amountA, amountB);
     }
     
-//    @Test
+    @Test
     public void testSameCentsDiffCurrency() {
-        CurrencyAmount amountA = new CurrencyAmount(2989, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(2989, YEN);
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(cents, YEN);
         assertNotEquals(amountA, amountB);
     }
     
-//    @Test
+    @Test
     public void testEqualsSubClass() {
         CurrencyAmount amountA = new CurrencyAmount(2989, DOLLARS);
         DollarAmount amountB = new DollarAmount(2989);
         assertEquals(amountA, amountB);
     }
     
-//    @Test
+    @Test
     public void testHashCode() {
         System.out.println("hashCode");
         int capacity = RANDOM.nextInt(64) + 16;
@@ -183,7 +184,7 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
     
-//    @Test
+    @Test
     public void testDiffHashCodeForDiffAmount() {
         int centsA = RANDOM.nextInt(262144);
         int centsB = centsA + RANDOM.nextInt(centsA) + 1;
@@ -197,7 +198,7 @@ public class CurrencyAmountTest {
         assert hashA != hashB : msg;
     }
 
-//    @Test
+    @Test
     public void testDiffHashCodeForDiffCurrency() {
         int cents = RANDOM.nextInt();
         CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
