@@ -135,10 +135,11 @@ public class CurrencyAmountTest {
         assertNotEquals(amount, now);
     }
     
-//    @Test
+    @Test
     public void testDiffCentsSameCurrency() {
-        CurrencyAmount amountA = new CurrencyAmount(2989, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(2990, DOLLARS);
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(cents + 1, DOLLARS);
         assertNotEquals(amountA, amountB);
     }
 
