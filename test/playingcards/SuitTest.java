@@ -184,4 +184,24 @@ public class SuitTest {
         }
     }
     
+    @Test
+    public void testMatches() {
+        System.out.println("matches");
+        Suit[] suits = Suit.values();
+        CardDeck deck = new CardDeck();
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            for (Suit suit : suits) {
+                String msg = card.toString() + " should not match " 
+                        + suit.getWord();
+                boolean expected = suit == card.cardSuit;
+                if (expected) {
+                    msg = msg.replace("not ", "");
+                }
+                boolean actual = suit.matches(card);
+                assert expected == actual : msg;
+            }
+        }
+    }
+    
 }
