@@ -259,6 +259,21 @@ public class CardQueueTest {
     }
     
     @Test
+    public void testCueUpSuitCanGraduallySort() {
+        CardQueue queue = new CardQueue(USUAL_NUMBER_OF_DECKS);
+        for (int i = SUITS.length - 1; i > -1; i--) {
+            queue.cueUp(SUITS[i]);
+        }
+        for (Suit expected : SUITS) {
+            PlayingCard card = queue.getNextCard();
+            String msg = "Expecting " + card.toString() + " to be of suit " 
+                    + expected.getWord();
+            Suit actual = card.getSuit();
+            assertEquals(msg, expected, actual);
+        }
+    }
+    
+    @Test
     public void testCueUpSuitThrowsExceptionAfterRunningOut() {
         CardQueue queue = new CardQueue(1);
         int numberOfRanks = RANKS.length;
