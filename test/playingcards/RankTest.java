@@ -430,4 +430,24 @@ public class RankTest {
         }
     }
     
+    @Test
+    public void testMatches() {
+        System.out.println("matches");
+        Rank[] ranks = Rank.values();
+        CardDeck deck = new CardDeck();
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            for (Rank rank : ranks) {
+                String msg = card.toString() + " should not match " 
+                        + rank.getWord();
+                boolean expected = rank == card.cardRank;
+                if (expected) {
+                    msg = msg.replace("not ", "");
+                }
+                boolean actual = rank.matches(card);
+                assert expected == actual : msg;
+            }
+        }
+    }
+    
 }
