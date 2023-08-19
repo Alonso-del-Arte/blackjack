@@ -52,27 +52,27 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
 
     @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 37 * hash + (int) (this.amountInCents 
-                ^ (this.amountInCents >>> 32));
-        hash = 37 * hash + Objects.hashCode(this.currency);
-        return hash;
+    public int hashCode() {return 0;
+//        int hash = 5;
+//        hash = 37 * hash + (int) (this.amountInCents 
+//                ^ (this.amountInCents >>> 32));
+//        hash = 37 * hash + Objects.hashCode(this.currency);
+//        return hash;
     }
 
     @Override
-    public final boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!(obj instanceof CurrencyAmount)) {
-            return false;
-        }
-        final CurrencyAmount other = (CurrencyAmount) obj;
-        if (this.amountInCents != other.amountInCents) {
-            return false;
-        }
-        return this.currency.equals(other.currency);
+    public final boolean equals(Object obj) {return false;
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (!(obj instanceof CurrencyAmount)) {
+//            return false;
+//        }
+//        final CurrencyAmount other = (CurrencyAmount) obj;
+//        if (this.amountInCents != other.amountInCents) {
+//            return false;
+//        }
+//        return this.currency.equals(other.currency);
     }
 
     public long getAmountInCents() {
