@@ -25,6 +25,22 @@ import static org.junit.Assert.*;
  */
 public class TestingSpecTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
+    
+    private static final int NUMBER_OF_RANKS = RANKS.length;
+    
+    private static final int NUMBER_OF_SUITS = SUITS.length;
+    
+    private static final Rank[] ODDS = {Rank.ACE, Rank.THREE, Rank.FIVE, 
+        Rank.SEVEN, Rank.NINE};
+    
+    private static final Rank[] EVENS = {Rank.TWO, Rank.FOUR, Rank.SIX, 
+        Rank.EIGHT, Rank.TEN};
+    
+    private static final Rank[] COURTS = {Rank.JACK, Rank.QUEEN, Rank.KING};
+    
     @Test
     public void testGetChar() {
         System.out.println("getChar");
@@ -55,6 +71,34 @@ public class TestingSpecTest {
         assertEquals("odds", TestingSpec.ODD_PIP.getPluralWord());
         assertEquals("evens", TestingSpec.EVEN_PIP.getPluralWord());
         assertEquals("court cards", TestingSpec.COURT.getPluralWord());
+    }
+    
+    private static Suit chooseSuit() {
+        int index = (int) Math.floor(Math.random() * NUMBER_OF_SUITS);
+        return SUITS[index];
+    }
+    
+    @Test
+    public void testMatches() {
+        System.out.println("matches");
+        for (Rank odd : ODDS) {
+            PlayingCard card = new PlayingCard(odd, chooseSuit());
+            String msg = card.toString() + " should match testing spec " 
+                    + TestingSpec.ODD_PIP.getWord();
+            assert TestingSpec.ODD_PIP.matches(card) : msg;
+        }
+        for (Rank even : EVENS) {
+            PlayingCard card = new PlayingCard(even, chooseSuit());
+            String msg = card.toString() + " should match testing spec " 
+                    + TestingSpec.EVEN_PIP.getWord();
+            assert TestingSpec.EVEN_PIP.matches(card) : msg;
+        }
+        for (Rank court : COURTS) {
+            PlayingCard card = new PlayingCard(court, chooseSuit());
+            String msg = card.toString() + " should match testing spec " 
+                    + TestingSpec.COURT.getWord();
+            assert TestingSpec.COURT.matches(card) : msg;
+        }
     }
     
 }
