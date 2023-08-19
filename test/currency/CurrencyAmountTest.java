@@ -119,9 +119,10 @@ public class CurrencyAmountTest {
         assertEquals(amount, amount);
     }
     
-//    @Test
+    @Test
     public void testNotEqualsNull() {
-        CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
         assertNotEquals(amount, null);
     }
     
