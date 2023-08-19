@@ -57,7 +57,7 @@ public enum TestingSpec implements CardSpec {
     // TODO: Write tests for this
     @Override
     public boolean matches(PlayingCard card) {
-        return false;
+        return true;
     }
 
     TestingSpec(char ch, String word, String term) {
