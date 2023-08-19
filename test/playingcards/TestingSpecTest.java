@@ -25,11 +25,7 @@ import static org.junit.Assert.*;
  */
 public class TestingSpecTest {
     
-    private static final Rank[] RANKS = Rank.values();
-    
     private static final Suit[] SUITS = Suit.values();
-    
-    private static final int NUMBER_OF_RANKS = RANKS.length;
     
     private static final int NUMBER_OF_SUITS = SUITS.length;
     

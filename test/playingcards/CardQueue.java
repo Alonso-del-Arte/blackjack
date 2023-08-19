@@ -42,6 +42,23 @@ public class CardQueue implements CardSupplier {
         return this.currCardQty > 0;
     }
     
+    private boolean cueUpSpecSuccessFlag(CardSpec spec) {
+        boolean found = false;
+        int index = -1;
+        int len = this.cards.size() - 1;
+        while (!found && index < len) {
+            index++;
+            found = spec.matches(this.cards.get(index));
+        }
+        if (found) {
+            if (index > 0) {
+                PlayingCard card = this.cards.remove(index);
+                this.cards.add(0, card);
+            }
+        }
+        return found;
+    }
+    
     /**
      * Cues up a card of a specified rank. Then the next call to {@link 
      * #getNextCard()} will give a card of that rank. No guarantee as to the 
@@ -52,19 +69,8 @@ public class CardQueue implements CardSupplier {
      * with more decks.
      */
     public void cueUp(Rank rank) {
-        boolean found = false;
-        int index = -1;
-        int len = this.cards.size() - 1;
-        while (!found && index < len) {
-            index++;
-            found = this.cards.get(index).getRank().equals(rank);
-        }
-        if (found) {
-            if (index > 0) {
-                PlayingCard card = this.cards.remove(index);
-                this.cards.add(0, card);
-            }
-        } else {
+        boolean found = this.cueUpSpecSuccessFlag(rank);
+        if (!found) {
             throw new RanOutOfCardsException(rank);
         }
     }
@@ -79,19 +85,8 @@ public class CardQueue implements CardSupplier {
      * with more decks.
      */
     public void cueUp(Suit suit) {
-        boolean found = false;
-        int index = -1;
-        int len = this.cards.size() - 1;
-        while (!found && index < len) {
-            index++;
-            found = this.cards.get(index).getSuit().equals(suit);
-        }
-        if (found) {
-            if (index > 0) {
-                PlayingCard card = this.cards.remove(index);
-                this.cards.add(0, card);
-            }
-        } else {
+        boolean found = this.cueUpSpecSuccessFlag(suit);
+        if (!found) {
             throw new RanOutOfCardsException(suit);
         }
     }
