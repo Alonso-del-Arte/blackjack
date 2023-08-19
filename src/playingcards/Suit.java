@@ -163,10 +163,16 @@ public enum Suit implements CardSpec {
         }
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells whether the card matches this suit.
+     * @param card The card to check for a match. For example, 7&#9824;.
+     * @return True only if the suit matches, false otherwise. For example, 
+     * 7&#9824; this will return true for {@link #SPADES} but false for the 
+     * other suits.
+     */
     @Override
     public boolean matches(PlayingCard card) {
-        return false;
+        return this == card.cardSuit;
     }
 
     /**
