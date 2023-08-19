@@ -88,7 +88,8 @@ public class CardQueue implements CardSupplier {
         }
         if (found) {
             if (index > 0) {
-                Collections.swap(this.cards, 0, index);
+                PlayingCard card = this.cards.remove(index);
+                this.cards.add(0, card);
             }
         } else {
             throw new RanOutOfCardsException(suit);
