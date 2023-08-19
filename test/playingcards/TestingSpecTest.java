@@ -101,4 +101,32 @@ public class TestingSpecTest {
         }
     }
     
+    @Test
+    public void testDoesNotMatch() {
+        for (Rank odd : ODDS) {
+            PlayingCard card = new PlayingCard(odd, chooseSuit());
+            String msg = card.toString() + " should not match testing spec " 
+                    + TestingSpec.EVEN_PIP.getWord() + " nor " 
+                    + TestingSpec.COURT.getWord();
+            assert !TestingSpec.EVEN_PIP.matches(card) : msg;
+            assert !TestingSpec.COURT.matches(card) : msg;
+        }
+        for (Rank even : EVENS) {
+            PlayingCard card = new PlayingCard(even, chooseSuit());
+            String msg = card.toString() + " should not match testing spec " 
+                    + TestingSpec.ODD_PIP.getWord() + " nor " 
+                    + TestingSpec.COURT.getWord();
+            assert !TestingSpec.ODD_PIP.matches(card) : msg;
+            assert !TestingSpec.COURT.matches(card) : msg;
+        }
+        for (Rank court : COURTS) {
+            PlayingCard card = new PlayingCard(court, chooseSuit());
+            String msg = card.toString() + " should not match testing spec " 
+                    + TestingSpec.ODD_PIP.getWord() + " nor " 
+                    + TestingSpec.COURT.getWord();
+            assert !TestingSpec.ODD_PIP.matches(card) : msg;
+            assert !TestingSpec.EVEN_PIP.matches(card) : msg;
+        }
+    }
+    
 }
