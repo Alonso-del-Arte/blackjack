@@ -54,10 +54,22 @@ public enum TestingSpec implements CardSpec {
         return this.pluralTerm;
     }
     
-    // TODO: Write tests for this
     @Override
     public boolean matches(PlayingCard card) {
-        return true;
+        int value = card.cardValue();
+        switch (this) {
+            case ODD_PIP:
+                int modVal = value % 13;
+                return modVal % 2 == 1 && modVal < 10;
+            case EVEN_PIP:
+                return value % 2 == 0 && value < 11;
+            case COURT:
+                return value > 10 && value < 14;
+            default:
+                String excMsg = "Testing spec " + this.specWord 
+                        + " not recognized";
+                throw new RuntimeException(excMsg);
+        }
     }
 
     TestingSpec(char ch, String word, String term) {
