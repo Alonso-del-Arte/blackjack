@@ -222,10 +222,16 @@ public enum Rank implements CardSpec {
         }
     }
     
-    // TODO: Write tests for this
+    /**
+     * Tells whether the card matches this rank.
+     * @param card The card to check for a match. For example, 7&#9824;.
+     * @return True only if the rank matches, false otherwise. For example, 
+     * 7&#9824; this will return true for {@link #SEVEN} but false for the other 
+     * ranks.
+     */
     @Override
     public boolean matches(PlayingCard card) {
-        return false;
+        return this == card.cardRank;
     }
 
     Rank(int n, char ch, String nChars, String word, boolean cr) {
