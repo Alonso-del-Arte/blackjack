@@ -126,9 +126,10 @@ public class CurrencyAmountTest {
         assertNotEquals(amount, null);
     }
     
-//    @Test
+    @Test
     public void testNotEqualsOtherClass() {
-        CurrencyAmount amount = new CurrencyAmount(49989, DOLLARS);
+        int cents = RANDOM.nextInt();
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         LocalDateTime now = LocalDateTime.now();
         System.out.println("Test executed at " + now.toString());
         assertNotEquals(amount, now);
