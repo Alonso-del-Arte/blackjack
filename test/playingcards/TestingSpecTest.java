@@ -123,7 +123,7 @@ public class TestingSpecTest {
             PlayingCard card = new PlayingCard(court, chooseSuit());
             String msg = card.toString() + " should not match testing spec " 
                     + TestingSpec.ODD_PIP.getWord() + " nor " 
-                    + TestingSpec.COURT.getWord();
+                    + TestingSpec.EVEN_PIP.getWord();
             assert !TestingSpec.ODD_PIP.matches(card) : msg;
             assert !TestingSpec.EVEN_PIP.matches(card) : msg;
         }
