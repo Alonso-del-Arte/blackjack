@@ -61,7 +61,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
 
     @Override
-    public final boolean equals(Object obj) {return true;
+    public final boolean equals(Object obj) {return obj != null;
 //        if (this == obj) {
 //            return true;
 //        }
