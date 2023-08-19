@@ -163,6 +163,12 @@ public enum Suit implements CardSpec {
         }
     }
     
+    // TODO: Write tests for this
+    @Override
+    public boolean matches(PlayingCard card) {
+        return false;
+    }
+
     /**
      * Constructor. The example parameters below will be for spades.
      * @param color The color to use when drawing playing cards.

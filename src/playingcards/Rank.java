@@ -222,6 +222,12 @@ public enum Rank implements CardSpec {
         }
     }
     
+    // TODO: Write tests for this
+    @Override
+    public boolean matches(PlayingCard card) {
+        return false;
+    }
+
     Rank(int n, char ch, String nChars, String word, boolean cr) {
         this.rank = n;
         this.rankChar = ch;

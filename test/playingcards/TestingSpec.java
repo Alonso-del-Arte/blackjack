@@ -53,6 +53,12 @@ public enum TestingSpec implements CardSpec {
     public String getPluralWord() {
         return this.pluralTerm;
     }
+    
+    // TODO: Write tests for this
+    @Override
+    public boolean matches(PlayingCard card) {
+        return false;
+    }
 
     TestingSpec(char ch, String word, String term) {
         this.specChar = ch;

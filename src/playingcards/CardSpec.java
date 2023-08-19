@@ -83,4 +83,12 @@ public interface CardSpec {
         return this.getPluralWord();
     }
     
+    /**
+     * Tells whether the card matches this specification. Mostly this is to be 
+     * used for ranks and suits.
+     * @param card The card to examine for a match. For example, 7&#9824;.
+     * @return True if the card matches, false otherwise.
+     */
+    boolean matches(PlayingCard card);
+    
 }
