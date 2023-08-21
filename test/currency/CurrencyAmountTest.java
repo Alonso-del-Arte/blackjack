@@ -199,7 +199,7 @@ public class CurrencyAmountTest {
         assert hashA != hashB : msg;
     }
 
-//    @Test
+    @Test
     public void testDiffHashCodeForDiffCurrency() {
         int cents = RANDOM.nextInt();
         CurrencyAmount amountA = new CurrencyAmount(cents, DOLLARS);
