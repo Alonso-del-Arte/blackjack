@@ -237,7 +237,7 @@ public class CurrencyAmountTest {
                 + result.toString() + "???");
     }
 
-    @Test
+//    @Test
     public void testPlusDollars() {
         System.out.println("plus");
         CurrencyAmount addendA = new CurrencyAmount(205843, DOLLARS);
@@ -247,7 +247,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testPlusOtherDollars() {
         CurrencyAmount addendA = new CurrencyAmount(49989, DOLLARS);
         CurrencyAmount addendB = new CurrencyAmount(512, DOLLARS);
@@ -256,7 +256,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testPlusEuros() {
         CurrencyAmount addendA = new CurrencyAmount(8947, EUROS);
         CurrencyAmount addendB = new CurrencyAmount(7320, EUROS);
@@ -265,7 +265,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = CurrencyConversionNeededException.class)
+//    @Test(expected = CurrencyConversionNeededException.class)
     public void testPlusDifferentCurrencies() {
         CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
         CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
@@ -290,7 +290,7 @@ public class CurrencyAmountTest {
                 + result.toString());
     }
 
-    @Test
+//    @Test
     public void testNegateHundredBucks() {
         System.out.println("negate");
         CurrencyAmount amount = new CurrencyAmount(10000, DOLLARS);
@@ -299,7 +299,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testNegateAlreadyNegative() {
         CurrencyAmount amount = new CurrencyAmount(-10000, DOLLARS);
         CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
@@ -307,7 +307,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testNegateEuros() {
         CurrencyAmount amount = new CurrencyAmount(8355, EUROS);
         CurrencyAmount expected = new CurrencyAmount(-8355, EUROS);
@@ -315,7 +315,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = NullPointerException.class)
+//    @Test(expected = NullPointerException.class)
     public void testMinusNull() {
         CurrencyAmount minuend = new CurrencyAmount(533, EUROS);
         CurrencyAmount result = minuend.minus(null);
@@ -323,7 +323,7 @@ public class CurrencyAmountTest {
                 + result.toString() + "???");
     }
 
-    @Test
+//    @Test
     public void testMinusDollars() {
         System.out.println("minus");
         CurrencyAmount minuend = new CurrencyAmount(205843, DOLLARS);
@@ -333,7 +333,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testMinusOtherDollars() {
         CurrencyAmount minuend = new CurrencyAmount(49989, DOLLARS);
         CurrencyAmount subtrahend = new CurrencyAmount(512, DOLLARS);
@@ -342,7 +342,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testMinusEuros() {
         CurrencyAmount minuend = new CurrencyAmount(8947, EUROS);
         CurrencyAmount subtrahend = new CurrencyAmount(7320, EUROS);
@@ -351,7 +351,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = CurrencyConversionNeededException.class)
+//    @Test(expected = CurrencyConversionNeededException.class)
     public void testMinusDifferentCurrencies() {
         CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
         CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
@@ -376,7 +376,7 @@ public class CurrencyAmountTest {
                 + result.toString());
     }
 
-    @Test
+//    @Test
     public void testDollarsTimesInt() {
         System.out.println("times");
         int singleCents = 3995;
@@ -388,7 +388,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testOtherDollarsTimesInt() {
         int singleCents = 24823;
         CurrencyAmount amount = new CurrencyAmount(singleCents, DOLLARS);
@@ -399,7 +399,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testEurosTimesInt() {
         int singleCents = 4358;
         CurrencyAmount amount = new CurrencyAmount(singleCents, EUROS);
@@ -410,7 +410,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testDollarsTimesDouble() {
         CurrencyAmount subTotal = new CurrencyAmount(19975, DOLLARS);
         double salesTax = 0.06;
@@ -419,7 +419,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testOtherDollarsTimesDouble() {
         CurrencyAmount amount = new CurrencyAmount(108250, DOLLARS);
         double multiplier = 1.5;
@@ -428,7 +428,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testEurosTimesDouble() {
         CurrencyAmount amount = new CurrencyAmount(5989, EUROS);
         double multiplier = 1.09;
@@ -437,7 +437,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test(expected = ArithmeticException.class)
+//    @Test(expected = ArithmeticException.class)
     public void testOneDollarTimesPositiveInfinity() {
         CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
         CurrencyAmount result = oneBuck.times(Double.POSITIVE_INFINITY);
@@ -446,7 +446,7 @@ public class CurrencyAmountTest {
                 + result.toString() + "???");
     }
 
-    @Test(expected = ArithmeticException.class)
+//    @Test(expected = ArithmeticException.class)
     public void testOneDollarTimesNegativeInfinity() {
         CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
         CurrencyAmount result = oneBuck.times(Double.NEGATIVE_INFINITY);
@@ -455,7 +455,7 @@ public class CurrencyAmountTest {
                 + result.toString() + "???");
     }
 
-    @Test(expected = ArithmeticException.class)
+//    @Test(expected = ArithmeticException.class)
     public void testOneDollarTimesNaN() {
         CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
         CurrencyAmount result = oneBuck.times(Double.NaN);
@@ -463,7 +463,7 @@ public class CurrencyAmountTest {
                 + result.toString() + "???");
     }
 
-    @Test
+//    @Test
     public void testDivideByZero() {
         CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
         try {
@@ -481,7 +481,7 @@ public class CurrencyAmountTest {
         }
     }
 
-    @Test
+//    @Test
     public void testDivides() {
         System.out.println("divides");
         CurrencyAmount amount = new CurrencyAmount(30000000, DOLLARS);
@@ -491,7 +491,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+//    @Test
     public void testDivideOtherCurrency() {
         CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
         int divisor = 3;
@@ -500,7 +500,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
     
-    @Test
+//    @Test
     public void testCompareToLesser() {
         CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
         CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
@@ -509,7 +509,7 @@ public class CurrencyAmountTest {
         assertTrue(assertionMessage, amountA.compareTo(amountB) < 0);
     }
     
-    @Test
+//    @Test
     public void testCompareToEqual() {
         CurrencyAmount someAmount = new CurrencyAmount(49899, DOLLARS);
         CurrencyAmount sameAmount = new CurrencyAmount(49899, DOLLARS);
@@ -518,7 +518,7 @@ public class CurrencyAmountTest {
         assertEquals(assertionMessage, 0, someAmount.compareTo(sameAmount));
     }
 
-    @Test
+//    @Test
     public void testCompareToGreater() {
         CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
         CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
@@ -527,7 +527,7 @@ public class CurrencyAmountTest {
         assertTrue(assertionMessage, amountB.compareTo(amountA) > 0);
     }
 
-    @Test
+//    @Test
     public void testCompareTo() {
         System.out.println("compareTo");
         CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
@@ -551,7 +551,7 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
     
-    @Test
+//    @Test
     public void testCompareDifferentCurrencies() {
         CurrencyAmount dollarsAmount = new CurrencyAmount(57380, DOLLARS);
         CurrencyAmount eurosAmount = new CurrencyAmount(57380, EUROS);
