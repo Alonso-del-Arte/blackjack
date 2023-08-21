@@ -67,12 +67,12 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         }
         if (!(obj instanceof CurrencyAmount)) {
             return false;
-        }return this.amountInCents == ((CurrencyAmount) obj).amountInCents;
-//        final CurrencyAmount other = (CurrencyAmount) obj;
-//        if (this.amountInCents != other.amountInCents) {
-//            return false;
-//        }
-//        return this.currency.equals(other.currency);
+        }
+        final CurrencyAmount other = (CurrencyAmount) obj;
+        if (this.amountInCents != other.amountInCents) {
+            return false;
+        }
+        return this.currency.equals(other.currency);
     }
 
     public long getAmountInCents() {
