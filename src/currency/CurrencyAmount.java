@@ -95,45 +95,46 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
      * addend are of different currencies, this exception will be thrown. For 
      * example, if this amount is $499.89 and the addend is &euro;73.20.
      */
-    public CurrencyAmount plus(CurrencyAmount addend) {
-        if (this.currency != addend.currency) {
-            throw new CurrencyConversionNeededException("Convert before adding", 
-                    this, addend);
-        }
-        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-                this.currency);
+    public CurrencyAmount plus(CurrencyAmount addend) {return this;
+//        if (this.currency != addend.currency) {
+//            throw new CurrencyConversionNeededException("Convert before adding", 
+//                    this, addend);
+//        }
+//        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
+//                this.currency);
     }
     
-    public CurrencyAmount negate() {
-        return new CurrencyAmount(-this.amountInCents, this.currency);
+    public CurrencyAmount negate() {return this;
+//        return new CurrencyAmount(-this.amountInCents, this.currency);
     }
     
-    public CurrencyAmount minus(CurrencyAmount subtrahend) {
-        return this.plus(subtrahend.negate());
+    public CurrencyAmount minus(CurrencyAmount subtrahend) {return this;
+//        return this.plus(subtrahend.negate());
     }
     
-    public CurrencyAmount times(int multiplier) {
-        return new CurrencyAmount(multiplier * this.amountInCents, this.currency);
+    public CurrencyAmount times(int multiplier) {return this;
+//        return new CurrencyAmount(multiplier 
+//                * this.amountInCents, this.currency);
     }
     
-    public CurrencyAmount times(double multiplier) {
-        if (Double.isFinite(multiplier)) {
-            double product = multiplier * this.amountInCents;
-            return new CurrencyAmount(Math.round(product), this.currency);
-        } else {
-            String excMsg = "The number " + multiplier + " is not finite";
-            throw new ArithmeticException(excMsg);
-        }
+    public CurrencyAmount times(double multiplier) {return this;
+//        if (Double.isFinite(multiplier)) {
+//            double product = multiplier * this.amountInCents;
+//            return new CurrencyAmount(Math.round(product), this.currency);
+//        } else {
+//            String excMsg = "The number " + multiplier + " is not finite";
+//            throw new ArithmeticException(excMsg);
+//        }
     }
     
-    public CurrencyAmount divides(int divisor) {
-        return new CurrencyAmount(this.amountInCents / divisor, this.currency);
+    public CurrencyAmount divides(int divisor) {return this;
+//        return new CurrencyAmount(this.amountInCents / divisor, this.currency);
     }
     
     @Override
-    public int compareTo(CurrencyAmount other) {
-        CurrencyAmount diff = this.minus(other);
-        return Long.signum(diff.amountInCents);
+    public int compareTo(CurrencyAmount other) {return 0;
+//        CurrencyAmount diff = this.minus(other);
+//        return Long.signum(diff.amountInCents);
     }
     
     /**
