@@ -52,12 +52,12 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
 
     @Override
-    public int hashCode() {return (int) this.amountInCents;
-//        int hash = 5;
-//        hash = 37 * hash + (int) (this.amountInCents 
-//                ^ (this.amountInCents >>> 32));
-//        hash = 37 * hash + Objects.hashCode(this.currency);
-//        return hash;
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + (int) (this.amountInCents 
+                ^ (this.amountInCents >>> 32));
+        hash = 37 * hash + Objects.hashCode(this.currency);
+        return hash;
     }
 
     @Override
