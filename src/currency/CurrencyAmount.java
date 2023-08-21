@@ -97,13 +97,13 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
      */
     public CurrencyAmount plus(CurrencyAmount addend) {if (addend == null) {
         throw new NullPointerException("Addend should not be null");
-    }return this;
+    }
 //        if (this.currency != addend.currency) {
 //            throw new CurrencyConversionNeededException("Convert before adding", 
 //                    this, addend);
 //        }
-//        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-//                this.currency);
+        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
+                this.currency);
     }
     
     public CurrencyAmount negate() {return this;
