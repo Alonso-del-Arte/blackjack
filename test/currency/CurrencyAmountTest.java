@@ -231,20 +231,25 @@ public class CurrencyAmountTest {
 
     @Test(expected = NullPointerException.class)
     public void testPlusNull() {
-        CurrencyAmount addend = new CurrencyAmount(533, EUROS);
+        int cents = RANDOM.nextInt();
+        CurrencyAmount addend = new CurrencyAmount(cents, EUROS);
         CurrencyAmount result = addend.plus(null);
         System.out.println(addend.toString() + " plus null equals "
                 + result.toString() + "???");
     }
 
-//    @Test
+    @Test
     public void testPlusDollars() {
         System.out.println("plus");
-        CurrencyAmount addendA = new CurrencyAmount(205843, DOLLARS);
-        CurrencyAmount addendB = new CurrencyAmount(8953, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(214796, DOLLARS);
+        int centsA = RANDOM.nextInt(262144) + 16;
+        int centsB = RANDOM.nextInt(262144) + 16;
+        CurrencyAmount addendA = new CurrencyAmount(centsA, DOLLARS);
+        CurrencyAmount addendB = new CurrencyAmount(centsB, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(centsA + centsB, DOLLARS);
         CurrencyAmount actual = addendA.plus(addendB);
-        assertEquals(expected, actual);
+        String msg = addendA.toString() + " + " + addendB + " expected to be " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test
