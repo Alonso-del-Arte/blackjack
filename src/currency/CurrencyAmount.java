@@ -65,7 +65,10 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         if (this == obj) {
             return true;
         }
-        if (!(obj instanceof CurrencyAmount)) {
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
         final CurrencyAmount other = (CurrencyAmount) obj;
