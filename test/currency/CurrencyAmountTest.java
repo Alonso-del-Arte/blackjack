@@ -315,15 +315,6 @@ public class CurrencyAmountTest {
     }
 
 //    @Test
-    public void testMinusOtherDollars() {
-        CurrencyAmount minuend = new CurrencyAmount(49989, DOLLARS);
-        CurrencyAmount subtrahend = new CurrencyAmount(512, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(49477, DOLLARS);
-        CurrencyAmount actual = minuend.minus(subtrahend);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
     public void testMinusEuros() {
         CurrencyAmount minuend = new CurrencyAmount(8947, EUROS);
         CurrencyAmount subtrahend = new CurrencyAmount(7320, EUROS);
