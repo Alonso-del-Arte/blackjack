@@ -95,9 +95,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
      * addend are of different currencies, this exception will be thrown. For 
      * example, if this amount is $499.89 and the addend is &euro;73.20.
      */
-    public CurrencyAmount plus(CurrencyAmount addend) {if (addend == null) {
-        throw new NullPointerException("Addend should not be null");
-    }
+    public CurrencyAmount plus(CurrencyAmount addend) {
         if (this.currency != addend.currency) {
             throw new CurrencyConversionNeededException("Convert before adding", 
                     this, addend);
