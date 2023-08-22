@@ -239,7 +239,7 @@ public class CurrencyAmountTest {
     }
 
     @Test
-    public void testPlusDollars() {
+    public void testPlus() {
         System.out.println("plus");
         int centsA = RANDOM.nextInt(262144) + 16;
         int centsB = RANDOM.nextInt(262144) + 16;
@@ -300,14 +300,18 @@ public class CurrencyAmountTest {
                 + result.toString() + " ???");
     }
 
-//    @Test
-    public void testMinusDollars() {
+    @Test
+    public void testMinus() {
         System.out.println("minus");
-        CurrencyAmount minuend = new CurrencyAmount(205843, DOLLARS);
-        CurrencyAmount subtrahend = new CurrencyAmount(8953, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(196890, DOLLARS);
+        int centsA = RANDOM.nextInt(262144) + 16;
+        int centsB = RANDOM.nextInt(262144) + 16;
+        CurrencyAmount minuend = new CurrencyAmount(centsA, DOLLARS);
+        CurrencyAmount subtrahend = new CurrencyAmount(centsB, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(centsA - centsB, DOLLARS);
         CurrencyAmount actual = minuend.minus(subtrahend);
-        assertEquals(expected, actual);
+        String msg = minuend.toString() + " - " + subtrahend.toString() 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test
