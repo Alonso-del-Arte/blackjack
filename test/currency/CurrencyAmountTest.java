@@ -409,13 +409,17 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test
+    @Test
     public void testDollarsTimesDouble() {
-        CurrencyAmount subTotal = new CurrencyAmount(19975, DOLLARS);
-        double salesTax = 0.06;
-        CurrencyAmount expected = new CurrencyAmount(1199, DOLLARS);
-        CurrencyAmount actual = subTotal.times(salesTax);
-        assertEquals(expected, actual);
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        double multiplier = RANDOM.nextDouble() + 1.0;
+        int multCents = (int) Math.round(multiplier * cents);
+        CurrencyAmount expected = new CurrencyAmount(multCents, DOLLARS);
+        CurrencyAmount actual = amount.times(multiplier);
+        String msg = amount.toString() + " times " + multiplier 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test
