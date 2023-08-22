@@ -253,15 +253,6 @@ public class CurrencyAmountTest {
     }
 
 //    @Test
-    public void testPlusOtherDollars() {
-        CurrencyAmount addendA = new CurrencyAmount(49989, DOLLARS);
-        CurrencyAmount addendB = new CurrencyAmount(512, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(50501, DOLLARS);
-        CurrencyAmount actual = addendA.plus(addendB);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
     public void testPlusEuros() {
         CurrencyAmount addendA = new CurrencyAmount(8947, EUROS);
         CurrencyAmount addendB = new CurrencyAmount(7320, EUROS);
