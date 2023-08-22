@@ -422,13 +422,17 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test
+    @Test
     public void testEurosTimesDouble() {
-        CurrencyAmount amount = new CurrencyAmount(5989, EUROS);
-        double multiplier = 1.09;
-        CurrencyAmount expected = new CurrencyAmount(6528, EUROS);
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
+        double multiplier = RANDOM.nextDouble() + 1.0;
+        int multCents = (int) Math.round(multiplier * cents);
+        CurrencyAmount expected = new CurrencyAmount(multCents, EUROS);
         CurrencyAmount actual = amount.times(multiplier);
-        assertEquals(expected, actual);
+        String msg = amount.toString() + " times " + multiplier 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test(expected = ArithmeticException.class)
