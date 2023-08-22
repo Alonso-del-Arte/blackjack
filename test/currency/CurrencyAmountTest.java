@@ -496,13 +496,16 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test
+    @Test
     public void testDivideOtherCurrency() {
-        CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
-        int divisor = 3;
-        CurrencyAmount expected = new CurrencyAmount(2440, EUROS);
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        int divisor = RANDOM.nextInt(16) + 4;
+        CurrencyAmount amount = new CurrencyAmount(cents * divisor, EUROS);
+        CurrencyAmount expected = new CurrencyAmount(cents, EUROS);
         CurrencyAmount actual = amount.divides(divisor);
-        assertEquals(expected, actual);
+        String msg = amount.toString() + " divided by " + divisor 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
     
 //    @Test
