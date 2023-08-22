@@ -118,13 +118,13 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
     
     public CurrencyAmount times(double multiplier) {
-//        if (Double.isFinite(multiplier)) {
+        if (Double.isFinite(multiplier)) {
             double product = multiplier * this.amountInCents;
             return new CurrencyAmount(Math.round(product), this.currency);
-//        } else {
-//            String excMsg = "The number " + multiplier + " is not finite";
-//            throw new ArithmeticException(excMsg);
-//        }
+        } else {
+            String excMsg = "The number " + multiplier + " is not finite";
+            throw new ArithmeticException(excMsg);
+        }
     }
     
     public CurrencyAmount divides(int divisor) {return this;
