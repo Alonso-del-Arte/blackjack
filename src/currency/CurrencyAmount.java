@@ -114,7 +114,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     
     public CurrencyAmount times(int multiplier) {
         return new CurrencyAmount(multiplier 
-                * this.amountInCents, Currency.getInstance("USD")); // this.currency);
+                * this.amountInCents, this.currency);
     }
     
     public CurrencyAmount times(double multiplier) {return this;
