@@ -396,15 +396,17 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test
+    @Test
     public void testEurosTimesInt() {
-        int singleCents = 4358;
+        int singleCents = RANDOM.nextInt(131072) + 8;
         CurrencyAmount amount = new CurrencyAmount(singleCents, EUROS);
-        int multiplier = 12;
+        int multiplier = RANDOM.nextInt(128) - 64;
         int multCents = multiplier * singleCents;
         CurrencyAmount expected = new CurrencyAmount(multCents, EUROS);
         CurrencyAmount actual = amount.times(multiplier);
-        assertEquals(expected, actual);
+        String msg = amount.toString() + " times " + multiplier 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test
