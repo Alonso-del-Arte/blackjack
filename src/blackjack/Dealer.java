@@ -17,6 +17,7 @@
 package blackjack;
 
 import currency.CurrencyAmount;
+import java.util.Currency;
 import playingcards.CardSupplier;
 import playingcards.MultiDeckCardDispenser;
 import playingcards.PlayingCard;
@@ -101,6 +102,12 @@ public class Dealer {
     
     CurrencyAmount reportBankroll() {
         return this.bankroll;
+    }
+    
+    // TODO: Write tests for this
+    Wager insurance(Player player) {
+        return new Wager(new CurrencyAmount(1, Currency.getInstance("USD")), 
+                false);
     }
     
     // TODO: Write tests for this

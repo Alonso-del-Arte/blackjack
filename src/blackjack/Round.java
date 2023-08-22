@@ -48,6 +48,11 @@ public class Round {
     }
     
     // TODO: Write tests for this
+    public void insure(Player player) {
+        //
+    }
+    
+    // TODO: Write tests for this
     public void hit(Player player) {
         //
     }
