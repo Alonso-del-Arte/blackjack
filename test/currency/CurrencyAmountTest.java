@@ -364,10 +364,11 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
 
-//    @Test
+    @Test
     public void testNegateAlreadyNegative() {
-        CurrencyAmount amount = new CurrencyAmount(-10000, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
+        int cents = RANDOM.nextInt(1048576) + 4;
+        CurrencyAmount amount = new CurrencyAmount(-cents, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(cents, DOLLARS);
         CurrencyAmount actual = amount.negate();
         assertEquals(expected, actual);
     }
