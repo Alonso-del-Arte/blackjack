@@ -423,15 +423,6 @@ public class CurrencyAmountTest {
     }
 
 //    @Test
-    public void testOtherDollarsTimesDouble() {
-        CurrencyAmount amount = new CurrencyAmount(108250, DOLLARS);
-        double multiplier = 1.5;
-        CurrencyAmount expected = new CurrencyAmount(162375, DOLLARS);
-        CurrencyAmount actual = amount.times(multiplier);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
     public void testEurosTimesDouble() {
         CurrencyAmount amount = new CurrencyAmount(5989, EUROS);
         double multiplier = 1.09;
