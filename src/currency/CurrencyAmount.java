@@ -103,8 +103,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
 //                    this, addend);
 //        }
         return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-                Currency.getInstance("USD"));
-//                this.currency);
+                this.currency);
     }
     
     public CurrencyAmount negate() {return this;
