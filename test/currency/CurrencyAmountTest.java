@@ -464,21 +464,22 @@ public class CurrencyAmountTest {
                 + result.toString() + " ???");
     }
 
-//    @Test
+    @Test
     public void testDivideByZero() {
-        CurrencyAmount amount = new CurrencyAmount(7320, EUROS);
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
         try {
             CurrencyAmount result = amount.divides(0);
             System.out.println(amount.toString() 
                     + " divided by zero is said to be " + result.toString() 
-                    + "???");
+                    + " ???");
             fail("Trying to divide by zero should have caused an exception");
         } catch (IllegalArgumentException | ArithmeticException iae) {
             System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (Exception e) {
-            String failMsg = e.getClass().getName() 
+        } catch (RuntimeException re) {
+            String msg = re.getClass().getName() 
                     + " is the wrong exception to throw for division by zero";
-            fail(failMsg);
+            fail(msg);
         }
     }
 
