@@ -397,17 +397,6 @@ public class CurrencyAmountTest {
     }
 
 //    @Test
-    public void testOtherDollarsTimesInt() {
-        int singleCents = 24823;
-        CurrencyAmount amount = new CurrencyAmount(singleCents, DOLLARS);
-        int multiplier = 7;
-        int multCents = multiplier * singleCents;
-        CurrencyAmount expected = new CurrencyAmount(multCents, DOLLARS);
-        CurrencyAmount actual = amount.times(multiplier);
-        assertEquals(expected, actual);
-    }
-
-//    @Test
     public void testEurosTimesInt() {
         int singleCents = 4358;
         CurrencyAmount amount = new CurrencyAmount(singleCents, EUROS);
