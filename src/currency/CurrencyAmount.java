@@ -120,9 +120,7 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     public CurrencyAmount times(double multiplier) {
 //        if (Double.isFinite(multiplier)) {
             double product = multiplier * this.amountInCents;
-            return new CurrencyAmount(Math.round(product), 
-                    Currency.getInstance("USD"));
-//this.currency);
+            return new CurrencyAmount(Math.round(product), this.currency);
 //        } else {
 //            String excMsg = "The number " + multiplier + " is not finite";
 //            throw new ArithmeticException(excMsg);
