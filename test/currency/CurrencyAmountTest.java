@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
@@ -508,53 +509,19 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
     
-//    @Test
-    public void testCompareToLesser() {
-        CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
-        String assertionMessage = amountA.toString() + " is less than " 
-                + amountB.toString();
-        assertTrue(assertionMessage, amountA.compareTo(amountB) < 0);
-    }
-    
-//    @Test
-    public void testCompareToEqual() {
-        CurrencyAmount someAmount = new CurrencyAmount(49899, DOLLARS);
-        CurrencyAmount sameAmount = new CurrencyAmount(49899, DOLLARS);
-        String assertionMessage = someAmount.toString() + " is equal to " 
-                + sameAmount.toString();
-        assertEquals(assertionMessage, 0, someAmount.compareTo(sameAmount));
-    }
-
-//    @Test
-    public void testCompareToGreater() {
-        CurrencyAmount amountA = new CurrencyAmount(49899, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
-        String assertionMessage = amountB.toString() + " is greater than " 
-                + amountA.toString();
-        assertTrue(assertionMessage, amountB.compareTo(amountA) > 0);
-    }
-
-//    @Test
+    @Test
     public void testCompareTo() {
         System.out.println("compareTo");
-        CurrencyAmount negBal = new CurrencyAmount(-372, DOLLARS);
-        CurrencyAmount zero = new CurrencyAmount(0, DOLLARS);
-        CurrencyAmount amountA = new CurrencyAmount(49989, DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(104250, DOLLARS);
-        CurrencyAmount amountC = new CurrencyAmount(583047758, DOLLARS);
-        ArrayList<CurrencyAmount> expected = new ArrayList<>();
-        expected.add(negBal);
-        expected.add(zero);
-        expected.add(amountA);
-        expected.add(amountB);
-        expected.add(amountC);
-        ArrayList<CurrencyAmount> actual = new ArrayList<>();
-        actual.add(amountB);
-        actual.add(amountC);
-        actual.add(zero);
-        actual.add(negBal);
-        actual.add(amountA);
+        int capacity = 20;
+        List<CurrencyAmount> expected = new ArrayList<>(capacity);
+        int currCents = -RANDOM.nextInt(1024) - 16;
+        do {
+            currCents += RANDOM.nextInt(128);
+            CurrencyAmount amount = new CurrencyAmount(currCents, DOLLARS);
+            expected.add(amount);
+        } while (expected.size() < capacity);
+        List<CurrencyAmount> actual = new ArrayList<>(expected);
+        Collections.shuffle(actual, RANDOM);
         Collections.sort(actual);
         assertEquals(expected, actual);
     }
