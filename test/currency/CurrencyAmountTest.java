@@ -291,37 +291,13 @@ public class CurrencyAmountTest {
                 + result.toString());
     }
 
-//    @Test
-    public void testNegateHundredBucks() {
-        System.out.println("negate");
-        CurrencyAmount amount = new CurrencyAmount(10000, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(-10000, DOLLARS);
-        CurrencyAmount actual = amount.negate();
-        assertEquals(expected, actual);
-    }
-
-//    @Test
-    public void testNegateAlreadyNegative() {
-        CurrencyAmount amount = new CurrencyAmount(-10000, DOLLARS);
-        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
-        CurrencyAmount actual = amount.negate();
-        assertEquals(expected, actual);
-    }
-
-//    @Test
-    public void testNegateEuros() {
-        CurrencyAmount amount = new CurrencyAmount(8355, EUROS);
-        CurrencyAmount expected = new CurrencyAmount(-8355, EUROS);
-        CurrencyAmount actual = amount.negate();
-        assertEquals(expected, actual);
-    }
-
-//    @Test(expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void testMinusNull() {
-        CurrencyAmount minuend = new CurrencyAmount(533, EUROS);
+        int cents = RANDOM.nextInt(Short.MAX_VALUE);
+        CurrencyAmount minuend = new CurrencyAmount(cents, EUROS);
         CurrencyAmount result = minuend.minus(null);
         System.out.println(minuend.toString() + " minus null equals "
-                + result.toString() + "???");
+                + result.toString() + " ???");
     }
 
 //    @Test
@@ -375,6 +351,31 @@ public class CurrencyAmountTest {
                 + amountA.toString()
                 + " should have caused an exception, not given result "
                 + result.toString());
+    }
+
+//    @Test
+    public void testNegateHundredBucks() {
+        System.out.println("negate");
+        CurrencyAmount amount = new CurrencyAmount(10000, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(-10000, DOLLARS);
+        CurrencyAmount actual = amount.negate();
+        assertEquals(expected, actual);
+    }
+
+//    @Test
+    public void testNegateAlreadyNegative() {
+        CurrencyAmount amount = new CurrencyAmount(-10000, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(10000, DOLLARS);
+        CurrencyAmount actual = amount.negate();
+        assertEquals(expected, actual);
+    }
+
+//    @Test
+    public void testNegateEuros() {
+        CurrencyAmount amount = new CurrencyAmount(8355, EUROS);
+        CurrencyAmount expected = new CurrencyAmount(-8355, EUROS);
+        CurrencyAmount actual = amount.negate();
+        assertEquals(expected, actual);
     }
 
 //    @Test
