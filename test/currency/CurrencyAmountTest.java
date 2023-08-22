@@ -327,10 +327,12 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test(expected = CurrencyConversionNeededException.class)
+    @Test(expected = CurrencyConversionNeededException.class)
     public void testMinusDifferentCurrencies() {
-        CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
-        CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
+        int centsA = RANDOM.nextInt(262144) + 16;
+        int centsB = RANDOM.nextInt(262144) + 16;
+        CurrencyAmount dollars = new CurrencyAmount(centsA, DOLLARS);
+        CurrencyAmount euros = new CurrencyAmount(centsB, EUROS);
         CurrencyAmount result = dollars.minus(euros);
         System.out.println("Trying to subtract " + euros.toString() + " from "
                 + dollars.toString()
