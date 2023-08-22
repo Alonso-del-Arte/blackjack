@@ -115,7 +115,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
                 this, 
                 subtrahend);
     }
-    return new CurrencyAmount(this.amountInCents - subtrahend.amountInCents, 
+    return new CurrencyAmount(Math.subtractExact(this.amountInCents, 
+            subtrahend.amountInCents), 
             this.currency);
 //        return this.plus(subtrahend.negate());
     }
