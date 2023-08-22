@@ -252,13 +252,17 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test
+    @Test
     public void testPlusEuros() {
-        CurrencyAmount addendA = new CurrencyAmount(8947, EUROS);
-        CurrencyAmount addendB = new CurrencyAmount(7320, EUROS);
-        CurrencyAmount expected = new CurrencyAmount(16267, EUROS);
+        int centsA = RANDOM.nextInt(262144) + 16;
+        int centsB = RANDOM.nextInt(262144) + 16;
+        CurrencyAmount addendA = new CurrencyAmount(centsA, EUROS);
+        CurrencyAmount addendB = new CurrencyAmount(centsB, EUROS);
+        CurrencyAmount expected = new CurrencyAmount(centsA + centsB, EUROS);
         CurrencyAmount actual = addendA.plus(addendB);
-        assertEquals(expected, actual);
+        String msg = addendA.toString() + " + " + addendB + " expected to be " 
+                + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test(expected = CurrencyConversionNeededException.class)
