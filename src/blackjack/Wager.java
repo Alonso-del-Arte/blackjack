@@ -27,6 +27,8 @@ public class Wager {
     
     private final CurrencyAmount wagerAmount;
     
+    private final boolean insuranceFlag;
+    
     private boolean settleFlag = false;
     
     private Settlement settlement = null;
@@ -38,6 +40,11 @@ public class Wager {
      */
     public CurrencyAmount getAmount() {
         return this.wagerAmount;
+    }
+    
+    // TODO: Write tests for this
+    public boolean isInsuranceWager() {
+        return true;
     }
     
     /**
@@ -98,14 +105,23 @@ public class Wager {
         return replacementWager;
     }
     
-    // TODO: Determine if this constructor needs to be public
     /**
-     * Sole constructor. Starts a wager that is not settled yet.
+     * Auxiliary public constructor. Starts a non-insurance wager that is not 
+     * settled yet.
      * @param amount The wager amount. For example, $100.00.
+     */
+    public Wager(CurrencyAmount amount) {
+        this(amount, false);
+    }
+    
+    /**
+     * Primary constructor. Starts a wager that is not settled yet.
+     * @param amount The wager amount. For example, $100.00.
+     * @param isInsurance Whether or not this wager is for insurance.
      * @throws IllegalArgumentException If the wager amount is 0 or negative, 
      * regardless of the currency.
      */
-    public Wager(CurrencyAmount amount) {
+    Wager(CurrencyAmount amount, boolean isInsurance) {
         if (amount.isNotPositive()) {
             String excMsg = "Amount " + amount.toString() 
                     + " is not a valid wager amount, needs to be more than " 
@@ -113,6 +129,7 @@ public class Wager {
             throw new IllegalArgumentException(excMsg);
         }
         this.wagerAmount = amount;
+        this.insuranceFlag = isInsurance;
     }
     
     /**
