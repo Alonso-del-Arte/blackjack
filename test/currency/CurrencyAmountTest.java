@@ -340,13 +340,13 @@ public class CurrencyAmountTest {
                 + result.toString());
     }
 
-    @Ignore
     @Test(expected = ArithmeticException.class)
     public void testMinusTooMuch() {
-        CurrencyAmount amountA = new CurrencyAmount(-9000000000000000000L, 
-                DOLLARS);
-        CurrencyAmount amountB = new CurrencyAmount(1000000000000000000L, 
-                DOLLARS);
+        long centsA = -((long) Integer.MAX_VALUE) 
+                - RANDOM.nextInt(Integer.MAX_VALUE);
+        long centsB = Long.MAX_VALUE - Math.abs(centsA) + 3;
+        CurrencyAmount amountA = new CurrencyAmount(centsA, DOLLARS);
+        CurrencyAmount amountB = new CurrencyAmount(centsB, DOLLARS);
         CurrencyAmount result = amountA.minus(amountB);
         System.out.println("Trying to subtract " + amountB.toString() + " from "
                 + amountA.toString()
