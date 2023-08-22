@@ -357,7 +357,7 @@ public class CurrencyAmountTest {
     @Test
     public void testNegate() {
         System.out.println("negate");
-        int cents = -RANDOM.nextInt(1048576) - 4;
+        int cents = RANDOM.nextInt(1048576) + 4;
         CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
         CurrencyAmount expected = new CurrencyAmount(-cents, DOLLARS);
         CurrencyAmount actual = amount.negate();
@@ -366,17 +366,18 @@ public class CurrencyAmountTest {
 
     @Test
     public void testNegateAlreadyNegative() {
-        int cents = RANDOM.nextInt(1048576) + 4;
+        int cents = -RANDOM.nextInt(1048576) - 4;
         CurrencyAmount amount = new CurrencyAmount(-cents, DOLLARS);
         CurrencyAmount expected = new CurrencyAmount(cents, DOLLARS);
         CurrencyAmount actual = amount.negate();
         assertEquals(expected, actual);
     }
 
-//    @Test
+    @Test
     public void testNegateEuros() {
-        CurrencyAmount amount = new CurrencyAmount(8355, EUROS);
-        CurrencyAmount expected = new CurrencyAmount(-8355, EUROS);
+        int cents = RANDOM.nextInt(1048576) + 4;
+        CurrencyAmount amount = new CurrencyAmount(cents, EUROS);
+        CurrencyAmount expected = new CurrencyAmount(-cents, EUROS);
         CurrencyAmount actual = amount.negate();
         assertEquals(expected, actual);
     }
