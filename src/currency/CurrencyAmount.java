@@ -100,8 +100,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
             throw new CurrencyConversionNeededException("Convert before adding", 
                     this, addend);
         }
-        return new CurrencyAmount(this.amountInCents + addend.amountInCents, 
-                this.currency);
+        return new CurrencyAmount(Math.addExact(this.amountInCents, 
+                addend.amountInCents), this.currency);
     }
     
     public CurrencyAmount negate() {return this;
