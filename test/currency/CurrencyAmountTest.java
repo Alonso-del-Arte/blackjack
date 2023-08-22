@@ -483,14 +483,17 @@ public class CurrencyAmountTest {
         }
     }
 
-//    @Test
+    @Test
     public void testDivides() {
         System.out.println("divides");
-        CurrencyAmount amount = new CurrencyAmount(30000000, DOLLARS);
-        int divisor = 7;
-        CurrencyAmount expected = new CurrencyAmount(4285714, DOLLARS);
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        int divisor = RANDOM.nextInt(16) + 4;
+        CurrencyAmount amount = new CurrencyAmount(cents * divisor, DOLLARS);
+        CurrencyAmount expected = new CurrencyAmount(cents, DOLLARS);
         CurrencyAmount actual = amount.divides(divisor);
-        assertEquals(expected, actual);
+        String msg = amount.toString() + " divided by " + divisor 
+                + " expected to be " + expected.toString();
+        assertEquals(msg, expected, actual);
     }
 
 //    @Test
