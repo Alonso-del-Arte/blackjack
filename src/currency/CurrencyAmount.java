@@ -112,9 +112,9 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         return this.plus(subtrahend.negate());
     }
     
-    public CurrencyAmount times(int multiplier) {return this;
-//        return new CurrencyAmount(multiplier 
-//                * this.amountInCents, this.currency);
+    public CurrencyAmount times(int multiplier) {
+        return new CurrencyAmount(multiplier 
+                * this.amountInCents, Currency.getInstance("USD")); // this.currency);
     }
     
     public CurrencyAmount times(double multiplier) {return this;
