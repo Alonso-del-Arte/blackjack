@@ -127,7 +127,10 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         }
     }
     
-    public CurrencyAmount divides(int divisor) {return this;
+    public CurrencyAmount divides(int divisor) {if (divisor == 0) {
+        throw new ArithmeticException("Division by zero");
+    }
+        return this;
 //        return new CurrencyAmount(this.amountInCents / divisor, this.currency);
     }
     
