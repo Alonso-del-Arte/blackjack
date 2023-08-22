@@ -265,10 +265,11 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test(expected = CurrencyConversionNeededException.class)
+    @Test(expected = CurrencyConversionNeededException.class)
     public void testPlusDifferentCurrencies() {
-        CurrencyAmount dollars = new CurrencyAmount(49989, DOLLARS);
-        CurrencyAmount euros = new CurrencyAmount(7320, EUROS);
+        int cents = RANDOM.nextInt(131072) + 8;
+        CurrencyAmount dollars = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount euros = new CurrencyAmount(cents, EUROS);
         CurrencyAmount result = dollars.plus(euros);
         System.out.println("Trying to add " + dollars.toString() + " to "
                 + euros.toString()
