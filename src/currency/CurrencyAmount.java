@@ -132,7 +132,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     }
     
     @Override
-    public int compareTo(CurrencyAmount other) {return 0;
+    public int compareTo(CurrencyAmount other) {long diff = this.amountInCents 
+            - other.amountInCents;return Long.signum(diff);
 //        CurrencyAmount diff = this.minus(other);
 //        return Long.signum(diff.amountInCents);
     }
