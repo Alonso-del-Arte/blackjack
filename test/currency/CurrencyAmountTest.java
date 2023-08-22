@@ -435,30 +435,33 @@ public class CurrencyAmountTest {
         assertEquals(msg, expected, actual);
     }
 
-//    @Test(expected = ArithmeticException.class)
-    public void testOneDollarTimesPositiveInfinity() {
-        CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
-        CurrencyAmount result = oneBuck.times(Double.POSITIVE_INFINITY);
-        System.out.println(oneBuck.toString()
+    @Test(expected = ArithmeticException.class)
+    public void testTimesPositiveInfinity() {
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount result = amount.times(Double.POSITIVE_INFINITY);
+        System.out.println(amount.toString()
                 + " times +Infinity is said to be "
-                + result.toString() + "???");
+                + result.toString() + " ???");
     }
 
-//    @Test(expected = ArithmeticException.class)
-    public void testOneDollarTimesNegativeInfinity() {
-        CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
-        CurrencyAmount result = oneBuck.times(Double.NEGATIVE_INFINITY);
-        System.out.println(oneBuck.toString()
+    @Test(expected = ArithmeticException.class)
+    public void testTimesNegativeInfinity() {
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount result = amount.times(Double.NEGATIVE_INFINITY);
+        System.out.println(amount.toString()
                 + " times -Infinity is said to be "
-                + result.toString() + "???");
+                + result.toString() + " ???");
     }
 
-//    @Test(expected = ArithmeticException.class)
-    public void testOneDollarTimesNaN() {
-        CurrencyAmount oneBuck = new CurrencyAmount(100, DOLLARS);
-        CurrencyAmount result = oneBuck.times(Double.NaN);
-        System.out.println(oneBuck.toString() + " times NaN is said to be "
-                + result.toString() + "???");
+    @Test(expected = ArithmeticException.class)
+    public void testTimesNaN() {
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount result = amount.times(Double.NaN);
+        System.out.println(amount.toString() + " times NaN is said to be "
+                + result.toString() + " ???");
     }
 
 //    @Test
