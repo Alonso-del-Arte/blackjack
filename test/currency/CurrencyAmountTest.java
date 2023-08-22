@@ -526,29 +526,16 @@ public class CurrencyAmountTest {
         assertEquals(expected, actual);
     }
     
-//    @Test
+    @Test(expected = CurrencyConversionNeededException.class)
     public void testCompareDifferentCurrencies() {
-        CurrencyAmount dollarsAmount = new CurrencyAmount(57380, DOLLARS);
-        CurrencyAmount eurosAmount = new CurrencyAmount(57380, EUROS);
-        try {
-            int result = dollarsAmount.compareTo(eurosAmount);
-            String failMsg = "Trying to compare " + dollarsAmount.toString() 
-                    + " to " + eurosAmount.toString()
-                    + " should have caused an exception, not given result " 
-                    + result;
-            fail(failMsg);
-        } catch (CurrencyConversionNeededException curConvNeedExc) {
-            System.out.println("Trying to compare " + dollarsAmount.toString() 
-                    + " to " + eurosAmount.toString()
-                    + " correctly caused CurrencyConversionNeededException");
-            System.out.println("\"" + curConvNeedExc.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String failMsg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to compare " 
-                    + dollarsAmount.toString() + " to " 
-                    + eurosAmount.toString();
-            fail(failMsg);
-        }
+        int cents = RANDOM.nextInt(1048576) + 1024;
+        CurrencyAmount dollarsAmount = new CurrencyAmount(cents, DOLLARS);
+        CurrencyAmount eurosAmount = new CurrencyAmount(cents, EUROS);
+        int result = dollarsAmount.compareTo(eurosAmount);
+        System.out.println("Trying to compare " + dollarsAmount.toString() 
+                + " to " + eurosAmount.toString()
+                + " should have caused an exception, not given result " 
+                + result);
     }
     
     @Test
