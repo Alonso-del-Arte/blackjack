@@ -108,17 +108,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         return new CurrencyAmount(-this.amountInCents, this.currency);
     }
     
-    public CurrencyAmount minus(CurrencyAmount subtrahend) {if (subtrahend == null) {
-        throw new NullPointerException("Subrahend should not be null");
-    }if (this.currency != subtrahend.currency) {
-        throw new CurrencyConversionNeededException("Convert before subtracting", 
-                this, 
-                subtrahend);
-    }
-    return new CurrencyAmount(Math.subtractExact(this.amountInCents, 
-            subtrahend.amountInCents), 
-            this.currency);
-//        return this.plus(subtrahend.negate());
+    public CurrencyAmount minus(CurrencyAmount subtrahend) {
+        return this.plus(subtrahend.negate());
     }
     
     public CurrencyAmount times(int multiplier) {return this;
