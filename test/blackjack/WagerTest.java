@@ -131,7 +131,8 @@ public class WagerTest {
             int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) 
                     + DEFAULT_CENTS;
             CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
-            Wager wager = new Wager(amount);
+            boolean isInsurance = outcome.name().startsWith("INSURANCE_");
+            Wager wager = new Wager(amount, isInsurance);
             wager.settle(outcome);
             Wager.Settlement settlement = wager.getSettlement();
             Wager.Outcome actualOutcome = settlement.getOutcome();
