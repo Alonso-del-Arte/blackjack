@@ -110,8 +110,8 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
     
     public CurrencyAmount minus(CurrencyAmount subtrahend) {if (subtrahend == null) {
         throw new NullPointerException("Subrahend should not be null");
-    }
-        return this;
+    }return new CurrencyAmount(this.amountInCents - subtrahend.amountInCents, 
+            Currency.getInstance("USD"));
 //        return this.plus(subtrahend.negate());
     }
     
