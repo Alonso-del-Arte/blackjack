@@ -42,9 +42,12 @@ public class Wager {
         return this.wagerAmount;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Indicates whether or not this is an insurance wager.
+     * @return 
+     */
     public boolean isInsuranceWager() {
-        return false;
+        return this.insuranceFlag;
     }
     
     /**
@@ -111,7 +114,7 @@ public class Wager {
      * @param amount The wager amount. For example, $100.00.
      */
     public Wager(CurrencyAmount amount) {
-        this(amount, false);
+        this(amount, true);
     }
     
     /**
