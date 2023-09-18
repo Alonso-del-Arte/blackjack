@@ -57,10 +57,17 @@ public class WagerTest {
     
     @Test
     public void testIsNotInsuranceWager() {
-        System.out.println("isInsuranceWager");
-        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT, false);
         String msg = "Wager not specified as insurance shouldn't be marked so";
         assert !wager.isInsuranceWager() : msg;
+    }
+    
+    @Test
+    public void testIsInsuranceWager() {
+        System.out.println("isInsuranceWager");
+        Wager wager = new Wager(DEFAULT_WAGER_AMOUNT, true);
+        String msg = "Wager specified as insurance should be so marked";
+        assert wager.isInsuranceWager() : msg;
     }
     
     @Test
