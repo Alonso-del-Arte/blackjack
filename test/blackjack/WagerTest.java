@@ -230,6 +230,16 @@ public class WagerTest {
     }
     
     @Test
+    public void testAuxiliaryConstructorMarksAsNotInsurance() {
+        int cents = DealerTest.RANDOM.nextInt((int) DEFAULT_WAGER_AMOUNT
+                .getAmountInCents()) + 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, DOLLARS);
+        Wager wager = new Wager(amount);
+        String msg = "Wager initialized through aux constructor not insurance";
+        assert !wager.isInsuranceWager() : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsNegativeAmount() {
         CurrencyAmount badAmount = new CurrencyAmount(-10000, DOLLARS);
         try {
