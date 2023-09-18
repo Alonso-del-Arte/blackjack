@@ -44,7 +44,7 @@ public class Wager {
     
     // TODO: Write tests for this
     public boolean isInsuranceWager() {
-        return true;
+        return false;
     }
     
     /**
