@@ -35,7 +35,8 @@ public class Wager {
     
     /**
      * Retrieves the wager amount. May be called regardless of whether or not 
-     * the wager has been settled.
+     * the wager has been settled. This is distinct from the settlement amount, 
+     * which is most likely different. See {@link Settlement#getAmount()}.
      * @return The wager amount. For example, $100.00.
      */
     public CurrencyAmount getAmount() {
@@ -43,8 +44,9 @@ public class Wager {
     }
     
     /**
-     * Indicates whether or not this is an insurance wager.
-     * @return 
+     * Indicates whether or not this is an insurance wager. This is determined 
+     * by the constructor parameters.
+     * @return True if this is an insurance wager, false otherwise.
      */
     public boolean isInsuranceWager() {
         return this.insuranceFlag;
@@ -61,7 +63,7 @@ public class Wager {
     
     /**
      * Settles the wager. This procedure can only be called once. After that, 
-     * {@link #isSettled()} should return True and {@link #getSettlement()} 
+     * {@link #isSettled()} should return true and {@link #getSettlement()} 
      * should return a {@link Settlement} object instead of throwing an 
      * exception.
      * @param outcome The outcome to settle the wager on. For example, {@link 
@@ -93,7 +95,6 @@ public class Wager {
         return this.settlement;
     }
     
-    // TODO: Write tests for this
     /**
      * Doubles down on the wager. It is up to the caller to ensure that the 
      * player has sufficient money to actually double down. It is also up to the 
@@ -120,7 +121,8 @@ public class Wager {
     /**
      * Primary constructor. Starts a wager that is not settled yet.
      * @param amount The wager amount. For example, $100.00.
-     * @param isInsurance Whether or not this wager is for insurance.
+     * @param isInsurance Whether or not this wager is for insurance. True if 
+     * this is an insurance wager, false otherwise.
      * @throws IllegalArgumentException If the wager amount is 0 or negative, 
      * regardless of the currency.
      */
@@ -152,7 +154,7 @@ public class Wager {
          * The player's hand of more than two cards is valued at 21. For 
          * example, the player's hand consists of 8&#9824;, 7&#9824; and 
          * 6&#9829;. The player wins, unless the dealer also has a blackjack, in 
-         * which case it's a standoff.
+         * which case it's a standoff (see {@link #STANDOFF}).
          */
         BLACKJACK, 
         
@@ -233,7 +235,8 @@ public class Wager {
         
         /**
          * Gives the amount that was settled. The amount was already calculated 
-         * on settlement.
+         * on settlement. This is distinct from the wager amount, and is often a 
+         * different amount, see {@link Wager#getAmount()}.
          * @return The amount. For example, $150.00 for a $100.00 wager on a 
          * natural blackjack. Another example: &minus;$100.00 for a $100.00 
          * wager on a hand that busted.
