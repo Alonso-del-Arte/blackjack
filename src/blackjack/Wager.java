@@ -114,7 +114,7 @@ public class Wager {
      * @param amount The wager amount. For example, $100.00.
      */
     public Wager(CurrencyAmount amount) {
-        this(amount, true);
+        this(amount, false);
     }
     
     /**
