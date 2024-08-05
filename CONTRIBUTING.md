@@ -1,6 +1,6 @@
-This project is now open to Hacktoberfest 2023.
+This project might be open to Hacktoberfest 2024.
 
-# Guidelines for Hacktoberfest 2023 Contributors
+# Guidelines for Hacktoberfest 2024 Contributors
 
 I will definitely consider pull requests associated with an issue and maybe 
 consider pull requests associated with a TODO (considered an Action Item in 
