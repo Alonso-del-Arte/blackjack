@@ -1,5 +1,4 @@
-# blackjack
-The blackjack, or 21, game
+# The blackjack, or 21, game
 
 The game is ready to play on the console or terminal (text only), limited to a 
 dealer and only one player. I am working on a graphical user interface for this, 
@@ -9,13 +8,16 @@ website.
 There is for now no option to split a pair, double down nor make an insurance 
 bet.
 
-If you're interested in participating in Hacktoberfest 2023, see 
+If you're interested in participating in Hacktoberfest 2025, see 
 [CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
 that your contribution is accepted for Hacktoberfest, but also that it persists 
 in the main branch after Hacktoberfest.
 
 For the rules of blackjack as I understand them, see 
 [GameRules.md](GameRules.md).
+
+This project started out as a Java 8 project. However, I've decided it's now 
+going to be a Java 21 project. Seems kind of appropriate, doesn't it?
 
 ## Sample plays of the console applicaton
 
