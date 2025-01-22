@@ -53,13 +53,18 @@ public class DealerTest {
     }
     
     @Test
-    public void testConstants() {
-        String msgA = "Constant MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = " 
-                + Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE + " should be 7";
-        assertEquals(msgA, 7, Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE);
-        String msgB = "Constant RESERVE_MULTIPLIER = " 
-                + Dealer.RESERVE_MULTIPLIER + " should be more than 1.0";
-        assert Dealer.RESERVE_MULTIPLIER > 1.0 : msgB;
+    public void testMaxNumberOfPlayersAtTable() {
+        int expected = 7;
+        String message = "Maximum number of players at table should be " + expected;
+        int actual = Dealer.MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE;
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
+    public void testReserveMultiplier() {
+        String msg = "Constant RESERVE_MULTIPLIER " + Dealer.RESERVE_MULTIPLIER 
+                + " should be more than 1.0";
+        assert Dealer.RESERVE_MULTIPLIER > 1.0 : msg;
     }
     
     @Test
