@@ -80,10 +80,10 @@ public class Dealer {
      * @param round The round to start.
      */
     void start(Round round) {
-        if (this.inRound) {
-            String excMsg = "Earlier round is still active";
-            throw new IllegalStateException(excMsg);
-        }
+//        if (this.inRound) {
+//            String excMsg = "Earlier round is still active";
+//            throw new IllegalStateException(excMsg);
+//        }
         this.inRound = true;
         this.bankroll = new CurrencyAmount(0, 
                 round.gamers[0].getBalance().getCurrency());
@@ -157,6 +157,9 @@ public class Dealer {
      * @throws NullPointerException If <code>pairs</code> is null.
      */
     public Dealer(Set<RankPairSpec> pairs, CardSupplier cardSupplier) {
+        if (pairs == null) {
+            pairs = new HashSet<>();
+        }
         this.splitSpecs = new HashSet<>(pairs);
         this.cardDispenser = cardSupplier;
         this.hand = null;// new Hand();
