@@ -30,6 +30,8 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the Dealer class.
  * @author Alonso del Arte
@@ -163,24 +165,16 @@ public class DealerTest {
         dealer.start(firstRound);
         Player[] secondRoundPlayers = makePlayers();
         Round secondRound = new Round(dealer, secondRoundPlayers);
-        try {
+        String msg = "Should not be able to start " + secondRound.toString() 
+                + " while " + firstRound.toString() + " is still active";
+        Throwable t = assertThrows(() -> {
             dealer.start(secondRound);
-            String msg = "Should not have been able to start " 
-                    + secondRound.toString() + " while " + firstRound.toString() 
-                    + " is still active";
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to start " + secondRound.toString() 
-                    + " while " + firstRound.toString() 
-                    + " is still active correctly caused exception");
-            System.out.println("\"" + ise.getMessage());
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for trying to start "
-                    + secondRound.toString() + " while " + firstRound.toString() 
-                    + " is still active";
-            fail(msg);
-        }
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
@@ -215,20 +209,15 @@ public class DealerTest {
     @Test
     public void testConstructorRejectsNullSet() {
         Set<RankPairSpec> badSet = null;
-        try {
+        String msg = "Should not be able to start dealer with null pairs set";
+        Throwable t = assertThrows(() -> {
             Dealer badDealer = new Dealer(badSet);
-            String msg = "Should not have been able to create " 
-                    + badDealer.toString() 
-                    + " with null set of rank pair specifications";
-            fail(msg);
-        } catch (NullPointerException npe) {
-            System.out.println("Trying to use null set correctly caused NPE");
-            System.out.println("\"" + npe.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for null constructor parameter";
-            fail(msg);
-        }
+            System.out.println(msg + ", not gotten " + badDealer.toString());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
