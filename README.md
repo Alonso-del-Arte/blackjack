@@ -19,6 +19,9 @@ For the rules of blackjack as I understand them, see
 This project started out as a Java 8 project. However, I've decided it's now 
 going to be a Java 21 project. Seems kind of appropriate, doesn't it?
 
+The main test dependency is JUnit 4. On January 21, 2025, I added TestFrame 1.0 
+so that I can use `assertThrows()` in some tests.
+
 ## Sample plays of the console applicaton
 
 ### Win with natural blackjack
