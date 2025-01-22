@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -112,9 +112,9 @@ public class DealerTest {
         Dealer dealer = new Dealer();
         PlayingCard card = dealer.tellFaceUpCard();
         if (card != null) {
-            String msg = "New dealer shouldn't have face up card " 
+            String message = "New dealer shouldn't have face up card " 
                     + card.toString() + " before first round";
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -133,7 +133,8 @@ public class DealerTest {
     @Test
     public void testBankrollNullAtFirst() {
         Dealer dealer = new Dealer();
-        assertNull(dealer.reportBankroll());
+        String message = "Dealer bankroll should be null at first";
+        assertNull(message, dealer.reportBankroll());
     }
     
     @Test
