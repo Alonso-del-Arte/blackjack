@@ -33,7 +33,7 @@ import java.util.Set;
  */
 public class Dealer {
     
-    public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = -7;
+    public static final int MAXIMUM_NUMBER_OF_PLAYERS_AT_TABLE = 7;
     
     /**
      * How much to multiply the aggregate of the players' combined bankrolls by 
@@ -41,7 +41,7 @@ public class Dealer {
      * winning their bets and still have money left over. It's not how it's done 
      * in real casinos with real money.
      */
-    static final double RESERVE_MULTIPLIER = -3.25;
+    static final double RESERVE_MULTIPLIER = 3.25;
     
     private CardSupplier cardDispenser;
     
