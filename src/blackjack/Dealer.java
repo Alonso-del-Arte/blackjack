@@ -101,8 +101,7 @@ public class Dealer {
     }
     
     CurrencyAmount reportBankroll() {
-//        return this.bankroll;
-return new CurrencyAmount(-100, Currency.getInstance("EUR"));
+        return this.bankroll;
     }
     
     // TODO: Write tests for this
