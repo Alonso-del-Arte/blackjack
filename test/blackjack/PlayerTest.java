@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -24,8 +24,10 @@ import java.util.List;
 import playingcards.CardServer;
 import playingcards.Rank;
 
-import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Test;
+
+import static org.testframe.api.Asserters.assertThrows;
 
 /**
  * Tests of the Player class.
@@ -125,9 +127,9 @@ public class PlayerTest {
         player.add(hand);
         assertEquals(1, player.getActiveHandsCount());
         hand.markSettled();
-        String msg = "After player stands on hand " + hand.toString() 
+        String message = "After player stands on hand " + hand.toString() 
                 + ", that hand should not count as active";
-        assertEquals(msg, 0, player.getActiveHandsCount());
+        assertEquals(message, 0, player.getActiveHandsCount());
     }
     
     @Test
@@ -185,19 +187,16 @@ public class PlayerTest {
     
     @Test
     public void testConstructorRejectsEmptyName() {
-        try {
+        String msg = "Empty name should have been caused an exception";
+        Throwable t = assertThrows(() -> {
             Player badPlayer = new Player("", DEFAULT_INITIAL_BANKROLL);
-            String msg = "Should not have been able to create " 
-                    + badPlayer.toString() + " with empty name";
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Empty name correctly caused exception");
-            System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for empty player name";
-            fail(msg);
-        }
+            System.out.println(msg + ", not created " + badPlayer.toString() 
+                    + " with empty name");
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
