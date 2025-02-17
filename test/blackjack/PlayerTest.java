@@ -170,19 +170,16 @@ public class PlayerTest {
     
     @Test
     public void testConstructorRejectsNullName() {
-        try {
+        String msg = "Null name should have been caused an exception";
+        Throwable t = assertThrows(() -> {
             Player badPlayer = new Player(null, DEFAULT_INITIAL_BANKROLL);
-            String msg = "Should not have been able to create " 
-                    + badPlayer.toString() + " with null name";
-            fail(msg);
-        } catch (NullPointerException npe) {
-            System.out.println("Null name for player correctly caused NPE");
-            System.out.println("\"" + npe.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for null player name";
-            fail(msg);
-        }
+            System.out.println(msg + ", not created " + badPlayer.toString() 
+                    + " with empty name");
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
