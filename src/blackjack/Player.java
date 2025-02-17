@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -111,19 +111,19 @@ public class Player {
      * @throws NullPointerException  If <code>name</code> is null.
      */
     public Player(String name, CurrencyAmount initialBankroll) {
-        if (name == null) {
-            String excMsg = "Player name must not be null";
-            throw new NullPointerException(excMsg);
-        }
-        if (name.equals("")) {
-            String excMsg = "Player name must not be empty";
-            throw new IllegalArgumentException(excMsg);
-        }
-        if (initialBankroll.isNotPositive()) {
-            String excMsg = "Initial bankroll should be positive, not " 
-                    + initialBankroll.toString();
-            throw new IllegalArgumentException(excMsg);
-        }
+//        if (name == null) {
+//            String excMsg = "Player name must not be null";
+//            throw new NullPointerException(excMsg);
+//        }
+//        if (name.equals("")) {
+//            String excMsg = "Player name must not be empty";
+//            throw new IllegalArgumentException(excMsg);
+//        }
+//        if (initialBankroll.isNotPositive()) {
+//            String excMsg = "Initial bankroll should be positive, not " 
+//                    + initialBankroll.toString();
+//            throw new IllegalArgumentException(excMsg);
+//        }
         this.playerName = name;
         this.bankroll = initialBankroll;
     }
