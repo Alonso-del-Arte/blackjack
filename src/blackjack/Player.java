@@ -111,10 +111,10 @@ public class Player {
      * @throws NullPointerException  If <code>name</code> is null.
      */
     public Player(String name, CurrencyAmount initialBankroll) {
-//        if (name == null) {
-//            String excMsg = "Player name must not be null";
-//            throw new NullPointerException(excMsg);
-//        }
+        if (name == null) {
+            String excMsg = "Player name must not be null";
+            throw new NullPointerException(excMsg);
+        }
 //        if (name.equals("")) {
 //            String excMsg = "Player name must not be empty";
 //            throw new IllegalArgumentException(excMsg);
