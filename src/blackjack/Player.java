@@ -119,12 +119,14 @@ public class Player {
             String excMsg = "Player name must not be empty";
             throw new IllegalArgumentException(excMsg);
         }
-        if (initialBankroll != null) {
-            if (initialBankroll.isNotPositive()) {
-                String excMsg = "Initial bankroll should be positive, not " 
-                        + initialBankroll.toString();
-                throw new IllegalArgumentException(excMsg);
-            }
+        if (initialBankroll == null) {
+            String excMsg = "Initial bankroll should not be null";
+            throw new NullPointerException(excMsg);
+        }
+        if (initialBankroll.isNotPositive()) {
+            String excMsg = "Initial bankroll should be positive, not " 
+                    + initialBankroll.toString();
+            throw new IllegalArgumentException(excMsg);
         }
         this.playerName = name;
         this.bankroll = initialBankroll;
