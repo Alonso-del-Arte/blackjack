@@ -208,6 +208,20 @@ public class PlayerTest {
     }
     
     @Test
+    public void testConstructorRejectsNullBankroll() {
+        String msg = "Null bankroll should cause NPE";
+        Throwable t = assertThrows(() -> {
+            Player badPlayer = new Player(DEFAULT_PLAYER_NAME, null);
+            System.out.println(msg + ", not created instance " 
+                    + badPlayer.getName());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
     public void testConstructorRejectsBankrollZero() {
         CurrencyAmount badBankroll = new CurrencyAmount(0, WagerTest.DOLLARS);
         String moneyStr = badBankroll.toString();
