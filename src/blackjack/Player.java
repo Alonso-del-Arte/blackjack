@@ -106,9 +106,9 @@ public class Player {
      * Must not be empty.
      * @param initialBankroll How much money the player has in chips ready to 
      * wager.
-     * @throws IllegalArgumentException If <code>name</code> is "" or if the 
-     * initial bankroll is 0 or negative.
-     * @throws NullPointerException  If <code>name</code> is null.
+     * @throws IllegalArgumentException If {@code name} is "" or if the initial 
+     * bankroll is 0 or negative.
+     * @throws NullPointerException  If {@code name} is null.
      */
     public Player(String name, CurrencyAmount initialBankroll) {
         if (name == null) {
@@ -117,10 +117,6 @@ public class Player {
         }
         if (name.equals("")) {
             String excMsg = "Player name must not be empty";
-            throw new IllegalArgumentException(excMsg);
-        }
-        if (initialBankroll.getAmountInCents() == 0L) {
-            String excMsg = "Initial bankroll should not be $0.00";
             throw new IllegalArgumentException(excMsg);
         }
         if (initialBankroll.isNotPositive()) {
