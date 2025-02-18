@@ -232,28 +232,21 @@ public class PlayerTest {
         int badCents = -DealerTest.RANDOM.nextInt(25600) - 1;
         CurrencyAmount badBankroll = new CurrencyAmount(badCents, 
                 WagerTest.DOLLARS);
-        try {
+        String moneyStr = badBankroll.toString();
+        String msg = "Constructor should have rejected initial bankroll of " 
+                + moneyStr;
+        Throwable t = assertThrows(() -> {
             Player badPlayer = new Player(DEFAULT_PLAYER_NAME, badBankroll);
-            String msg = "Should not have initialized player " 
-                    + badPlayer.getName() + " with initial bankroll " 
-                    + badBankroll.toString();
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            String amtStr = badBankroll.toString();
-            System.out.println("Trying to initialize player " 
-                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
-                    + amtStr + " correctly caused IllegalArgumentException");
-            String excMsg = iae.getMessage();
-            String msg = "Exception message should contain \"" + amtStr + "\"";
-            assert excMsg.contains(amtStr) : msg;
-            System.out.println("\"" + excMsg + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for trying to initialize player " 
-                    + DEFAULT_PLAYER_NAME + " with initial bankroll " 
-                    + badBankroll.toString();
-            fail(msg);
-        }
+            System.out.println(msg + ", not created instance " 
+                    + badPlayer.getName());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + moneyStr 
+                + "\"";
+        assert excMsg.contains(moneyStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
 }
