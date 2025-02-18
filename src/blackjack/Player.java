@@ -123,11 +123,11 @@ public class Player {
             String excMsg = "Initial bankroll should not be $0.00";
             throw new IllegalArgumentException(excMsg);
         }
-//        if (initialBankroll.isNotPositive()) {
-//            String excMsg = "Initial bankroll should be positive, not " 
-//                    + initialBankroll.toString();
-//            throw new IllegalArgumentException(excMsg);
-//        }
+        if (initialBankroll.isNotPositive()) {
+            String excMsg = "Initial bankroll should be positive, not " 
+                    + initialBankroll.toString();
+            throw new IllegalArgumentException(excMsg);
+        }
         this.playerName = name;
         this.bankroll = initialBankroll;
     }
