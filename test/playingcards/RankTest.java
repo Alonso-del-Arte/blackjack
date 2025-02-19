@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,7 +16,9 @@
  */
 package playingcards;
 
+import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
