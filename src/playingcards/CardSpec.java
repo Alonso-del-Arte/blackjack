@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -54,12 +54,12 @@ public interface CardSpec {
      * specified location. A default implementation is given that merely returns 
      * the same as {@link #getWord()}, so for now this can be a placeholder for 
      * internationalization.
-     * @param loc The locale for which to give the word. For example, 
-     * <code>Locale.JAPAN</code>.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.JAPAN}.
      * @return The same as {@link #getWord()} if this default implementation is 
      * not overridden.
      */
-    default String getWord(Locale loc) {
+    default String getWord(Locale locale) {
         return this.getWord();
     }
     
