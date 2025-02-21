@@ -364,7 +364,7 @@ public class RankTest {
     }
     
     @Test
-    public void testGetRankByLocale() {
+    public void testGetWordByLocale() {
         for (Locale locale : LOCALES) {
             ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
                     locale);
