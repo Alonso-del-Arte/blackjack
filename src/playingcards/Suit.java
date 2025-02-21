@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -17,7 +17,9 @@
 package playingcards;
 
 import java.awt.Color;
+import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 
 /**
  * Enumerates the suits of a standard deck of playing cards. These suits are 
@@ -113,6 +115,24 @@ public enum Suit implements CardSpec {
     @Override
     public String getWord() {
         return this.suitWord;
+    }
+    
+    /**
+     * Gives a word for this suit in the specified locale. For the example, 
+     * suppose this suit is clubs.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.CANADA_FRENCH}.
+     * @return A word retrieved from a specific resource bundle in the {@code 
+     * i18n} package or the default resource bundle (English) if there is no 
+     * specific resource bundle for {@code locale}. For example, 
+     * "Tr&egrave;fle".
+     */
+    @Override
+    public String getWord(Locale locale) {
+        ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                locale);
+        String key = this.suitWord.toLowerCase() + "Name";
+        return res.getString(key);
     }
     
     /**
