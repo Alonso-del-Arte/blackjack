@@ -168,19 +168,16 @@ public enum Suit implements CardSpec {
      * any of the <code>Suit</code> values.
      */
     static Suit parseSuit(String s) {
-        switch (s) {
-            case "Spades":
-                return Suit.SPADES;
-            case "Hearts":
-                return Suit.HEARTS;
-            case "Clubs":
-                return Suit.CLUBS;
-            case "Diamonds":
-                return Suit.DIAMONDS;
-            default:
+        return switch (s) {
+            case "Spades" -> Suit.SPADES;
+            case "Hearts"-> Suit.HEARTS;
+            case "Clubs" -> Suit.CLUBS;
+            case "Diamonds" -> Suit.DIAMONDS;
+            default -> {
                 String excMsg = "No matching suit found for \"" + s + "\"";
                 throw new NoSuchElementException(excMsg);
-        }
+            }
+        };
     }
     
     /**
