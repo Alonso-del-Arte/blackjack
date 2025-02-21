@@ -29,6 +29,10 @@ import static org.junit.Assert.*;
  */
 public class RankTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Locale[] LOCALES = Locale.getAvailableLocales();
+    
     @Test
     public void testGetRankAce() {
         System.out.println("getRank");
@@ -360,8 +364,24 @@ public class RankTest {
     }
     
     @Test
+    public void testGetRankByLocale() {
+        for (Locale locale : LOCALES) {
+            ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                    locale);
+            for (Rank rank : RANKS) {
+                String key = "name" + rank.getChars();
+                String expected = res.getString(key);
+                String actual = rank.getWord(locale);
+                String message = "Fetching name for " + rank.getChars() + " in " 
+                        + locale.getDisplayName();
+                assertEquals(message, expected, actual);
+            }
+        }
+    }
+    
+    @Test
     public void testGetPluralWord() {
-        for (Rank rank : Rank.values()) {
+        for (Rank rank : RANKS) {
             String intersperse = rank == Rank.SIX ? "e" : "";
             String expected = rank.getWord() + intersperse + 's';
             String actual = rank.getPluralWord();
