@@ -17,8 +17,8 @@
 package playingcards;
 
 import java.awt.Color;
-import java.util.NoSuchElementException;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 
 import org.junit.Test;
@@ -29,6 +29,10 @@ import static org.junit.Assert.*;
  * @author Alonso del Arte
  */
 public class SuitTest {
+    
+    private static final Locale[] LOCALES = Locale.getAvailableLocales();
+    
+    private static final Suit[] SUITS = Suit.values();
     
     @Test
     public void testGetSpadesChar() {
@@ -136,8 +140,24 @@ public class SuitTest {
     }
     
     @Test
+    public void testGetWordByLocale() {
+        for (Locale locale : LOCALES) {
+            ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                    locale);
+            for (Suit suit : SUITS) {
+                String key = suit.getWord().toLowerCase() + "Name";
+                String expected = res.getString(key);
+                String actual = suit.getWord(locale);
+                String message = "Fetching name for " + suit.getChar() + " in " 
+                        + locale.getDisplayName();
+                assertEquals(message, expected, actual);
+            }
+        }
+    }
+    
+    @Test
     public void testGetPluralWord() {
-        for (Suit suit : Suit.values()) {
+        for (Suit suit : SUITS) {
             String expected = suit.getWord();
             String actual = suit.getPluralWord();
             assertEquals(expected, actual);
