@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,7 +16,9 @@
  */
 package playingcards;
 
+import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.ResourceBundle;
 
 /**
  * Enumerates the ranks of the playing cards: Aces, Twos, Threes, ..., Queens, 
@@ -156,6 +158,24 @@ public enum Rank implements CardSpec {
     @Override
     public String getWord() {
         return this.rankWord;
+    }
+    
+    /**
+     * Gives a word for this rank in the specified locale. For the example, 
+     * suppose this rank is King.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.JAPAN}.
+     * @return A word retrieved from a specific resource bundle in the {@code 
+     * i18n} package or the default resource bundle (English) if there is no 
+     * specific resource bundle for {@code locale}. For example, 
+     * "&#x30AD;&#x30F3;&#x30B0;".
+     */
+    @Override
+    public String getWord(Locale locale) {
+        ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                locale);
+        String key = "name" + this.rankChars;
+        return res.getString(key);
     }
     
     /**
