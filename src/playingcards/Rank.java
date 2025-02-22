@@ -132,12 +132,10 @@ public enum Rank implements CardSpec {
      */
     @Override
     public char getCharASCII() {
-        switch (this) {
-            case TEN:
-                return '0';
-            default:
-                return this.rankChar;
-        }
+        return switch (this) {
+            case TEN -> '0';
+            default -> this.rankChar;
+        };
     }
     
     /**
