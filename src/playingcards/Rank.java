@@ -207,37 +207,25 @@ public enum Rank implements CardSpec {
      * any of the <code>Rank</code> values.
      */
     static Rank parseRank(String s) {
-        switch (s) {
-            case "Ace":
-                return Rank.ACE;
-            case "Two":
-                return Rank.TWO;
-            case "Three":
-                return Rank.THREE;
-            case "Four":
-                return Rank.FOUR;
-            case "Five":
-                return Rank.FIVE;
-            case "Six":
-                return Rank.SIX;
-            case "Seven":
-                return Rank.SEVEN;
-            case "Eight":
-                return Rank.EIGHT;
-            case "Nine":
-                return Rank.NINE;
-            case "Ten":
-                return Rank.TEN;
-            case "Jack":
-                return Rank.JACK;
-            case "Queen":
-                return Rank.QUEEN;
-            case "King":
-                return Rank.KING;
-            default:
+        return switch (s) {
+            case "Ace" -> Rank.ACE;
+            case "Two" -> Rank.TWO;
+            case "Three" -> Rank.THREE;
+            case "Four" -> Rank.FOUR;
+            case "Five" -> Rank.FIVE;
+            case "Six" -> Rank.SIX;
+            case "Seven" -> Rank.SEVEN;
+            case "Eight" -> Rank.EIGHT;
+            case "Nine" -> Rank.NINE;
+            case "Ten" -> Rank.TEN;
+            case "Jack" -> Rank.JACK;
+            case "Queen" -> Rank.QUEEN;
+            case "King" -> Rank.KING;
+            default -> {
                 String excMsg = "No rank for \"" + s + "\"";
                 throw new NoSuchElementException(excMsg);
-        }
+            }
+        };
     }
     
     /**
