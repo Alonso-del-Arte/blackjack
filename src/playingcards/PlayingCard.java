@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -33,45 +33,16 @@ public class PlayingCard {
     final Rank cardRank;
     final Suit cardSuit;
 
-    /**
-     * Indicates whether this playing card is equal to another object.
-     * @param obj The object to compare for equality.
-     * @return True if <code>obj</code> is of runtime class 
-     * <code>PlayingCard</code> a playing card of the same suit and the same 
-     * rank, false otherwise.
-     */
+    // TODO: Rewrite tests for this
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(this.getClass().equals(obj.getClass()))) {
-            return false;
-        }
-        final PlayingCard other = (PlayingCard) obj;
-        if (!this.cardSuit.equals(other.cardSuit)) {
-            return false;
-        }
-        return (this.cardRank.equals(other.cardRank));
+        return false;
     }
 
-    /**
-     * Returns a hash code for this playing card. The hash code is guaranteed to 
-     * be unique for each rank and suit combination, regardless of the card's 
-     * provenance.
-     * @return A hash code, based on the card's rank and suit. For example, for 
-     * an A&#9824;, this might be 137536; for a 2&#9824; this might be 19648; 
-     * for a 3&#9824;, this might be 29472; etc. These hash codes are for the 
-     * sake of illustration. No guarantee is made aside from uniqueness for each 
-     * rank and suit combination and that two cards that match in both rank and 
-     * suit will also match in hash code.
-     */
+    // TODO: Rewrite tests for this
     @Override
     public int hashCode() {
-        return this.cardValue() * this.cardSuit.getChar();
+        return 0;
     }
 
     /**
