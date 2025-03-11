@@ -1,6 +1,12 @@
-This project might be open to Hacktoberfest 2024.
+This project will probably be open to Hacktoberfest 2025.
 
-# Guidelines for Hacktoberfest 2024 Contributors
+# Guidelines for Hacktoberfest 2025 Contributors
+
+## Guideliones for "low-code" or "no-code" track contributors
+
+I need help with internationalization (i18n) and [FINISH WRITING]
+
+## Guidelines for "coding" track contributors
 
 I will definitely consider pull requests associated with an issue and maybe 
 consider pull requests associated with a TODO (considered an Action Item in 
