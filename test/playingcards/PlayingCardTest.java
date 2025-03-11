@@ -172,7 +172,6 @@ public class PlayingCardTest {
      * Test of the toString function, of the PlayingCard class. For the Ace of 
      * Spades, this should return "A&#9824;".
      */
-    @org.junit.Ignore
     @Test
     public void testToStringAceOfSpades() {
         System.out.println("toString");
@@ -186,7 +185,6 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Four of Diamonds, this should return "4&#9830;".
      */
-    @org.junit.Ignore
     @Test
     public void testToStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
@@ -199,7 +197,6 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Queen of Hearts, this should return "Q&#9829;".
      */
-    @org.junit.Ignore
     @Test
     public void testToStringQueenOfHearts() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -212,7 +209,6 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Ten of Clubs, this should return "10&#9827;".
      */
-    @org.junit.Ignore
     @Test
     public void testToStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
