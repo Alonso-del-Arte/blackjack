@@ -58,9 +58,13 @@ public class PlayingCardTest {
      */
     @Test
     public void testReferentialEquality() {
-        fail("REWRITE THIS TEST");
-        PlayingCard clubsFive = new PlayingCard(Rank.FIVE, Suit.CLUBS);
-        assertEquals(clubsFive, clubsFive);
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String message = card.toString() + " should be equal to itself";
+                assertEquals(message, card, card);
+            }
+        }
     }
 
     /**
