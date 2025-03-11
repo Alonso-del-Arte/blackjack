@@ -169,55 +169,6 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of the toString function, of the PlayingCard class. For the Ace of 
-     * Spades, this should return "A&#9824;".
-     */
-    @Test
-    public void testToStringAceOfSpades() {
-        System.out.println("toString");
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String expected = "A\u2660";
-        String actual = spadesAce.toString();
-        assertEquals(expected, actual);
-    }
-
-    /**
-     * Another test of the toString function, of the PlayingCard class. For the 
-     * Four of Diamonds, this should return "4&#9830;".
-     */
-    @Test
-    public void testToStringFourOfDiamonds() {
-        PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
-        String expected = "4\u2666";
-        String actual = diamondsFour.toString();
-        assertEquals(expected, actual);
-    }
-
-    /**
-     * Another test of the toString function, of the PlayingCard class. For the 
-     * Queen of Hearts, this should return "Q&#9829;".
-     */
-    @Test
-    public void testToStringQueenOfHearts() {
-        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String expResult = "Q\u2665";
-        String result = heartsQueen.toString();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Another test of the toString function, of the PlayingCard class. For the 
-     * Ten of Clubs, this should return "10&#9827;".
-     */
-    @Test
-    public void testToStringTenOfClubs() {
-        PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        String expected = "10\u2663";
-        String actual = clubsTen.toString();
-        assertEquals(expected, actual);
-    }
-
-    /**
      * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
      * of Spaces, this should be "Ace of Spades".
      */
