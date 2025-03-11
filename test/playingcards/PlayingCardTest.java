@@ -35,6 +35,22 @@ public class PlayingCardTest {
     private static final Rank[] RANKS = Rank.values();
     
     private static final Suit[] SUITS = Suit.values();
+    
+    /**
+     * Test of the toString function, of the PlayingCard class.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String expected = rank.getChars() + suit.getChar();
+                String actual = card.toString();
+                assertEquals(expected, actual);
+            }
+        }
+    }
 
     /**
      * Test of the equals function, of the PlayingCard class. A playing card 
