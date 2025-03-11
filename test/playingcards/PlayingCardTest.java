@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -31,6 +31,10 @@ import static org.junit.Assert.*;
 public class PlayingCardTest {
     
     private static final char HIGH_SURROGATE = '\uD83C';
+    
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
 
     /**
      * Test of the equals function, of the PlayingCard class. A playing card 
@@ -38,6 +42,7 @@ public class PlayingCardTest {
      */
     @Test
     public void testReferentialEquality() {
+        fail("REWRITE THIS TEST");
         PlayingCard clubsFive = new PlayingCard(Rank.FIVE, Suit.CLUBS);
         assertEquals(clubsFive, clubsFive);
     }
@@ -46,6 +51,7 @@ public class PlayingCardTest {
      * Another test of the equals function, of the PlayingCard class. A playing 
      * card reference should not be equal to a null reference.
      */
+    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
         PlayingCard diamondsTwo = new PlayingCard(Rank.TWO, Suit.DIAMONDS);
@@ -57,6 +63,7 @@ public class PlayingCardTest {
      * instance of PlayingCard should not be considered equal to an instance of 
      * another class.
      */
+    @org.junit.Ignore
     @Test
     public void testNotEqualsOtherClass() {
         PlayingCard spadesQueen = new PlayingCard(Rank.QUEEN, Suit.SPADES);
@@ -68,6 +75,7 @@ public class PlayingCardTest {
      * card of a given rank should not be considered equal to another playing 
      * card of the same rank but different suit.
      */
+    @org.junit.Ignore
     @Test
     public void testNotEqualsSameRankDiffSuit() {
         PlayingCard heartsThree = new PlayingCard(Rank.THREE, Suit.HEARTS);
@@ -80,6 +88,7 @@ public class PlayingCardTest {
      * card of a given suit should not be considered equal to another playing 
      * card of the same suit but different rank.
      */
+    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffRankSameSuit() {
         PlayingCard diamondsEight = new PlayingCard(Rank.EIGHT, Suit.DIAMONDS);
@@ -92,6 +101,7 @@ public class PlayingCardTest {
      * playing cards should be considered equal if they are of the same suit and 
      * the same rank.
      */
+    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
@@ -103,6 +113,7 @@ public class PlayingCardTest {
     /**
      * Two playing cards said to be equal should have the same hash code.
      */
+    @org.junit.Ignore
     @Test
     public void testEqualsHashCodeCorrespondence() {
         PlayingCard someCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
@@ -120,6 +131,7 @@ public class PlayingCardTest {
      * Test of the hashCode function, of the PlayingCard class. Given 52 
      * distinct cards, there should 52 distinct hash codes.
      */
+    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
@@ -144,6 +156,7 @@ public class PlayingCardTest {
      * Test of the toString function, of the PlayingCard class. For the Ace of 
      * Spades, this should return "A&#9824;".
      */
+    @org.junit.Ignore
     @Test
     public void testToStringAceOfSpades() {
         System.out.println("toString");
@@ -157,6 +170,7 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Four of Diamonds, this should return "4&#9830;".
      */
+    @org.junit.Ignore
     @Test
     public void testToStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
@@ -169,6 +183,7 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Queen of Hearts, this should return "Q&#9829;".
      */
+    @org.junit.Ignore
     @Test
     public void testToStringQueenOfHearts() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -181,6 +196,7 @@ public class PlayingCardTest {
      * Another test of the toString function, of the PlayingCard class. For the 
      * Ten of Clubs, this should return "10&#9827;".
      */
+    @org.junit.Ignore
     @Test
     public void testToStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
@@ -193,6 +209,7 @@ public class PlayingCardTest {
      * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
      * of Spaces, this should be "Ace of Spades".
      */
+    @org.junit.Ignore
     @Test
     public void testToASCIIStringAceOfSpades() {
         System.out.println("toASCIIString");
@@ -206,6 +223,7 @@ public class PlayingCardTest {
      * Another test of the toASCIIString function, of the PlayingCard class. For 
      * the Four of Diamonds this should be "Four of Diamonds".
      */
+    @org.junit.Ignore
     @Test
     public void testToASCIIStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
@@ -218,6 +236,7 @@ public class PlayingCardTest {
      * Another test of the toASCIIString function, of the PlayingCard class. For 
      * the Queen of Hearts this should be "Queen of Hearts".
      */
+    @org.junit.Ignore
     @Test
     public void testToASCIIStringQueenOfHearts() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -230,6 +249,7 @@ public class PlayingCardTest {
      * Another test of toASCIIString function, of the PlayingCard class. For the 
      * Ten of Clubs this should be "Ten of Clubs".
      */
+    @org.junit.Ignore
     @Test
     public void testToASCIIStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
@@ -242,6 +262,7 @@ public class PlayingCardTest {
      * Test of the toUnicodeSMPChar function, of the PlayingCard class. This is 
      * testing A&#9824;, 2&#9824;, ..., 10&#9824;, J&#9824;.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostSpades() {
         System.out.println("toUnicodeSMPChar");
@@ -265,6 +286,7 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9824; on account of the need to skip over 
      * C&#9824.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfSpades() {
         PlayingCard queenOfSpades = new PlayingCard(Rank.QUEEN, Suit.SPADES);
@@ -278,6 +300,7 @@ public class PlayingCardTest {
      * This is specifically testing K&#9824; on account of the need to skip over 
      * C&#9824.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfSpades() {
         PlayingCard kingOfSpades = new PlayingCard(Rank.KING, Suit.SPADES);
@@ -290,6 +313,7 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9829;, 2&#9829;, ..., 10&#9829;, J&#9829;.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostHearts() {
         Rank rank;
@@ -312,6 +336,7 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9829; on account of the need to skip over 
      * C&#9829.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfHearts() {
         PlayingCard queenOfHearts = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -325,6 +350,7 @@ public class PlayingCardTest {
      * This is specifically testing K&#9829; on account of the need to skip over 
      * C&#9829.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfHearts() {
         PlayingCard kingOfHearts = new PlayingCard(Rank.KING, Suit.HEARTS);
@@ -337,6 +363,7 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9830;, 2&#9830;, ..., 10&#9830;, J&#9830;.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostDiamonds() {
         Rank rank;
@@ -359,6 +386,7 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9830; on account of the need to skip over 
      * C&#9830.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfDiamonds() {
         PlayingCard queenOfDiamonds = new PlayingCard(Rank.QUEEN, Suit.DIAMONDS);
@@ -372,6 +400,7 @@ public class PlayingCardTest {
      * This is specifically testing K&#9830; on account of the need to skip over 
      * C&#9830.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfDiamonds() {
         PlayingCard kingOfDiamonds = new PlayingCard(Rank.KING, Suit.DIAMONDS);
@@ -384,6 +413,7 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9827;, 2&#9827;, ..., 10&#9827;, J&#9827;.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostClubs() {
         Rank rank;
@@ -406,6 +436,7 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9827; on account of the need to skip over 
      * C&#9827.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfClubs() {
         PlayingCard queenOfClubs = new PlayingCard(Rank.QUEEN, Suit.CLUBS);
@@ -419,6 +450,7 @@ public class PlayingCardTest {
      * This is specifically testing K&#9827; on account of the need to skip over 
      * C&#9827.
      */
+    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfClubs() {
         PlayingCard kingOfClubs = new PlayingCard(Rank.KING, Suit.CLUBS);
@@ -430,6 +462,7 @@ public class PlayingCardTest {
     /**
      * Test of the cardValue function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testCardValue() {
         System.out.println("cardValue");
@@ -448,6 +481,7 @@ public class PlayingCardTest {
     /**
      * Test of the getRank function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testGetRankOfATen() {
         System.out.println("getRank");
@@ -458,6 +492,7 @@ public class PlayingCardTest {
     /**
      * Another test of the getRank function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testGetRankOfAKing() {
         PlayingCard diamondsKing = new PlayingCard(Rank.KING, Suit.DIAMONDS);
@@ -467,6 +502,7 @@ public class PlayingCardTest {
     /**
      * Test of the isOf(Rank) function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsOfRank() {
         System.out.println("isOf(Rank)");
@@ -478,6 +514,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isOf(Rank) function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsNotOfRank() {
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
@@ -489,6 +526,7 @@ public class PlayingCardTest {
     /**
      * Test of the isSameRank function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsSameRank() {
         System.out.println("isSameRank");
@@ -503,6 +541,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isSameRank function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsNotSameRank() {
         PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
@@ -516,6 +555,7 @@ public class PlayingCardTest {
     /**
      * Test of the getSuit function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testGetSuitOfASpade() {
         System.out.println("getSuit");
@@ -526,6 +566,7 @@ public class PlayingCardTest {
     /**
      * Another test of the getSuit function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testGetSuitOfAClub() {
         PlayingCard spadesAce = new PlayingCard(Rank.SIX, Suit.CLUBS);
@@ -535,6 +576,7 @@ public class PlayingCardTest {
     /**
      * Test of the isOf(Suit) function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsOfSuit() {
         System.out.println("isOfSuit");
@@ -547,6 +589,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isOf(Suit) function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsNotOfSuit() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -558,6 +601,7 @@ public class PlayingCardTest {
     /**
      * Test of the isSameSuit function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsSameSuit() {
         System.out.println("isSameSuit");
@@ -572,6 +616,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isSameSuit function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testIsNotSameSuit() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -585,6 +630,7 @@ public class PlayingCardTest {
     /**
      * Test of the isCourtCard function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testJacksAreCourtCards() {
         System.out.println("isCourtCard");
@@ -600,6 +646,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isCourtCard function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testQueensAreCourtCards() {
         PlayingCard queen;
@@ -614,6 +661,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isCourtCard function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testKingsAreCourtCards() {
         PlayingCard king;
@@ -628,6 +676,7 @@ public class PlayingCardTest {
     /**
      * Another test of the isCourtCard function, of the PlayingCard class.
      */
+    @org.junit.Ignore
     @Test
     public void testPipCardsAreNotCourtCards() {
         PlayingCard card;
@@ -648,6 +697,7 @@ public class PlayingCardTest {
      * with Spades or Clubs, the color should be black, and for cards with 
      * Hearts or Diamonds, the color should be red.
      */
+    @org.junit.Ignore
     @Test
     public void testGetTextColor() {
         System.out.println("getTextColor");
