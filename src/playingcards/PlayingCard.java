@@ -52,9 +52,10 @@ public class PlayingCard {
      * be preferable to use {@link #toASCIIString()}.
      * @return A text representation like "8&#9824;".
      */
+// TODO: Rewrite tests for this
     @Override
     public String toString() {
-        return this.cardRank.getChars() + this.cardSuit.getChar();
+        return "this.cardRank.getChars() + this.cardSuit.getChar()";
     }
 
     /**
