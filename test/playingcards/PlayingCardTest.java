@@ -66,16 +66,24 @@ public class PlayingCardTest {
             }
         }
     }
+    
+    private static Object provideNull() {
+        return null;
+    }
 
     /**
      * Another test of the equals function, of the PlayingCard class. A playing 
      * card reference should not be equal to a null reference.
      */
-    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
-        PlayingCard diamondsTwo = new PlayingCard(Rank.TWO, Suit.DIAMONDS);
-        assertNotEquals(diamondsTwo, null);
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String msg = card.toString() + " should not equal null";
+                assert !card.equals(provideNull()) : msg;
+            }
+        }
     }
 
     /**
