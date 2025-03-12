@@ -116,9 +116,19 @@ public class PlayingCardTest {
      */
     @Test
     public void testNotEqualsSameRankDiffSuit() {
-        PlayingCard heartsThree = new PlayingCard(Rank.THREE, Suit.HEARTS);
-        PlayingCard clubsThree = new PlayingCard(Rank.THREE, Suit.CLUBS);
-        assertNotEquals(heartsThree, clubsThree);
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard cardA = new PlayingCard(rank, suit);
+                String msgPart = cardA.toString() + " should not equal ";
+                for (Suit suitB : SUITS) {
+                    if (!suit.equals(suitB)) {
+                        PlayingCard cardB = new PlayingCard(rank, suitB);
+                        String message = msgPart + cardB.toString();
+                        assertNotEquals(message, cardA, cardB);
+                    }
+                }
+            }
+        }
     }
 
     /**
