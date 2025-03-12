@@ -35,7 +35,16 @@ public class PlayingCard {
 
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof PlayingCard;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        return false;
     }
 
     // TODO: Rewrite tests for this
