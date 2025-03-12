@@ -132,6 +132,23 @@ public class PlayingCardTest {
     }
 
     /**
+     * Another test of the equals function, of the PlayingCard class. Two 
+     * playing cards should be considered equal if they are of the same suit and 
+     * the same rank.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard someCard = new PlayingCard(rank, suit);
+                PlayingCard sameCard = new PlayingCard(rank, suit);
+                assertEquals(someCard, sameCard);
+            }
+        }
+    }
+
+    /**
      * Another test of the equals function, of the PlayingCard class. A playing 
      * card of a given suit should not be considered equal to another playing 
      * card of the same suit but different rank.
@@ -141,19 +158,6 @@ public class PlayingCardTest {
         PlayingCard diamondsEight = new PlayingCard(Rank.EIGHT, Suit.DIAMONDS);
         PlayingCard diamondsJack = new PlayingCard(Rank.JACK, Suit.DIAMONDS);
         assertNotEquals(diamondsEight, diamondsJack);
-    }
-
-    /**
-     * Another test of the equals function, of the PlayingCard class. Two 
-     * playing cards should be considered equal if they are of the same suit and 
-     * the same rank.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        PlayingCard someCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
-        PlayingCard sameCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
-        assertEquals(someCard, sameCard);
     }
 
     /**
