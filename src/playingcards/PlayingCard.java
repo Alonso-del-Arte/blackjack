@@ -33,10 +33,9 @@ public class PlayingCard {
     final Rank cardRank;
     final Suit cardSuit;
 
-    // TODO: Rewrite tests for this
     @Override
     public boolean equals(Object obj) {
-        return obj != null;
+        return obj instanceof PlayingCard;
     }
 
     // TODO: Rewrite tests for this
