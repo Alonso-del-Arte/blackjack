@@ -35,7 +35,7 @@ public class PlayingCard {
 
     @Override
     public boolean equals(Object obj) {
-        return obj != null;// instanceof PlayingCard;
+        return obj instanceof PlayingCard;
     }
 
     // TODO: Rewrite tests for this
