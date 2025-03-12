@@ -12,7 +12,7 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License along with 
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
 
@@ -33,26 +33,6 @@ public class PlayingCard {
     final Rank cardRank;
     
     final Suit cardSuit;
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        return this.cardSuit.equals(((PlayingCard) obj).cardSuit);
-    }
-
-    // TODO: Rewrite tests for this
-    @Override
-    public int hashCode() {
-        return 0;
-    }
 
     /**
      * Gives a text representation of the playing card. Uses the Unicode playing 
@@ -111,7 +91,7 @@ public class PlayingCard {
     
     /**
      * Gives the enumeration of this card's rank.
-     * @return An enumeration field. For example, <code>Rank.NINE</code> for 
+     * @return An enumeration field. For example, {@code Rank.NINE} for 
      * 9&#9827;.
      */
     public Rank getRank() {
@@ -120,7 +100,7 @@ public class PlayingCard {
     
     /**
      * Determines if this card is of the specified rank.
-     * @param rank The rank to check. For example, <code>Rank.SEVEN</code>.
+     * @param rank The rank to check. For example, {@code Rank.SEVEN}.
      * @return True if this card is of the specified rank, false if it is not. 
      * For example, true for 7&#9827;, false for 8&#9827;.
      */
@@ -143,7 +123,7 @@ public class PlayingCard {
     
     /**
      * Gives the enumeration of this card's suit.
-     * @return An enumeration field. For example, <code>Suit.HEARTS</code> for 
+     * @return An enumeration field. For example, {@code Suit.HEARTS} for 
      * 10&#9829;.
      */
     public Suit getSuit() {
@@ -152,7 +132,7 @@ public class PlayingCard {
     
     /**
      * Determines if this card is of the specified suit.
-     * @param suit The suit to check. For example, <code>Suit.HEARTS</code>.
+     * @param suit The suit to check. For example, {@code Suit.HEARTS}.
      * @return True if this card is of the specified suit, false if it is not. 
      * For example, true for 10&#9829;, false for 10&#9830;.
      */
@@ -186,17 +166,37 @@ public class PlayingCard {
      * Gives the color to use for text elements on this playing card. The color 
      * is only a suggestion, it may be tweaked or altogether ignored depending 
      * on the use case.
-     * @return <code>Color.BLACK</code> if this card is one of Spades or Clubs, 
-     * <code>Color.RED</code> if this card is one of Hearts or Diamonds.
+     * @return {@code Color.BLACK} if this card is one of Spades or Clubs, 
+     * {@code Color.RED} if this card is one of Hearts or Diamonds.
      */
     public Color getTextColor() {
         return this.cardSuit.getTextColor();
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        return this.cardSuit.equals(((PlayingCard) obj).cardSuit);
+    }
+
+    // TODO: Rewrite tests for this
+    @Override
+    public int hashCode() {
+        return 0;
+    }
+
     /**
      * Sole constructor. Constructs a card of the specified rank and suit.
-     * @param rank The rank of the card. For example, <code>Rank.ACE</code>.
-     * @param suit The suit of the card. For example, <code>Suit.SPADES</code>.
+     * @param rank The rank of the card. For example, {@code Rank.ACE}.
+     * @param suit The suit of the card. For example, {@code Suit.SPADES}.
      */
     PlayingCard(Rank rank, Suit suit) {
         this.cardRank = rank;
