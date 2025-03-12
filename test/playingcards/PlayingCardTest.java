@@ -91,11 +91,17 @@ public class PlayingCardTest {
      * instance of PlayingCard should not be considered equal to an instance of 
      * another class.
      */
-    @org.junit.Ignore
     @Test
     public void testNotEqualsOtherClass() {
-        PlayingCard spadesQueen = new PlayingCard(Rank.QUEEN, Suit.SPADES);
-        assertNotEquals(spadesQueen, DocFlavor.SERVICE_FORMATTED.PAGEABLE);
+        String typeName = this.getClass().getName();
+        String msgPart = " should not equal object of type " + typeName;
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String msg = card.toString() + msgPart;
+                assert !card.equals(this) : msg;
+            }
+        }
     }
 
     /**
