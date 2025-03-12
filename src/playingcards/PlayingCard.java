@@ -31,6 +31,7 @@ import java.awt.Color;
 public class PlayingCard {
 
     final Rank cardRank;
+    
     final Suit cardSuit;
 
     @Override
@@ -44,7 +45,7 @@ public class PlayingCard {
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
-        return false;
+        return this.cardSuit.equals(((PlayingCard) obj).cardSuit);
     }
 
     // TODO: Rewrite tests for this
