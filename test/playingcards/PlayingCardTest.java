@@ -85,6 +85,10 @@ public class PlayingCardTest {
             }
         }
     }
+    
+    private static Object passThrough(Object obj) {
+        return obj;
+    }
 
     /**
      * Another test of the equals function, of the PlayingCard class. An 
@@ -95,11 +99,12 @@ public class PlayingCardTest {
     public void testNotEqualsOtherClass() {
         String typeName = this.getClass().getName();
         String msgPart = " should not equal object of type " + typeName;
+        Object obj = passThrough(this);
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
                 PlayingCard card = new PlayingCard(rank, suit);
                 String msg = card.toString() + msgPart;
-                assert !card.equals(this) : msg;
+                assert !card.equals(obj) : msg;
             }
         }
     }
@@ -109,7 +114,6 @@ public class PlayingCardTest {
      * card of a given rank should not be considered equal to another playing 
      * card of the same rank but different suit.
      */
-    @org.junit.Ignore
     @Test
     public void testNotEqualsSameRankDiffSuit() {
         PlayingCard heartsThree = new PlayingCard(Rank.THREE, Suit.HEARTS);
@@ -122,7 +126,6 @@ public class PlayingCardTest {
      * card of a given suit should not be considered equal to another playing 
      * card of the same suit but different rank.
      */
-    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffRankSameSuit() {
         PlayingCard diamondsEight = new PlayingCard(Rank.EIGHT, Suit.DIAMONDS);
@@ -135,7 +138,6 @@ public class PlayingCardTest {
      * playing cards should be considered equal if they are of the same suit and 
      * the same rank.
      */
-    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
