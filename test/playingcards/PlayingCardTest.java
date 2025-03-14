@@ -19,8 +19,6 @@ package playingcards;
 import java.awt.Color;
 import java.util.HashSet;
 
-import javax.print.DocFlavor;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -171,38 +169,23 @@ public class PlayingCardTest {
     }
 
     /**
-     * Two playing cards said to be equal should have the same hash code.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testEqualsHashCodeCorrespondence() {
-        PlayingCard someCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
-        PlayingCard sameCard = new PlayingCard(Rank.SEVEN, Suit.SPADES);
-        System.out.println(someCard.toASCIIString() + " "
-                + System.identityHashCode(someCard) + " hashed as "
-                + someCard.hashCode());
-        System.out.println(sameCard.toASCIIString() + " "
-                + System.identityHashCode(sameCard) + " hashed as "
-                + sameCard.hashCode());
-        assertEquals(someCard.hashCode(), sameCard.hashCode());
-    }
-
-    /**
      * Test of the hashCode function, of the PlayingCard class. Given 52 
-     * distinct cards, there should 52 distinct hash codes.
+     * distinct cards, there should 52 distinct hash codes. The hash codes of  
+     * two PlayingCard instances of the same rank and same suit should be the 
+     * same.
      */
-    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        PlayingCard currCard;
         HashSet<PlayingCard> deck = new HashSet<>();
         HashSet<Integer> hashes = new HashSet<>();
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
-                currCard = new PlayingCard(rank, suit);
+                PlayingCard currCard = new PlayingCard(rank, suit);
                 deck.add(currCard);
                 hashes.add(currCard.hashCode());
+                PlayingCard dupCard = new PlayingCard(rank, suit);
+                hashes.add(dupCard.hashCode());
             }
         }
         int expected = deck.size();
