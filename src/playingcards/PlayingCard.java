@@ -184,7 +184,11 @@ public class PlayingCard {
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
-        return this.cardSuit.equals(((PlayingCard) obj).cardSuit);
+        PlayingCard other = (PlayingCard) obj;
+        if (!this.cardSuit.equals(other.cardSuit)) {
+            return false;
+        }
+        return this.cardRank.equals(((PlayingCard) obj).cardRank);
     }
 
     // TODO: Rewrite tests for this
