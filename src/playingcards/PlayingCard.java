@@ -191,10 +191,9 @@ public class PlayingCard {
         return this.cardRank.equals(((PlayingCard) obj).cardRank);
     }
 
-    // TODO: Rewrite tests for this
     @Override
     public int hashCode() {
-        return 0;
+        return (this.cardSuit.hashCode() << 16) + this.cardRank.hashCode();
     }
 
     /**
