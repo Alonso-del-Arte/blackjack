@@ -51,12 +51,20 @@ public class PlayingCard {
      * suitable for use in a console application with a potentially limited 
      * character set (e.g., if playing on the Windows command prompt, characters 
      * like '&#9824;' would probably show up as '?' &mdash; though the character 
-     * for the rank, such as '8', should show up just fine).
+     * for the rank, such as '8', should show up just fine). Note that this is 
+     * in English regardless of locale.
      * @return A text representation using only ASCII digits and letters. For 
      * example, "Eight of Spades".
      */
     public String toASCIIString() {
         return this.cardRank.getWord() + " of " + this.cardSuit.getWord();
+    }
+    
+    // TODO: Write tests for this
+    // TODO: Update Javadoc for toUnicodeSMPChar() once tests for this function 
+    // are passing
+    public String toInternationalizedString() {
+        return "SORRY, NOT IMPLEMENTED YET";
     }
     
     /**
