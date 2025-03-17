@@ -57,7 +57,7 @@ public class PlayingCard {
      * example, "Eight of Spades".
      */
     public String toASCIIString() {
-        return this.cardRank.getWord() + " of " + this.cardSuit.getWord();
+        return this.cardRank.getWord() + "? of ?" + this.cardSuit.getWord();
     }
     
     // TODO: Write tests for this
