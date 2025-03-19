@@ -199,7 +199,6 @@ public class PlayingCardTest {
      * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
      * of Spaces, this should be "Ace of Spades".
      */
-    @org.junit.Ignore
     @Test
     public void testToASCIIStringAceOfSpades() {
         System.out.println("toASCIIString");
@@ -213,7 +212,6 @@ public class PlayingCardTest {
      * Another test of the toASCIIString function, of the PlayingCard class. For 
      * the Four of Diamonds this should be "Four of Diamonds".
      */
-    @org.junit.Ignore
     @Test
     public void testToASCIIStringFourOfDiamonds() {
         PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
@@ -226,7 +224,6 @@ public class PlayingCardTest {
      * Another test of the toASCIIString function, of the PlayingCard class. For 
      * the Queen of Hearts this should be "Queen of Hearts".
      */
-    @org.junit.Ignore
     @Test
     public void testToASCIIStringQueenOfHearts() {
         PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -239,7 +236,6 @@ public class PlayingCardTest {
      * Another test of toASCIIString function, of the PlayingCard class. For the 
      * Ten of Clubs this should be "Ten of Clubs".
      */
-    @org.junit.Ignore
     @Test
     public void testToASCIIStringTenOfClubs() {
         PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
