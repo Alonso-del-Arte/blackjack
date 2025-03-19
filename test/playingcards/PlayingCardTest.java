@@ -179,8 +179,8 @@ public class PlayingCardTest {
         System.out.println("hashCode");
         HashSet<PlayingCard> deck = new HashSet<>();
         HashSet<Integer> hashes = new HashSet<>();
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
                 PlayingCard currCard = new PlayingCard(rank, suit);
                 deck.add(currCard);
                 hashes.add(currCard.hashCode());
@@ -199,6 +199,20 @@ public class PlayingCardTest {
      * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
      * of Spaces, this should be "Ace of Spades".
      */
+    @Test
+    public void testToASCIIString() {
+        System.out.println("toASCIIString");
+        for (Suit suit : SUITS) {
+            String suitPart = " of " + suit.getWord();
+            for (Rank rank : RANKS) {
+                PlayingCard instance = new PlayingCard(rank, suit);
+                String expected = rank.getWord() + suitPart;
+                String actual = instance.toASCIIString();
+                assertEquals(expected, actual);
+            }
+        }
+    }
+    
     @Test
     public void testToASCIIStringAceOfSpades() {
         System.out.println("toASCIIString");
@@ -258,7 +272,7 @@ public class PlayingCardTest {
         char lowSurrogate;
         String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = Rank.values()[r];
+            rank = RANKS[r];
             spade = new PlayingCard(rank, Suit.SPADES);
             lowSurrogate = (char) (aceBase + r);
             expected = "" + HIGH_SURROGATE + lowSurrogate;
@@ -308,7 +322,7 @@ public class PlayingCardTest {
         char lowSurrogate;
         String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = Rank.values()[r];
+            rank = RANKS[r];
             heart = new PlayingCard(rank, Suit.HEARTS);
             lowSurrogate = (char) (aceBase + r);
             expected = "" + HIGH_SURROGATE + lowSurrogate;
@@ -358,7 +372,7 @@ public class PlayingCardTest {
         char lowSurrogate;
         String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = Rank.values()[r];
+            rank = RANKS[r];
             diamond = new PlayingCard(rank, Suit.DIAMONDS);
             lowSurrogate = (char) (aceBase + r);
             expected = "" + HIGH_SURROGATE + lowSurrogate;
@@ -408,7 +422,7 @@ public class PlayingCardTest {
         char lowSurrogate;
         String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = Rank.values()[r];
+            rank = RANKS[r];
             club = new PlayingCard(rank, Suit.CLUBS);
             lowSurrogate = (char) (aceBase + r);
             expected = "" + HIGH_SURROGATE + lowSurrogate;
@@ -454,8 +468,8 @@ public class PlayingCardTest {
         System.out.println("cardValue");
         PlayingCard currCard;
         int expected, actual;
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
                 currCard = new PlayingCard(rank, suit);
                 expected = rank.getRank();
                 actual = currCard.cardValue();
@@ -622,7 +636,7 @@ public class PlayingCardTest {
         System.out.println("isCourtCard");
         PlayingCard jack;
         String msg;
-        for (Suit suit : Suit.values()) {
+        for (Suit suit : SUITS) {
             jack = new PlayingCard(Rank.JACK, suit);
             msg = jack.toString() + " is a court card";
             assert jack.isCourtCard() : msg;
@@ -637,7 +651,7 @@ public class PlayingCardTest {
     public void testQueensAreCourtCards() {
         PlayingCard queen;
         String msg;
-        for (Suit suit : Suit.values()) {
+        for (Suit suit : SUITS) {
             queen = new PlayingCard(Rank.QUEEN, suit);
             msg = queen.toString() + " is a court card";
             assert queen.isCourtCard() : msg;
@@ -652,7 +666,7 @@ public class PlayingCardTest {
     public void testKingsAreCourtCards() {
         PlayingCard king;
         String msg;
-        for (Suit suit : Suit.values()) {
+        for (Suit suit : SUITS) {
             king = new PlayingCard(Rank.KING, suit);
             msg = king.toString() + " is a court card";
             assert king.isCourtCard() : msg;
@@ -667,8 +681,8 @@ public class PlayingCardTest {
     public void testPipCardsAreNotCourtCards() {
         PlayingCard card;
         String msg;
-        for (Suit suit : Suit.values()) {
-            for (Rank rank : Rank.values()) {
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
                 if (!rank.isCourtRank()) {
                     card = new PlayingCard(rank, suit);
                     msg = card.toString() + " is not a court card";
@@ -687,15 +701,14 @@ public class PlayingCardTest {
     @Test
     public void testGetTextColor() {
         System.out.println("getTextColor");
-        Rank[] ranks = Rank.values();
         PlayingCard card;
-        for (Rank rank : ranks) {
+        for (Rank rank : RANKS) {
             card = new PlayingCard(rank, Suit.SPADES);
             assertEquals(Color.BLACK, card.getTextColor());
             card = new PlayingCard(rank, Suit.CLUBS);
             assertEquals(Color.BLACK, card.getTextColor());
         }
-        for (Rank rank : ranks) {
+        for (Rank rank : RANKS) {
             card = new PlayingCard(rank, Suit.HEARTS);
             assertEquals(Color.RED, card.getTextColor());
             card = new PlayingCard(rank, Suit.DIAMONDS);
