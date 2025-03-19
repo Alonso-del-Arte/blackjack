@@ -196,8 +196,7 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of the toASCIIString function, of the PlayingCard class. For the Ace 
-     * of Spaces, this should be "Ace of Spades".
+     * Test of the toASCIIString function, of the PlayingCard class.
      */
     @Test
     public void testToASCIIString() {
@@ -211,51 +210,6 @@ public class PlayingCardTest {
                 assertEquals(expected, actual);
             }
         }
-    }
-    
-    @Test
-    public void testToASCIIStringAceOfSpades() {
-        System.out.println("toASCIIString");
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String expected = "Ace of Spades";
-        String actual = spadesAce.toASCIIString();
-        assertEquals(expected, actual);
-    }
-
-    /**
-     * Another test of the toASCIIString function, of the PlayingCard class. For 
-     * the Four of Diamonds this should be "Four of Diamonds".
-     */
-    @Test
-    public void testToASCIIStringFourOfDiamonds() {
-        PlayingCard diamondsFour = new PlayingCard(Rank.FOUR, Suit.DIAMONDS);
-        String expected = "Four of Diamonds";
-        String actual = diamondsFour.toASCIIString();
-        assertEquals(expected, actual);
-    }
-
-    /**
-     * Another test of the toASCIIString function, of the PlayingCard class. For 
-     * the Queen of Hearts this should be "Queen of Hearts".
-     */
-    @Test
-    public void testToASCIIStringQueenOfHearts() {
-        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String expResult = "Queen of Hearts";
-        String result = heartsQueen.toASCIIString();
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Another test of toASCIIString function, of the PlayingCard class. For the 
-     * Ten of Clubs this should be "Ten of Clubs".
-     */
-    @Test
-    public void testToASCIIStringTenOfClubs() {
-        PlayingCard clubsTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        String expected = "Ten of Clubs";
-        String actual = clubsTen.toASCIIString();
-        assertEquals(expected, actual);
     }
     
     /**
