@@ -136,7 +136,7 @@ public class PlayingCard {
      * 10&#9829;.
      */
     public Suit getSuit() {
-        return this.cardSuit;
+        return Suit.DIAMONDS;// this.cardSuit;
     }
     
     /**
