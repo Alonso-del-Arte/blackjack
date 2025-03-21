@@ -79,7 +79,7 @@ public class PlayingCard {
     public String toUnicodeSMPChar() {
         char highSurrogate = '\uD83C';
         char aceBase = '\uDCA1';
-        int adj = /* this.cardSuit.ordinal() * 16 + */ this.cardRank.ordinal();
+        int adj = this.cardSuit.ordinal() * 16 + this.cardRank.ordinal();
         int knightAdj = 0;
 //        if (this.cardRank.ordinal() > 10) knightAdj = 1;
         char lowSurrogate = (char) (aceBase + adj + knightAdj);
