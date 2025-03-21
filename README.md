@@ -8,6 +8,9 @@ website.
 There is for now no option to split a pair, double down nor make an insurance 
 bet.
 
+In 2025, I started taking some steps towards internationalization. A lot remains 
+to be done.
+
 If you're interested in participating in Hacktoberfest 2025, see 
 [CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
 that your contribution is accepted for Hacktoberfest, but also that it persists 
