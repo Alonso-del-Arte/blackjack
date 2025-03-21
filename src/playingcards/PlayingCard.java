@@ -104,7 +104,7 @@ public class PlayingCard {
      * 9&#9827;.
      */
     public Rank getRank() {
-        return this.cardRank;
+        return Rank.TWO;// this.cardRank;
     }
     
     /**
