@@ -87,13 +87,15 @@ public class PlayingCard {
 
     /**
      * Gives the value of this card. It should be suitable for most games. Some 
-     * games might need tweaking for some or all cards.
-     * @return An integer values. For most pip cards like 8&#9824;, it should be 
+     * games might need tweaking for some or all cards, or for some cards in 
+     * certain contexts (e.g., an Ace as the highest card of a royal flush in 
+     * poker, or an Ace in a blackjack hand that has another Ace).
+     * @return An integer value. For most pip cards like 8&#9824;, it should be 
      * the number of pips, e.g., 8. Though for Aces like A&#9830; it will be 14. 
      * Jacks are 11, Queens are 12 and Kings are 13.
      */
     public int cardValue() {
-        return -this.cardRank.getRank();
+        return this.cardRank.getRank();
     }
     
     /**
