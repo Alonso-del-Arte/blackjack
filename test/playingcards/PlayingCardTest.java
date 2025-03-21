@@ -472,10 +472,23 @@ public class PlayingCardTest {
     /**
      * Test of the getSuit function, of the PlayingCard class.
      */
-    @org.junit.Ignore
+    @Test
+    public void testGetSuit() {
+        System.out.println("getSuit");
+        for (Suit expected : SUITS) {
+            for (Rank rank : RANKS) {
+                PlayingCard currCard = new PlayingCard(rank, expected);
+                Suit actual = currCard.getSuit();
+                assertEquals(expected, actual);
+            }
+        }
+    }
+
+    /**
+     * Test of the getSuit function, of the PlayingCard class.
+     */
     @Test
     public void testGetSuitOfASpade() {
-        System.out.println("getSuit");
         PlayingCard spadesAce = new PlayingCard(Rank.JACK, Suit.SPADES);
         assertEquals(Suit.SPADES, spadesAce.getSuit());
     }
@@ -483,7 +496,6 @@ public class PlayingCardTest {
     /**
      * Another test of the getSuit function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testGetSuitOfAClub() {
         PlayingCard spadesAce = new PlayingCard(Rank.SIX, Suit.CLUBS);
