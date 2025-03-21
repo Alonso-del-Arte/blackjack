@@ -83,7 +83,7 @@ public class PlayingCard {
         int knightAdj = 0;
         if (this.cardRank.ordinal() > 10) knightAdj = 1;
         char lowSurrogate = (char) (aceBase + adj + knightAdj);
-        return "" + highSurrogate + lowSurrogate;
+        return "REWIND TO FAILING";// + highSurrogate + lowSurrogate;
     }
 
     /**
