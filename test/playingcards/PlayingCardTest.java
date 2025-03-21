@@ -235,7 +235,6 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9824; on account of the need to skip over 
      * C&#9824.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfSpades() {
         PlayingCard queenOfSpades = new PlayingCard(Rank.QUEEN, Suit.SPADES);
@@ -249,7 +248,6 @@ public class PlayingCardTest {
      * This is specifically testing K&#9824; on account of the need to skip over 
      * C&#9824.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfSpades() {
         PlayingCard kingOfSpades = new PlayingCard(Rank.KING, Suit.SPADES);
@@ -280,7 +278,6 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9829; on account of the need to skip over 
      * C&#9829.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfHearts() {
         PlayingCard queenOfHearts = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
@@ -294,7 +291,6 @@ public class PlayingCardTest {
      * This is specifically testing K&#9829; on account of the need to skip over 
      * C&#9829.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfHearts() {
         PlayingCard kingOfHearts = new PlayingCard(Rank.KING, Suit.HEARTS);
@@ -325,7 +321,6 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9830; on account of the need to skip over 
      * C&#9830.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfDiamonds() {
         PlayingCard queenOfDiamonds = new PlayingCard(Rank.QUEEN, Suit.DIAMONDS);
@@ -339,7 +334,6 @@ public class PlayingCardTest {
      * This is specifically testing K&#9830; on account of the need to skip over 
      * C&#9830.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfDiamonds() {
         PlayingCard kingOfDiamonds = new PlayingCard(Rank.KING, Suit.DIAMONDS);
@@ -370,7 +364,6 @@ public class PlayingCardTest {
      * This is specifically testing Q&#9827; on account of the need to skip over 
      * C&#9827.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharQueenOfClubs() {
         PlayingCard queenOfClubs = new PlayingCard(Rank.QUEEN, Suit.CLUBS);
@@ -384,7 +377,6 @@ public class PlayingCardTest {
      * This is specifically testing K&#9827; on account of the need to skip over 
      * C&#9827.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharKingOfClubs() {
         PlayingCard kingOfClubs = new PlayingCard(Rank.KING, Suit.CLUBS);
