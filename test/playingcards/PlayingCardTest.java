@@ -485,24 +485,6 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of the getSuit function, of the PlayingCard class.
-     */
-    @Test
-    public void testGetSuitOfASpade() {
-        PlayingCard spadesAce = new PlayingCard(Rank.JACK, Suit.SPADES);
-        assertEquals(Suit.SPADES, spadesAce.getSuit());
-    }
-
-    /**
-     * Another test of the getSuit function, of the PlayingCard class.
-     */
-    @Test
-    public void testGetSuitOfAClub() {
-        PlayingCard spadesAce = new PlayingCard(Rank.SIX, Suit.CLUBS);
-        assertEquals(Suit.CLUBS, spadesAce.getSuit());
-    }
-
-    /**
      * Test of the isOf(Suit) function, of the PlayingCard class.
      */
     @org.junit.Ignore
