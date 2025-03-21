@@ -388,17 +388,14 @@ public class PlayingCardTest {
     /**
      * Test of the cardValue function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testCardValue() {
         System.out.println("cardValue");
-        PlayingCard currCard;
-        int expected, actual;
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
-                currCard = new PlayingCard(rank, suit);
-                expected = rank.getRank();
-                actual = currCard.cardValue();
+                PlayingCard currCard = new PlayingCard(rank, suit);
+                int expected = rank.getRank();
+                int actual = currCard.cardValue();
                 assertEquals(expected, actual);
             }
         }
