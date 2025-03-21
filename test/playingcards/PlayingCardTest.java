@@ -216,21 +216,16 @@ public class PlayingCardTest {
      * Test of the toUnicodeSMPChar function, of the PlayingCard class. This is 
      * testing A&#9824;, 2&#9824;, ..., 10&#9824;, J&#9824;.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostSpades() {
         System.out.println("toUnicodeSMPChar");
-        Rank rank;
-        PlayingCard spade;
         char aceBase = '\uDCA1';
-        char lowSurrogate;
-        String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = RANKS[r];
-            spade = new PlayingCard(rank, Suit.SPADES);
-            lowSurrogate = (char) (aceBase + r);
-            expected = "" + HIGH_SURROGATE + lowSurrogate;
-            actual = spade.toUnicodeSMPChar();
+            Rank rank = RANKS[r];
+            PlayingCard spade = new PlayingCard(rank, Suit.SPADES);
+            char lowSurrogate = (char) (aceBase + r);
+            String expected = "" + HIGH_SURROGATE + lowSurrogate;
+            String actual = spade.toUnicodeSMPChar();
             assertEquals(expected, actual);
         }
     }
