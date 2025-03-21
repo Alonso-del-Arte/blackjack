@@ -262,20 +262,15 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9829;, 2&#9829;, ..., 10&#9829;, J&#9829;.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostHearts() {
-        Rank rank;
-        PlayingCard heart;
         char aceBase = '\uDCB1';
-        char lowSurrogate;
-        String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = RANKS[r];
-            heart = new PlayingCard(rank, Suit.HEARTS);
-            lowSurrogate = (char) (aceBase + r);
-            expected = "" + HIGH_SURROGATE + lowSurrogate;
-            actual = heart.toUnicodeSMPChar();
+            Rank rank = RANKS[r];
+            PlayingCard heart = new PlayingCard(rank, Suit.HEARTS);
+            char lowSurrogate = (char) (aceBase + r);
+            String expected = "" + HIGH_SURROGATE + lowSurrogate;
+            String actual = heart.toUnicodeSMPChar();
             assertEquals(expected, actual);
         }
     }
@@ -312,20 +307,15 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9830;, 2&#9830;, ..., 10&#9830;, J&#9830;.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostDiamonds() {
-        Rank rank;
-        PlayingCard diamond;
         char aceBase = '\uDCC1';
-        char lowSurrogate;
-        String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = RANKS[r];
-            diamond = new PlayingCard(rank, Suit.DIAMONDS);
-            lowSurrogate = (char) (aceBase + r);
-            expected = "" + HIGH_SURROGATE + lowSurrogate;
-            actual = diamond.toUnicodeSMPChar();
+            Rank rank = RANKS[r];
+            PlayingCard diamond = new PlayingCard(rank, Suit.DIAMONDS);
+            char lowSurrogate = (char) (aceBase + r);
+            String expected = "" + HIGH_SURROGATE + lowSurrogate;
+            String actual = diamond.toUnicodeSMPChar();
             assertEquals(expected, actual);
         }
     }
@@ -362,20 +352,15 @@ public class PlayingCardTest {
      * Another test of the toUnicodeSMPChar function, of the PlayingCard class. 
      * This is testing A&#9827;, 2&#9827;, ..., 10&#9827;, J&#9827;.
      */
-    @org.junit.Ignore
     @Test
     public void testToUnicodeSMPCharMostClubs() {
-        Rank rank;
-        PlayingCard club;
         char aceBase = '\uDCD1';
-        char lowSurrogate;
-        String expected, actual;
         for (int r = 0; r < 11; r++) {
-            rank = RANKS[r];
-            club = new PlayingCard(rank, Suit.CLUBS);
-            lowSurrogate = (char) (aceBase + r);
-            expected = "" + HIGH_SURROGATE + lowSurrogate;
-            actual = club.toUnicodeSMPChar();
+            Rank rank = RANKS[r];
+            PlayingCard club = new PlayingCard(rank, Suit.CLUBS);
+            char lowSurrogate = (char) (aceBase + r);
+            String expected = "" + HIGH_SURROGATE + lowSurrogate;
+            String actual = club.toUnicodeSMPChar();
             assertEquals(expected, actual);
         }
     }
