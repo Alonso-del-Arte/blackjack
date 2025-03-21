@@ -80,8 +80,7 @@ public class PlayingCard {
         char highSurrogate = '\uD83C';
         char aceBase = '\uDCA1';
         int adj = this.cardSuit.ordinal() * 16 + this.cardRank.ordinal();
-        int knightAdj = 0;
-        if (this.cardRank.ordinal() > 10) knightAdj = 1;
+        int knightAdj = (this.cardRank.ordinal() > 10) ? 1 : 0;
         char lowSurrogate = (char) (aceBase + adj + knightAdj);
         return "" + highSurrogate + lowSurrogate;
     }
