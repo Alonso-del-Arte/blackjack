@@ -401,6 +401,9 @@ public class PlayingCardTest {
         }
     }
     
+    /**
+     * Test of the getRank function, of the PlayingCard class.
+     */
     @Test
     public void testGetRank() {
         System.out.println("getRank");
@@ -411,24 +414,6 @@ public class PlayingCardTest {
                 assertEquals(expected, actual);
             }
         }
-    }
-
-    /**
-     * Test of the getRank function, of the PlayingCard class.
-     */
-    @Test
-    public void testGetRankOfATen() {
-        PlayingCard spadesTen = new PlayingCard(Rank.TEN, Suit.CLUBS);
-        assertEquals(Rank.TEN, spadesTen.getRank());
-    }
-
-    /**
-     * Another test of the getRank function, of the PlayingCard class.
-     */
-    @Test
-    public void testGetRankOfAKing() {
-        PlayingCard diamondsKing = new PlayingCard(Rank.KING, Suit.DIAMONDS);
-        assertEquals(Rank.KING, diamondsKing.getRank());
     }
 
     /**
