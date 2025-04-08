@@ -541,46 +541,17 @@ public class PlayingCardTest {
     /**
      * Test of the isCourtCard function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
-    public void testJacksAreCourtCards() {
+    public void testIsCourtCard() {
         System.out.println("isCourtCard");
-        PlayingCard jack;
-        String msg;
+        Rank[] courtCardRanks = {Rank.JACK, Rank.QUEEN, Rank.KING};
+        String msgPart = " should be deemed a court card";
         for (Suit suit : SUITS) {
-            jack = new PlayingCard(Rank.JACK, suit);
-            msg = jack.toString() + " is a court card";
-            assert jack.isCourtCard() : msg;
-        }
-    }
-
-    /**
-     * Another test of the isCourtCard function, of the PlayingCard class.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testQueensAreCourtCards() {
-        PlayingCard queen;
-        String msg;
-        for (Suit suit : SUITS) {
-            queen = new PlayingCard(Rank.QUEEN, suit);
-            msg = queen.toString() + " is a court card";
-            assert queen.isCourtCard() : msg;
-        }
-    }
-
-    /**
-     * Another test of the isCourtCard function, of the PlayingCard class.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testKingsAreCourtCards() {
-        PlayingCard king;
-        String msg;
-        for (Suit suit : SUITS) {
-            king = new PlayingCard(Rank.KING, suit);
-            msg = king.toString() + " is a court card";
-            assert king.isCourtCard() : msg;
+            for (Rank rank : courtCardRanks) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String msg = card.toString() + msgPart;
+                assert card.isCourtCard() : msg;
+            }
         }
     }
 
