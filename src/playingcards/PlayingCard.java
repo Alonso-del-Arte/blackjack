@@ -168,7 +168,7 @@ public class PlayingCard {
      * @return True for Jacks, Queens and Kings, false for all others.
      */
     public boolean isCourtCard() {
-        return false;// this.cardRank.isCourtRank();
+        return this.cardRank.isCourtRank();
     }
     
     /**
