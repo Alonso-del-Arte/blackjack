@@ -419,13 +419,18 @@ public class PlayingCardTest {
     /**
      * Test of the isOf(Rank) function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsOfRank() {
         System.out.println("isOf(Rank)");
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String msg = spadesAce.toString() + " should be recognized as an Ace";
-        assert spadesAce.isOf(Rank.ACE) : msg;
+        String msgMiddle = " should be recognized as ";
+        for (Rank rank : RANKS) {
+            String msgPart = msgMiddle + rank.getWord();
+            for (Suit suit : SUITS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String msg = card.toString() + msgPart;
+                assert card.isOf(rank) : msg;
+            }
+        }
     }
 
     /**
