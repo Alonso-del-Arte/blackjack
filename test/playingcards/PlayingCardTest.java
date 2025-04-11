@@ -432,17 +432,25 @@ public class PlayingCardTest {
             }
         }
     }
-
+    
     /**
      * Another test of the isOf(Rank) function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsNotOfRank() {
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        String msg = spadesAce.toString() 
-                + " should not be considered to be a Three";
-        assert !spadesAce.isOf(Rank.THREE) : msg;
+        String msgMiddle = " should not be recognized as ";
+        for (Suit suit : SUITS) {
+            for (Rank rank : RANKS) {
+                String msgPart = msgMiddle + rank.getWord();
+                for (Rank other : RANKS) {
+                    if (!rank.equals(other)) {
+                        PlayingCard card = new PlayingCard(other, suit);
+                        String msg = card.toString() + msgPart;
+                        assert !card.isOf(rank) : msg;
+                    }
+                }
+            }
+        }
     }
 
     /**
