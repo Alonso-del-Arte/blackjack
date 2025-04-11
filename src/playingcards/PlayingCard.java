@@ -114,7 +114,7 @@ public class PlayingCard {
      * For example, true for 7&#9827;, false for 8&#9827;.
      */
     public boolean isOf(Rank rank) {
-        return this.cardRank == rank;
+        return false;// this.cardRank == rank;
     }
     
     /**
