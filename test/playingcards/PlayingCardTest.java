@@ -500,14 +500,18 @@ public class PlayingCardTest {
     /**
      * Test of the isOf(Suit) function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsOfSuit() {
         System.out.println("isOfSuit");
-        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String msg = heartsQueen.toString()
-                + " should be recognized as a card of hearts";
-        assert heartsQueen.isOf(Suit.HEARTS) : msg;
+        String msgMiddle = " should be recognized as one card of ";
+        for (Suit suit : SUITS) {
+            String msgPart = msgMiddle + suit.getWord();
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                String msg = card.toString() + msgPart;
+                assert card.isOf(suit) : msg;
+            }
+        }
     }
 
     /**
