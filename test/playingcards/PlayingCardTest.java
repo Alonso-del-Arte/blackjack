@@ -517,13 +517,21 @@ public class PlayingCardTest {
     /**
      * Another test of the isOf(Suit) function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsNotOfSuit() {
-        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        String msg = heartsQueen.toString()
-                + " should not be considered a card of clubs";
-        assert !heartsQueen.isOf(Suit.CLUBS) : msg;
+        String msgMiddle = " should not be recognized as a card of ";
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                String msgPart = msgMiddle + suit.getWord();
+                for (Suit other : SUITS) {
+                    if (!suit.equals(other)) {
+                        PlayingCard card = new PlayingCard(rank, other);
+                        String msg = card.toString() + msgPart;
+                        assert !card.isOf(suit) : msg;
+                    }
+                }
+            }
+        }
     }
 
     /**
