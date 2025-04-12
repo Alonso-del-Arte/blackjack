@@ -146,7 +146,7 @@ public class PlayingCard {
      * For example, true for 10&#9829;, false for 10&#9830;.
      */
     public boolean isOf(Suit suit) {
-        return true;// this.cardSuit == suit;
+        return this.cardSuit == suit;
     }
     
     /**
