@@ -456,16 +456,21 @@ public class PlayingCardTest {
     /**
      * Test of the isSameRank function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsSameRank() {
         System.out.println("isSameRank");
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        PlayingCard heartsAce = new PlayingCard(Rank.ACE, Suit.HEARTS);
-        String msg = spadesAce.toString()
-                + " should be recognized as being the same rank as "
-                + heartsAce.toString();
-        assert spadesAce.isSameRank(heartsAce) : msg;
+        String msgMidPart = " should be recognized as being the same rank as ";
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                PlayingCard instance = new PlayingCard(rank, suit);
+                String msgPart = instance.toString() + msgMidPart;
+                for (Suit otherCardSuit : SUITS) {
+                    PlayingCard other = new PlayingCard(rank, otherCardSuit);
+                    String msg = msgPart + other.toString();
+                    assert instance.isSameRank(other) : msg;
+                }
+            }
+        }
     }
 
     /**
