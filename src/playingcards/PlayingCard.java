@@ -127,7 +127,7 @@ public class PlayingCard {
      * then false.
      */
     public boolean isSameRank(PlayingCard other) {
-        return this.equals(other);// this.cardRank == other.cardRank;
+        return true;// this.cardRank == other.cardRank;
     }
     
     /**
