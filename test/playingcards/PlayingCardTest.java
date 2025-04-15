@@ -472,19 +472,30 @@ public class PlayingCardTest {
             }
         }
     }
-
+    
     /**
      * Another test of the isSameRank function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsNotSameRank() {
-        PlayingCard spadesAce = new PlayingCard(Rank.ACE, Suit.SPADES);
-        PlayingCard spadesTwo = new PlayingCard(Rank.TWO, Suit.SPADES);
-        String msg = spadesAce.toString() 
-                + " should not be considered as being the same rank as "
-                + spadesTwo.toString();
-        assert !spadesAce.isSameRank(spadesTwo) : msg;
+        String msgMidPart 
+                = " should not be deemed as being the same rank as ";
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                PlayingCard instance = new PlayingCard(rank, suit);
+                String msgPart = instance.toString() + msgMidPart;
+                for (Suit otherCardSuit : SUITS) {
+                    for (Rank otherCardRank : RANKS) {
+                        if (!rank.equals(otherCardRank)) {
+                            PlayingCard other = new PlayingCard(otherCardRank, 
+                                    otherCardSuit);
+                            String msg = msgPart + other.toString();
+                            assert !instance.isSameRank(other) : msg;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
