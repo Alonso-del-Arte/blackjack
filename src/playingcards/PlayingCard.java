@@ -159,7 +159,7 @@ public class PlayingCard {
      * then false.
      */
     public boolean isSameSuit(PlayingCard other) {
-        return this.cardSuit == other.cardSuit;
+        return false;
     }
     
     /**
