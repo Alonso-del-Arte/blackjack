@@ -573,15 +573,26 @@ public class PlayingCardTest {
     /**
      * Another test of the isSameSuit function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testIsNotSameSuit() {
-        PlayingCard heartsQueen = new PlayingCard(Rank.QUEEN, Suit.HEARTS);
-        PlayingCard spadesQueen = new PlayingCard(Rank.QUEEN, Suit.SPADES);
-        String msg = heartsQueen.toString()
-                + " should not be considered to be of the same suit as "
-                + spadesQueen.toString();
-        assert !heartsQueen.isSameSuit(spadesQueen) : msg;
+        String msgMidPart 
+                = " should not be deemed as being the same suit as ";
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                PlayingCard instance = new PlayingCard(rank, suit);
+                String msgPart = instance.toString() + msgMidPart;
+                for (Suit otherCardSuit : SUITS) {
+                    for (Rank otherCardRank : RANKS) {
+                        if (!suit.equals(otherCardSuit)) {
+                            PlayingCard other = new PlayingCard(otherCardRank, 
+                                    otherCardSuit);
+                            String msg = msgPart + other.toString();
+                            assert !instance.isSameSuit(other) : msg;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /**
