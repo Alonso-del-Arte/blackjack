@@ -633,24 +633,18 @@ public class PlayingCardTest {
      * with Spades or Clubs, the color should be black, and for cards with 
      * Hearts or Diamonds, the color should be red.
      */
-    @org.junit.Ignore
     @Test
     public void testGetTextColor() {
         System.out.println("getTextColor");
-        PlayingCard card;
-        for (Rank rank : RANKS) {
-            card = new PlayingCard(rank, Suit.SPADES);
-            assertEquals(Color.BLACK, card.getTextColor());
-            card = new PlayingCard(rank, Suit.CLUBS);
-            assertEquals(Color.BLACK, card.getTextColor());
-        }
-        for (Rank rank : RANKS) {
-            card = new PlayingCard(rank, Suit.HEARTS);
-            assertEquals(Color.RED, card.getTextColor());
-            card = new PlayingCard(rank, Suit.DIAMONDS);
-            assertEquals(Color.RED, card.getTextColor());
+        for (Suit suit : SUITS) {
+            Color expected = suit.getTextColor();
+            for (Rank rank : RANKS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                Color actual = card.getTextColor();
+                String message = "Getting text color for " + card.toString();
+                assertEquals(message, expected, actual);
+            }
         }
     }
-
 
 }
