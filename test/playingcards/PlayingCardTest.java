@@ -615,16 +615,13 @@ public class PlayingCardTest {
     /**
      * Another test of the isCourtCard function, of the PlayingCard class.
      */
-    @org.junit.Ignore
     @Test
     public void testPipCardsAreNotCourtCards() {
-        PlayingCard card;
-        String msg;
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
                 if (!rank.isCourtRank()) {
-                    card = new PlayingCard(rank, suit);
-                    msg = card.toString() + " is not a court card";
+                    PlayingCard card = new PlayingCard(rank, suit);
+                    String msg = card.toString() + " is not a court card";
                     assert !card.isCourtCard() : msg;
                 }
             }
