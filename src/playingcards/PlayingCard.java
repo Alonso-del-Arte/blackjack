@@ -179,7 +179,7 @@ public class PlayingCard {
      * {@code Color.RED} if this card is one of Hearts or Diamonds.
      */
     public Color getTextColor() {
-        return this.cardSuit.getTextColor();
+        return Color.MAGENTA;// this.cardSuit.getTextColor();
     }
 
     @Override
