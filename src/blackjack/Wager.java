@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -20,7 +20,8 @@ import currency.CurrencyAmount;
 
 /**
  * Represents a wager for a blackjack hand or bet. Includes an enumeration of 
- * possible outcomes &mdash; natural blackjack, standoff, insurance lost, etc.
+ * possible outcomes &mdash; natural blackjack, standoff, insurance lost, etc. 
+ * No custom {@code equals()} or {@code hashCode()} provided for this class.
  * @author Alonso del Arte
  */
 public class Wager {
@@ -107,6 +108,17 @@ public class Wager {
         this.settle(Outcome.REPLACED);
         Wager replacementWager = new Wager(this.wagerAmount.times(2));
         return replacementWager;
+    }
+    
+    /**
+     * Gives a textual description of this wager. For example, a wager of $100 
+     * that has not been settled yet.
+     * @return A textual description of this wager. For example, "Wager of 
+     * $100.00".
+     */ // TODO: Write test for wager that has been settled
+    @Override
+    public String toString() {
+        return "Wager of " + this.wagerAmount.toString();
     }
     
     /**
