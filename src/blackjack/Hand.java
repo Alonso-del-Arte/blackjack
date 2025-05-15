@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -44,8 +44,11 @@ public class Hand {
     
     private Wager associatedWager;
     
+    // TODO: Rewrite test for this in test class
     public Wager getWager() {
-        return this.associatedWager;
+        return new Wager(new CurrencyAmount(1, 
+                java.util.Currency.getInstance("XCD")));
+//        return this.associatedWager;
     }
     
     private void updateCardsValue() {
