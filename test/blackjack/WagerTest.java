@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,6 +16,7 @@
  */
 package blackjack;
 
+import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
 
 import java.util.Currency;
@@ -25,7 +26,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Tests of the Wager class.
+ * Tests of the Wager class. The play money wagers are drawn in U.&nbsp;S. 
+ * dollars (USD), euros (EUR), Swiss francs (CHF) and Japanese yen (JPY).
  * @author Alonso del Arte
  */
 public class WagerTest {
@@ -34,13 +36,42 @@ public class WagerTest {
     
     static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
+    private static final Currency EUROS = Currency.getInstance("EUR");
+    
+    private static final Currency FRANCS = Currency.getInstance("CHF");
+    
+    private static final Currency YEN = Currency.getInstance(Locale.JAPAN);
+    
+    private static final Currency[] TEST_CURRENCIES = {DOLLARS, EUROS, FRANCS, 
+        YEN};
+    
+    private static final int NUMBER_OF_TEST_CURRENCIES = TEST_CURRENCIES.length;
+    
     private static final CurrencyAmount DEFAULT_WAGER_AMOUNT 
             = new CurrencyAmount(DEFAULT_CENTS, DOLLARS);
+    
+    private static Currency chooseCurrency() {
+        int index = RANDOM.nextInt(NUMBER_OF_TEST_CURRENCIES);
+        return TEST_CURRENCIES[index];
+    }
+    
+    private static CurrencyAmount chooseAmount() {
+        int bound = 100000;
+        int cents = RANDOM.nextInt(bound) + 1;
+        Currency currency = chooseCurrency();
+        return new CurrencyAmount(cents, currency);
+    }
     
     private static Wager.Outcome pickOutcome() {
         Wager.Outcome[] outcomes = Wager.Outcome.values();
         int index = DealerTest.RANDOM.nextInt(outcomes.length);
         return outcomes[index];
+    }
+    
+//    @Test
+    public void testToString() {
+        //
+        fail();
     }
     
     /**
