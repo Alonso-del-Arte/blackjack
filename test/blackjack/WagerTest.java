@@ -68,10 +68,13 @@ public class WagerTest {
         return outcomes[index];
     }
     
-//    @Test
+    @Test
     public void testToString() {
-        //
-        fail();
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
+        String expected = "Wager of " + amount.toString();
+        String actual = instance.toString();
+        assertEquals(expected, actual);
     }
     
     /**
