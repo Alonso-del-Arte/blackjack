@@ -17,9 +17,14 @@ Maven headaches at my day job, I don't want to deal with Maven headaches on my
 free time. Just use whatever build tool your IDE uses by default.
 
 Contributors should have a proper Java IDE (most are available for free) and 
-JUnit. This project uses Java 8 and JUnit 4. Contributors may use later versions 
-of Java provided they don't use features not available in Java 8. Using JUnit 4 
-should be no problem in an IDE that also has JUnit 5 (e.g., IntelliJ IDEA).
+JUnit. This project started out with Java 8 and JUnit 4. But so as to avail 
+myself to certain advances in later Java versions, and to simplify 
+internationalization, I have upgraded the project to Java 21. However, I 
+continue to use JUnit 4 for testing.
+
+Contributors may use later versions of Java provided they don't use features not 
+available in Java 21. Using JUnit 4 should be no problem in an IDE that also has 
+JUnit 5 (e.g., IntelliJ IDEA).
 
 Also note that the principal branch of this repository is named "main" but it 
 was not originally so. If you cloned or forked prior to the branch rename, 
