@@ -2,7 +2,7 @@ This project will probably be open to Hacktoberfest 2025.
 
 # Guidelines for Hacktoberfest 2025 Contributors
 
-## Guideliones for "low-code" or "no-code" track contributors
+## Guidelines for "low-code" or "no-code" track contributors
 
 I need help with internationalization (i18n) and [FINISH WRITING]
 
