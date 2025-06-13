@@ -109,7 +109,7 @@ public class CurrencyChooser {
     }
     
     public static Set<Currency> getSuitableCurrencies() {
-        return new HashSet<>();
+        return new HashSet<>(CURRENCIES);
     }
     
     public static boolean isSuitableCurrency(Currency currency) {
