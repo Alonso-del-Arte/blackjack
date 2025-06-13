@@ -118,7 +118,7 @@ public class CurrencyChooser {
     
     public static Currency choosePseudocurrency() {
         int index = RANDOM.nextInt(PSEUDO_CURRENCIES_LIST.size());
-        return PSEUDO_CURRENCIES_LIST.get(0);
+        return PSEUDO_CURRENCIES_LIST.get(index);
     }
 
     public static Currency chooseCurrency() {
