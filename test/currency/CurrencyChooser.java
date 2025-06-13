@@ -113,7 +113,7 @@ public class CurrencyChooser {
     }
     
     public static boolean isSuitableCurrency(Currency currency) {
-        return false;// CURRENCIES.contains(currency);
+        return true;// CURRENCIES.contains(currency);
     }
     
     public static Currency choosePseudocurrency() {
