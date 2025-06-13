@@ -143,4 +143,17 @@ public class CurrencyChooserTest {
         }
     }
     
+    @Test
+    public void testIsNotSuitableCurrency() {
+        Set<Currency> complement = new HashSet<>(CURRENCIES);
+        Set<Currency> suitables = CurrencyChooser.getSuitableCurrencies();
+        complement.removeAll(suitables);
+        for (Currency currency : complement) {
+            String msg = "Currency " + currency.getDisplayName() + " (" 
+                    + currency.getCurrencyCode() 
+                    + ") should not be considered suitable";
+            assert !CurrencyChooser.isSuitableCurrency(currency) : msg;
+        }
+    }
+    
 }
