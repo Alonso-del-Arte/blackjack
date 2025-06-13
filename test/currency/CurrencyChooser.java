@@ -139,11 +139,11 @@ public class CurrencyChooser {
     }
 
     public static Currency chooseCurrencyOtherThan(Currency currency) {
-//        Currency otherCurrency = currency;
-//        while (otherCurrency == currency) {
-//            otherCurrency = chooseCurrency();
-//        }
-        return currency;// otherCurrency;
+        Currency otherCurrency = currency;
+        while (otherCurrency == currency) {
+            otherCurrency = chooseCurrency();
+        }
+        return otherCurrency;
     }
 
 }
