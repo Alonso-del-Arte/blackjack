@@ -169,4 +169,28 @@ public class CurrencyChooserTest {
         assertEquals(PSEUDO_CURRENCIES, actual);
     }
     
+    @Test
+    public void testChooseCurrency() {
+        System.out.println("chooseCurrency");
+        int totalNumberOfCurrencies = CURRENCIES.size();
+        int numberOfTries = 5 * totalNumberOfCurrencies / 3;
+        Set<Currency> samples = new HashSet<>();
+        int sampleNumber = 0;
+        while (sampleNumber < numberOfTries) {
+            Currency sample = CurrencyChooser.chooseCurrency();
+            String msg = "Chosen currency " + sample.getDisplayName() 
+                    + " expected to not have negative fraction digits";
+            assert sample.getDefaultFractionDigits() > -1 : msg;
+            samples.add(sample);
+            sampleNumber++;
+        }
+        int minimum = 11 * totalNumberOfCurrencies / 20;
+        int actual = samples.size();
+        String msg = "Trying to pick " + numberOfTries + " times from set of " 
+                + totalNumberOfCurrencies + " gave " + actual 
+                + " distinct, should've given more than " + minimum 
+                + " distinct";
+        assertMinimum(minimum, actual, msg);
+    }
+
 }
