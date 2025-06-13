@@ -123,7 +123,7 @@ public class CurrencyChooser {
 
     public static Currency chooseCurrency() {
         int index = RANDOM.nextInt(CURRENCIES.size());
-        return CURRENCIES.get(0);
+        return CURRENCIES.get(index);
     }
 
     public static Currency chooseCurrency(int fractionDigits) {
