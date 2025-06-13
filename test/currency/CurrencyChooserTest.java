@@ -193,4 +193,27 @@ public class CurrencyChooserTest {
         assertMinimum(minimum, actual, msg);
     }
 
+    @Test
+    public void testChooseCurrencyOtherThanDollars() {
+        int numberOfTries = 40;
+        Set<Currency> samples = new HashSet<>();
+        int sampleNumber = 0;
+        String dollarsDisplayName = DOLLARS.getDisplayName();
+        while (sampleNumber < numberOfTries) {
+            Currency sample = CurrencyChooser.chooseCurrencyOtherThan(DOLLARS);
+            String msg = "Chosen currency " + sample.getDisplayName() 
+                    + " expected to not be " + dollarsDisplayName;
+            assert sample != DOLLARS : msg;
+            samples.add(sample);
+            sampleNumber++;
+        }
+        int minimum = 11 * numberOfTries / 20;
+        int actual = samples.size();
+        String msg = "Trying to pick " + numberOfTries + " other than " 
+                + dollarsDisplayName + " gave " + actual 
+                + " distinct, should've given at least " + minimum 
+                + " distinct";
+        assertMinimum(minimum, actual, msg);
+    }
+    
 }
