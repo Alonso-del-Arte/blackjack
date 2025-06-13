@@ -156,4 +156,17 @@ public class CurrencyChooserTest {
         }
     }
     
+    @Test
+    public void testChoosePseudocurrency() {
+        System.out.println("choosePseudocurrency");
+        int initialCapacity = PSEUDO_CURRENCIES.size();
+        int numberOfCalls = initialCapacity * 10;
+        Set<Currency> actual = new HashSet<>(initialCapacity);
+        for (int i = 0; i < numberOfCalls; i++) {
+            Currency pseudocurrency = CurrencyChooser.choosePseudocurrency();
+            actual.add(pseudocurrency);
+        }
+        assertEquals(PSEUDO_CURRENCIES, actual);
+    }
+    
 }
