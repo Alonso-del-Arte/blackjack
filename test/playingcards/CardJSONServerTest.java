@@ -26,6 +26,8 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the CardJSONServer class. And also of the static classes nested 
  * within it. Depending on how many seconds are specified by {@link 
@@ -47,24 +49,16 @@ public class CardJSONServerTest {
         CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
                 DEFAULT_STOP);
         server.activate();
-        try {
+        String msg = "Should not be able to activate server twice";
+        Throwable t = assertThrows(() -> {
             server.activate();
-            String msg = "Should not have been able to activate " 
-                    + server.toString() + " twice in a row";
-            server.deactivate();
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to activate " + server.toString() 
-                    + " twice in a row correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-            server.deactivate();
-        } catch (RuntimeException re) {
-            server.deactivate();
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for trying to activate " 
-                    + server.toString() + " twice in a row";
-            fail(msg);
-        }
+            System.out.println("Should not have been able to activate " 
+                    + server.toString() + " twice in a row");
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
@@ -284,6 +278,7 @@ public class CardJSONServerTest {
     @Test
     public void testConstructorRejectsNegativePort() {
         int badPort = -RANDOM.nextInt(Short.MAX_VALUE) - 1;
+        fail("REWRITE WITH assertThrows()");
         try {
             CardJSONServer badServer = new CardJSONServer(badPort, 1, 0);
             String msg = "Should not have been able to create " 
