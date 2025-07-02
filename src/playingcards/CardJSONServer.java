@@ -100,10 +100,10 @@ public class CardJSONServer {
     }
     
     public void activate() {
-        if (this.active) {
-            String excMsg = "Can't activate, already active";
-            throw new IllegalStateException(excMsg);
-        }
+//        if (this.active) {
+//            String excMsg = "Can't activate, already active";
+//            throw new IllegalStateException(excMsg);
+//        }
         String hostName = "localhost";
         try {
             this.httpServer = HttpServer
