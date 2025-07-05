@@ -225,8 +225,9 @@ public class CardJSONServerTest {
                     + server.toString() + " because it was already inactive";
             fail(msg);
         } catch (IllegalStateException ise) {
-            System.out.println("Trying to activate " + server.toString() 
-                    + " twice correctly caused IllegalStateException");
+            System.out.println("Trying to deactivate already inactive " 
+                    + server.toString() 
+                    + " correctly caused IllegalStateException");
             System.out.println("\"" + ise.getMessage() + "\"");
         } catch (RuntimeException re) {
             String msg = re.getClass().getName() 
