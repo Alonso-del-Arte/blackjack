@@ -18,6 +18,8 @@ package playingcards;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Random;
@@ -172,17 +174,19 @@ public class CardJSONServerTest {
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
         try {
-            URL url = new URL(locator);
+            URI uri = new URI(locator);
+            URL url = uri.toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestProperty(key, value);
             int expected = HttpURLConnection.HTTP_OK;
             int actual = conn.getResponseCode();
-            server.deactivate();
             assertEquals(expected, actual);
-        } catch (IOException ioe) {
+        } catch (IOException | URISyntaxException e) {
+            String message = e.getClass().getName() 
+                    + " should not have occurred";
+            fail(message);
+        } finally {
             server.deactivate();
-            String msg = ioe.getClass().getName() + " should not have occurred";
-            fail(msg);
         }
     }
     
