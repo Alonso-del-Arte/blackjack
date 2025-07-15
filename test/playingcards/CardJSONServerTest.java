@@ -19,7 +19,6 @@ package playingcards;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Random;
@@ -28,6 +27,7 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertDoesNotThrow;
 import static org.testframe.api.Asserters.assertThrows;
 
 /**
@@ -173,7 +173,7 @@ public class CardJSONServerTest {
         String locator = "http://localhost:" + port + "/dealcard";
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
-        try {
+        assertDoesNotThrow(() -> {
             URI uri = new URI(locator);
             URL url = uri.toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -181,13 +181,7 @@ public class CardJSONServerTest {
             int expected = HttpURLConnection.HTTP_OK;
             int actual = conn.getResponseCode();
             assertEquals(expected, actual);
-        } catch (IOException | URISyntaxException e) {
-            String message = e.getClass().getName() 
-                    + " should not have occurred";
-            fail(message);
-        } finally {
-            server.deactivate();
-        }
+        });
     }
     
     @Test
