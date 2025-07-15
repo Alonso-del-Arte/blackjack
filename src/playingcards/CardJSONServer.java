@@ -107,7 +107,7 @@ public class CardJSONServer {
         String hostName = "localhost";
         try {
             this.httpServer = HttpServer
-                    .create(new InetSocketAddress(hostName, this.portNumber), 
+                    .create(new InetSocketAddress(hostName, this.portNumber + 1), 
                             1);
             this.httpServer.createContext("/dealcard", this.handler);
             this.httpServer.start();
