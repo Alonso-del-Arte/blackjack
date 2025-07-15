@@ -104,14 +104,14 @@ public class CardJSONServer {
             String excMsg = "Can't activate, already active";
             throw new IllegalStateException(excMsg);
         }
-        String hostName = "localhost";
+        String hostname = "localhost";
         try {
             this.httpServer = HttpServer
-                    .create(new InetSocketAddress(hostName, this.portNumber + 1), 
+                    .create(new InetSocketAddress(hostname, this.portNumber), 
                             1);
             this.httpServer.createContext("/dealcard", this.handler);
             this.httpServer.start();
-            System.out.println("Started server " + hostName + " on port " 
+            System.out.println("Started server " + hostname + " on port " 
                     + this.portNumber);
         } catch (IOException ioe) {
             throw new RuntimeException(ioe);
