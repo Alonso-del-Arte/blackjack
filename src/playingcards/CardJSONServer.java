@@ -120,10 +120,10 @@ public class CardJSONServer {
     }
     
     public void deactivate() {
-        if (!this.active) {
-            String excMsg = "Can't deactivate, already inactive";
-            throw new IllegalStateException(excMsg);
-        }
+//        if (!this.active) {
+//            String excMsg = "Can't deactivate, already inactive";
+//            throw new IllegalStateException(excMsg);
+//        }
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
