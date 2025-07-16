@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,7 +16,6 @@
  */
 package playingcards;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
@@ -194,8 +193,9 @@ public class CardJSONServerTest {
         String locator = "http://localhost:" + port + "/dealcard";
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
-        try {
-            URL url = new URL(locator);
+        assertDoesNotThrow(() -> {
+            URI uri = new URI(locator);
+            URL url = uri.toURL();
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("OPTIONS");
             conn.setRequestProperty(key, value);
@@ -209,11 +209,7 @@ public class CardJSONServerTest {
                         .replace(" ", "");
                 assertEquals(expected, actual);
             }
-        } catch (IOException ioe) {
-            server.deactivate();
-            String msg = ioe.getClass().getName() + " should not have occurred";
-            fail(msg);
-        }
+        });
     }
     
     @Test
@@ -221,22 +217,16 @@ public class CardJSONServerTest {
         int deckQty = RANDOM.nextInt(8) + 4;
         CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
                 DEFAULT_STOP);
-        try {
+        Throwable t = assertThrows(() -> {
             server.deactivate();
             String msg = "Should not have been able to deactivate " 
                     + server.toString() + " because it was already inactive";
             fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to deactivate already inactive " 
-                    + server.toString() 
-                    + " correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for trying to activate " 
-                    + server.toString() + " twice";
-            fail(msg);
-        }
+        }, IllegalStateException.class);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
