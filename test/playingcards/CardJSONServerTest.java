@@ -290,21 +290,20 @@ public class CardJSONServerTest {
     @Test
     public void testConstructorRejectsOutOfRangePort() {
         int badPort = 4 * Short.MAX_VALUE + RANDOM.nextInt(Byte.MAX_VALUE) + 1;
-        try {
+        String numStr = Integer.toString(badPort);
+        String msg = "Excessive port number " + badPort 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
             CardJSONServer badServer = new CardJSONServer(badPort, 1, 0);
-            String msg = "Should not have been able to create " 
-                    + badServer.toString() + " with bad port number " + badPort;
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Bad port number " + badPort 
-                    + " correctly caused IllegalArgumentException");
-            System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for bad port number " 
-                    + badPort;
-            fail(msg);
-        }
+            System.out.println(msg + ", not created instance " + badServer.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + numStr 
+                + "\"";
+        assert excMsg.contains(numStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
