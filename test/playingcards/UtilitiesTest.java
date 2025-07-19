@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -37,13 +37,13 @@ public class UtilitiesTest {
     public void testSortingValueRank() {
         System.out.println("sortingValue(rank)");
         for (Rank rank : RANKS) {
-            int expected = rank.getRank() % 13;
+            int expected = rank.getIntVal() % 13;
             if (expected == 0) {
                 expected = 13;
             }
             int actual = Utilities.sortingValue(rank);
-            String msg = "Expecting " + expected + " for " + rank.getWord();
-            assertEquals(msg, expected, actual);
+            String message = "Expecting " + expected + " for " + rank.getWord();
+            assertEquals(message, expected, actual);
         }
     }
     
@@ -53,9 +53,9 @@ public class UtilitiesTest {
         Suit[] suits = {Suit.SPADES, Suit.DIAMONDS, Suit.CLUBS, Suit.HEARTS};
         for (int expected = 0; expected < suits.length; expected++) {
             int actual = Utilities.sortingValue(suits[expected]);
-            String msg = "Expecting " + expected + " for " 
+            String message = "Expecting " + expected + " for " 
                     + suits[expected].getWord();
-            assertEquals(msg, expected, actual);
+            assertEquals(message, expected, actual);
         }
     }
     

@@ -95,7 +95,7 @@ public class PlayingCard {
      * Jacks are 11, Queens are 12 and Kings are 13.
      */
     public int cardValue() {
-        return this.cardRank.getRank();
+        return this.cardRank.getIntVal();
     }
     
     /**

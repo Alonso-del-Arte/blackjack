@@ -109,7 +109,7 @@ public enum Rank implements CardSpec {
      * @return 14 for ACE, 2 for TWO, 3 for THREE, ..., 10 for TEN, 11 for JACK, 
      * 12 for QUEEN, 13 for KING.
      */
-    public int getRank() {
+    public int getIntVal() {
         return this.rank;
     }
     

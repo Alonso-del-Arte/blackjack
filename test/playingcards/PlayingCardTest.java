@@ -394,7 +394,7 @@ public class PlayingCardTest {
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
                 PlayingCard currCard = new PlayingCard(rank, suit);
-                int expected = rank.getRank();
+                int expected = rank.getIntVal();
                 int actual = currCard.cardValue();
                 assertEquals(expected, actual);
             }

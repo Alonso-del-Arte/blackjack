@@ -34,69 +34,69 @@ public class RankTest {
     private static final Locale[] LOCALES = Locale.getAvailableLocales();
     
     @Test
-    public void testGetRankAce() {
+    public void testGetIntValAce() {
         System.out.println("getRank");
-        assertEquals(14, Rank.ACE.getRank());
+        assertEquals(14, Rank.ACE.getIntVal());
     }
     
     @Test
-    public void testGetRank2() {
-        assertEquals(2, Rank.TWO.getRank());
+    public void testGetIntVal2() {
+        assertEquals(2, Rank.TWO.getIntVal());
     }
     
     @Test
-    public void testGetRank3() {
-        assertEquals(3, Rank.THREE.getRank());
+    public void testGetIntVal3() {
+        assertEquals(3, Rank.THREE.getIntVal());
     }
     
     @Test
-    public void testGetRank4() {
-        assertEquals(4, Rank.FOUR.getRank());
+    public void testGetIntVal4() {
+        assertEquals(4, Rank.FOUR.getIntVal());
     }
     
     @Test
-    public void testGetRank5() {
-        assertEquals(5, Rank.FIVE.getRank());
+    public void testGetIntVal5() {
+        assertEquals(5, Rank.FIVE.getIntVal());
     }
     
     @Test
-    public void testGetRank6() {
-        assertEquals(6, Rank.SIX.getRank());
+    public void testGetIntVal6() {
+        assertEquals(6, Rank.SIX.getIntVal());
     }
     
     @Test
-    public void testGetRank7() {
-        assertEquals(7, Rank.SEVEN.getRank());
+    public void testGetIntVal7() {
+        assertEquals(7, Rank.SEVEN.getIntVal());
     }
     
     @Test
-    public void testGetRank8() {
-        assertEquals(8, Rank.EIGHT.getRank());
+    public void testGetIntVal8() {
+        assertEquals(8, Rank.EIGHT.getIntVal());
     }
     
     @Test
-    public void testGetRank9() {
-        assertEquals(9, Rank.NINE.getRank());
+    public void testGetIntVal9() {
+        assertEquals(9, Rank.NINE.getIntVal());
     }
     
     @Test
-    public void testGetRank10() {
-        assertEquals(10, Rank.TEN.getRank());
+    public void testGetIntVal10() {
+        assertEquals(10, Rank.TEN.getIntVal());
     }
     
     @Test
-    public void testGetRankJack() {
-        assertEquals(11, Rank.JACK.getRank());
+    public void testGetIntValJack() {
+        assertEquals(11, Rank.JACK.getIntVal());
     }
     
     @Test
-    public void testGetRankQueen() {
-        assertEquals(12, Rank.QUEEN.getRank());
+    public void testGetIntValQueen() {
+        assertEquals(12, Rank.QUEEN.getIntVal());
     }
     
     @Test
-    public void testGetRankKing() {
-        assertEquals(13, Rank.KING.getRank());
+    public void testGetIntValKing() {
+        assertEquals(13, Rank.KING.getIntVal());
     }
     
     @Test
@@ -410,14 +410,14 @@ public class RankTest {
     @Test
     public void testCharWordCorrespondence() {
         char expected, actual;
-        String msg;
+        String message;
         for (Rank rank : Rank.values()) {
-            if (rank.getRank() > 10) {
+            if (rank.getIntVal() > 10) {
                 expected = rank.getWord().charAt(0);
                 actual = rank.getChar();
-                msg = "Character for " + rank.toString() + " ought to be '" 
+                message = "Character for " + rank.toString() + " ought to be '" 
                         + expected + "'";
-                assertEquals(msg, expected, actual);
+                assertEquals(message, expected, actual);
             }
         }
     }
