@@ -243,13 +243,13 @@ public class Hand {
     }
     
     @Override
-    public String toString() {
-        StringBuilder intermediate = new StringBuilder("(");
-        this.cards.forEach((card) -> {
-            intermediate.append(card.toString()).append(", ");
-        });
-        intermediate.append(")");
-        return intermediate.toString().replace(", \u0029", "\u0029");
+    public String toString() {return "REWIND TO FAILING";
+//        StringBuilder intermediate = new StringBuilder("(");
+//        this.cards.forEach((card) -> {
+//            intermediate.append(card.toString()).append(", ");
+//        });
+//        intermediate.append(")");
+//        return intermediate.toString().replace(", \u0029", "\u0029");
     }
     
     /**
