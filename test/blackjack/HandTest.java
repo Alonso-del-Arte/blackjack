@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,6 +16,7 @@
  */
 package blackjack;
 
+import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
 import playingcards.CardServer;
 import playingcards.PlayingCard;
@@ -67,7 +68,22 @@ public class HandTest {
      * Test of the toString function, of the Hand class.
      */
     @Test
+    public void testToStringInitial() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        hand.add(firstCard);
+        PlayingCard secondCard = this.SERVER.getNextCard();
+        hand.add(secondCard);
+        String expected = "(" + firstCard.toString() + "," 
+                + secondCard.toString() + ")";
+        String actual = hand.toString().replace(" ", "");
+        assertEquals(expected, actual);
+    }
+    
+    @org.junit.Ignore
+    @Test
     public void testToString() {
+        System.out.println("toString");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard firstCard = this.SERVER.getNextCard();
         hand.add(firstCard);
@@ -90,8 +106,9 @@ public class HandTest {
      */
     @Test
     public void testGetWager() {
+        fail("REWRITE THIS TEST");
         Currency yen = Currency.getInstance(Locale.JAPAN);
-        CurrencyAmount amount = new CurrencyAmount(50000, yen);
+        CurrencyAmount amount = new CurrencyAmount(50003, yen);
         Wager expected = new Wager(amount);
         Hand hand = new Hand(expected);
         Wager actual = hand.getWager();
