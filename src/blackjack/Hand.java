@@ -243,7 +243,8 @@ public class Hand {
     }
     
     @Override
-    public String toString() {return "REWIND TO FAILING";
+    public String toString() {
+        return "(" + this.cards.get(0) + ", " + this.cards.get(1) + ")";
 //        StringBuilder intermediate = new StringBuilder("(");
 //        this.cards.forEach((card) -> {
 //            intermediate.append(card.toString()).append(", ");
