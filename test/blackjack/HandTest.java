@@ -80,7 +80,6 @@ public class HandTest {
         assertEquals(expected, actual);
     }
     
-    @org.junit.Ignore
     @Test
     public void testToString() {
         System.out.println("toString");
@@ -91,14 +90,17 @@ public class HandTest {
         hand.add(secondCard);
         String expected = "(" + firstCard.toString() + "," 
                 + secondCard.toString() + ")";
-        String actual = hand.toString().replace(" ", "");
-        assertEquals(expected, actual);
-        PlayingCard thirdCard = this.SERVER.getNextCard();
-        hand.add(thirdCard);
-        expected = expected.replace("\u0029", "," + thirdCard.toString() 
-                + "\u0029");
-        actual = hand.toString().replace(" ", "");
-        assertEquals(expected, actual);
+        int roughValueCount = firstCard.getRank().getIntVal() 
+                + secondCard.getRank().getIntVal();
+        do {
+            PlayingCard card = this.SERVER.getNextCard();
+            hand.add(card);
+            roughValueCount += card.cardValue();
+            expected = expected.replace("\u0029", "," + card.toString() 
+                    + "\u0029");
+            String actual = hand.toString().replace(" ", "");
+            assertEquals(expected, actual);
+        } while (roughValueCount < 22);
     }
     
     /**
