@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,11 +22,8 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
@@ -68,7 +65,7 @@ public class CardJSONServer {
     
     private final HttpHandler handler = (HttpExchange exchange) -> {
         final Headers headers = exchange.getResponseHeaders();
-        final String method = exchange.getRequestMethod().toUpperCase();
+//        final String method = exchange.getRequestMethod().toUpperCase();
 //        switch (method) {
 //            case "GET":
                 String responseBody = this.giveCard().toJSONString();
