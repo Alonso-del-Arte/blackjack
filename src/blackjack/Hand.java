@@ -36,11 +36,11 @@ public class Hand {
     
     private int handScore = 0;
     
-    private boolean openFlag = true;
-    private boolean winFlag = false;
-    private boolean bustFlag = false;
-    private boolean closedFlag = false;
-    private boolean settleFlag = false;
+    private boolean open = true;
+    private boolean won = false;
+    private boolean busted = false;
+    private boolean closed = false;
+    private boolean settled = false;
     
     private Wager associatedWager;
     
@@ -67,10 +67,10 @@ public class Hand {
             }
         }
         if (aceCount > 0 && cumulRank < 12) cumulRank += 10;
-        this.openFlag = (cumulRank < 21);
-        this.winFlag = (cumulRank == 21);
-        this.bustFlag = (cumulRank > 21);
-        this.closedFlag = !this.openFlag;
+        this.open = (cumulRank < 21);
+        this.won = (cumulRank == 21);
+        this.busted = (cumulRank > 21);
+        this.closed = !this.open;
         this.handScore = cumulRank;
     }
 
@@ -162,7 +162,7 @@ public class Hand {
      * otherwise.
      */
     public boolean isOpenHand() {
-        return this.openFlag;
+        return this.open;
     }
     
     /**
@@ -175,7 +175,7 @@ public class Hand {
      * dealer's hand.
      */
     public boolean isWinningHand() {
-        return this.winFlag;
+        return this.won;
     }
     
     /**
@@ -184,7 +184,7 @@ public class Hand {
      * counting all Aces as 1 each), false otherwise.
      */
     public boolean isBustedHand() {
-        return this.bustFlag;
+        return this.busted;
     }
     
     /**
@@ -192,15 +192,15 @@ public class Hand {
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
     public boolean isClosedHand() {
-        return this.closedFlag;
+        return this.closed;
     }
     
     void markSettled() {
-        this.settleFlag = true;
+        this.settled = true;
     }
     
     public boolean isSettledHand() {
-        return this.settleFlag;
+        return this.settled;
     }
 
     /**
@@ -209,7 +209,7 @@ public class Hand {
      * @throws IllegalStateException If the hand has blackjack or has gone bust.
      */
     void add(PlayingCard card) {
-        if (this.closedFlag) {
+        if (this.closed) {
             String excMsg = "Can't add card to hand valued at " 
                     + this.handScore;
             throw new IllegalStateException(excMsg);
@@ -234,7 +234,7 @@ public class Hand {
     
     // TODO: Write tests for this
     public Wager.Settlement getSettlement() {
-        if (!this.settleFlag) {
+        if (!this.settled) {
             String excMsg = "No settlement for this hand yet";
             throw new IllegalStateException(excMsg);
         }
