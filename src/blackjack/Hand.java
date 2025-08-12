@@ -39,7 +39,6 @@ public class Hand {
     private boolean open = true;
     private boolean won = false;
     private boolean busted = false;
-    private boolean closed = false;
     private boolean settled = false;
     
     private Wager associatedWager;
@@ -70,7 +69,6 @@ public class Hand {
         this.open = (cumulRank < 21);
         this.won = (cumulRank == 21);
         this.busted = (cumulRank > 21);
-        this.closed = !this.open;
         this.handScore = cumulRank;
     }
 
@@ -192,7 +190,7 @@ public class Hand {
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
     public boolean isClosedHand() {
-        return this.closed;
+        return !this.open;
     }
     
     void markSettled() {
@@ -209,7 +207,7 @@ public class Hand {
      * @throws IllegalStateException If the hand has blackjack or has gone bust.
      */
     void add(PlayingCard card) {
-        if (this.closed) {
+        if (!this.open) {
             String excMsg = "Can't add card to hand valued at " 
                     + this.handScore;
             throw new IllegalStateException(excMsg);
