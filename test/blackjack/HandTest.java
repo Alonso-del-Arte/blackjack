@@ -18,6 +18,7 @@ package blackjack;
 
 import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
+import currency.CurrencyChooser;
 import playingcards.CardServer;
 import playingcards.PlayingCard;
 import playingcards.Rank;
@@ -108,9 +109,9 @@ public class HandTest {
      */
     @Test
     public void testGetWager() {
-        fail("REWRITE THIS TEST");
-        Currency yen = Currency.getInstance(Locale.JAPAN);
-        CurrencyAmount amount = new CurrencyAmount(50003, yen);
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
         Wager expected = new Wager(amount);
         Hand hand = new Hand(expected);
         Wager actual = hand.getWager();
