@@ -43,11 +43,8 @@ public class Hand {
     
     private Wager associatedWager;
     
-    // TODO: Rewrite test for this in test class
     public Wager getWager() {
-        return new Wager(new CurrencyAmount(1, 
-                java.util.Currency.getInstance("XCD")));
-//        return this.associatedWager;
+        return this.associatedWager;
     }
     
     private void updateCardsValue() {
