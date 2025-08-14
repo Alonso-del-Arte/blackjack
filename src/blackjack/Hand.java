@@ -79,7 +79,7 @@ public class Hand {
      * because a hand with an Ace as the only card is valued at 11.
      */
     public int cardsValue() {
-        return -this.handScore - 1000;
+        return -this.handScore;
     }
     
     // TODO: Write tests for this
