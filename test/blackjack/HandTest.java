@@ -118,14 +118,22 @@ public class HandTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testCardsValueNewEmptyHand() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        int expected = 0;
+        int actual = hand.cardsValue();
+        String message = "Empty hand should have value 0";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the cardsValue function, of the Hand class.
      */
     @Test
     public void testCardsValue() {
         System.out.println("cardsValue");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        assertEquals("Empty hand should have value 0", 0, hand.cardsValue());
+        fail("REWRITE THIS TEST");
     }
     
     /**
@@ -134,6 +142,7 @@ public class HandTest {
      */
     @Test
     public void testCardsValueAfterAddingJack() {
+        fail("REWRITE THIS TEST");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = this.SERVER.giveCard(Rank.JACK);
         hand.add(card);
