@@ -81,7 +81,7 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
-    // TODO: Rewrite this test
+    // TODO: Rewrite this test, maybe with assertDoesNotThrow()
     @org.junit.Ignore
     @Test
     public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
@@ -109,8 +109,8 @@ public class CardJSONServerTest {
             assert deckIDNumbers.size() > deckQty : msg;
         } catch (RanOutOfCardsException roce) {
             System.out.println("\"" + roce.getMessage() + "\"");
-            String msg = "RanOutOfCardsException should not have occurred";
-            fail(msg);
+            String message = "RanOutOfCardsException should not have occurred";
+            fail(message);
         }
     }
     
@@ -229,6 +229,7 @@ public class CardJSONServerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    // TODO: Rewrite with assertDoesNotThrow()
     @Test
     public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
         int deckQty = RANDOM.nextInt(8) + 4;
@@ -247,11 +248,11 @@ public class CardJSONServerTest {
             System.out.println("Gave out " + totalCardQty 
                     + " cards, last of which was " + lastCard.toASCIIString());
         } catch (RanOutOfCardsException roce) {
-            String msg = "Given shoe with " + totalCardQty 
+            String message = "Given shoe with " + totalCardQty 
                     + " cards, exception should not have occurred after " + curr 
                     + " cards, last of which was " + lastCard.toString();
             System.out.println("\"" + roce.getMessage() + "\"");
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -306,25 +307,26 @@ public class CardJSONServerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    // TODO: Rewrite with assertThrows()
     @Test
     public void testConstructorRejectsNegativeDeckQuantity() {
         int badQty = -RANDOM.nextInt(256) - 4;
         try {
             CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     badQty, 0);
-            String msg = "Should not have been able to create " 
+            String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
                     + badQty;
-            fail(msg);
+            fail(message);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad quantity " + badQty 
                     + " correctly caused IllegalArgumentException");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception to throw for bad deck quantity " 
                     + badQty;
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -334,19 +336,19 @@ public class CardJSONServerTest {
         try {
             CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     badQty, 0);
-            String msg = "Should not have been able to create " 
+            String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
                     + badQty;
-            fail(msg);
+            fail(message);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad quantity " + badQty 
                     + " correctly caused IllegalArgumentException");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception to throw for bad deck quantity " 
                     + badQty;
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -357,18 +359,18 @@ public class CardJSONServerTest {
         try {
             CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
                     deckQty, badStop);
-            String msg = "Should not have been able to create " 
+            String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad stop " + badStop;
-            fail(msg);
+            fail(message);
         } catch (IllegalArgumentException iae) {
             System.out.println("Bad stop " + badStop 
                     + " correctly caused IllegalArgumentException");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception to throw for bad deck stop " 
                     + badStop;
-            fail(msg);
+            fail(message);
         }
     }
     
