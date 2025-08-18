@@ -38,7 +38,7 @@ import static org.testframe.api.Asserters.assertThrows;
  */
 public class CardJSONServerTest {
     
-    private static final int DEFAULT_HTTP_PORT = 8080;
+    private static final int DEFAULT_TESTING_HTTP_PORT = 8083;
     
     private static final int DEFAULT_STOP = 75;
     
@@ -47,8 +47,8 @@ public class CardJSONServerTest {
     @Test
     public void testNoDoubleActivation() {
         int deckQty = RANDOM.nextInt(8) + 2;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
-                DEFAULT_STOP);
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
+                deckQty, DEFAULT_STOP);
         server.activate();
         String msg = "Should not be able to activate server twice";
         Throwable t = assertThrows(() -> {
@@ -65,12 +65,12 @@ public class CardJSONServerTest {
     @Test
     public void testGiveCard() {
         System.out.println("giveCard");
-        int port = 8080;
         int deckQty = 2;
         int stop = 25;
         int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - stop;
-        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
+                deckQty, stop);
         Set<ProvenanceInscribedPlayingCard> cards = new HashSet<>(expected);
         int index = 0;
         while (index < expected) {
@@ -82,25 +82,24 @@ public class CardJSONServerTest {
     }
     
     // TODO: Rewrite this test, maybe with assertDoesNotThrow()
-    @org.junit.Ignore
     @Test
     public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
-        int port = 8080;
         int deckQty = 2;
         int stop = 25;
-        int initialCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+        int initialCapacity = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - stop;
-        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
-        Set<Integer> deckIDNumbers = new HashSet<>(initialCardQty);
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
+                deckQty, stop);
+        Set<Integer> deckIDNumbers = new HashSet<>(initialCapacity);
         int index = 0;
-        while (index < initialCardQty) {
+        while (index < initialCapacity) {
             deckIDNumbers.add(server.giveCard().getDeckHash());
             index++;
         }
         try {
             ProvenanceInscribedPlayingCard card = server.giveCard();
             System.out.println("After running out of the first " 
-                    + initialCardQty 
+                    + initialCapacity 
                     + " cards, server correctly replenished cards");
             assertEquals(deckQty, deckIDNumbers.size());
             deckIDNumbers.add(card.getDeckHash());
@@ -115,24 +114,23 @@ public class CardJSONServerTest {
     }
     
     // TODO: Rewrite this test
-    @org.junit.Ignore
     @Test
     public void testGiveCardReplenishesWithSameDeckQtyAndStop() {
-        int port = 8080;
         int expected = RANDOM.nextInt(10) + 4;
         int stop = 75 + RANDOM.nextInt(15);
-        int initialCardQty = expected 
+        int initialCapacity = expected 
                 * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - stop;
-        CardJSONServer server = new CardJSONServer(port, expected, stop);
-        Set<Integer> initialDeckHashes = new HashSet<>(initialCardQty);
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
+                expected, stop);
+        Set<Integer> initialDeckHashes = new HashSet<>(initialCapacity);
         int index = 0;
-        while (index < initialCardQty) {
+        while (index < initialCapacity) {
             initialDeckHashes.add(server.giveCard().getDeckHash());
             index++;
         }
-        Set<Integer> replenishmentDeckHashes = new HashSet<>(initialCardQty);
+        Set<Integer> replenishmentDeckHashes = new HashSet<>(initialCapacity);
         index = 0;
-        int midwayCheckPoint = initialCardQty / 2;
+        int midwayCheckPoint = initialCapacity / 2;
         while (index < midwayCheckPoint) {
             int hash = server.giveCard().getDeckHash();
             replenishmentDeckHashes.add(hash);
@@ -144,7 +142,7 @@ public class CardJSONServerTest {
         }
         int actual = replenishmentDeckHashes.size();
         assertEquals(expected, actual);
-        while (index < initialCardQty) {
+        while (index < initialCapacity) {
             int hash = server.giveCard().getDeckHash();
             assert !replenishmentDeckHashes.add(hash) 
                     : "All replenishment deck hashes should already be known";
@@ -215,7 +213,7 @@ public class CardJSONServerTest {
     @Test
     public void testNoDeactivationForInactive() {
         int deckQty = RANDOM.nextInt(8) + 4;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, deckQty, 
                 DEFAULT_STOP);
         Throwable t = assertThrows(() -> {
             server.deactivate();
@@ -234,7 +232,7 @@ public class CardJSONServerTest {
     public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
         int deckQty = RANDOM.nextInt(8) + 4;
         int stop = 75 + RANDOM.nextInt(25);
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, deckQty, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, deckQty, 
                 stop);
         int totalCardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - stop;
@@ -259,7 +257,7 @@ public class CardJSONServerTest {
     @Test
     public void testConstructorShufflesShoe() {
         int expected = RANDOM.nextInt(8) + 3;
-        CardJSONServer server = new CardJSONServer(DEFAULT_HTTP_PORT, expected, 
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, expected, 
                 DEFAULT_STOP);
         Set<Integer> deckHashes = new HashSet<>(expected);
         for (int i = 0; i < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; i++) {
@@ -312,7 +310,7 @@ public class CardJSONServerTest {
     public void testConstructorRejectsNegativeDeckQuantity() {
         int badQty = -RANDOM.nextInt(256) - 4;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
                     badQty, 0);
             String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
@@ -334,7 +332,7 @@ public class CardJSONServerTest {
     public void testConstructorRejectsDeckQuantityZero() {
         int badQty = 0;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
                     badQty, 0);
             String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
@@ -357,7 +355,7 @@ public class CardJSONServerTest {
         int deckQty = RANDOM.nextInt(8) + 2;
         int badStop = -RANDOM.nextInt(256) - 4;
         try {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_HTTP_PORT, 
+            CardJSONServer badServer = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
                     deckQty, badStop);
             String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad stop " + badStop;
