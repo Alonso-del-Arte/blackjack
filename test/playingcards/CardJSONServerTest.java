@@ -81,7 +81,6 @@ public class CardJSONServerTest {
         assertEquals(expected, actual);
     }
     
-    // TODO: Rewrite this test, maybe with assertDoesNotThrow()
     @Test
     public void testGiveCardReplenishesAutomaticallyAfterRunningOut() {
         int deckQty = 2;
@@ -96,7 +95,7 @@ public class CardJSONServerTest {
             deckIDNumbers.add(server.giveCard().getDeckHash());
             index++;
         }
-        try {
+        assertDoesNotThrow(() -> {
             ProvenanceInscribedPlayingCard card = server.giveCard();
             System.out.println("After running out of the first " 
                     + initialCapacity 
@@ -106,11 +105,7 @@ public class CardJSONServerTest {
             String msg = "Card " + card.toString() 
                     + " should come from replenishment deck";
             assert deckIDNumbers.size() > deckQty : msg;
-        } catch (RanOutOfCardsException roce) {
-            System.out.println("\"" + roce.getMessage() + "\"");
-            String message = "RanOutOfCardsException should not have occurred";
-            fail(message);
-        }
+        });
     }
     
     // TODO: Rewrite this test
