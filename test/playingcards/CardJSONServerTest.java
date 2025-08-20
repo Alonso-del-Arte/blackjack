@@ -126,32 +126,37 @@ public class CardJSONServerTest {
         Set<Integer> replenishmentDeckHashes = new HashSet<>(initialCapacity);
         index = 0;
         int midwayCheckPoint = initialCapacity / 2;
-        while (index < midwayCheckPoint) {
+        try {
+            while (index < midwayCheckPoint) {
+                int hash = server.giveCard().getDeckHash();
+                replenishmentDeckHashes.add(hash);
+                index++;
+                String msg = "Replenishment deck hash " + hash 
+                        + " of card indexed "+ index 
+                        + " should not be present among initial deck hashes";
+                assert !initialDeckHashes.contains(hash) : msg;
+            }
+            int actual = replenishmentDeckHashes.size();
+            assertEquals(expected, actual);
+            while (index < initialCapacity) {
+                int hash = server.giveCard().getDeckHash();
+                assert !replenishmentDeckHashes.add(hash) 
+                        : "All replenishment deck hashes should be known";
+                index++;
+                String msg = "Replenishment deck hash " + hash 
+                        + " of card indexed " + index 
+                        + " should not be present among initial deck hashes";
+                assert !initialDeckHashes.contains(hash) : msg;
+            }
             int hash = server.giveCard().getDeckHash();
-            replenishmentDeckHashes.add(hash);
-            index++;
-            String msg = "Replenishment deck hash " + hash + " of card indexed "
-                    + index 
-                    + " should not be present among initial deck hashes";
+            String msg = "Second replenishment deck hash " + hash 
+                    + " should not be an initial hash nor first replenishment hash";
             assert !initialDeckHashes.contains(hash) : msg;
+            assert !replenishmentDeckHashes.contains(hash) : msg;
         }
-        int actual = replenishmentDeckHashes.size();
-        assertEquals(expected, actual);
-        while (index < initialCapacity) {
-            int hash = server.giveCard().getDeckHash();
-            assert !replenishmentDeckHashes.add(hash) 
-                    : "All replenishment deck hashes should already be known";
-            index++;
-            String msg = "Replenishment deck hash " + hash + " of card indexed "
-                    + index 
-                    + " should not be present among initial deck hashes";
-            assert !initialDeckHashes.contains(hash) : msg;
+        catch (RuntimeException re) {
+            fail(re.getMessage());
         }
-        int hash = server.giveCard().getDeckHash();
-        String msg = "Second replenishment deck hash " + hash 
-                + " should not be an initial hash nor first replenishment hash";
-        assert !initialDeckHashes.contains(hash) : msg;
-        assert !replenishmentDeckHashes.contains(hash) : msg;
     }
     
     @Test
