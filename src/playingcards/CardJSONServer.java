@@ -87,12 +87,12 @@ public class CardJSONServer {
     };
     
     ProvenanceInscribedPlayingCard giveCard() {
-//        if (!this.shoe.hasNext()) {
-//            this.shoe 
-//                    = new ProvenanceInscribedPlayingCard.Shoe(this
-//                            .numberOfDecks, this.plasticCardIndex);
-//            this.shoe.shuffle();
-//        }
+        if (!this.shoe.hasNext()) {
+            this.shoe 
+                    = new ProvenanceInscribedPlayingCard.Shoe(this
+                            .numberOfDecks, this.plasticCardIndex);
+            this.shoe.shuffle();
+        }
         return this.shoe.getNextCard();
     }
     
