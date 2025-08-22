@@ -214,13 +214,12 @@ public class CardJSONServerTest {
     @Test
     public void testNoDeactivationForInactive() {
         int deckQty = RANDOM.nextInt(8) + 4;
-        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, deckQty, 
-                DEFAULT_STOP);
+        CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
+                deckQty, DEFAULT_STOP);
         Throwable t = assertThrows(() -> {
             server.deactivate();
-            String msg = "Should not have been able to deactivate " 
-                    + server.toString() + " because it was already inactive";
-            fail(msg);
+            System.out.println("Should not have been able to deactivate " 
+                    + server.toString() + " because it was already inactive");
         }, IllegalStateException.class);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
