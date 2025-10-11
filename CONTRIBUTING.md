@@ -4,7 +4,9 @@ This project is now open to Hacktoberfest 2025.
 
 ## Guidelines for "low-code" or "no-code" track contributors
 
-I need help with internationalization (i18n) and [FINISH WRITING]
+I need help with internationalization (i18n) and making sure I have the rules of 
+the game correct. See the src/i18n folder for the former and [the game rules 
+document](GameRules.md) for the latter.
 
 ## Guidelines for "coding" track contributors
 
