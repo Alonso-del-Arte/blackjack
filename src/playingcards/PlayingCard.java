@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.awt.Color;
+import java.util.Locale;
 
 /**
  * Represents a playing card from a standard 52-card deck. The idea of making 
@@ -63,7 +64,7 @@ public class PlayingCard {
     // TODO: Write tests for this
     // TODO: Update Javadoc for toUnicodeSMPChar() once tests for this function 
     // are passing
-    public String toInternationalizedString() {
+    public String toInternationalizedString(Locale locale) {
         return "SORRY, NOT IMPLEMENTED YET";
     }
     
