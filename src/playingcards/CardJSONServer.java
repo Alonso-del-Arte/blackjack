@@ -40,8 +40,9 @@ public class CardJSONServer {
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
-    static final String CONTENT_TYPE_SPECIFICATION 
-            = "application/json; charset=" + StandardCharsets.UTF_8.toString();
+    // TODO: Write test for this
+    static final String CONTENT_TYPE_SPECIFICATION = "text/html; charset=" 
+            + StandardCharsets.UTF_8.toString();
     
     /**
      * How many seconds to wait before closing down the server socket. May close 
