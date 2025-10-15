@@ -40,7 +40,7 @@ public class CardJSONServer {
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
-    private static final String CONTENT_TYPE_SPECIFICATION 
+    static final String CONTENT_TYPE_SPECIFICATION 
             = "application/json; charset=" + StandardCharsets.UTF_8.toString();
     
     /**
