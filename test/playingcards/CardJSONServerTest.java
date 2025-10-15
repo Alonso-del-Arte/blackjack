@@ -19,6 +19,7 @@ package playingcards;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -44,6 +45,14 @@ public class CardJSONServerTest {
     
     static final Random RANDOM = new Random();
         
+    @Test
+    public void testContentTypeSpecification() {
+        String expected = "application/json; charset=" 
+                + StandardCharsets.UTF_8.toString();
+        String actual = CardJSONServer.CONTENT_TYPE_SPECIFICATION;
+        assertEquals(expected, actual);
+    }
+    
     @Test
     public void testNoDoubleActivation() {
         int deckQty = RANDOM.nextInt(8) + 2;
