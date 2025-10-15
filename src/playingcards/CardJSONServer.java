@@ -40,10 +40,8 @@ public class CardJSONServer {
     
     private static final int DEFAULT_PLASTIC_CARD_INDEX = 75;
     
-    private static final Charset UTF8 = StandardCharsets.UTF_8;
-    
     private static final String CONTENT_TYPE_SPECIFICATION 
-            = "application/json; charset=" + UTF8.toString();
+            = "application/json; charset=" + StandardCharsets.UTF_8.toString();
     
     /**
      * How many seconds to wait before closing down the server socket. May close 
@@ -70,7 +68,8 @@ public class CardJSONServer {
 //            case "GET":
                 String responseBody = this.giveCard().toJSONString();
                 headers.set("Content-Type", CONTENT_TYPE_SPECIFICATION);
-                byte[] rawResponseBody = responseBody.getBytes(UTF8);
+                byte[] rawResponseBody 
+                        = responseBody.getBytes(StandardCharsets.UTF_8);
                 exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 
                         rawResponseBody.length);
                 exchange.getResponseBody().write(rawResponseBody);
