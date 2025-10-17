@@ -205,7 +205,7 @@ public class CardJSONServerTest {
         int stop = 75 + RANDOM.nextInt(15);
         CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         server.activate();
-        String locator = "http://localhost:" + port + "/dealcard/";
+        String locator = LOCATOR_START_FRAGMENT + port + LOCATOR_END_FRAGMENT;
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
         assertDoesNotThrow(() -> {
