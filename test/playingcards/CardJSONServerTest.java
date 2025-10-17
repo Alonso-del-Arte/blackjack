@@ -280,6 +280,21 @@ public class CardJSONServerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testClosingTwiceShouldHaveNoEffect() {
+        int port = DEFAULT_TESTING_HTTP_PORT - RANDOM.nextInt(80) - 1;
+        int deckQty = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(25);
+        @SuppressWarnings("resource")
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        server.activate();
+        server.close();
+        String msg = "Closing twice should have no effect";
+        assertDoesNotThrow(() -> {
+            server.close();
+        }, msg);
+    }
+    
     // TODO: Rewrite with assertDoesNotThrow()
     @Test
     public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
