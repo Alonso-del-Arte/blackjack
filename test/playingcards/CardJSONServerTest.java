@@ -16,12 +16,15 @@
  */
 package playingcards;
 
+import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.junit.Test;
@@ -39,7 +42,11 @@ import static org.testframe.api.Asserters.assertThrows;
  */
 public class CardJSONServerTest {
     
+    private static final String LOCATOR_START_FRAGMENT = "http://localhost:";
+    
     private static final int DEFAULT_TESTING_HTTP_PORT = 8083;
+    
+    private static final String LOCATOR_END_FRAGMENT = "/dealcard/";
     
     private static final int DEFAULT_STOP = 75;
     
@@ -176,7 +183,7 @@ public class CardJSONServerTest {
         CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         server.activate();
         System.out.println("Expecting localhost response on port " + port);
-        String locator = "http://localhost:" + port + "/dealcard/";
+        String locator = LOCATOR_START_FRAGMENT + port + LOCATOR_END_FRAGMENT;
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
         assertDoesNotThrow(() -> {
@@ -230,6 +237,43 @@ public class CardJSONServerTest {
             System.out.println("Should not have been able to deactivate " 
                     + server.toString() + " because it was already inactive");
         }, IllegalStateException.class);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testClose() {
+        System.out.println("close");
+        int port = DEFAULT_TESTING_HTTP_PORT - RANDOM.nextInt(80) - 1;
+        int deckQty = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(25);
+        @SuppressWarnings("resource")
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        server.activate();
+        server.close();
+        String locator = LOCATOR_START_FRAGMENT + port + LOCATOR_END_FRAGMENT;
+        String key = "User-Agent";
+        String value = "Java/" + System.getProperty("java.version");
+        String msg = "Server should not give cards on port " + port 
+                + " after closing";
+        Throwable t = assertThrows(() -> {
+            URI uri = new URI(locator);
+            URL url = uri.toURL();
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestProperty(key, value);
+            int responseCode = conn.getResponseCode();
+            System.out.println(msg + ", not responded with HTTP status code " 
+                    + responseCode);
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                InputStream source = (InputStream) conn.getContent();
+                Scanner scanner = new Scanner(source);
+                while (scanner.hasNext()) {
+                    System.out.println(scanner.nextLine());
+                }
+            }
+        }, ConnectException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
