@@ -176,7 +176,7 @@ public class CardJSONServerTest {
         CardJSONServer server = new CardJSONServer(port, deckQty, stop);
         server.activate();
         System.out.println("Expecting localhost response on port " + port);
-        String locator = "http://localhost:" + port + "/dealcard";
+        String locator = "http://localhost:" + port + "/dealcard/";
         String key = "User-Agent";
         String value = "Java/" + System.getProperty("java.version");
         assertDoesNotThrow(() -> {
