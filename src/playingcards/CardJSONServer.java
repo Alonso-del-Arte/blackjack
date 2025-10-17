@@ -150,6 +150,7 @@ public class CardJSONServer implements Closeable {
             throw new IllegalStateException(excMsg);
         }
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
+        this.active = false;
     }
     
     /**
