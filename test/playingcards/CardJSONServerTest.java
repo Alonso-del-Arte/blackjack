@@ -394,27 +394,26 @@ public class CardJSONServerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
-    // TODO: Rewrite with assertThrows()
     @Test
     public void testConstructorRejectsNegativeDeckQuantity() {
         int badQty = -RANDOM.nextInt(256) - 4;
-        try {
+        String msg = "Deck quantity " + badQty + " should cause an exception";
+        Throwable t = assertThrows(() -> {
             CardJSONServer badServer = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
                     badQty, 0);
             String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
                     + badQty;
             fail(message);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Bad quantity " + badQty 
-                    + " correctly caused IllegalArgumentException");
-            System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String message = re.getClass().getName() 
-                    + " is the wrong exception to throw for bad deck quantity " 
-                    + badQty;
-            fail(message);
-        }
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String numStr = Integer.toString(badQty);
+        String containsMsg = "Exception message should contain \"" + numStr 
+                + "\"";
+        assert excMsg.contains(numStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
