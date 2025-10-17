@@ -21,6 +21,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
@@ -32,7 +33,7 @@ import java.nio.charset.StandardCharsets;
  * codes of the deck and the shoe they came from.
  * @author Alonso del Arte
  */
-public class CardJSONServer {
+public class CardJSONServer implements Closeable {
     
     private static final int DEFAULT_PORT = 8080;
     
@@ -136,6 +137,11 @@ public class CardJSONServer {
             throw new IllegalStateException(excMsg);
         }
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
+    }
+    
+    @Override
+    public void close() {
+        // TODO: Write tests for this
     }
     
     /**
