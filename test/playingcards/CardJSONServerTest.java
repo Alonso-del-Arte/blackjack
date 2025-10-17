@@ -203,28 +203,30 @@ public class CardJSONServerTest {
         int port = 8080 + RANDOM.nextInt(1000);
         int deckQty = RANDOM.nextInt(10) + 4;
         int stop = 75 + RANDOM.nextInt(15);
-        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
-        server.activate();
-        String locator = LOCATOR_START_FRAGMENT + port + LOCATOR_END_FRAGMENT;
-        String key = "User-Agent";
-        String value = "Java/" + System.getProperty("java.version");
-        assertDoesNotThrow(() -> {
-            URI uri = new URI(locator);
-            URL url = uri.toURL();
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("OPTIONS");
-            conn.setRequestProperty(key, value);
-            int responseCode = conn.getResponseCode();
-            server.deactivate();
-            if (responseCode == HttpURLConnection.HTTP_OK) {
-                String header = conn.getHeaderField("Allow");
-                assert header != null : "Header \"Allow\" should not be null";
-                String expected = "GET,OPTIONS";
-                String actual = header.toUpperCase()
-                        .replace(" ", "");
-                assertEquals(expected, actual);
-            }
-        });
+        try (CardJSONServer server = new CardJSONServer(port, deckQty, stop)) {
+            server.activate();
+            String locator = LOCATOR_START_FRAGMENT + port 
+                    + LOCATOR_END_FRAGMENT;
+            String key = "User-Agent";
+            String value = "Java/" + System.getProperty("java.version");
+            assertDoesNotThrow(() -> {
+                URI uri = new URI(locator);
+                URL url = uri.toURL();
+                HttpURLConnection conn 
+                        = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("OPTIONS");
+                conn.setRequestProperty(key, value);
+                int responseCode = conn.getResponseCode();
+                if (responseCode == HttpURLConnection.HTTP_OK) {
+                    String header = conn.getHeaderField("Allow");
+                    assert header != null 
+                            : "Header \"Allow\" should not be null";
+                    String expected = "GET,OPTIONS";
+                    String actual = header.toUpperCase().replace(" ", "");
+                    assertEquals(expected, actual);
+                }
+            });
+        }
     }
     
     @Test
