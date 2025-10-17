@@ -145,6 +145,10 @@ public class CardJSONServer implements Closeable {
      */
     @Override
     public void close() {
+        if (!this.active) {
+            String excMsg = "Can't deactivate, already inactive";
+            throw new IllegalStateException(excMsg);
+        }
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
