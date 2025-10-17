@@ -98,6 +98,13 @@ public class CardJSONServer {
         return this.shoe.getNextCard();
     }
     
+    /**
+     * Activates the server.
+     * @throws IllegalStateException If the server has already been activated.
+     * @throws RuntimeException A runtime exception wrapping an {@code 
+     * IOException} if an input/output problem occurs, such as {@code 
+     * BindException}.
+     */
     public void activate() {
         if (this.active) {
             String excMsg = "Can't activate, already active";
@@ -108,7 +115,7 @@ public class CardJSONServer {
             this.httpServer = HttpServer
                     .create(new InetSocketAddress(hostname, this.portNumber), 
                             1);
-            this.httpServer.createContext("/dealcard", this.handler);
+            this.httpServer.createContext("/dealcard/", this.handler);
             this.httpServer.start();
             System.out.println("Started server " + hostname + " on port " 
                     + this.portNumber);
@@ -118,6 +125,11 @@ public class CardJSONServer {
         this.active = true;
     }
     
+    /**
+     * Deactivates the server.
+     * @throws IllegalStateException If the server was already deactivated, or 
+     * was never activated in the first place.
+     */
     public void deactivate() {
         if (!this.active) {
             String excMsg = "Can't deactivate, already inactive";
@@ -127,8 +139,8 @@ public class CardJSONServer {
     }
     
     /**
-     * Sole constructor. This constructor is sufficient to activate. There needs 
-     * to be a call to {@link #activate()} to get the server running.
+     * Sole constructor. This constructor is not sufficient to activate. There  
+     * needs to be a call to {@link #activate()} to get the server running.
      * @param port Which local host port to send the cards to. Should probably 
      * be 80 or 445 or greater than 1024.
      * @param deckQty How many decks of cards to put in the shoe. Should be at 
