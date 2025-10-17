@@ -306,7 +306,7 @@ public class CardJSONServerTest {
         server.deactivate();
         String msg = "Deactivating twice should cause exception";
         Throwable t = assertThrows(() -> {
-            server.close();
+            server.deactivate();
         }, IllegalStateException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
