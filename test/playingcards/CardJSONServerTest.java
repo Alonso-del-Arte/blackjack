@@ -295,6 +295,25 @@ public class CardJSONServerTest {
         }, msg);
     }
     
+    @Test
+    public void testNoDoubleDeactivation() {
+        int port = DEFAULT_TESTING_HTTP_PORT - RANDOM.nextInt(80) - 1;
+        int deckQty = RANDOM.nextInt(8) + 4;
+        int stop = 75 + RANDOM.nextInt(25);
+        @SuppressWarnings("resource")
+        CardJSONServer server = new CardJSONServer(port, deckQty, stop);
+        server.activate();
+        server.deactivate();
+        String msg = "Deactivating twice should cause exception";
+        Throwable t = assertThrows(() -> {
+            server.close();
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     // TODO: Rewrite with assertDoesNotThrow()
     @Test
     public void testConstructorSetsSpecifiedDeckQuantityAndStop() {
