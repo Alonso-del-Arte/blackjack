@@ -106,23 +106,23 @@ public class CardJSONServer {
      * BindException}.
      */
     public void activate() {
-//        if (this.active) {
-//            String excMsg = "Can't activate, already active";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        String hostname = "localhost";
-//        try {
-//            this.httpServer = HttpServer
-//                    .create(new InetSocketAddress(hostname, this.portNumber), 
-//                            1);
-//            this.httpServer.createContext("/dealcard/", this.handler);
-//            this.httpServer.start();
-//            System.out.println("Started server " + hostname + " on port " 
-//                    + this.portNumber);
-//        } catch (IOException ioe) {
-//            throw new RuntimeException(ioe);
-//        }
-//        this.active = true;
+        if (this.active) {
+            String excMsg = "Can't activate, already active";
+            throw new IllegalStateException(excMsg);
+        }
+        String hostname = "localhost";
+        try {
+            this.httpServer = HttpServer
+                    .create(new InetSocketAddress(hostname, this.portNumber), 
+                            1);
+            this.httpServer.createContext("/dealcard/", this.handler);
+            this.httpServer.start();
+            System.out.println("Started server " + hostname + " on port " 
+                    + this.portNumber);
+        } catch (IOException ioe) {
+            throw new RuntimeException(ioe);
+        }
+        this.active = true;
     }
     
     /**
@@ -131,11 +131,11 @@ public class CardJSONServer {
      * was never activated in the first place.
      */
     public void deactivate() {
-//        if (!this.active) {
-//            String excMsg = "Can't deactivate, already inactive";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        this.httpServer.stop(DEFAULT_CLOSING_DELAY);
+        if (!this.active) {
+            String excMsg = "Can't deactivate, already inactive";
+            throw new IllegalStateException(excMsg);
+        }
+        this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
     /**
