@@ -132,7 +132,10 @@ public class CardJSONServer implements Closeable {
      * #close()} instead.
      * @throws IllegalStateException If the server was already deactivated, or 
      * was never activated in the first place.
+     * @deprecated Use {@link #close()} instead. This procedure is scheduled to 
+     * be removed after Hacktoberfest 2025.
      */
+    @Deprecated(forRemoval = true)
     public void deactivate() {
         if (!this.active) {
             String excMsg = "Can't deactivate, already inactive";
