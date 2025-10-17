@@ -126,7 +126,10 @@ public class CardJSONServer implements Closeable {
     }
     
     /**
-     * Deactivates the server.
+     * Deactivates the server. If the server has already been deactivated, or if 
+     * it was never activated in the first place (with {@link #activate()}), an 
+     * exception will occur. If that behavior is not needed, use {@link 
+     * #close()} instead.
      * @throws IllegalStateException If the server was already deactivated, or 
      * was never activated in the first place.
      */
@@ -136,6 +139,7 @@ public class CardJSONServer implements Closeable {
             throw new IllegalStateException(excMsg);
         }
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
+        this.active = false;
     }
     
     /**
