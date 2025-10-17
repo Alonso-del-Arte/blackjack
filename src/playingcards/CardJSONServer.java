@@ -138,9 +138,14 @@ public class CardJSONServer implements Closeable {
         this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
+    /**
+     * Deactivates the server if it's currently active. Use {@link 
+     * #deactivate()} if it's necessary to throw {@code IllegalStateException} 
+     * for an already inactive server.
+     */
     @Override
     public void close() {
-        // TODO: Write tests for this
+        this.httpServer.stop(DEFAULT_CLOSING_DELAY);
     }
     
     /**
