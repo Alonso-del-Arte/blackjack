@@ -230,7 +230,7 @@ public class CardJSONServerTest {
     }
     
     @Test
-    public void testNoDeactivationForInactive() {
+    public void testNoDeactivationForNeverActivated() {
         int deckQty = RANDOM.nextInt(8) + 4;
         CardJSONServer server = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
                 deckQty, DEFAULT_STOP);
