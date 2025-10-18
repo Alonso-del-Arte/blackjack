@@ -88,6 +88,11 @@ public class CardJSONServer implements Closeable {
 //        }
     };
     
+    /**
+     * Gives a card. Activation of the JSON server is not required to use this 
+     * function, but this function is not meant for use outside of this package.
+     * @return A card. For example, Two of Clubs.
+     */
     ProvenanceInscribedPlayingCard giveCard() {
         if (!this.shoe.hasNext()) {
             this.shoe 
