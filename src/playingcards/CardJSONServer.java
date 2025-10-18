@@ -172,9 +172,6 @@ public class CardJSONServer implements Closeable {
      * than 0.
      */
     public CardJSONServer(int port, int deckQty, int stop) {
-        if (deckQty == 0) {
-            deckQty = 2;
-        }
         if (port < 0 || port > 4 * Short.MAX_VALUE || deckQty < 1 || stop < 0) {
             String excMsg = "Check port number " + port + ", deck quantity " 
                     + deckQty + ", stop " + stop;
