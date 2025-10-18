@@ -418,11 +418,11 @@ public class CardJSONServerTest {
     
     @Test
     public void testConstructorRejectsDeckQuantityZero() {
+        int port = 7999;
         int badQty = 0;
         String msg = "Deck quantity " + badQty + " should cause an exception";
         Throwable t = assertThrows(() -> {
-            CardJSONServer badServer = new CardJSONServer(DEFAULT_TESTING_HTTP_PORT, 
-                    badQty, 0);
+            CardJSONServer badServer = new CardJSONServer(port, badQty, 1);
             String message = "Should not have been able to create " 
                     + badServer.toString() + " with bad deck quantity " 
                     + badQty;
