@@ -109,6 +109,7 @@ public class HandTest {
      */
     @Test
     public void testGetWager() {
+        System.out.println("getWager");
         int cents = RANDOM.nextInt(65536) + 64;
         Currency currency = CurrencyChooser.chooseCurrency();
         CurrencyAmount amount = new CurrencyAmount(cents, currency);
