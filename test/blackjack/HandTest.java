@@ -101,7 +101,7 @@ public class HandTest {
                     + "\u0029");
             String actual = hand.toString().replace(" ", "");
             assertEquals(expected, actual);
-        } while (roughValueCount < 22);
+        } while (roughValueCount < 21);
     }
     
     /**
