@@ -239,13 +239,12 @@ public class Hand {
     
     @Override
     public String toString() {
-        return "TEMP REWIND TO FAILING";
-//        StringBuilder intermediate = new StringBuilder("(");
-//        this.cards.forEach((card) -> {
-//            intermediate.append(card.toString()).append(", ");
-//        });
-//        intermediate.append(")");
-//        return intermediate.toString().replace(", \u0029", "\u0029");
+        StringBuilder intermediate = new StringBuilder("(");
+        this.cards.forEach((card) -> {
+            intermediate.append(card.toString()).append(", ");
+        });
+        intermediate.append(")");
+        return intermediate.toString().replace(", \u0029", "\u0029");
     }
     
     /**
