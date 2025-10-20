@@ -133,6 +133,16 @@ public class CardServer implements CardSupplier {
         throw new RanOutOfCardsException(excMsg, suit);
     }
     
+    // TODO: Write tests for this
+    public PlayingCard giveCardNotOf(Rank rank) {
+        return this.giveCard(rank);
+    }
+    
+    // TODO: Write tests for this
+    public PlayingCard giveCardNotOf(Suit suit) {
+        return this.giveCard(suit);
+    }
+    
     /**
      * Gives a specified number of cards. The cards are given in an array. They 
      * may be of any rank and of any suit, and probably won't be in any 
