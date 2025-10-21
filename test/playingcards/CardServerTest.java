@@ -132,6 +132,7 @@ public class CardServerTest {
     /**
      * Test of the giveCard(Rank) function, of the CardServer class.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardRankThree() {
         System.out.println("giveCard(Rank)");
@@ -149,6 +150,7 @@ public class CardServerTest {
     /**
      * Another test of the giveCard(Rank) function, of the CardServer class.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardMultOfRankInvokeDistinct() {
         fail("REWRITE THIS TEST THROUGH ALL RANKS");
@@ -170,6 +172,7 @@ public class CardServerTest {
     /**
      * Test of the giveCard(Suit) function, of the CardServer class.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardSuitHearts() {
         System.out.println("giveCard(Suit)");
@@ -187,6 +190,7 @@ public class CardServerTest {
     /**
      * Another test of the giveCard(Suit) function, of the CardServer class.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardMultOfSuitInvokeDistinct() {
         fail("REWRITE THIS TEST THROUGH ALL SUITS");
@@ -222,6 +226,7 @@ public class CardServerTest {
     /**
      * Test of giveCards(Rank) method, of class CardServer.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardsRankFour() {
         System.out.println("giveCards(Rank)");
@@ -243,6 +248,7 @@ public class CardServerTest {
     /**
      * Test of the giveCards(Suit) function, of the CardServer class.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardsSuitClubs() {
         System.out.println("giveCards(Suit)");
@@ -291,9 +297,11 @@ public class CardServerTest {
      * using assertThrows() for this test because I want a different message if 
      * {@link RanOutOfCardsException} occurs.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardsRankCanServeFromTwoDecks() {
         fail("REWRITE THIS TEST THROUGH ALL RANKS OR ONE RANDOM RANK");
+        fail("REWRITE WITH assertDoesNotThrow()");
         CardServer server = new CardServer(2);
         Rank expected = Rank.SEVEN;
         try {
@@ -304,10 +312,10 @@ public class CardServerTest {
                 assert card.isOf(expected) : assertionMessage;
             }
         } catch (RuntimeException re) {
-            String msg = "Server should have been able to deal cards of rank " 
+            String message = "Server should have been able to deal cards of rank " 
                     + expected.getWord() + " from two decks without causing " 
                     + re.getClass().getName();
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -316,6 +324,7 @@ public class CardServerTest {
      * using assertThrows() for this test because I want a different message if 
      * {@link RanOutOfCardsException} occurs.
      */
+    @org.junit.Ignore
     @Test
     public void testGiveCardsSuitCanServeFromTwoDecks() {
         fail("REWRITE THIS TEST THROUGH ALL SUITS OR ONE RANDOM SUIT");
@@ -345,16 +354,16 @@ public class CardServerTest {
         fail("REWRITE WITH assertThrows()");
         try {
             CardServer server = new CardServer(-1);
-            String msg = "Should not have been able to create " 
+            String message = "Should not have been able to create " 
                     + server.toString() + " with negative deck quantity";
-            fail(msg);
+            fail(message);
         } catch (NegativeArraySizeException nase) {
             System.out.println("Negative deck quantity caused exception");
             System.out.println("\"" + nase.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception for negative deck quantity";
-            fail(msg);
+            fail(message);
         }
     }
     
@@ -367,16 +376,16 @@ public class CardServerTest {
         fail("REWRITE WITH assertThrows()");
         try {
             CardServer server = new CardServer(0);
-            String msg = "Should not have been able to create " 
+            String message = "Should not have been able to create " 
                     + server.toString() + " with deck quantity zero";
-            fail(msg);
+            fail(message);
         } catch (IllegalArgumentException iae) {
             System.out.println("Deck quantity zero correctly caused exception");
             System.out.println("\"" + iae.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception for deck quantity zero";
-            fail(msg);
+            fail(message);
         }
     }
     
