@@ -235,15 +235,18 @@ public class CardServer implements CardSupplier {
      * @throws NegativeArraySizeException If <code>deckQty</code> is negative.
      */
     public CardServer(int deckQty) {
-        if (deckQty == 0) {
-            String excMsg = "Deck quantity zero not allowed";
-            throw new IllegalArgumentException(excMsg);
-        }
-        this.decks = new CardDeck[deckQty];
-        for (int i = 0; i < deckQty; i++) {
-            this.decks[i] = new CardDeck();
-            this.decks[i].shuffle();
-        }
+        this.decks = new CardDeck[2];
+        this.decks[0] = new CardDeck();
+        this.decks[1] = new CardDeck();
+//        if (deckQty == 0) {
+//            String excMsg = "Deck quantity zero not allowed";
+//            throw new IllegalArgumentException(excMsg);
+//        }
+//        this.decks = new CardDeck[deckQty];
+//        for (int i = 0; i < deckQty; i++) {
+//            this.decks[i] = new CardDeck();
+//            this.decks[i].shuffle();
+//        }
     }
 
 }
