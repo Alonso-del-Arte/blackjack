@@ -19,6 +19,7 @@ package playingcards;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertDoesNotThrow;
 import static org.testframe.api.Asserters.assertThrows;
 
 import static playingcards.CardJSONServerTest.RANDOM;
@@ -63,6 +64,24 @@ public class CardServerTest {
                 + cards[51].toASCIIString());
         String msg = "Two-deck server should not have run out after 52 cards";
         assert server.hasNext() : msg;
+    }
+    
+    @Test
+    public void testServerHasAsManyDecksAsSpecifiedByConstructor() {
+        int deckQty = RANDOM.nextInt(3, 11);
+        CardServer server = new CardServer(deckQty);
+        int numberOfCards = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        PlayingCard[] cards = new PlayingCard[numberOfCards];
+        String msg = "Server with " + deckQty + " should've run out after " 
+                + numberOfCards + " cards, not before";
+        assertDoesNotThrow(() -> {
+            for (int i = 0; i < numberOfCards; i++) {
+                cards[i] = server.getNextCard();
+            }
+        }, msg);
+        System.out.println("First card server gave was " + cards[0].toString() 
+                + ", last card was " + cards[numberOfCards - 1].toString());
+        assert !server.hasNext() : msg;
     }
     
     /**
