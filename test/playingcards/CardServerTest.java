@@ -19,6 +19,8 @@ package playingcards;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the CardServer class.
  * @author Alonso del Arte
@@ -373,20 +375,20 @@ public class CardServerTest {
      */
     @Test
     public void testConstructorRejectZeroDeckQuantity() {
-        fail("REWRITE WITH assertThrows()");
-        try {
-            CardServer server = new CardServer(0);
-            String message = "Should not have been able to create " 
-                    + server.toString() + " with deck quantity zero";
-            fail(message);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Deck quantity zero correctly caused exception");
-            System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String message = re.getClass().getName() 
-                    + " is the wrong exception for deck quantity zero";
-            fail(message);
-        }
+        int deckQty = 0;
+        String msg = "Trying to create server with deck quantity " + deckQty 
+                + " should have caused an exception";
+        Throwable t = assertThrows(() -> {
+            CardServer badServer = new CardServer(deckQty);
+            System.out.println(msg + ", not created instance " 
+                    + badServer.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"0\"";
+        assert excMsg.contains("0") : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
 }
