@@ -243,18 +243,11 @@ public class CardServer implements CardSupplier {
             String excMsg = "Deck quantity 0 is not allowed";
             throw new IllegalArgumentException(excMsg);
         }
-        if (deckQty == 1) {
-            this.decks = new CardDeck[1];
-        } else {
-            this.decks = new CardDeck[2];
-            this.decks[1] = new CardDeck();
+        this.decks = new CardDeck[deckQty];
+        for (int i = 0; i < deckQty; i++) {
+            this.decks[i] = new CardDeck();
+            this.decks[i].shuffle();
         }
-        this.decks[0] = new CardDeck();
-//        this.decks = new CardDeck[deckQty];
-//        for (int i = 0; i < deckQty; i++) {
-//            this.decks[i] = new CardDeck();
-//            this.decks[i].shuffle();
-//        }
     }
 
 }
