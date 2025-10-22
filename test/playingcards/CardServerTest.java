@@ -21,6 +21,8 @@ import static org.junit.Assert.*;
 
 import static org.testframe.api.Asserters.assertThrows;
 
+import static playingcards.CardJSONServerTest.RANDOM;
+
 /**
  * Tests of the CardServer class.
  * @author Alonso del Arte
@@ -353,20 +355,21 @@ public class CardServerTest {
      */
     @Test
     public void testConstructorRejectNegativeDeckQuantity() {
-        fail("REWRITE WITH assertThrows()");
-        try {
-            CardServer server = new CardServer(-1);
-            String message = "Should not have been able to create " 
-                    + server.toString() + " with negative deck quantity";
-            fail(message);
-        } catch (NegativeArraySizeException nase) {
-            System.out.println("Negative deck quantity caused exception");
-            System.out.println("\"" + nase.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String message = re.getClass().getName() 
-                    + " is the wrong exception for negative deck quantity";
-            fail(message);
-        }
+        int deckQty = -RANDOM.nextInt(32) - 1;
+        String msg = "Trying to create server with deck quantity " + deckQty 
+                + " should have caused an exception";
+        Throwable t = assertThrows(() -> {
+            CardServer badServer = new CardServer(deckQty);
+            System.out.println(msg + ", not created instance " 
+                    + badServer.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + deckQty 
+                + "\"";
+        assert excMsg.contains(Integer.toString(deckQty)) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
