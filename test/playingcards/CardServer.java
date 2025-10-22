@@ -235,6 +235,10 @@ public class CardServer implements CardSupplier {
      * @throws NegativeArraySizeException If <code>deckQty</code> is negative.
      */
     public CardServer(int deckQty) {
+        if (deckQty < 0) {
+            String excMsg = "Deck quantity " + deckQty + " is not valid";
+            throw new NegativeArraySizeException(excMsg);
+        }
         if (deckQty == 0) {
             String excMsg = "Deck quantity 0 is not allowed";
             throw new IllegalArgumentException(excMsg);
