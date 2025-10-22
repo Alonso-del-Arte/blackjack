@@ -362,7 +362,7 @@ public class CardServerTest {
             CardServer badServer = new CardServer(deckQty);
             System.out.println(msg + ", not created instance " 
                     + badServer.toString());
-        }, IllegalArgumentException.class, msg);
+        }, NegativeArraySizeException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
