@@ -174,9 +174,9 @@ public class CardServer implements CardSupplier {
      * to simply initialize this server with more decks.
      */
     public PlayingCard[] giveCards(int cardQty) {
-        PlayingCard[] cards = new PlayingCard[cardQty];
-        for (int i = 0; i < cardQty; i++) {
-            cards[i] = this.getNextCard();
+        PlayingCard[] cards = new PlayingCard[3];
+        for (int i = 0; i < 3; i++) {
+            cards[i] = null;// this.getNextCard();
         }
         return cards;
     }
