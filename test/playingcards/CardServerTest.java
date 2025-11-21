@@ -174,21 +174,21 @@ public class CardServerTest {
     /**
      * Another test of the giveCard(Rank) function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
     public void testGiveCardMultOfRankInvokeDistinct() {
-        fail("REWRITE THIS TEST THROUGH ALL RANKS");
         CardServer server = new CardServer();
-        PlayingCard[] cards = new PlayingCard[4];
-        Rank expected = Rank.FIVE;
-        String msg = "Served card should be of rank " + expected.getWord();
-        for (int n = 0; n < 4; n++) {
-            cards[n] = server.giveCard(expected);
-            assert cards[n].isOf(expected) : msg;
-        }
-        for (int i = 0; i < 3; i++) {
-            for (int j = i + 1; j < 4; j++) {
-                assertNotEquals(cards[i], cards[j]);
+        for (Rank expected : RANKS) {
+            PlayingCard[] cards = new PlayingCard[4];
+            String msgPart = " should be of rank " + expected.getWord();
+            for (int n = 0; n < 4; n++) {
+                cards[n] = server.giveCard(expected);
+                String msg = cards[n].toString() + msgPart;
+                assert cards[n].isOf(expected) : msg;
+            }
+            for (int i = 0; i < 3; i++) {
+                for (int j = i + 1; j < 4; j++) {
+                    assertNotEquals(cards[i], cards[j]);
+                }
             }
         }
     }
