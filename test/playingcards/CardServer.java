@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -86,7 +86,7 @@ public class CardServer implements CardSupplier {
 
     /**
      * Gives a card of a specified rank. The card can be of any suit.
-     * @param rank The rank of the card. For example, <code>Rank.SEVEN</code>.
+     * @param rank The rank of the card. For example, {@code Rank.SEVEN}.
      * @return A card of the specified rank. For example, 7&#9829;.
      * @throws RanOutOfCardsException If this server has run out of cards of the 
      * specified rank. The exception object will include the specified rank. 
@@ -94,18 +94,19 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Rank rank) {
-        PlayingCard card;
-        while (this.currDeckIndex < this.decks.length) {
-            while (this.decks[this.currDeckIndex].hasNext()) {
-                card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOf(rank)) {
-                    return card;
-                }
-            }
-            this.currDeckIndex++;
-        }
-        String excMsg = "Ran out of cards of rank " + rank.getWord();
-        throw new RanOutOfCardsException(excMsg, rank);
+        return new PlayingCard(Rank.ACE, Suit.CLUBS);
+//        PlayingCard card;
+//        while (this.currDeckIndex < this.decks.length) {
+//            while (this.decks[this.currDeckIndex].hasNext()) {
+//                card = this.decks[this.currDeckIndex].getNextCard();
+//                if (card.isOf(rank)) {
+//                    return card;
+//                }
+//            }
+//            this.currDeckIndex++;
+//        }
+//        String excMsg = "Ran out of cards of rank " + rank.getWord();
+//        throw new RanOutOfCardsException(excMsg, rank);
     }
 
     /**
