@@ -158,7 +158,7 @@ public class CardServerTest {
      * Test of the giveCard(Rank) function, of the CardServer class.
      */
     @Test
-    public void testGiveCardRankThree() {
+    public void testGiveCardRank() {
         System.out.println("giveCard(Rank)");
         CardServer server = new CardServer();
         for (Rank expected : RANKS) {
