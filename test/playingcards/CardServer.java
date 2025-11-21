@@ -124,8 +124,7 @@ public class CardServer implements CardSupplier {
 
     /**
      * Gives a card of a specified suit. The card can be of any rank.
-     * @param suit The suit of the card. For example, 
-     * <code>Suit.DIAMONDS</code>.
+     * @param suit The suit of the card. For example, {@code Suit.DIAMONDS}.
      * @return A card of the specified suit. For example, 4&#9830;.
      * @throws RanOutOfCardsException If this server has run out of cards of the 
      * specified suit. The exception object will include the specified suit. 
@@ -133,18 +132,19 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Suit suit) {
-        PlayingCard card;
-        while (this.currDeckIndex < this.decks.length) {
-            while (this.decks[this.currDeckIndex].hasNext()) {
-                card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOf(suit)) {
-                    return card;
-                }
-            }
-            this.currDeckIndex++;
-        }
-        String excMsg = "Ran out of cards of suit " + suit.getWord();
-        throw new RanOutOfCardsException(excMsg, suit);
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+//        PlayingCard card;
+//        while (this.currDeckIndex < this.decks.length) {
+//            while (this.decks[this.currDeckIndex].hasNext()) {
+//                card = this.decks[this.currDeckIndex].getNextCard();
+//                if (card.isOf(suit)) {
+//                    return card;
+//                }
+//            }
+//            this.currDeckIndex++;
+//        }
+//        String excMsg = "Ran out of cards of suit " + suit.getWord();
+//        throw new RanOutOfCardsException(excMsg, suit);
     }
     
     // TODO: Write tests for this
