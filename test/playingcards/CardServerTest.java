@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -229,6 +231,25 @@ public class CardServerTest {
                 }
             }
         }
+    }
+    
+    @Test
+    public void testGiveCardsRejectsNegativeCardQuantity() {
+        CardServer instance = new CardServer();
+        int cardQty = -RANDOM.nextInt(520) - 1;
+        String msg = "Negative card quantity " + cardQty 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            PlayingCard[] cards = instance.giveCards(cardQty);
+            System.out.println(msg + ", not given " + Arrays.toString(cards));
+        }, NegativeArraySizeException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String numStr = Integer.toString(cardQty);
+        String containsMsg = "Exception message should contain \"" + numStr 
+                + "\""; 
+        assert excMsg.contains(numStr) : containsMsg;
     }
     
     /**
