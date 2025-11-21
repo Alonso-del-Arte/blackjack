@@ -140,10 +140,9 @@ public class CardServer implements CardSupplier {
             }
             index++;
         }
-        PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
-                card = this.decks[this.currDeckIndex].getNextCard();
+                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
                 if (card.isOf(suit)) {
                     return card;
                 } else {
