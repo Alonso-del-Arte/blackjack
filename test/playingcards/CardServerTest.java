@@ -166,7 +166,6 @@ public class CardServerTest {
         for (Rank expected : RANKS) {
             PlayingCard card = server.giveCard(expected);
             assert card != null : "Served card should not be null";
-            System.out.println("Server served " + card.toASCIIString());
             String msg = "Served card " + card.toString() + " should be a " 
                     + expected.getWord();
             assert card.isOf(expected) : msg;
@@ -205,7 +204,6 @@ public class CardServerTest {
         for (Suit expected : SUITS) {
             PlayingCard card = server.giveCard(expected);
             assert card != null : "Served card should not be null";
-            System.out.println("Server served " + card.toASCIIString());
             String msg = "Served card " + card.toString() 
                     + " should be of suit " + expected.getWord();
             assert card.isOf(expected) : msg;
