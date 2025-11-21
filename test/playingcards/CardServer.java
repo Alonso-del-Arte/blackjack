@@ -94,7 +94,7 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Rank rank) {
-        return new PlayingCard(Rank.ACE, Suit.CLUBS);
+        return new PlayingCard(rank, Suit.CLUBS);
 //        PlayingCard card;
 //        while (this.currDeckIndex < this.decks.length) {
 //            while (this.decks[this.currDeckIndex].hasNext()) {
