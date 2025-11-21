@@ -100,19 +100,16 @@ public class CardServer implements CardSupplier {
      */
     public PlayingCard giveCard(Rank rank) {
         int index = 0;
-        boolean found = false;
-        while (index < this.prevExamCards.size() && !found) {
+        while (index < this.prevExamCards.size()) {
             PlayingCard card = this.prevExamCards.get(index);
             if (card.isOf(rank)) {
-                found = true;
                 return this.prevExamCards.remove(index);
             }
             index++;
         }
-        PlayingCard card;
         while (this.currDeckIndex < this.decks.length) {
             while (this.decks[this.currDeckIndex].hasNext()) {
-                card = this.decks[this.currDeckIndex].getNextCard();
+                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
                 if (card.isOf(rank)) {
                     return card;
                 } else {
