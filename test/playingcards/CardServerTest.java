@@ -215,22 +215,20 @@ public class CardServerTest {
     /**
      * Another test of the giveCard(Suit) function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
     public void testGiveCardMultOfSuitInvokeDistinct() {
-        fail("REWRITE THIS TEST THROUGH ALL SUITS");
         CardServer server = new CardServer();
         PlayingCard[] cards = new PlayingCard[13];
-        Suit expected = Suit.HEARTS;
-        String assertionMessage = "Served card should be of suit " 
-                + expected.getWord();
-        for (int n = 0; n < 13; n++) {
-            cards[n] = server.giveCard(expected);
-            assert cards[n].isOf(expected) : assertionMessage;
-        }
-        for (int i = 0; i < 12; i++) {
-            for (int j = i + 1; j < 13; j++) {
-                assertNotEquals(cards[i], cards[j]);
+        for (Suit expected : SUITS) {
+            String msg = "Served card should be of suit " + expected.getWord();
+            for (int n = 0; n < 13; n++) {
+                cards[n] = server.giveCard(expected);
+                assert cards[n].isOf(expected) : msg;
+            }
+            for (int i = 0; i < 12; i++) {
+                for (int j = i + 1; j < 13; j++) {
+                    assertNotEquals(cards[i], cards[j]);
+                }
             }
         }
     }
