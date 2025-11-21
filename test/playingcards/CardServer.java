@@ -88,6 +88,41 @@ public class CardServer implements CardSupplier {
         }
         return matchFoundFlag;
     }
+    
+    private PlayingCard findMatchingCard(CardSpec spec) {
+        int index = 0;
+        while (index < this.prevExamCards.size()) {
+            PlayingCard card = this.prevExamCards.get(index);
+            if (spec.matches(card)) {
+                return this.prevExamCards.remove(index);
+            }
+            index++;
+        }
+        while (this.currDeckIndex < this.decks.length) {
+            while (this.decks[this.currDeckIndex].hasNext()) {
+                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
+                if (spec.matches(card)) {
+                    return card;
+                } else {
+                    this.prevExamCards.add(card);
+                }
+            }
+            this.currDeckIndex++;
+        }
+        if (spec instanceof Rank rank) {
+            String excMsg = "Ran out of cards of rank " + rank.getWord();
+            throw new RanOutOfCardsException(excMsg, rank);
+        }
+        if (spec instanceof Suit suit) {
+            String excMsg = "Ran out of cards of rank " + suit.getWord();
+            throw new RanOutOfCardsException(excMsg, suit);
+        }
+        if (spec == null) {
+            throw new NullPointerException("Spec should not be null");
+        }
+        String excMsg = "Ran out of cards of specification " + spec.getWord();
+        throw new RanOutOfCardsException(excMsg);
+    }
 
     /**
      * Gives a card of a specified rank. The card can be of any suit.
@@ -99,27 +134,7 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Rank rank) {
-        int index = 0;
-        while (index < this.prevExamCards.size()) {
-            PlayingCard card = this.prevExamCards.get(index);
-            if (card.isOf(rank)) {
-                return this.prevExamCards.remove(index);
-            }
-            index++;
-        }
-        while (this.currDeckIndex < this.decks.length) {
-            while (this.decks[this.currDeckIndex].hasNext()) {
-                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOf(rank)) {
-                    return card;
-                } else {
-                    this.prevExamCards.add(card);
-                }
-            }
-            this.currDeckIndex++;
-        }
-        String excMsg = "Ran out of cards of rank " + rank.getWord();
-        throw new RanOutOfCardsException(excMsg, rank);
+        return this.findMatchingCard(rank);
     }
 
     /**
@@ -132,27 +147,7 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Suit suit) {
-        int index = 0;
-        while (index < this.prevExamCards.size()) {
-            PlayingCard card = this.prevExamCards.get(index);
-            if (card.isOf(suit)) {
-                return this.prevExamCards.remove(index);
-            }
-            index++;
-        }
-        while (this.currDeckIndex < this.decks.length) {
-            while (this.decks[this.currDeckIndex].hasNext()) {
-                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
-                if (card.isOf(suit)) {
-                    return card;
-                } else {
-                    this.prevExamCards.add(card);
-                }
-            }
-            this.currDeckIndex++;
-        }
-        String excMsg = "Ran out of cards of suit " + suit.getWord();
-        throw new RanOutOfCardsException(excMsg, suit);
+        return this.findMatchingCard(suit);
     }
     
     // TODO: Write tests for this
