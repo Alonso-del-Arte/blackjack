@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2025 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -29,6 +29,8 @@ import static playingcards.CardJSONServerTest.RANDOM;
  * @author Alonso del Arte
  */
 public class CardServerTest {
+    
+    private static final Rank[] RANKS = Rank.values();
     
     @Test
     public void testHasNext() {
@@ -155,19 +157,18 @@ public class CardServerTest {
     /**
      * Test of the giveCard(Rank) function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
     public void testGiveCardRankThree() {
         System.out.println("giveCard(Rank)");
-        fail("REWRITE THIS TEST THROUGH ALL RANKS");
         CardServer server = new CardServer();
-        Rank expected = Rank.THREE;
-        PlayingCard card = server.giveCard(expected);
-        assert card != null : "Served card should not be null";
-        System.out.println("Server served " + card.toASCIIString());
-        String msg = "Served card " + card.toString() + " should be a " 
-                + expected.getWord();
-        assert card.isOf(expected) : msg;
+        for (Rank expected : RANKS) {
+            PlayingCard card = server.giveCard(expected);
+            assert card != null : "Served card should not be null";
+            System.out.println("Server served " + card.toASCIIString());
+            String msg = "Served card " + card.toString() + " should be a " 
+                    + expected.getWord();
+            assert card.isOf(expected) : msg;
+        }
     }
     
     /**
