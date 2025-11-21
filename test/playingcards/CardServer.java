@@ -132,19 +132,28 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Suit suit) {
-        return new PlayingCard(Rank.JACK, suit);
-//        PlayingCard card;
-//        while (this.currDeckIndex < this.decks.length) {
-//            while (this.decks[this.currDeckIndex].hasNext()) {
-//                card = this.decks[this.currDeckIndex].getNextCard();
-//                if (card.isOf(suit)) {
-//                    return card;
-//                }
-//            }
-//            this.currDeckIndex++;
-//        }
-//        String excMsg = "Ran out of cards of suit " + suit.getWord();
-//        throw new RanOutOfCardsException(excMsg, suit);
+        int index = 0;
+        while (index < this.prevExamCards.size()) {
+            PlayingCard card = this.prevExamCards.get(index);
+            if (card.isOf(suit)) {
+                return this.prevExamCards.remove(index);
+            }
+            index++;
+        }
+        PlayingCard card;
+        while (this.currDeckIndex < this.decks.length) {
+            while (this.decks[this.currDeckIndex].hasNext()) {
+                card = this.decks[this.currDeckIndex].getNextCard();
+                if (card.isOf(suit)) {
+                    return card;
+                } else {
+                    this.prevExamCards.add(card);
+                }
+            }
+            this.currDeckIndex++;
+        }
+        String excMsg = "Ran out of cards of suit " + suit.getWord();
+        throw new RanOutOfCardsException(excMsg, suit);
     }
     
     // TODO: Write tests for this
