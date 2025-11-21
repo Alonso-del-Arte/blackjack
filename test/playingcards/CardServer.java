@@ -167,13 +167,17 @@ public class CardServer implements CardSupplier {
      * @param cardQty How many cards to give. For example, five.
      * @return An array with the specified number of cards. For example, 
      * 4&#9830;, 4&#9829;, Q&#9827;, 5&#9830;, 7&#9824;.
-     * @throws NegativeArraySizeException If <code>cardQty</code> is negative.
+     * @throws NegativeArraySizeException If {@code cardQty} is negative.
      * @throws RanOutOfCardsException If this server has run out of cards, or it 
      * runs out of cards while trying to fulfill this request. Since this server 
      * should only be used for testing purposes, it would probably be acceptable 
      * to simply initialize this server with more decks.
      */
     public PlayingCard[] giveCards(int cardQty) {
+        if (cardQty < 0) {
+            String excMsg = "Card quantity " + cardQty + " is not valid";
+            throw new NegativeArraySizeException(excMsg);
+        }
         PlayingCard[] cards = new PlayingCard[3];
         for (int i = 0; i < 3; i++) {
             cards[i] = null;// this.getNextCard();
