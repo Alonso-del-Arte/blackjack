@@ -16,6 +16,9 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Provides cards of a specific rank or suit. This class should only be
  * accessible to test classes, to facilitate the testing of hand scoring.
@@ -32,6 +35,8 @@ public class CardServer implements CardSupplier {
     private final CardDeck[] decks;
 
     private int currDeckIndex = 0;
+    
+    private final List<PlayingCard> prevExamCards = new ArrayList<>();
 
     /**
      * Tells whether this server can give another card.
@@ -94,19 +99,30 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Rank rank) {
-        return new PlayingCard(rank, Suit.CLUBS);
-//        PlayingCard card;
-//        while (this.currDeckIndex < this.decks.length) {
-//            while (this.decks[this.currDeckIndex].hasNext()) {
-//                card = this.decks[this.currDeckIndex].getNextCard();
-//                if (card.isOf(rank)) {
-//                    return card;
-//                }
-//            }
-//            this.currDeckIndex++;
-//        }
-//        String excMsg = "Ran out of cards of rank " + rank.getWord();
-//        throw new RanOutOfCardsException(excMsg, rank);
+        int index = 0;
+        boolean found = false;
+        while (index < this.prevExamCards.size() && !found) {
+            PlayingCard card = this.prevExamCards.get(index);
+            if (card.isOf(rank)) {
+                found = true;
+                return this.prevExamCards.remove(index);
+            }
+            index++;
+        }
+        PlayingCard card;
+        while (this.currDeckIndex < this.decks.length) {
+            while (this.decks[this.currDeckIndex].hasNext()) {
+                card = this.decks[this.currDeckIndex].getNextCard();
+                if (card.isOf(rank)) {
+                    return card;
+                } else {
+                    this.prevExamCards.add(card);
+                }
+            }
+            this.currDeckIndex++;
+        }
+        String excMsg = "Ran out of cards of rank " + rank.getWord();
+        throw new RanOutOfCardsException(excMsg, rank);
     }
 
     /**
