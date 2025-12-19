@@ -36,6 +36,8 @@ public class CardServerTest {
     
     private static final Suit[] SUITS = Suit.values();
     
+    private static final int DEFAULT_DECK_QUANTITY = 10;
+    
     @Test
     public void testHasNext() {
         System.out.println("hasNext");
@@ -230,6 +232,18 @@ public class CardServerTest {
                     assertNotEquals(cards[i], cards[j]);
                 }
             }
+        }
+    }
+    
+    @Test
+    public void testGiveCardNotOfRank() {
+        System.out.println("giveCardNotOf(Rank)");
+        CardServer server = new CardServer();
+        for (Rank rank : RANKS) {
+            PlayingCard card = server.giveCardNotOf(rank);
+            String msg = "Card " + card.toString() + " should not be " 
+                    + rank.getWord();
+            assert !card.isOf(rank) : msg;
         }
     }
     
