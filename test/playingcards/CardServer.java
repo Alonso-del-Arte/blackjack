@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import static playingcards.CardJSONServerTest.RANDOM;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +33,10 @@ import java.util.List;
  * @author Alonso del Arte
  */
 public class CardServer implements CardSupplier {
+    
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final int NUMBER_OF_RANKS = RANKS.length;
 
     private final CardDeck[] decks;
 
@@ -150,9 +156,18 @@ public class CardServer implements CardSupplier {
         return this.findMatchingCard(suit);
     }
     
-    // TODO: Write tests for this
+    private static Rank chooseOtherRank(Rank rank) {
+        Rank propRank = rank;
+        while (propRank.equals(rank)) {
+            int index = RANDOM.nextInt(NUMBER_OF_RANKS);
+            propRank = RANKS[index];
+        }
+        return propRank;
+    }
+    
     public PlayingCard giveCardNotOf(Rank rank) {
-        return this.giveCard(rank);
+        Rank other = chooseOtherRank(rank);
+        return this.giveCard(other);
     }
     
     // TODO: Write tests for this
