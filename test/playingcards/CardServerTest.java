@@ -238,7 +238,7 @@ public class CardServerTest {
     @Test
     public void testGiveCardNotOfRank() {
         System.out.println("giveCardNotOf(Rank)");
-        CardServer server = new CardServer();
+        CardServer server = new CardServer(DEFAULT_DECK_QUANTITY);
         for (Rank rank : RANKS) {
             PlayingCard card = server.giveCardNotOf(rank);
             String msg = "Card " + card.toString() + " should not be " 
