@@ -65,7 +65,7 @@ public class PlayingCard {
     // TODO: Update Javadoc for toUnicodeSMPChar() once tests for this function 
     // are passing
     public String toLocalizedString(Locale locale) {
-        return "SORRY, NOT IMPLEMENTED YET";
+        return this.toASCIIString();
     }
     
     /**
