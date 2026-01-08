@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,6 +18,7 @@ package playingcards;
 
 import java.awt.Color;
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -177,8 +178,8 @@ public class PlayingCardTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        HashSet<PlayingCard> deck = new HashSet<>();
-        HashSet<Integer> hashes = new HashSet<>();
+        Set<PlayingCard> deck = new HashSet<>();
+        Set<Integer> hashes = new HashSet<>();
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
                 PlayingCard currCard = new PlayingCard(rank, suit);
