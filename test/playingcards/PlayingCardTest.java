@@ -18,6 +18,8 @@ package playingcards;
 
 import java.awt.Color;
 import java.util.HashSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.junit.Test;
@@ -34,6 +36,8 @@ public class PlayingCardTest {
     private static final Rank[] RANKS = Rank.values();
     
     private static final Suit[] SUITS = Suit.values();
+    
+    private static final Locale[] LOCALES = Locale.getAvailableLocales();
     
     /**
      * Test of the toString function, of the PlayingCard class.
@@ -209,6 +213,40 @@ public class PlayingCardTest {
                 String expected = rank.getWord() + suitPart;
                 String actual = instance.toASCIIString();
                 assertEquals(expected, actual);
+            }
+        }
+    }
+    
+    private static String nameCard(PlayingCard card, ResourceBundle bundle) {
+        String rankKey = "name" + card.getRank().getChars();
+        String rankName = bundle.getString(rankKey);
+        String suitKey = card.getSuit().getWord().toLowerCase() + "Name";
+        String suitName = bundle.getString(suitKey);
+        boolean useConnector = Boolean.parseBoolean(bundle
+                .getString("useConnector"));
+        String connector = (useConnector) ? bundle.getString("connector") : "";
+        boolean spaced = Boolean.parseBoolean(bundle.getString("spaced"));
+        String middlePart = (spaced) ? ' ' + connector + ' ' : connector;
+        boolean rankFirst = Boolean.parseBoolean(bundle.getString("rankFirst"));
+        return (rankFirst) ? rankName + middlePart + suitName 
+                : suitName + middlePart + rankName;
+    }
+    
+    @Test
+    public void testToLocalizedString() {
+        System.out.println("toLocalizedString");
+        String baseName = "i18n.CardNaming";
+        for (Locale locale : LOCALES) {
+            ResourceBundle bundle = ResourceBundle.getBundle(baseName, locale);
+            for (Rank rank : RANKS) {
+                for (Suit suit : SUITS) {
+                    PlayingCard card = new PlayingCard(rank, suit);
+                    String expected = nameCard(card, bundle);
+                    String actual = card.toLocalizedString(locale);
+                    String message = "Getting name of " + card.toString() 
+                            + " in locale " + locale.getDisplayName();
+                    assertEquals(message, expected, actual);
+                }
             }
         }
     }
