@@ -18,6 +18,7 @@ package playingcards;
 
 import java.awt.Color;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Represents a playing card from a standard 52-card deck. The idea of making 
@@ -65,7 +66,20 @@ public class PlayingCard {
     // TODO: Update Javadoc for toUnicodeSMPChar() once tests for this function 
     // are passing
     public String toLocalizedString(Locale locale) {
-        return this.toASCIIString();
+        ResourceBundle bundle = ResourceBundle.getBundle("i18n.CardNaming", 
+                locale);
+        String rankKey = "name" + this.cardRank.getChars();
+        String rankName = bundle.getString(rankKey);
+        String suitKey = this.cardSuit.getWord().toLowerCase() + "Name";
+        String suitName = bundle.getString(suitKey);
+        boolean useConnector = Boolean.parseBoolean(bundle
+                .getString("useConnector"));
+        String connector = (useConnector) ? bundle.getString("connector") : "";
+        boolean spaced = Boolean.parseBoolean(bundle.getString("spaced"));
+        String middlePart = (spaced) ? ' ' + connector + ' ' : connector;
+        boolean rankFirst = Boolean.parseBoolean(bundle.getString("rankFirst"));
+        return (rankFirst) ? rankName + middlePart + suitName 
+                : suitName + middlePart + rankName;
     }
     
     /**
