@@ -13,7 +13,7 @@ bet.
 In 2025, I started taking some steps towards internationalization. A lot remains 
 to be done. I've resumed that work in 2026.
 
-If you're interested in participating in Hacktoberfest 2025, see 
+If you're interested in participating in Hacktoberfest 2026, see 
 [CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
 that your contribution is accepted for Hacktoberfest, but also that it persists 
 in the main branch after Hacktoberfest.
