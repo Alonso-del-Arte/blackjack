@@ -65,9 +65,11 @@ public class PlayingCard {
     /**
      * Provides a localized {@code String} for this playing card, provided the 
      * suitable text is provided in this program's localization files. If 
-     * suitable text is not available, this will default to English.
+     * suitable text is not available, this will default to English. Cards for 
+     * the examples: J&#9830;, 8&#9830; and 3&#9827;.
      * @param locale The locale. For example, Canadian French.
-     * @return The localized text.
+     * @return The localized text. For the examples, we'd get "Valet de 
+     * Carreau", "Huit de Carreau" and "Trois de Tr&egrave;fle".
      */
     public String toLocalizedString(Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("i18n.CardNaming", 
@@ -86,6 +88,15 @@ public class PlayingCard {
                 : suitName + middlePart + rankName;
     }
     
+    /**
+     * Provides a {@code String} for this playing card, localized to the default 
+     * locale, provided the suitable text is provided in this program's 
+     * localization files. If suitable text is not available, this will default 
+     * to English. Cards for the examples: J&#9830;, 8&#9830; and 3&#9827;. 
+     * Default locale for the examples below is English, United States.
+     * @return The localized text. For the examples, we'd get "Jack of 
+     * Diamonds", "Eight of Diamonds" and "Three of Clubs".
+     */
     public String toLocalizedString() {
         return this.toLocalizedString(Locale.getDefault());
     }
