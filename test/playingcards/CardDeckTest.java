@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -119,10 +119,10 @@ public class CardDeckTest {
         }
         try {
             PlayingCard card = deck.getNextCard();
-            String msg 
+            String message 
                     = "Asking for another card after last shouldn't have given " 
                     + card.toString();
-            fail(msg);
+            fail(message);
         } catch (RanOutOfCardsException roce) {
             System.out.println("Asking for another card caused exception");
             System.out.println("\"" + roce.getMessage() + "\"");
@@ -292,9 +292,9 @@ public class CardDeckTest {
             System.out.println("Shuffling empty deck caused state exception");
             System.out.println("\"" + ise.getMessage() + "\"");
         } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
+            String message = re.getClass().getName() 
                     + " is the wrong exception for shuffling empty deck";
-            fail(msg);
+            fail(message);
         }
     }
 
