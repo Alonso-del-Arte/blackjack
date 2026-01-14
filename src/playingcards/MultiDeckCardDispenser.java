@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -65,6 +65,12 @@ public class MultiDeckCardDispenser implements CardSupplier {
         return this.cards.get(this.dispenseIndex++);
     }
     
+    // TODO: Write tests for this
+    @Override
+    public int countRemaining() {
+        return -1;
+    }
+
     /**
      * Determines if a card came from this dispenser. Cards held back by the 
      * plastic card should not be leaked out, so theoretically there is no need 

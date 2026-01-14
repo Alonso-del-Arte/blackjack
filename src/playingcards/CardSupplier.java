@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -39,6 +39,18 @@ public interface CardSupplier {
      * @throws RanOutOfCardsException If there is no card left to give.
      */
     PlayingCard getNextCard();
+    
+    /**
+     * Reports how many cards are remaining to be dealt. For the example, 
+     * suppose this is a shoe of ten decks from which a blackjack dealer has so 
+     * far given himself two cards and a pair of cards each to three players at 
+     * the table.
+     * @return The number of cards available to be dealt. In the example, this 
+     * would be 512. Edge case: 0 for a depleted deck (in which case {@link 
+     * #hasNext()} should return false and {@link #getNextCard()} should throw 
+     * {@link RanOutOfCardsException}).
+     */
+    int countRemaining();
     
     /**
      * Determines if a card came from this card supplier. This should generally 

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -150,6 +150,12 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
             return this.cards.get(this.dealCount++);
         }
 
+        // TODO: Write tests for this
+        @Override
+        public int countRemaining() {
+            return -1;
+        }
+
         @Override
         public boolean provenance(PlayingCard card) {
             if (card instanceof ProvenanceInscribedPlayingCard) {
@@ -201,6 +207,12 @@ final class ProvenanceInscribedPlayingCard extends PlayingCard {
                 throw new RanOutOfCardsException(excMsg);
             }
             return this.cards.get(this.dealCount++);
+        }
+
+        // TODO: Write tests for this
+        @Override
+        public int countRemaining() {
+            return -1;
         }
 
         @Override

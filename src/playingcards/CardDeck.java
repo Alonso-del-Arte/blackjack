@@ -61,6 +61,12 @@ public class CardDeck implements CardSupplier {
         }
         return this.cards.get(dealCount++);
     }
+    
+    // TODO: Write tests for this
+    @Override
+    public int countRemaining() {
+        return -1;
+    }
 
     /**
      * Determines whether this deck is in the same order as another deck.
