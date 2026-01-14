@@ -86,6 +86,11 @@ public class PlayingCard {
                 : suitName + middlePart + rankName;
     }
     
+    // TODO: Write tests for this
+    public String toLocalizedString() {
+        return this.toLocalizedString(Locale.ITALY);
+    }
+    
     /**
      * Gives a character from Unicode's Supplementary Multilingual Plane (SMP)  
      * to represent this playing card. Because of spotty font support and the 
