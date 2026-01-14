@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -62,9 +62,13 @@ public class PlayingCard {
         return this.cardRank.getWord() + " of " + this.cardSuit.getWord();
     }
     
-    // TODO: Write tests for this
-    // TODO: Update Javadoc for toUnicodeSMPChar() once tests for this function 
-    // are passing
+    /**
+     * Provides a localized {@code String} for this playing card, provided the 
+     * suitable text is provided in this program's localization files. If 
+     * suitable text is not available, this will default to English.
+     * @param locale The locale. For example, Canadian French.
+     * @return The localized text.
+     */
     public String toLocalizedString(Locale locale) {
         ResourceBundle bundle = ResourceBundle.getBundle("i18n.CardNaming", 
                 locale);
@@ -83,10 +87,11 @@ public class PlayingCard {
     }
     
     /**
-     * Gives a Unicode Supplementary Multilingual Plane (SMP) character to 
-     * represent this playing card. Because of spotty font support and the need 
-     * for surrogate pairs, in most contexts it will be preferable to use {@link 
-     * #toASCIIString()} or {@link #toString()}.
+     * Gives a character from Unicode's Supplementary Multilingual Plane (SMP)  
+     * to represent this playing card. Because of spotty font support and the 
+     * need for surrogate pairs, in most contexts it will be preferable to use 
+     * {@link #toASCIIString()} or {@link #toString()}. Another option is to use 
+     * {@link #toLocalizedString(java.util.Locale) toLocalizedString()}.
      * @return A Unicode SMP character represented as high surrogate U+D83C 
      * followed by a low surrogate in the range U+DCA1 (for A&#9824;) to U+DCD1 
      * (for K&#9827;).
