@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,10 +22,13 @@ package playingcards;
  * other, more normal, indication that the deck, hand or other grouping has run 
  * out of cards. The object throwing this exception may indicate if the deficit 
  * is of a specific rank (e.g., Aces) or a specific suit (e.g., Spades), 
- * suggesting that cards of other ranks or suits may be available.
+ * suggesting that cards of other ranks or suits may be available. See {@link 
+ * CardSupplier#countRemaining()}.
  * @author Alonso del Arte
  */
 public class RanOutOfCardsException extends RuntimeException {
+    
+    private static final long serialVersionUID = 4556844865219985408L;
     
     private final Rank specRank;
     private final Suit specSuit;
@@ -97,8 +100,8 @@ public class RanOutOfCardsException extends RuntimeException {
     /**
      * Constructs an exception with the specified card rank. The rank will then 
      * be available through a getter.
-     * @param rank The rank that caused this exception. For example, 
-     * <code>Rank.EIGHT</code>.
+     * @param rank The rank that caused this exception. For example, {@code 
+     * Rank.EIGHT}.
      */
     public RanOutOfCardsException(Rank rank) {
         this("Ran out of " + rank.getPluralWord(), rank);
@@ -108,8 +111,8 @@ public class RanOutOfCardsException extends RuntimeException {
      * Constructs an exception with the specified detail message and card rank. 
      * The rank will then be available through a getter.
      * @param msg The detail message. For example, "Ran out of Eights".
-     * @param rank The rank that caused this exception. For example, 
-     * {@link Rank#EIGHT}.
+     * @param rank The rank that caused this exception. For example, {@code 
+     * Rank.EIGHT}.
      */
     public RanOutOfCardsException(String msg, Rank rank) {
         this(msg, rank, null);
@@ -118,8 +121,8 @@ public class RanOutOfCardsException extends RuntimeException {
     /**
      * Constructs an exception with the specified detail message and card suit. 
      * The suit will then be available through a getter.
-     * @param suit The suit that caused this exception. For example, {@link 
-     * Suit#DIAMONDS}.
+     * @param suit The suit that caused this exception. For example, {@code 
+     * Suit.DIAMONDS}.
      */
     public RanOutOfCardsException(Suit suit) {
         this("Ran out of " + suit.getPluralWord(), suit);
@@ -129,8 +132,8 @@ public class RanOutOfCardsException extends RuntimeException {
      * Constructs an exception with the specified detail message and card suit.
      * The suit will then be available through a getter.
      * @param msg The detail message. For example, "Ran out of Diamonds".
-     * @param suit  The suit that caused this exception. For example, 
-     * <code>Suit.DIAMONDS</code>.
+     * @param suit  The suit that caused this exception. For example, {@code 
+     * Suit.DIAMONDS}.
      */
     public RanOutOfCardsException(String msg, Suit suit) {
         this(msg, null, suit);
