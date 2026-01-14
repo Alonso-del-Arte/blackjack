@@ -251,6 +251,25 @@ public class PlayingCardTest {
         }
     }
     
+    @Test
+    public void testToLocalizedStringDefaultLocale() {
+        Locale initialLocale = Locale.getDefault();
+        for (Locale locale : LOCALES) {
+            Locale.setDefault(locale);
+            for (Rank rank : RANKS) {
+                for (Suit suit : SUITS) {
+                    PlayingCard card = new PlayingCard(rank, suit);
+                    String expected = card.toLocalizedString(locale);
+                    String actual = card.toLocalizedString();
+                    String message = "Getting name of " + card.toString() 
+                            + " in locale " + locale.getDisplayName();
+                    assertEquals(message, expected, actual);
+                }
+            }
+        }
+        Locale.setDefault(initialLocale);
+    }
+    
     /**
      * Test of the toUnicodeSMPChar function, of the PlayingCard class. This is 
      * testing A&#9824;, 2&#9824;, ..., 10&#9824;, J&#9824;.
