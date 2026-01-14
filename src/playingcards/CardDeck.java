@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -81,16 +81,14 @@ public class CardDeck implements CardSupplier {
      */
     public void shuffle() {
         switch (this.dealCount) {
-            case 0:
-                Collections.shuffle(this.cards);
-                break;
-            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1:
-            case INITIAL_NUMBER_OF_CARDS_PER_DECK:
+            case 0 -> Collections.shuffle(this.cards);
+            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1, 
+                    INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
                 String excMsg = "Can't shuffle deck with one or no cards left";
                 throw new IllegalStateException(excMsg);
-            default:
-                Collections.shuffle(this.cards.subList(this.dealCount, 
-                        INITIAL_NUMBER_OF_CARDS_PER_DECK));
+            }
+            default -> Collections.shuffle(this.cards.subList(this.dealCount, 
+                    INITIAL_NUMBER_OF_CARDS_PER_DECK));
         }
     }
 
