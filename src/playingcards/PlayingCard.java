@@ -86,9 +86,8 @@ public class PlayingCard {
                 : suitName + middlePart + rankName;
     }
     
-    // TODO: Write tests for this
     public String toLocalizedString() {
-        return this.toLocalizedString(Locale.ITALY);
+        return this.toLocalizedString(Locale.getDefault());
     }
     
     /**
