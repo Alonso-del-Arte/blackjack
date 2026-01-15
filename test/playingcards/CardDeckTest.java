@@ -22,6 +22,8 @@ import java.util.HashSet;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the CardDeck class.
  * @author Alonso del Arte
@@ -117,29 +119,16 @@ public class CardDeckTest {
             deck.getNextCard();
             counter++;
         }
-        try {
+        String msg = "Asking for card after last card should cause exception";
+        RanOutOfCardsException roce = assertThrows(() -> {
             PlayingCard card = deck.getNextCard();
-            String message 
-                    = "Asking for another card after last shouldn't have given " 
-                    + card.toString();
-            fail(message);
-        } catch (RanOutOfCardsException roce) {
-            System.out.println("Asking for another card caused exception");
-            System.out.println("\"" + roce.getMessage() + "\"");
-            Rank rank = roce.getRank();
-            Suit suit = roce.getSuit();
-            assert rank == null;
-            assert suit == null;
-        } catch (IndexOutOfBoundsException ioobe) {
-            String msg = "Asking for another card caused index exception";
-            System.out.println(msg);
-            System.out.println("\"" + ioobe.getMessage() + "\"");
-            fail(msg);
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for card after last";
-            fail(msg);
-        }
+            System.out.println(msg + ", not given " + card.toString());
+        }, RanOutOfCardsException.class, msg);
+        Rank rank = roce.getRank();
+        Suit suit = roce.getSuit();
+        assert rank == null : "Rank after general running out should be null";
+        assert suit == null : "Suit after general running out should be null";
+        System.out.println("\"" + roce.getMessage() + "\"");
     }
 
     /**
