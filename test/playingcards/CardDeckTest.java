@@ -218,17 +218,18 @@ public class CardDeckTest {
                 .forEachOrdered((card) -> {
             intersection.add(card);
         });
-        if (intersection.size() > 0) {
+        if (!intersection.isEmpty()) {
             System.out.println("The following cards were dealt twice: ");
             intersection.forEach((card) -> {
                 System.out.println(card.toASCIIString());
             });
-            String msg = "Card " + intersection.get(0).toString();
+            String message = "Card " + intersection.get(0).toString();
             if (intersection.size() > 1) {
-                msg = msg + " and " + (intersection.size() - 1) + " other(s) ";
+                message = message + " and " + (intersection.size() - 1) 
+                        + " other(s)";
             }
-            msg = msg + " should not have been dealt twice";
-            fail(msg);
+            message = message + " should not have been dealt twice";
+            fail(message);
         }
     }
 
