@@ -244,21 +244,21 @@ public class CardDeckTest {
     public void testNoShuffleForJustOneCard() {
         CardDeck deck = new CardDeck();
         int counter = 0;
-        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK - 1) {
+        int max = EXPECTED_NUMBER_OF_CARDS_IN_DECK - 1;
+        while (counter < max) {
             deck.getNextCard();
             counter++;
         }
-        try {
+        String msg 
+                = "Trying to shuffle deck with one card should cause exception";
+        Throwable t = assertThrows(() -> {
             deck.shuffle();
-            fail("Shouldn't have been able to shuffle deck with just one card");
-        } catch (IllegalStateException ise) {
-            System.out.println("Shuffling 1-card deck caused state exception");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for shuffling 1-card deck";
-            fail(msg);
-        }
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
 
     /**
