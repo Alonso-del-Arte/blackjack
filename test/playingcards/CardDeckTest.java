@@ -275,17 +275,16 @@ public class CardDeckTest {
             deck.getNextCard();
             counter++;
         }
-        try {
+        String msg 
+                = "Trying to shuffle deck with no cards should cause exception";
+        Throwable t = assertThrows(() -> {
             deck.shuffle();
-            fail("Shouldn't have been able to shuffle deck with no cards left");
-        } catch (IllegalStateException ise) {
-            System.out.println("Shuffling empty deck caused state exception");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String message = re.getClass().getName() 
-                    + " is the wrong exception for shuffling empty deck";
-            fail(message);
-        }
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
 
     /**
