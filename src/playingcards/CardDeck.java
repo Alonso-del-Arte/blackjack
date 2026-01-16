@@ -59,13 +59,22 @@ public class CardDeck implements CardSupplier {
         if (this.dealCount == this.cards.size()) {
             throw new RanOutOfCardsException();
         }
-        return this.cards.get(dealCount++);
+        return this.cards.get(this.dealCount++);
     }
     
-    // TODO: Write tests for this
+    /**
+     * Reports how many cards are remaining to be dealt. For the example, 
+     * suppose this deck is being used for five-card draw poker for four 
+     * players.
+     * @return The number of cards available to be dealt. In the example, this 
+     * would be 32. Edge cases: for a fresh deck, this should be {@link 
+     * #INITIAL_NUMBER_OF_CARDS_PER_DECK}, and 0 for a depleted deck (in which 
+     * case {@link #hasNext()} should return false and {@link #getNextCard()} 
+     * should throw {@link RanOutOfCardsException}).
+     */
     @Override
     public int countRemaining() {
-        return -1;
+        return INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
     }
 
     /**
