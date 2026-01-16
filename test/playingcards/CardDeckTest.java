@@ -23,6 +23,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import static org.testframe.api.Asserters.assertThrows;
+import static org.testframe.api.Asserters.assertZero;
 
 /**
  * Tests of the CardDeck class.
@@ -129,6 +130,26 @@ public class CardDeckTest {
         assert rank == null : "Rank after general running out should be null";
         assert suit == null : "Suit after general running out should be null";
         System.out.println("\"" + roce.getMessage() + "\"");
+    }
+    
+    @Test
+    public void testCountRemaining() {
+        System.out.println("countRemaining");
+        CardDeck deck = new CardDeck();
+        deck.shuffle();
+        String msgPart = " cards left before giving out ";
+        for (int expected = EXPECTED_NUMBER_OF_CARDS_IN_DECK; expected > 0; 
+                expected--) {
+            int actual = deck.countRemaining();
+            PlayingCard card = deck.getNextCard();
+            String cardName = card.toString();
+            System.out.print(cardName + ", ");
+            if (expected % 13 == 1) System.out.println();
+            String message = expected + msgPart + cardName;
+            assertEquals(message, expected, actual);
+        }
+        String msg = "Deck should be depleted after giving out all cards";
+        assertZero(deck.countRemaining(), msg);
     }
 
     /**
