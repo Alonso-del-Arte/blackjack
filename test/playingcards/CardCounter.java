@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -30,7 +30,7 @@ public class CardCounter {
     
     private final CardSupplier cardSupplier;
     
-    private int index(PlayingCard card) {
+    private static int index(PlayingCard card) {
         return card.getSuit().ordinal() * 13 + card.getRank().ordinal();
     }
     
@@ -48,14 +48,13 @@ public class CardCounter {
     /**
      * Constructs a counter and counts up the cards given by the supplier.
      * @param supplier A card supplier. It may be newly initialized, or it may 
-     * have dealt a few or all of its cards. Either way, the supplier will be 
-     * depleted after the counter is constructed.
+     * have already dealt a few or all of its cards. Either way, the supplier 
+     * will be depleted after the counter is constructed.
      */
     public CardCounter(CardSupplier supplier) {
         this.cardSupplier = supplier;
-        PlayingCard card;
         while (this.cardSupplier.hasNext()) {
-            card = this.cardSupplier.getNextCard();
+            PlayingCard card = this.cardSupplier.getNextCard();
             this.cardCounts[index(card)]++;
         }
     }
