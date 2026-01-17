@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -19,6 +19,8 @@ package playingcards;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static playingcards.PlayingCardTest.RANDOM;
+
 /**
  * Tests of the MultiDeckCardDispenser class.
  * @author Alonso del Arte
@@ -26,32 +28,31 @@ import static org.junit.Assert.*;
 public class MultiDeckCardDispenserTest {
 
     /**
-     * Test of hasNext method, of class MultiDeckCardDispenser.
+     * Test of the hasNext function, of the MultiDeckCardDispenser class.
      */
     @Test
     public void testHasNext() {
         System.out.println("hasNext");
-        int numberOfDecks = 3;
-        int expectedMax = numberOfDecks 
-                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        int numberOfDecks = RANDOM.nextInt(2, 10);
+        int max = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         MultiDeckCardDispenser dispenser 
                 = new MultiDeckCardDispenser(numberOfDecks);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
         int counter = 0;
         try {
-            while (counter < expectedMax) {
+            while (counter < max) {
                 dispenser.getNextCard();
                 counter++;
             }
             assert !dispenser.hasNext() 
                     : "Dispenser should have run out of cards";
         } catch (RanOutOfCardsException roce) {
-            String msg = "Expected dispenser to have " + expectedMax
+            String message = "Expected dispenser to have " + max
                     + " cards but it ran out after giving " + counter 
                     + " cards";
-            System.out.println(msg);
-            System.out.println("\"" + roce.getMessage() + "\"");
-            fail(msg);
+            System.err.println(message);
+            System.err.println("\"" + roce.getMessage() + "\"");
+            fail(message);
         }
     }
 
