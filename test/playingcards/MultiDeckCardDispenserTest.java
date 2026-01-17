@@ -57,18 +57,19 @@ public class MultiDeckCardDispenserTest {
     }
 
     /**
-     * Test of getNextCard method, of class MultiDeckCardDispenser.
+     * Test of the getNextCard function, of the MultiDeckCardDispenser class.
      */
     @Test
     public void testGetNextCard() {
         System.out.println("getNextCard");
-        MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(2);
+        int expected = RANDOM.nextInt(2, 10);
+        MultiDeckCardDispenser dispenser = new MultiDeckCardDispenser(expected);
         CardCounter counter = new CardCounter(dispenser);
-        PlayingCard card;
         for (Suit suit : Suit.values()) {
             for (Rank rank : Rank.values()) {
-                card = new PlayingCard(rank, suit);
-                assertEquals(2, counter.count(card));
+                PlayingCard card = new PlayingCard(rank, suit);
+                int actual = counter.count(card);
+                assertEquals(expected, actual);
             }
         }
     }
