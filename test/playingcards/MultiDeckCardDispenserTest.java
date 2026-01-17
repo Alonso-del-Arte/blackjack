@@ -75,32 +75,31 @@ public class MultiDeckCardDispenserTest {
     }
 
     /**
-     * Another test of getNextCard method, of class MultiDeckCardDispenser.
+     * Another test of the getNextCard function, of the MultiDeckCardDispenser 
+     * class.
      */
     @Test
     public void testGetNextCardStopsAtPlasticCard() {
-        int numberOfDecks = 6;
-        int plasticCardPos = 75;
-        int expectedMax = numberOfDecks 
-                * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - plasticCardPos;
+        int numberOfDecks = RANDOM.nextInt(4, 10);
+        int plasticCardPos = RANDOM.nextInt(40, 80);
+        int max = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - plasticCardPos;
         MultiDeckCardDispenser dispenser 
                 = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
         assert dispenser.hasNext() : "Dispenser should have cards to give";
         int counter = 0;
         try {
-            while (counter < expectedMax) {
+            while (counter < max) {
                 dispenser.getNextCard();
                 counter++;
             }
-            assert !dispenser.hasNext() 
-                    : "Dispenser should have run out of cards";
+            assert !dispenser.hasNext() : "Dispenser should've run out";
         } catch (RanOutOfCardsException roce) {
-            String msg = "Expected dispenser to have " + expectedMax 
-                    + " cards but it ran out after giving " + counter 
-                    + " cards";
-            System.out.println(msg);
+            String message = "Expected dispenser to have " + max 
+                    + " cards but ran out after giving " + counter + " cards";
+            System.out.println(message);
             System.out.println("\"" + roce.getMessage() + "\"");
-            fail(msg);
+            fail(message);
         }
     }
 
