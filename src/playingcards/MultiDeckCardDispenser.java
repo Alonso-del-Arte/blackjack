@@ -99,9 +99,9 @@ public class MultiDeckCardDispenser implements CardSupplier {
      * @param numberOfDecks How many decks to put into the dispenser. Should be 
      * a positive number, preferably greater than 1. For example, 6 for six 
      * decks.
-     * @throws IllegalArgumentException If <code>numberOfDecks</code> is 0.
-     * @throws NegativeArraySizeException If either <code>numberOfDecks</code> 
-     * is negative.
+     * @throws IllegalArgumentException If {@code numberOfDecks} is 0.
+     * @throws NegativeArraySizeException If either {@code numberOfDecks} is  
+     * negative.
      */
     public MultiDeckCardDispenser(int numberOfDecks) {
         this(numberOfDecks, 0);
