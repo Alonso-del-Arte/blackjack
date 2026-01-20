@@ -266,6 +266,7 @@ public class CardServerTest {
         String containsMsg = "Exception message should contain \"" + numStr 
                 + "\""; 
         assert excMsg.contains(numStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
