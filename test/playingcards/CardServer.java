@@ -184,8 +184,13 @@ public class CardServer implements CardSupplier {
     /**
      * Gives a specified number of cards. The cards are given in an array. They 
      * may be of any rank and of any suit, and probably won't be in any 
-     * discernible order.
-     * @param cardQty How many cards to give. For example, five.
+     * discernible order. However, on first request, if the quantity of 
+     * requested cards is less than {@link 
+     * CardDeck#INITIAL_NUMBER_OF_CARDS_PER_DECK}, then the cards are guaranteed 
+     * to be distinct and all from the same deck. This should be just fine for 
+     * testing purposes, but perhaps not for an actual game, even if it's just 
+     * play money on the line.
+     * @param cardQty How many cards to give. For example, five cards.
      * @return An array with the specified number of cards. For example, 
      * 4&#9830;, 4&#9829;, Q&#9827;, 5&#9830;, 7&#9824;.
      * @throws NegativeArraySizeException If {@code cardQty} is negative.
