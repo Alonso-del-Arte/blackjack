@@ -122,11 +122,11 @@ public class MultiDeckCardDispenser implements CardSupplier {
      * that the placing of the plastic card occurs after the decks have been 
      * shuffled together, so a setting of 52 or even as high as 104 is unlikely 
      * to shut out all cards from a particular deck.
-     * @throws IllegalArgumentException If <code>numberOfDecks</code> is 0, or 
-     * if <code>plasticCardPos</code> is in excess of how many cards there are 
-     * in the decks in total.
-     * @throws NegativeArraySizeException If either <code>numberOfDecks</code>  
-     * or <code>plasticCardPos</code> is negative.
+     * @throws IllegalArgumentException If {@code numberOfDecks} is 0, or if 
+     * {@code plasticCardPos} is in excess of how many cards there are in the 
+     * decks in total.
+     * @throws NegativeArraySizeException If either {@code numberOfDecks} or  
+     * {@code plasticCardPos} is negative.
      */
     public MultiDeckCardDispenser(int numberOfDecks, int plasticCardPos) {
         if (numberOfDecks == 0) {
