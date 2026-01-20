@@ -199,9 +199,9 @@ public class CardServer implements CardSupplier {
             String excMsg = "Card quantity " + cardQty + " is not valid";
             throw new NegativeArraySizeException(excMsg);
         }
-        PlayingCard[] cards = new PlayingCard[3];
-        for (int i = 0; i < 3; i++) {
-            cards[i] = null;// this.getNextCard();
+        PlayingCard[] cards = new PlayingCard[cardQty];
+        for (int i = 0; i < cardQty; i++) {
+            cards[i] = this.getNextCard();
         }
         return cards;
     }
