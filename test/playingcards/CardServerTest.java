@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -17,6 +17,8 @@
 package playingcards;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -269,15 +271,22 @@ public class CardServerTest {
     /**
      * Test of the giveCards function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
     public void testGiveCards() {
         System.out.println("giveCards");
+        int expected 
+                = RANDOM.nextInt(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        Set<PlayingCard> examinedCards = new HashSet<>(expected);
         CardServer server = new CardServer();
-        PlayingCard[] cards = server.giveCards(20);
+        PlayingCard[] cards = server.giveCards(expected);
         for (PlayingCard card : cards) {
             assert card != null : "Served card should not be null";
+            examinedCards.add(card);
         }
+        int actual = examinedCards.size();
+        String message = "Request for " + expected 
+                + " cards should've been fulfilled with as many cards";
+        assertEquals(message, expected, actual);
     }
     
     /**
