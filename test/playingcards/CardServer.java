@@ -200,10 +200,6 @@ public class CardServer implements CardSupplier {
      * to simply initialize this server with more decks.
      */
     public PlayingCard[] giveCards(int cardQty) {
-        if (cardQty < 0) {
-            String excMsg = "Card quantity " + cardQty + " is not valid";
-            throw new NegativeArraySizeException(excMsg);
-        }
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
             cards[i] = this.getNextCard();
