@@ -19,6 +19,8 @@ package playingcards;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertZero;
+
 import static playingcards.PlayingCardTest.RANDOM;
 
 /**
@@ -133,6 +135,30 @@ public class MultiDeckCardDispenserTest {
         }
         assert cardsWithAllSix < 30 
                 : "There shouldn't be more than 29 cards with all five";
+    }
+    
+    /**
+     * Test of the countRemaining function.
+     */
+    @Test
+    public void testCountRemaining() {
+        System.out.println("countRemaining");
+        int numberOfDecks = RANDOM.nextInt(4, 10);
+        int plasticCardPos = RANDOM.nextInt(40, 80);
+        int expected = numberOfDecks * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - plasticCardPos;
+        MultiDeckCardDispenser dispenser 
+                = new MultiDeckCardDispenser(numberOfDecks, plasticCardPos);
+        while (expected > 0) {
+            int actual = dispenser.countRemaining();
+            PlayingCard card = dispenser.getNextCard();
+            String message = "Before giving " + card.toString() 
+                    + ", dispenser should have " + expected + " cards";
+            assertEquals(message, expected, actual);
+            expected--;
+        }
+        String msg = "Depleted deck should have no cards";
+        assertZero(dispenser.countRemaining(), msg);
     }
     
     /**
