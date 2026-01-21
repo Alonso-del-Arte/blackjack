@@ -65,10 +65,9 @@ public class MultiDeckCardDispenser implements CardSupplier {
         return this.cards.get(this.dispenseIndex++);
     }
     
-    // TODO: Write tests for this
     @Override
     public int countRemaining() {
-        return -1;
+        return this.cards.size() - this.dispenseIndex;
     }
 
     /**
