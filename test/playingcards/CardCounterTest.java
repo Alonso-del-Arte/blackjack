@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -16,8 +16,13 @@
  */
 package playingcards;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import static playingcards.PlayingCardTest.RANDOM;
 
 /**
  * Tests of the CardCounter class.
@@ -25,9 +30,13 @@ import static org.junit.Assert.*;
  */
 public class CardCounterTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final Suit[] SUITS = Suit.values();
+    
     /**
-     * Test of count method, of class CardCounter. A new deck should have one of 
-     * each card, no more, no less.
+     * Test of the count function, of the CardCounter class. A new deck should 
+     * have one of each card, no more, no less.
      */
     @Test
     public void testCountDeck() {
@@ -44,18 +53,37 @@ public class CardCounterTest {
     }
     
     /**
-     * Another test of count method, of class CardCounter. After handing out 26 
-     * spades, a 2-deck card server should have zero of each spade card. It may 
-     * also be out of a few cards of other suits, but that's outside the scope 
-     * of this test.
+     * Another test of the count function, of the CardCounter class.
      */
     @Test
-    public void testCountServerAfterDealOutSpades() {
-        CardServer server = new CardServer(2);
-        PlayingCard[] spades = server.giveCards(Suit.SPADES, 26);
-        CardCounter counter = new CardCounter(server);
-        for (PlayingCard spade : spades) {
-            assertEquals(0, counter.count(spade));
+    public void testCountServer() {
+        int deckQty = RANDOM.nextInt(2, 11);
+        CardServer supplier = new CardServer(deckQty);
+        Map<PlayingCard, Integer> counts 
+                = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                PlayingCard key = new PlayingCard(rank, suit);
+                counts.put(key, deckQty);
+            }
+        }
+        int cardQty = RANDOM.nextInt(40, 80);
+        PlayingCard[] cards = supplier.giveCards(cardQty);
+        for (PlayingCard key : cards) {
+            int value = counts.get(key) - 1;
+            counts.put(key, value);
+        }
+        CardCounter counter = new CardCounter(supplier);
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                PlayingCard card = new PlayingCard(rank, suit);
+                int expected = counts.get(card);
+                int actual = counter.count(card);
+                String message = "Given supplier with " + deckQty 
+                        + " decks with some given out already, expected " 
+                        + expected + " of " + card.toString();
+                assertEquals(message, expected, actual);
+            }
         }
     }
     
