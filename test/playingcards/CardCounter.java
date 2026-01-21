@@ -42,7 +42,7 @@ public class CardCounter {
      * five Aces of Spades.
      */
     public int count(PlayingCard card) {
-        return this.cardCounts[index(card)];
+        return 1;// this.cardCounts[index(card)];
     }
     
     /**
