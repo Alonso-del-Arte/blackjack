@@ -189,10 +189,12 @@ public enum Rank implements CardSpec {
         return this.rankWord + intersperse + 's';
     }
 
-    // TODO: Write tests for this
     @Override
     public String getPluralWord(Locale locale) {
-        return this.getPluralWord();
+        ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                locale);
+        String key = "plural" + this.rankChars;
+        return res.getString(key);
     }
 
     /**
