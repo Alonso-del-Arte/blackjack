@@ -159,14 +159,15 @@ public enum Rank implements CardSpec {
     }
     
     /**
-     * Gives a word for this rank in the specified locale. For the example, 
-     * suppose this rank is King.
+     * Gives a word for this rank in the specified locale, if the word is 
+     * available in this program's resource bundles. For the example, suppose 
+     * this rank is King.
      * @param locale The locale for which to give the word. For example, {@code 
      * Locale.JAPAN}.
      * @return A word retrieved from a specific resource bundle in the {@code 
      * i18n} package or the default resource bundle (English) if there is no 
      * specific resource bundle for {@code locale}. For example, 
-     * "&#x30AD;&#x30F3;&#x30B0;".
+     * "&#x30AD;&#x30F3;&#x30B0;" (romanized "kingu").
      */
     @Override
     public String getWord(Locale locale) {
@@ -189,6 +190,16 @@ public enum Rank implements CardSpec {
         return this.rankWord + intersperse + 's';
     }
 
+    /**
+     * Gives a plural word for this rank in the specified locale, if the word is 
+     * available in this program's resource bundles. For the example, suppose 
+     * this rank is Seven.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.GERMANY}.
+     * @return A word retrieved from a specific resource bundle in the {@code 
+     * i18n} package or the default resource bundle (English) if there is no 
+     * specific resource bundle for {@code locale}. For example, "Siebenen".
+     */
     @Override
     public String getPluralWord(Locale locale) {
         ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
