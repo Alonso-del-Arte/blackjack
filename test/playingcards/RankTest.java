@@ -390,6 +390,22 @@ public class RankTest {
     }
     
     @Test
+    public void testGetPluralWordByLocale() {
+        for (Locale locale : LOCALES) {
+            ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                    locale);
+            for (Rank rank : RANKS) {
+                String key = "plural" + rank.getChars();
+                String expected = res.getString(key);
+                String actual = rank.getPluralWord(locale);
+                String message = "Fetching name for " + rank.getChars() + " in " 
+                        + locale.getDisplayName();
+                assertEquals(message, expected, actual);
+            }
+        }
+    }
+    
+    @Test
     public void testIsCourtRank() {
         System.out.println("isCourtRank");
         assert !Rank.ACE.isCourtRank() : "Aces are not court cards";
