@@ -189,6 +189,12 @@ public enum Rank implements CardSpec {
         return this.rankWord + intersperse + 's';
     }
 
+    // TODO: Write tests for this
+    @Override
+    public String getPluralWord(Locale locale) {
+        return this.getPluralWord();
+    }
+
     /**
      * Tells whether a given rank corresponds to courts card or not. Other terms 
      * for "court card" include "face card," "picture card" and "painting card."
