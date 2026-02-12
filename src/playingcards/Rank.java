@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -218,12 +218,12 @@ public enum Rank implements CardSpec {
     }
     
     /**
-     * Determines which rank corresponds to a given <code>String</code>.
-     * @param s The <code>String</code> to parse. For example, "Five".
-     * @return The <code>Rank</code> corresponding to <code>s</code>. For 
-     * example, {@link #FIVE}.
-     * @throws NoSuchElementException If <code>s</code> does not correspond to 
-     * any of the <code>Rank</code> values.
+     * Determines which rank corresponds to a given {@code String}.
+     * @param s The {@code String} to parse. For example, "Five".
+     * @return The {@code Rank} corresponding to {@code s}. For example, {@link 
+     * #FIVE}.
+     * @throws NoSuchElementException If {@code s} does not correspond to any of 
+     * the {@code Rank} values.
      */
     static Rank parseRank(String s) {
         return switch (s) {
