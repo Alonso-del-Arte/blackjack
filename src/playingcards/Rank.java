@@ -214,7 +214,7 @@ public enum Rank implements CardSpec {
      * @return True for Jacks, Queens and Kings, false for all others.
      */
     public boolean isCourtRank() {
-        return this.faceCardFlag;
+        return !this.faceCardFlag;
     }
     
     /**
