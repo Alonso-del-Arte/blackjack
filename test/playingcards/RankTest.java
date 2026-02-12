@@ -408,19 +408,19 @@ public class RankTest {
     @Test
     public void testIsCourtRank() {
         System.out.println("isCourtRank");
-        assert !Rank.ACE.isCourtRank() : "Aces are not court cards";
-        assert !Rank.TWO.isCourtRank() : "Twos are not court cards";
-        assert !Rank.THREE.isCourtRank() : "Threes are not court cards";
-        assert !Rank.FOUR.isCourtRank() : "Fours are not court cards";
-        assert !Rank.FIVE.isCourtRank() : "Fives are not court cards";
-        assert !Rank.SIX.isCourtRank() : "Sixes are not court cards";
-        assert !Rank.SEVEN.isCourtRank() : "Sevens are not court cards";
-        assert !Rank.EIGHT.isCourtRank() : "Eights are not court cards";
-        assert !Rank.NINE.isCourtRank() : "Nines are not court cards";
-        assert !Rank.TEN.isCourtRank() : "Tens are not court cards";
         assert Rank.JACK.isCourtRank() : "Jacks are court cards";
         assert Rank.QUEEN.isCourtRank() : "Queens are court cards";
         assert Rank.KING.isCourtRank() : "Kings are court cards";
+    }
+    
+    @Test
+    public void testIsNotCourtRank() {
+        Rank[] ranks = {Rank.ACE, Rank.TWO, Rank.THREE, Rank.FOUR, Rank.FIVE, 
+            Rank.SIX, Rank.SEVEN, Rank.EIGHT, Rank.NINE, Rank.TEN};
+        for (Rank rank : ranks) {
+            String msg = rank.toString() + " is not a court rank";
+            assert !rank.isCourtRank() : msg;
+        }
     }
     
     @Test
