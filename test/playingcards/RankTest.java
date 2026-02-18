@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,6 +22,8 @@ import java.util.ResourceBundle;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import static org.testframe.api.Asserters.assertThrows;
 
 /**
  * Tests of the Rank enumerated type.
@@ -440,22 +442,19 @@ public class RankTest {
     
     @Test
     public void testParseRankExceptionForInvalidInput() {
-        String s = "For testing purposes";
-        try {
+        String s = "For testing purposes in locale " 
+                + Locale.getDefault().getDisplayName();
+        String msg = "Parse input \"" + s + "\" should have caused exception";
+        Throwable t = assertThrows(() -> {
             Rank badRank = Rank.parseRank(s);
-            String msg = "Parse input \"" + s 
-                    + "\" should have caused exception, not given " 
-                    + badRank.getWord();
-            fail(msg);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Parse input \"" + s 
-                    + "\" correctly caused NoSuchElementException");
-            System.out.println("\"" + nsee.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for parse input \"" + s + "\"";
-            fail(msg);
-        }
+            System.out.println(msg + ", not given " + badRank.getWord());
+        }, NoSuchElementException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + s + "\"";
+        assert excMsg.contains(s) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
