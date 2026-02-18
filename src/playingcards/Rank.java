@@ -240,10 +240,10 @@ public enum Rank implements CardSpec {
             case "Jack" -> Rank.JACK;
             case "Queen" -> Rank.QUEEN;
             case "King" -> Rank.KING;
-            default -> Rank.EIGHT; //{
-//                String excMsg = "No rank for \"" + s + "\"";
-//                throw new NoSuchElementException(excMsg);
-//            }
+            default -> {
+                String excMsg = "No rank for \"" + s + "\"";
+                throw new NoSuchElementException(excMsg);
+            }
         };
     }
     
