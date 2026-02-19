@@ -125,7 +125,10 @@ public enum Suit implements CardSpec {
      * @return A word retrieved from a specific resource bundle in the {@code 
      * i18n} package or the default resource bundle (English) if there is no 
      * specific resource bundle for {@code locale}. For example, 
-     * "Tr&egrave;fle".
+     * "Tr&egrave;fle". Note that in some cases, a resource bundle that is close 
+     * enough may be used, e.g., if we have a general French resource bundle but 
+     * not a Canadian French resource bundle, then general French will be 
+     * considered good enough.
      */
     @Override
     public String getWord(Locale locale) {
@@ -160,7 +163,10 @@ public enum Suit implements CardSpec {
      * @return A word retrieved from a specific resource bundle in the {@code 
      * i18n} package or the default resource bundle (English) if there is no 
      * specific resource bundle for {@code locale}. For example, 
-     * "Tr&egrave;fle".
+     * "Tr&egrave;fle". Note that in some cases, a resource bundle that is close 
+     * enough may be used, e.g., if we have a general French resource bundle but 
+     * not a Canadian French resource bundle, then general French will be 
+     * considered good enough.
      */
     @Override
     public String getPluralWord(Locale locale) {
