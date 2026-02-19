@@ -150,10 +150,7 @@ public enum Suit implements CardSpec {
     
     @Override
     public String getPluralWord(Locale locale) {
-        ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
-                locale);
-        String key = this.suitWord.toLowerCase() + "Name";
-        return res.getString(key);
+        return this.getWord(locale);
     }
 
     /**
