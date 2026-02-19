@@ -147,6 +147,14 @@ public enum Suit implements CardSpec {
     public String getPluralWord() {
         return this.getWord();
     }
+    
+    @Override
+    public String getPluralWord(Locale locale) {
+        ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                locale);
+        String key = this.suitWord.toLowerCase() + "Name";
+        return res.getString(key);
+    }
 
     /**
      * Gives the color to use for text elements on a playing card. The color is 
