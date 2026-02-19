@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -74,12 +74,12 @@ public interface CardSpec {
      * the specified locale. A default implementation is given that merely 
      * returns the same as {@link #getPluralWord()}, so for now this can be a 
      * placeholder for internationalization.
-     * @param loc The locale for which to give the word. For example, 
-     * <code>Locale.ITALY</code>.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.ITALY}.
      * @return The same as {@link #getPluralWord()} if this default 
      * implementation is not overridden.
      */
-    default String getPluralWord(Locale loc) {
+    default String getPluralWord(Locale locale) {
         return this.getPluralWord();
     }
     
