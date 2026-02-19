@@ -148,6 +148,20 @@ public enum Suit implements CardSpec {
         return this.getWord();
     }
     
+    /**
+     * Gives a plural word for this suit in the specified locale. Since, as far 
+     * as I know, suits are always referred to in the plural form in every 
+     * language, this particular override simply gives the same result as {@link 
+     * #getWord(java.util.Locale) getWord(locale)}. If this is shown to me to be 
+     * wrong for even just one language, I intend to rework all the resource 
+     * bundles. For the example, suppose this suit is clubs.
+     * @param locale The locale for which to give the word. For example, {@code 
+     * Locale.CANADA_FRENCH}.
+     * @return A word retrieved from a specific resource bundle in the {@code 
+     * i18n} package or the default resource bundle (English) if there is no 
+     * specific resource bundle for {@code locale}. For example, 
+     * "Tr&egrave;fle".
+     */
     @Override
     public String getPluralWord(Locale locale) {
         return this.getWord(locale);
