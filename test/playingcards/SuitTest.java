@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the Suit enumerated type.
  * @author Alonso del Arte
@@ -194,22 +196,19 @@ public class SuitTest {
     
     @Test
     public void testParseSuitExceptionForInvalidInput() {
-        String s = "For testing purposes";
-        try {
+        String s = "For testing purposes in locale " 
+                + Locale.getDefault().getDisplayName();
+        String msg = "Parse input \"" + s + "\" should have caused exception";
+        Throwable t = assertThrows(() -> {
             Suit badSuit = Suit.parseSuit(s);
-            String msg = "Parse input \"" + s 
-                    + "\" should have caused exception, not given " 
-                    + badSuit.getWord();
-            fail(msg);
-        } catch (NoSuchElementException nsee) {
-            System.out.println("Parse input \"" + s 
-                    + "\" correctly caused NoSuchElementException");
-            System.out.println("\"" + nsee.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for parse input \"" + s + "\"";
-            fail(msg);
-        }
+            System.out.println(msg + ", not given " + badSuit.getWord());
+        }, NoSuchElementException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + s + "\"";
+        assert excMsg.contains(s) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
