@@ -198,10 +198,10 @@ public enum Suit implements CardSpec {
             case "Hearts"-> Suit.HEARTS;
             case "Clubs" -> Suit.CLUBS;
             case "Diamonds" -> Suit.DIAMONDS;
-            default -> Suit.SPADES;// {
-//                String excMsg = "No matching suit found for \"" + s + "\"";
-//                throw new NoSuchElementException(excMsg);
-//            }
+            default -> {
+                String excMsg = "No matching suit found for \"" + s + "\"";
+                throw new NoSuchElementException(excMsg);
+            }
         };
     }
     
