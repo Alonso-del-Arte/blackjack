@@ -164,6 +164,22 @@ public class SuitTest {
         }
     }
     
+    @Test
+    public void testGetPluralWordByLocale() {
+        for (Locale locale : LOCALES) {
+            ResourceBundle res = ResourceBundle.getBundle("i18n.CardNaming", 
+                    locale);
+            for (Suit suit : SUITS) {
+                String key = suit.getWord().toLowerCase() + "Name";
+                String expected = res.getString(key);
+                String actual = suit.getPluralWord(locale);
+                String message = "Fetching name for " + suit.getChar() + " in " 
+                        + locale.getDisplayName();
+                assertEquals(message, expected, actual);
+            }
+        }
+    }
+    
     /**
      * Test of the getTextColor function, of the Suit enumerated type.
      */
