@@ -102,7 +102,7 @@ public enum Suit implements CardSpec {
      * "&#9827;&#65039;" for clubs and "&#9830;&#65039;" for diamonds.
      */
     public String getCharEmojiVariant() {
-        return "" + this.suitChar + '\uFE0F';
+        return Character.toString(this.suitChar) + '\uFE0F';
     }
     
     /**
