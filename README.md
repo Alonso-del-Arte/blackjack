@@ -8,7 +8,7 @@ There is a card server, so as to enable the game as a website (see
 `CardJSONServer` in the `playingcards` package).
 
 There is for now no option to split a pair, double down nor make an insurance 
-bet.
+bet, though some groundwork has been done for that.
 
 In 2025, I started taking some steps towards internationalization. A lot remains 
 to be done. I've resumed that work in 2026.
