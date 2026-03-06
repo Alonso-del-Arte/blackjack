@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -22,6 +22,10 @@ import java.util.Map;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import static org.testframe.api.Asserters.assertZero;
+
+import static playingcards.CardJSONServerTest.RANDOM;
 
 /**
  * Tests of the CardQueue class.
@@ -107,6 +111,24 @@ public class CardQueueTest {
         while (iterator.hasNext()) {
             int actual = cardCounts.get(iterator.next());
             assertEquals(expected, actual);
+        }
+    }
+    
+    @Test
+    public void testCountRemaining() {
+        int deckQty = RANDOM.nextInt(2, 11);
+        CardSupplier instance = new CardQueue(deckQty);
+        String msgPartA = "Given queue that started with " + deckQty 
+                + " decks, counting remaining deals after ";
+        int givenSoFar = 0;
+        String msgPartB = " cards given out";
+        int initial = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        for (int expected = initial; expected > 0; expected--) {
+            int actual = instance.countRemaining();
+            String message = msgPartA + givenSoFar + msgPartB;
+            assertEquals(message, expected, actual);
+            instance.getNextCard();
+            givenSoFar++;
         }
     }
     
