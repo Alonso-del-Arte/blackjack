@@ -101,10 +101,9 @@ public class CardQueue implements CardSupplier {
         return this.cards.remove(0);
     }
 
-    // TODO: Write tests for this
     @Override
     public int countRemaining() {
-        return -1;
+        return this.currCardQty;
     }
 
     @Override
