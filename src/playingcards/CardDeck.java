@@ -31,7 +31,7 @@ public class CardDeck implements CardSupplier {
      * The deck is expected to have cards of thirteen ranks for each of four 
      * suits.
      */
-    public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 52;
+    public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 53;
 
     final ArrayList<PlayingCard> cards;
 
@@ -43,7 +43,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return (this.dealCount < this.cards.size());
+        return false;// (this.dealCount < this.cards.size());
     }
 
     /**
@@ -56,10 +56,11 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public PlayingCard getNextCard() {
-        if (this.dealCount == this.cards.size()) {
-            throw new RanOutOfCardsException();
-        }
-        return this.cards.get(this.dealCount++);
+//        if (this.dealCount == this.cards.size()) {
+//            throw new RanOutOfCardsException();
+//        }
+        return new PlayingCard(Rank.JACK, Suit.CLUBS); 
+// this.cards.get(this.dealCount++);
     }
     
     /**
@@ -74,7 +75,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public int countRemaining() {
-        return INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
+        return -1;// INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
     }
 
     /**
@@ -84,8 +85,8 @@ public class CardDeck implements CardSupplier {
      * <em>and</em> the remaining cards are in the same order, false otherwise.
      */
     public boolean sameOrderAs(CardDeck other) {
-        return (this.cards.equals(other.cards) 
-                && this.dealCount == other.dealCount);
+        return false;//  (this.cards.equals(other.cards) 
+//                && this.dealCount == other.dealCount);
     }
 
     /**
@@ -95,16 +96,16 @@ public class CardDeck implements CardSupplier {
      * left.
      */
     public void shuffle() {
-        switch (this.dealCount) {
-            case 0 -> Collections.shuffle(this.cards);
-            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1, 
-                    INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
-                String excMsg = "Can't shuffle deck with one or no cards left";
-                throw new IllegalStateException(excMsg);
-            }
-            default -> Collections.shuffle(this.cards.subList(this.dealCount, 
-                    INITIAL_NUMBER_OF_CARDS_PER_DECK));
-        }
+//        switch (this.dealCount) {
+//            case 0 -> Collections.shuffle(this.cards);
+//            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1, 
+//                    INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
+//                String excMsg = "Can't shuffle deck with one or no cards left";
+//                throw new IllegalStateException(excMsg);
+//            }
+//            default -> Collections.shuffle(this.cards.subList(this.dealCount, 
+//                    INITIAL_NUMBER_OF_CARDS_PER_DECK));
+//        }
     }
 
     /**
@@ -117,9 +118,9 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean provenance(PlayingCard card) {
-        int index = this.cards.indexOf(card);
-        PlayingCard ownCard = this.cards.get(index);
-        return (card == ownCard);
+//        int index = this.cards.indexOf(card);
+//        PlayingCard ownCard = this.cards.get(index);
+        return false;// (card == ownCard);
     }
 
     /**
