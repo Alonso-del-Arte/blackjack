@@ -27,8 +27,27 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
+    // TODO: Write tests for this
     @Override
     public boolean hasNext() {
+        return false;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public PlayingCard getNextCard() {
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public int countRemaining() {
+        return -3;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public boolean provenance(PlayingCard card) {
         return false;
     }
     
