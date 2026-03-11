@@ -31,7 +31,7 @@ public class CardDeck implements CardSupplier {
      * The deck is expected to have cards of thirteen ranks for each of four 
      * suits.
      */
-    public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 53;
+    public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 52;
 
     final ArrayList<PlayingCard> cards;
 
