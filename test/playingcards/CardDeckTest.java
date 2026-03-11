@@ -51,10 +51,30 @@ public class CardDeckTest {
      * Test of hasNext method, of class CardDeck.
      */
     @org.junit.Ignore @Test
+    public void testNewDeckHasNext() {
+        CardDeck deck = new CardDeck();
+        assert deck.hasNext() : "A new deck should have a card to deal";
+    }
+
+    /**
+     * Test to ascertain the deck gives 52 cards and then no more.
+     */
+    @org.junit.Ignore @Test
     public void testHasNext() {
         System.out.println("hasNext");
         CardDeck deck = new CardDeck();
-        assert deck.hasNext() : "A new deck should have a card to deal";
+        int counter = 0;
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg = "Deck should be out of cards after dealing all 52";
+        assert !deck.hasNext() : msg;
+    }
+    
+    @org.junit.Ignore @Test
+    public void testDoesNotHaveNext() {
+        fail("WRITE THIS TEST");
     }
 
     /**
@@ -67,21 +87,6 @@ public class CardDeckTest {
         String msg = "First card from new deck should not be null";
         boolean opResult = deck.getNextCard() != null;
         assert opResult : msg;
-    }
-
-    /**
-     * Test to ascertain the deck gives 52 cards and then no more.
-     */
-    @org.junit.Ignore @Test
-    public void testDeckHas52Cards() {
-        CardDeck deck = new CardDeck();
-        int counter = 0;
-        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
-            deck.getNextCard();
-            counter++;
-        }
-        String msg = "Deck should be out of cards after dealing all 52";
-        assert !deck.hasNext() : msg;
     }
 
     /**
