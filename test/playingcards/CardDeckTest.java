@@ -48,9 +48,9 @@ public class CardDeckTest {
     }
 
     /**
-     * Test of hasNext method, of class CardDeck.
+     * Test of the hasNext function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNewDeckHasNext() {
         CardDeck deck = new CardDeck();
         assert deck.hasNext() : "A new deck should have a card to deal";
