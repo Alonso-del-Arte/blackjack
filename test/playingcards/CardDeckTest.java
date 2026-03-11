@@ -57,24 +57,30 @@ public class CardDeckTest {
     }
 
     /**
-     * Test to ascertain the deck gives 52 cards and then no more.
+     * Test of the hasNext function, of the CardDeck class. We need to ascertain 
+     * the deck gives 52 cards and the function returns true before each of 
+     * those cards is given out.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testHasNext() {
         System.out.println("hasNext");
         CardDeck deck = new CardDeck();
+        String msgPartA = "After giving out ";
         int counter = 0;
+        String msgPartB = " card(s), deck should still have next";
         while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            String msg = msgPartA + counter + msgPartB;
+            assert deck.hasNext() : msg;
             deck.getNextCard();
             counter++;
         }
-        String msg = "Deck should be out of cards after dealing all 52";
-        assert !deck.hasNext() : msg;
     }
     
     @org.junit.Ignore @Test
     public void testDoesNotHaveNext() {
         fail("WRITE THIS TEST");
+        String msg = "Deck should be out of cards after dealing all 52";
+//        assert !deck.hasNext() : msg;
     }
 
     /**
