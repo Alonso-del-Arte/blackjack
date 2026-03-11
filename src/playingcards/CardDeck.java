@@ -43,7 +43,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return true;// (this.dealCount < this.cards.size());
+        return this.dealCount == 0;// (this.dealCount < this.cards.size());
     }
 
     /**
@@ -59,6 +59,7 @@ public class CardDeck implements CardSupplier {
 //        if (this.dealCount == this.cards.size()) {
 //            throw new RanOutOfCardsException();
 //        }
+this.dealCount++;
         return new PlayingCard(Rank.JACK, Suit.CLUBS); 
 // this.cards.get(this.dealCount++);
     }
