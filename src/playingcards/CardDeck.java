@@ -43,7 +43,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean hasNext() {
-        return false;// (this.dealCount < this.cards.size());
+        return true;// (this.dealCount < this.cards.size());
     }
 
     /**
