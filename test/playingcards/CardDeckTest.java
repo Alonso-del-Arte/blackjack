@@ -184,11 +184,24 @@ public class CardDeckTest {
     }
     
     /**
-     * Another test of the sameOrderAs function, of the CardDeck class.
+     * Test of the sameOrderAs function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testSameOrderAs() {
-        fail();
+        System.out.println("sameOrderAs");
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        String msgPartA = "After giving out ";
+        int counter = 0;
+        String msgPartB = " card(s) each, both decks should be in same order";
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            other.getNextCard();
+            counter++;
+            String msg = msgPartA + counter + msgPartB;
+            assert deck.sameOrderAs(other) : msg;
+            assert other.sameOrderAs(deck) : msg;
+        }
     }
 
     /**
@@ -196,7 +209,6 @@ public class CardDeckTest {
      */
     @org.junit.Ignore @Test
     public void testNotSameOrderAsAfterDiffDealCounts() {
-        System.out.println("sameOrderAs");
         CardDeck deck01 = new CardDeck();
         deck01.getNextCard();
         CardDeck deck02 = new CardDeck();
