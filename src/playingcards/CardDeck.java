@@ -74,7 +74,7 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public int countRemaining() {
-        return -1;// INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
+        return INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
     }
 
     /**
