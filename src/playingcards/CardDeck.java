@@ -60,7 +60,7 @@ public class CardDeck implements CardSupplier {
 //            throw new RanOutOfCardsException();
 //        }
 this.dealCount++;
-        return new PlayingCard(Rank.JACK, Suit.CLUBS); 
+        return null;// new PlayingCard(Rank.JACK, Suit.CLUBS); 
 // this.cards.get(this.dealCount++);
     }
     
