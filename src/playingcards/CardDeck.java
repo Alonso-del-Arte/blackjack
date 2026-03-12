@@ -57,8 +57,7 @@ public class CardDeck implements CardSupplier {
     @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == this.cards.size()) {
-//            throw new RanOutOfCardsException();
-return new PlayingCard(Rank.JACK, Suit.CLUBS);
+            throw new RanOutOfCardsException();
         }
         return this.cards.get(this.dealCount++);
     }
