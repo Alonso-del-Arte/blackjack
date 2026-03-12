@@ -27,6 +27,8 @@ import static org.junit.Assert.*;
 import static org.testframe.api.Asserters.assertThrows;
 import static org.testframe.api.Asserters.assertZero;
 
+import static playingcards.CardJSONServerTest.RANDOM;
+
 /**
  * Tests of the CardDeck class.
  * @author Alonso del Arte

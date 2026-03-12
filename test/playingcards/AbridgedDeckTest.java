@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -12,15 +12,23 @@
  * details.
  *
  * You should have received a copy of the GNU General Public License along with 
- * this program.  If not, see <http://www.gnu.org/licenses/>.
+ * this program. If not, see <http://www.gnu.org/licenses/>.
  */
 package playingcards;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
+import static org.junit.Assert.*;
+
+import static org.testframe.api.Asserters.assertThrows;
+import static org.testframe.api.Asserters.assertZero;
+
+import static playingcards.CardJSONServerTest.RANDOM;
 
 /**
  * Tests of the AbridgedDeck class.
