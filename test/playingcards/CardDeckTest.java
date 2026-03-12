@@ -151,7 +151,7 @@ public class CardDeckTest {
         System.out.println("\"" + roce.getMessage() + "\"");
     }
     
-    @org.junit.Ignore @Test
+    @Test
     public void testCountRemaining() {
         System.out.println("countRemaining");
         CardDeck deck = new CardDeck();
