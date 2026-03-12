@@ -174,63 +174,6 @@ public class CardDeckTest {
     }
 
     /**
-     * Another test of the sameOrderAs function, of the CardDeck class.
-     */
-    @Test
-    public void testSameOrderAsInitially() {
-        CardDeck deck = new CardDeck();
-        CardDeck other = new CardDeck();
-        String msg = "Two new unshuffled decks should be in the same order";
-        assert deck.sameOrderAs(other) : msg;
-        assert other.sameOrderAs(deck) : msg;
-    }
-    
-    /**
-     * Test of the sameOrderAs function, of the CardDeck class.
-     */
-    @Test
-    public void testSameOrderAs() {
-        System.out.println("sameOrderAs");
-        CardDeck deck = new CardDeck();
-        CardDeck other = new CardDeck();
-        String msgPartA = "After giving out ";
-        int counter = 0;
-        String msgPartB = " card(s) each, both decks should be in same order";
-        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
-            deck.getNextCard();
-            other.getNextCard();
-            counter++;
-            String msg = msgPartA + counter + msgPartB;
-            assert deck.sameOrderAs(other) : msg;
-            assert other.sameOrderAs(deck) : msg;
-        }
-    }
-    
-    // TODO: Write test with one deck shuffled but same deal count
-
-    /**
-     * Another test of the sameOrderAs function, of the CardDeck class.
-     */
-    @Test
-    public void testNotSameOrderAsAfterDiffDealCounts() {
-        fail("FINISH WRITING THIS TEST");
-        CardDeck deck = new CardDeck();
-        CardDeck other = new CardDeck();
-        deck.getNextCard();
-        int counterA = 1;
-        int counterB = 0;
-        while (deck.hasNext()) {
-            //
-        }
-        CardDeck deck01 = new CardDeck();
-        deck01.getNextCard();
-        CardDeck deck02 = new CardDeck();
-        String msg = "Decks should differ after different number of deals";
-        assert !deck01.sameOrderAs(deck02) : msg;
-        assert !deck02.sameOrderAs(deck01) : msg;
-    }
-
-    /**
      * Test of shuffle method, of class CardDeck.
      */
     @org.junit.Ignore @Test
@@ -357,6 +300,63 @@ public class CardDeckTest {
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
         System.out.println("\"" + excMsg + "\"");
+    }
+
+    /**
+     * Another test of the sameOrderAs function, of the CardDeck class.
+     */
+    @Test
+    public void testSameOrderAsInitially() {
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        String msg = "Two new unshuffled decks should be in the same order";
+        assert deck.sameOrderAs(other) : msg;
+        assert other.sameOrderAs(deck) : msg;
+    }
+    
+    /**
+     * Test of the sameOrderAs function, of the CardDeck class.
+     */
+    @Test
+    public void testSameOrderAs() {
+        System.out.println("sameOrderAs");
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        String msgPartA = "After giving out ";
+        int counter = 0;
+        String msgPartB = " card(s) each, both decks should be in same order";
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            other.getNextCard();
+            counter++;
+            String msg = msgPartA + counter + msgPartB;
+            assert deck.sameOrderAs(other) : msg;
+            assert other.sameOrderAs(deck) : msg;
+        }
+    }
+    
+    // TODO: Write test with one deck shuffled but same deal count
+
+    /**
+     * Another test of the sameOrderAs function, of the CardDeck class.
+     */
+    @org.junit.Ignore @Test
+    public void testNotSameOrderAsAfterDiffDealCounts() {
+        fail("FINISH WRITING THIS TEST");
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        deck.getNextCard();
+        int counterA = 1;
+        int counterB = 0;
+        while (deck.hasNext()) {
+            //
+        }
+        CardDeck deck01 = new CardDeck();
+        deck01.getNextCard();
+        CardDeck deck02 = new CardDeck();
+        String msg = "Decks should differ after different number of deals";
+        assert !deck01.sameOrderAs(deck02) : msg;
+        assert !deck02.sameOrderAs(deck01) : msg;
     }
 
     /**
