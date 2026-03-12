@@ -84,7 +84,7 @@ public class CardDeck implements CardSupplier {
      * <em>and</em> the remaining cards are in the same order, false otherwise.
      */
     public boolean sameOrderAs(CardDeck other) {
-        return false;//  (this.cards.equals(other.cards) 
+        return this.dealCount == 0;//  (this.cards.equals(other.cards) 
 //                && this.dealCount == other.dealCount);
     }
 
