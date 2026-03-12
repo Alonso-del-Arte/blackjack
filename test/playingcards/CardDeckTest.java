@@ -123,15 +123,15 @@ public class CardDeckTest {
     }
     
     /**
-     * Another test of getNextCard method, of class CardDeck. Trying to get 
-     * another card after the last card has been dealt should cause 
-     * <code>IllegalStateException</code>. It should not cause 
-     * <code>IndexOutOfBoundsException</code>, which would imply that the caller 
-     * was expected to keep track of the index. The correct way to prevent 
-     * <code>getNextCard()</code> from causing an exception is by checking 
-     * <code>hasNext()</code>.
+     * Another test of the getNextCard function, of the CardDeck class. Trying 
+     * to get another card after the last card has been dealt should cause 
+     * {@link RanOutOfCardsException}. It should not cause {@code 
+     * IndexOutOfBoundsException}, which would imply that the caller was 
+     * expected to keep track of the index. The correct way to prevent {@code 
+     * getNextCard()} from causing an exception is by checking {@code 
+     * hasNext()}.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNoDealAfterLastCard() {
         CardDeck deck = new CardDeck();
         int counter = 0;
