@@ -172,20 +172,27 @@ public class CardDeckTest {
     }
 
     /**
-     * Test of sameOrderAs method, of class CardDeck.
+     * Another test of the sameOrderAs function, of the CardDeck class.
+     */
+    @Test
+    public void testSameOrderAsInitially() {
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        String msg = "Two new unshuffled decks should be in the same order";
+        assert deck.sameOrderAs(other) : msg;
+        assert other.sameOrderAs(deck) : msg;
+    }
+    
+    /**
+     * Another test of the sameOrderAs function, of the CardDeck class.
      */
     @org.junit.Ignore @Test
     public void testSameOrderAs() {
-        System.out.println("sameOrderAs");
-        CardDeck deck01 = new CardDeck();
-        CardDeck deck02 = new CardDeck();
-        String msg = "Two new unshuffled decks should be in the same order";
-        assert deck01.sameOrderAs(deck02) : msg;
-        assert deck02.sameOrderAs(deck01) : msg;
+        fail();
     }
 
     /**
-     * Another test of sameOrderAs method, of class CardDeck.
+     * Test of sameOrderAs method, of class CardDeck.
      */
     @org.junit.Ignore @Test
     public void testNotSameOrderAsAfterDiffDealCounts() {
