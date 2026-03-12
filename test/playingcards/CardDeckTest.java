@@ -195,20 +195,6 @@ public class CardDeckTest {
     }
 
     /**
-     * Simultaneous test of shuffle and sameOrderAs. The result of this test is
-     * irrelevant if any of the tests for shuffle or sameOrderAs fail.
-     */
-    @org.junit.Ignore @Test
-    public void testDiffOrderAfterShuffle() {
-        CardDeck unshuffled = new CardDeck();
-        CardDeck shuffled = new CardDeck();
-        shuffled.shuffle();
-        String msg = "Shuffled deck should not be in same order as unshuffled";
-        assert !shuffled.sameOrderAs(unshuffled) : msg;
-        assert !unshuffled.sameOrderAs(shuffled) : msg;
-    }
-
-    /**
      * Another test of shuffle method, of class CardDeck. I don't know if there
      * are any card games that require the deck to be reshuffled after cards
      * have been dealt, but it seems logical that if that is the case, the same
