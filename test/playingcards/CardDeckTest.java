@@ -89,15 +89,16 @@ public class CardDeckTest {
     }
 
     /**
-     * Test of getNextCard method, of class CardDeck.
+     * Another test of the getNextCard function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
-    public void testGetNextCard() {
-        System.out.println("getNextCard");
+    @Test
+    public void testGetNextCardDoesNotGiveNullCard() {
         CardDeck deck = new CardDeck();
-        String msg = "First card from new deck should not be null";
-        boolean opResult = deck.getNextCard() != null;
-        assert opResult : msg;
+        String msg = "Card should not be null";
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            assert card != null : msg;
+        }
     }
 
     /**
@@ -105,6 +106,7 @@ public class CardDeckTest {
      */
     @org.junit.Ignore @Test
     public void testDeckHas52DistinctCards() {
+        System.out.println("getNextCard");
         CardDeck deck = new CardDeck();
         PlayingCard card = new PlayingCard(Rank.TWO, Suit.CLUBS);
         HashSet<PlayingCard> cards = new HashSet<>();
