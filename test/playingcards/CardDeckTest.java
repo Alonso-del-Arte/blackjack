@@ -174,9 +174,9 @@ public class CardDeckTest {
     }
 
     /**
-     * Test of shuffle method, of class CardDeck.
+     * Test of the shuffle procedure, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testShuffle() {
         System.out.println("shuffle");
         CardDeck unshuffled = new CardDeck();
@@ -190,7 +190,7 @@ public class CardDeckTest {
             diffCardFound = diffCardFound 
                     || !fromShuffled.equals(fromUnshuffled);
         }
-        String msg = "Shuffled deck should have cards in different order";
+        String msg = "Shuffled deck should have cards in a different order";
         assert diffCardFound : msg;
     }
 
