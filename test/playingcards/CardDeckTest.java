@@ -76,11 +76,16 @@ public class CardDeckTest {
         }
     }
     
-    @org.junit.Ignore @Test
+    @Test
     public void testDoesNotHaveNext() {
-        fail("WRITE THIS TEST");
+        CardDeck deck = new CardDeck();
+        int counter = 0;
+        while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
         String msg = "Deck should be out of cards after dealing all 52";
-//        assert !deck.hasNext() : msg;
+        assert !deck.hasNext() : msg;
     }
 
     /**
