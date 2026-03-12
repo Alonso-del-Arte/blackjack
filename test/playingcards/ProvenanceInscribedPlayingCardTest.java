@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -27,7 +27,7 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import static playingcards.CardJSONServerTest.RANDOM;
+import static playingcards.PlayingCardTest.RANDOM;
 
 /**
  * Tests of the ProvenanceInscribedPlayingCard class.

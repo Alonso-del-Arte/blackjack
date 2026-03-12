@@ -16,7 +16,7 @@
  */
 package playingcards;
 
-import static playingcards.CardJSONServerTest.RANDOM;
+import static playingcards.PlayingCardTest.RANDOM;
 
 import java.util.ArrayList;
 import java.util.List;

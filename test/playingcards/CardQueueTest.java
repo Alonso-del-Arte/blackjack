@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 
 import static org.testframe.api.Asserters.assertZero;
 
-import static playingcards.CardJSONServerTest.RANDOM;
+import static playingcards.PlayingCardTest.RANDOM;
 
 /**
  * Tests of the CardQueue class.
@@ -42,7 +42,7 @@ public class CardQueueTest {
     @Test
     public void testHasNext() {
         System.out.println("hasNext");
-        int deckQty = CardJSONServerTest.RANDOM.nextInt(10) + 1;
+        int deckQty = RANDOM.nextInt(10) + 1;
         CardQueue queue = new CardQueue(deckQty);
         int cardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         PlayingCard lastCard = null;
@@ -62,7 +62,7 @@ public class CardQueueTest {
     
     @Test
     public void testGetNextCardThrowsExceptionAfterRunningOut() {
-        int deckQty = CardJSONServerTest.RANDOM.nextInt(10) + 1;
+        int deckQty = RANDOM.nextInt(10) + 1;
         CardQueue queue = new CardQueue(deckQty);
         int cardQty = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
         PlayingCard lastCard = new PlayingCard(Rank.JACK, Suit.CLUBS);
@@ -95,7 +95,7 @@ public class CardQueueTest {
         System.out.println("getNextCard");
         Map<PlayingCard, Integer> cardCounts 
                 = new HashMap<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
-        int expected = CardJSONServerTest.RANDOM.nextInt(8) + 2;
+        int expected = RANDOM.nextInt(8) + 2;
         CardSupplier queue = new CardQueue(expected);
         while (queue.hasNext()) {
             PlayingCard card 
@@ -182,7 +182,7 @@ public class CardQueueTest {
     
     @Test
     public void testProvenanceDiffQueue() {
-        int deckQty = CardJSONServerTest.RANDOM.nextInt(8) + 2;
+        int deckQty = RANDOM.nextInt(8) + 2;
         CardSupplier queueA = new CardQueue(deckQty);
         CardSupplier queueB = new CardQueue(deckQty);
         String nameA = queueA.toString();
@@ -347,7 +347,7 @@ public class CardQueueTest {
     
     @Test
     public void testConstructorRejectsNegativeDeckQuantity() {
-        int badQty = -CardJSONServerTest.RANDOM.nextInt(1024) - 1;
+        int badQty = -RANDOM.nextInt(1024) - 1;
         try {
             CardQueue badQueue = new CardQueue(badQty);
             String msg = "Should not have been able to create " + badQueue 

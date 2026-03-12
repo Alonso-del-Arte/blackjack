@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -33,6 +33,8 @@ import static org.junit.Assert.*;
 import static org.testframe.api.Asserters.assertDoesNotThrow;
 import static org.testframe.api.Asserters.assertThrows;
 
+import static playingcards.PlayingCardTest.RANDOM;
+
 /**
  * Tests of the CardJSONServer class. And also of the static classes nested 
  * within it. Depending on how many seconds are specified by {@link 
@@ -50,8 +52,6 @@ public class CardJSONServerTest {
     
     private static final int DEFAULT_STOP = 75;
     
-    static final Random RANDOM = new Random();
-        
     @Test
     public void testContentTypeSpecification() {
         String expected = "application/json; charset=" 

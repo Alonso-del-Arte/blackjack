@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 import static org.testframe.api.Asserters.assertDoesNotThrow;
 import static org.testframe.api.Asserters.assertThrows;
 
-import static playingcards.CardJSONServerTest.RANDOM;
+import static playingcards.PlayingCardTest.RANDOM;
 
 /**
  * Tests of the CardServer class.
