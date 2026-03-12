@@ -105,6 +105,7 @@ public class CardDeck implements CardSupplier {
 //            default -> Collections.shuffle(this.cards.subList(this.dealCount, 
 //                    INITIAL_NUMBER_OF_CARDS_PER_DECK));
 //        }
+Collections.shuffle(this.cards);
     }
 
     /**
