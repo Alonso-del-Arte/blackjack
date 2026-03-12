@@ -18,6 +18,8 @@ package playingcards;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -102,21 +104,20 @@ public class CardDeckTest {
     }
 
     /**
-     * Test to ascertain the deck gives 52 distinct cards.
+     * Test of the getNextCard function, of the CardDeck class. This test is to 
+     * ascertain the deck gives 52 distinct cards.
      */
-    @org.junit.Ignore @Test
-    public void testDeckHas52DistinctCards() {
+    @Test
+    public void testGetNextCard() {
         System.out.println("getNextCard");
         CardDeck deck = new CardDeck();
-        PlayingCard card = new PlayingCard(Rank.TWO, Suit.CLUBS);
-        HashSet<PlayingCard> cards = new HashSet<>();
+        Set<PlayingCard> cards = new HashSet<>();
         int counter = 0;
         while (counter < EXPECTED_NUMBER_OF_CARDS_IN_DECK) {
-            card = deck.getNextCard();
+            PlayingCard card = deck.getNextCard();
             cards.add(card);
             counter++;
         }
-        System.out.println("Last card dealt was " + card.toASCIIString() + "?");
         int actual = cards.size();
         assertEquals(EXPECTED_NUMBER_OF_CARDS_IN_DECK, actual);
     }
