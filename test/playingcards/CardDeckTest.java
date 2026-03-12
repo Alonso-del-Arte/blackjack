@@ -203,12 +203,23 @@ public class CardDeckTest {
             assert other.sameOrderAs(deck) : msg;
         }
     }
+    
+    // TODO: Write test with one deck shuffled but same deal count
 
     /**
-     * Test of sameOrderAs method, of class CardDeck.
+     * Another test of the sameOrderAs function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNotSameOrderAsAfterDiffDealCounts() {
+        fail("FINISH WRITING THIS TEST");
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        deck.getNextCard();
+        int counterA = 1;
+        int counterB = 0;
+        while (deck.hasNext()) {
+            //
+        }
         CardDeck deck01 = new CardDeck();
         deck01.getNextCard();
         CardDeck deck02 = new CardDeck();
