@@ -36,6 +36,10 @@ import static playingcards.PlayingCardTest.RANDOM;
  */
 public class AbridgedDeckTest {
     
+    private static final Rank[] NO_RANKS = {};
+    
+    private static final Suit[] NO_SUITS = {};
+    
     @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
