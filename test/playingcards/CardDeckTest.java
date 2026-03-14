@@ -195,18 +195,19 @@ public class CardDeckTest {
     }
 
     /**
-     * Another test of shuffle method, of class CardDeck. I don't know if there
-     * are any card games that require the deck to be reshuffled after cards
-     * have been dealt, but it seems logical that if that is the case, the same
-     * card should not be dealt twice. Hence this test.
+     * Another test of the shuffle procedure, of the CardDeck class. I don't 
+     * know if there are any card games that require the deck to be reshuffled 
+     * after cards have been dealt, but it seems logical that if that is the 
+     * case, the same card should not be dealt twice. Hence this test.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testShuffleOnlyCardsInDeck() {
         CardDeck deck = new CardDeck();
-        ArrayList<PlayingCard> discardPile = new ArrayList<>();
-        ArrayList<PlayingCard> stillInDeck = new ArrayList<>();
+        List<PlayingCard> discardPile = new ArrayList<>();
+        List<PlayingCard> stillInDeck = new ArrayList<>();
         int counter = 0;
-        while (counter < 26) {
+        int halfCount = EXPECTED_NUMBER_OF_CARDS_IN_DECK / 2;
+        while (counter < halfCount) {
             discardPile.add(deck.getNextCard());
             counter++;
         }
