@@ -35,7 +35,8 @@ public class CardDeck implements CardSupplier {
 
     final ArrayList<PlayingCard> cards;
 
-    private int dealCount = 0;
+    // TODO: Restore class private once all AbridgedDeck tests are passing
+    /* private */ int dealCount = 0;
 
     /**
      * Tells whether the deck can give another card.
