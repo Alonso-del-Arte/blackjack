@@ -104,6 +104,16 @@ public class AbridgedDeckTest {
         assert !deck.hasNext() : msg;
     }
 
+    @Test
+    public void testNoRanksOmittedGetNextCardDoesNotGiveNullCard() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        String msg = "Card should not be null";
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            assert card != null : msg;
+        }
+    }
+
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
