@@ -360,14 +360,15 @@ public class CardDeckTest {
         assert deck.provenance(card) : msg;
     }
 
-    @org.junit.Ignore @Test
+    @Test
     public void testComesFromDiffDeck() {
-        CardDeck deck01 = new CardDeck();
-        CardDeck deck02 = new CardDeck();
-        PlayingCard cardFromSecondDeck = deck02.getNextCard();
+        CardDeck deck1 = new CardDeck();
+        CardDeck deck2 = new CardDeck();
+        deck2.shuffle();
+        PlayingCard cardFromSecondDeck = deck2.getNextCard();
         String msg = "The card " + cardFromSecondDeck.toString() 
                 + " from Deck 2 should not be said to come from Deck 1";
-        assert !deck01.provenance(cardFromSecondDeck) : msg;
+        assert !deck1.provenance(cardFromSecondDeck) : msg;
     }
 
 }
