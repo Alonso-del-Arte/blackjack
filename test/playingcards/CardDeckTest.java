@@ -347,12 +347,13 @@ public class CardDeckTest {
     }
 
     /**
-     * Test of provenance method, of class CardDeck.
+     * Test of the provenance function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testProvenance() {
         System.out.println("provenance");
         CardDeck deck = new CardDeck();
+        deck.shuffle();
         PlayingCard card = deck.getNextCard();
         String msg = "The card " + card.toString() 
                 + " dealt from this deck should be said to come from this deck";
