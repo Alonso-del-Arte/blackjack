@@ -30,12 +30,13 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public boolean hasNext() {
-        return this.dealCount == 0;
+        return true;
     }
     
     // TODO: Write tests for this
     @Override
     public PlayingCard getNextCard() {
+        this.dealCount++;
         return new PlayingCard(Rank.JACK, Suit.CLUBS);
     }
     
