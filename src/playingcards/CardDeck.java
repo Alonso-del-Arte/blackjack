@@ -97,11 +97,11 @@ public class CardDeck implements CardSupplier {
     public void shuffle() {
         switch (this.dealCount) {
             case 0 -> Collections.shuffle(this.cards);
-//            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1, 
-//                    INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
-//                String excMsg = "Can't shuffle deck with one or no cards left";
-//                throw new IllegalStateException(excMsg);
-//            }
+            case INITIAL_NUMBER_OF_CARDS_PER_DECK - 1, 
+                    INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
+                String excMsg = "Can't shuffle deck with one or no cards left";
+                throw new IllegalStateException(excMsg);
+            }
             default -> Collections.shuffle(this.cards.subList(this.dealCount, 
                     INITIAL_NUMBER_OF_CARDS_PER_DECK));
         }
