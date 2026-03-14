@@ -264,12 +264,12 @@ public class CardDeckTest {
     }
 
     /**
-     * Another test of shuffle method, of class CardDeck. I don't know if there
-     * are any card games that require the deck to be reshuffled after cards 
-     * have been dealt. However, if there are no cards left in the deck, trying 
-     * to shuffle should cause an exception.
+     * Another test of the shuffle procedure, of the CardDeck class. I don't 
+     * know if there are any card games that require the deck to be reshuffled 
+     * after cards have been dealt. However, if there are no cards left in the 
+     * deck, trying to shuffle should cause an exception.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNoShuffleForZeroCards() {
         CardDeck deck = new CardDeck();
         int counter = 0;
