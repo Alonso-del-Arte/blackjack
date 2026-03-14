@@ -39,7 +39,7 @@ public class CardDeckTest {
      * The deck is expected to have thirteen cards for each of four suits, and
      * no Jokers.
      */
-    public static final int EXPECTED_NUMBER_OF_CARDS_IN_DECK = 52;
+    private static final int EXPECTED_NUMBER_OF_CARDS_IN_DECK = 52;
 
     /**
      * The CardDeck class should have a constant declaring that the deck has 52 
