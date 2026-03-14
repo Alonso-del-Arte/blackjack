@@ -11,7 +11,7 @@ There is for now no option to split a pair, double down nor make an insurance
 bet, though some groundwork has been done for that.
 
 In 2025, I started taking some steps towards internationalization. A lot remains 
-to be done. I've resumed that work in 2026.
+to be done. I resumed that work in 2026.
 
 If you're interested in participating in Hacktoberfest 2026, see 
 [CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
