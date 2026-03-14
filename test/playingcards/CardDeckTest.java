@@ -236,13 +236,13 @@ public class CardDeckTest {
     }
 
     /**
-     * Another test of shuffle method, of class CardDeck. I don't know if there
-     * are any card games that require the deck to be reshuffled after cards
-     * have been dealt. However, if there is only one card left in the deck, 
-     * there is no point in shuffling. It could be argued that there's no point 
-     * shuffling two cards, but I'm going to let that one slide.
+     * Another test of the shuffle procedure, of the CardDeck class. I don't 
+     * know if there are any card games that require the deck to be reshuffled 
+     * after cards have been dealt. However, if there is only one card left in 
+     * the deck, there is no point in shuffling. It could be argued that there's 
+     * no point shuffling two cards, but I'm going to let that one slide.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNoShuffleForJustOneCard() {
         CardDeck deck = new CardDeck();
         int counter = 0;
