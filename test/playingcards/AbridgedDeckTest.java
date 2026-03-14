@@ -52,6 +52,34 @@ public class AbridgedDeckTest {
         assert deck.hasNext() : "A new deck should have cards to deal";
     }
     
+    @Test
+    public void testNoRanksOmittedHasNext() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        String msgPartA = "After giving out ";
+        int counter = 0;
+        String msgPartB = " card(s), deck should still have next";
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            String msg = msgPartA + counter + msgPartB;
+            assert deck.hasNext() : msg;
+            deck.getNextCard();
+            counter++;
+        }
+    }
+    
+    @Test
+    public void testNoSuitsOmittedHasNext() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        String msgPartA = "After giving out ";
+        int counter = 0;
+        String msgPartB = " card(s), deck should still have next";
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            String msg = msgPartA + counter + msgPartB;
+            assert deck.hasNext() : msg;
+            deck.getNextCard();
+            counter++;
+        }
+    }
+    
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
