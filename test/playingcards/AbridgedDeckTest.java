@@ -80,6 +80,30 @@ public class AbridgedDeckTest {
         }
     }
     
+    @Test
+    public void testDepletedNoRanksOmittedDoesNotHaveNext() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg = "Deck should be out of cards after dealing all 52";
+        assert !deck.hasNext() : msg;
+    }
+
+    @Test
+    public void testDepletedNoSuitsOmittedDoesNotHaveNext() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg = "Deck should be out of cards after dealing all 52";
+        assert !deck.hasNext() : msg;
+    }
+
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
