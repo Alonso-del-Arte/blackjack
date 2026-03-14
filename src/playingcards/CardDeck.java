@@ -119,7 +119,7 @@ public class CardDeck implements CardSupplier {
     public boolean provenance(PlayingCard card) {
 //        int index = this.cards.indexOf(card);
 //        PlayingCard ownCard = this.cards.get(index);
-        return false;// (card == ownCard);
+        return true;// (card == ownCard);
     }
 
     /**
