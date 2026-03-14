@@ -117,9 +117,9 @@ public class CardDeck implements CardSupplier {
      */
     @Override
     public boolean provenance(PlayingCard card) {
-//        int index = this.cards.indexOf(card);
-//        PlayingCard ownCard = this.cards.get(index);
-        return true;// (card == ownCard);
+        int index = this.cards.indexOf(card);
+        PlayingCard ownCard = this.cards.get(index);
+        return (card == ownCard);
     }
 
     /**
