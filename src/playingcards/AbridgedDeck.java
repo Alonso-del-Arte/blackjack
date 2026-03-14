@@ -30,7 +30,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public boolean hasNext() {
-        return false;
+        return this.dealCount == 0;
     }
     
     // TODO: Write tests for this
