@@ -40,6 +40,18 @@ public class AbridgedDeckTest {
     
     private static final Suit[] NO_SUITS = {};
     
+    @Test
+    public void testNewDeckNoRanksOmittedHasNext() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        assert deck.hasNext() : "A new deck should have cards to deal";
+    }
+    
+    @Test
+    public void testNewDeckNoSuitsOmittedHasNext() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        assert deck.hasNext() : "A new deck should have cards to deal";
+    }
+    
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
