@@ -37,7 +37,7 @@ public final class AbridgedDeck extends CardDeck {
     @Override
     public PlayingCard getNextCard() {
         this.dealCount++;
-        return null;// new PlayingCard(Rank.JACK, Suit.CLUBS);
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
     }
     
     // TODO: Write tests for this
