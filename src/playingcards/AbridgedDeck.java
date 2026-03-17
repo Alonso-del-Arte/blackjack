@@ -36,6 +36,9 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public PlayingCard getNextCard() {
+        if (this.dealCount == CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            throw new RanOutOfCardsException();
+        }
         return this.cards.get(this.dealCount++);
     }
     
