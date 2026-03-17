@@ -152,6 +152,46 @@ public class AbridgedDeckTest {
         assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, actual);
     }
     
+    @Test
+    public void testNoDealAfterLastCardNoRanksOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg = "Asking for card after last card should cause exception";
+        RanOutOfCardsException roce = assertThrows(() -> {
+            PlayingCard card = deck.getNextCard();
+            System.out.println(msg + ", not given " + card.toString());
+        }, RanOutOfCardsException.class, msg);
+        Rank rank = roce.getRank();
+        Suit suit = roce.getSuit();
+        assert rank == null : "Rank after general running out should be null";
+        assert suit == null : "Suit after general running out should be null";
+        System.out.println("\"" + roce.getMessage() + "\"");
+    }
+    
+    @Test
+    public void testNoDealAfterLastCardNoSuitsOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg = "Asking for card after last card should cause exception";
+        RanOutOfCardsException roce = assertThrows(() -> {
+            PlayingCard card = deck.getNextCard();
+            System.out.println(msg + ", not given " + card.toString());
+        }, RanOutOfCardsException.class, msg);
+        Rank rank = roce.getRank();
+        Suit suit = roce.getSuit();
+        assert rank == null : "Rank after general running out should be null";
+        assert suit == null : "Suit after general running out should be null";
+        System.out.println("\"" + roce.getMessage() + "\"");
+    }
+    
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
