@@ -52,6 +52,11 @@ public final class AbridgedDeck extends CardDeck {
         return false;
     }
     
+    @Override
+    public void shuffle() {
+        // TODO: Write tests for this
+    }
+    
     private void removeCards(Predicate<PlayingCard> predicate) {
         List<PlayingCard> taggedCards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
@@ -68,8 +73,8 @@ public final class AbridgedDeck extends CardDeck {
      * cards.
      * @param ranks The rank or ranks to omit. For example, the Eights and the 
      * Tens. Special cases: no ranks removed means might as well have used the 
-     * <code>CardDeck</code> constructor instead; all ranks removed depletes the 
-     * deck completely before any game can even begin.
+     * {@code CardDeck} constructor instead; all ranks removed depletes the deck 
+     * completely before any game can even begin.
      */
     public AbridgedDeck(Rank... ranks) {
         for (Rank rankToRemove : ranks) {
@@ -83,8 +88,8 @@ public final class AbridgedDeck extends CardDeck {
      * cards.
      * @param suits The suit or suits to omit. For example, the Spades and the 
      * Hearts. Special cases: no suits removed means might as well have used the 
-     * <code>CardDeck</code> constructor instead; all suits removed depletes the 
-     * deck completely before any game can even begin.
+     * {@code CardDeck} constructor instead; all suits removed depletes the deck 
+     * completely before any game can even begin.
      */
     public AbridgedDeck(Suit... suits) {
         for (Suit suitToRemove : suits) {
