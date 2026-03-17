@@ -124,6 +124,34 @@ public class AbridgedDeckTest {
         }
     }
 
+    @Test
+    public void testGetNextCardFromNoRanksOmittedDeck() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        Set<PlayingCard> cards = new HashSet<>();
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            PlayingCard card = deck.getNextCard();
+            cards.add(card);
+            counter++;
+        }
+        int actual = cards.size();
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, actual);
+    }
+    
+    @Test
+    public void testGetNextCardFromNoSuitsOmittedDeck() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        Set<PlayingCard> cards = new HashSet<>();
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            PlayingCard card = deck.getNextCard();
+            cards.add(card);
+            counter++;
+        }
+        int actual = cards.size();
+        assertEquals(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK, actual);
+    }
+    
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
