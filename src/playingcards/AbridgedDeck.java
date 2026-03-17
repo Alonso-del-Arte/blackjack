@@ -45,7 +45,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public int countRemaining() {
-        return -3;
+        return CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
     }
     
     // TODO: Write tests for this
