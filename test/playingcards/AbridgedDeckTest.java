@@ -31,7 +31,9 @@ import static org.testframe.api.Asserters.assertZero;
 import static playingcards.PlayingCardTest.RANDOM;
 
 /**
- * Tests of the AbridgedDeck class.
+ * Tests of the AbridgedDeck class. The tests for decks with no omissions are 
+ * presented first, but of course JUnit is by default free to run tests in 
+ * whatever order is determined by the algorithm chosen by its creators.
  * @author Alonso del Arte
  */
 public class AbridgedDeckTest {
@@ -190,6 +192,40 @@ public class AbridgedDeckTest {
         assert rank == null : "Rank after general running out should be null";
         assert suit == null : "Suit after general running out should be null";
         System.out.println("\"" + roce.getMessage() + "\"");
+    }
+    
+    @Test
+    public void testCountRemainingNoRanksOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        deck.shuffle();
+        String msgPart = " cards left before giving out ";
+        for (int expected = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
+                expected > 0; expected--) {
+            int actual = deck.countRemaining();
+            PlayingCard card = deck.getNextCard();
+            String cardName = card.toString();
+            String message = expected + msgPart + cardName;
+            assertEquals(message, expected, actual);
+        }
+        String msg = "Deck should be depleted after giving out all cards";
+        assertZero(deck.countRemaining(), msg);
+    }
+    
+    @Test
+    public void testCountRemainingNoSuitsOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        deck.shuffle();
+        String msgPart = " cards left before giving out ";
+        for (int expected = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
+                expected > 0; expected--) {
+            int actual = deck.countRemaining();
+            PlayingCard card = deck.getNextCard();
+            String cardName = card.toString();
+            String message = expected + msgPart + cardName;
+            assertEquals(message, expected, actual);
+        }
+        String msg = "Deck should be depleted after giving out all cards";
+        assertZero(deck.countRemaining(), msg);
     }
     
     @org.junit.Ignore @Test
