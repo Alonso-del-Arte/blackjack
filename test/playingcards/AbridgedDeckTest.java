@@ -312,6 +312,48 @@ public class AbridgedDeckTest {
         assert intersection.isEmpty() : msg;
     }
 
+    @Test
+    public void testNoShuffleForJustOneCardNoRanksOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        int counter = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
+        while (counter < max) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg 
+                = "Trying to shuffle deck with one card should cause exception";
+        Throwable t = assertThrows(() -> {
+            deck.shuffle();
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+
+    @Test
+    public void testNoShuffleForJustOneCardNoSuitsOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        int counter = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
+        while (counter < max) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg 
+                = "Trying to shuffle deck with one card should cause exception";
+        Throwable t = assertThrows(() -> {
+            deck.shuffle();
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
