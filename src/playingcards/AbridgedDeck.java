@@ -57,7 +57,12 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public void shuffle() {
-        Collections.shuffle(this.cards);
+        if (this.dealCount == 0) {
+            Collections.shuffle(this.cards);
+        } else {
+            Collections.shuffle(this.cards.subList(this.dealCount, 
+                    CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK));
+        }
     }
     
     private void removeCards(Predicate<PlayingCard> predicate) {
