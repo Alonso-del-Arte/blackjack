@@ -228,6 +228,40 @@ public class AbridgedDeckTest {
         assertZero(deck.countRemaining(), msg);
     }
     
+    @Test
+    public void testShuffleNoRanksOmitted() {
+        CardDeck unshuffled = new AbridgedDeck(NO_RANKS);
+        CardDeck shuffled = new AbridgedDeck(NO_RANKS);
+        shuffled.shuffle();
+        PlayingCard fromShuffled, fromUnshuffled;
+        boolean diffCardFound = false;
+        while (shuffled.hasNext() && unshuffled.hasNext()) {
+            fromShuffled = shuffled.getNextCard();
+            fromUnshuffled = unshuffled.getNextCard();
+            diffCardFound = diffCardFound 
+                    || !fromShuffled.equals(fromUnshuffled);
+        }
+        String msg = "Shuffled deck should have cards in a different order";
+        assert diffCardFound : msg;
+    }
+    
+    @Test
+    public void testShuffleNoSuitsOmitted() {
+        CardDeck unshuffled = new AbridgedDeck(NO_SUITS);
+        CardDeck shuffled = new AbridgedDeck(NO_SUITS);
+        shuffled.shuffle();
+        PlayingCard fromShuffled, fromUnshuffled;
+        boolean diffCardFound = false;
+        while (shuffled.hasNext() && unshuffled.hasNext()) {
+            fromShuffled = shuffled.getNextCard();
+            fromUnshuffled = unshuffled.getNextCard();
+            diffCardFound = diffCardFound 
+                    || !fromShuffled.equals(fromUnshuffled);
+        }
+        String msg = "Shuffled deck should have cards in a different order";
+        assert diffCardFound : msg;
+    }
+    
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
