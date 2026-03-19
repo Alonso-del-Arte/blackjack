@@ -215,22 +215,14 @@ public class CardDeckTest {
         while (deck.hasNext()) {
             stillInDeck.add(deck.getNextCard());
         }
-        ArrayList<PlayingCard> intersection = new ArrayList<>();
+        List<PlayingCard> intersection = new ArrayList<>();
         discardPile.stream().filter((card) -> (stillInDeck.contains(card)))
                 .forEachOrdered((card) -> {
             intersection.add(card);
         });
         if (!intersection.isEmpty()) {
-            System.out.println("The following cards were dealt twice: ");
-            intersection.forEach((card) -> {
-                System.out.println(card.toASCIIString());
-            });
-            String message = "Card " + intersection.get(0).toString();
-            if (intersection.size() > 1) {
-                message = message + " and " + (intersection.size() - 1) 
-                        + " other(s)";
-            }
-            message = message + " should not have been dealt twice";
+            String message = "The following cards were dealt twice: " 
+                    + intersection.toString();
             fail(message);
         }
     }
