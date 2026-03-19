@@ -262,6 +262,56 @@ public class AbridgedDeckTest {
         assert diffCardFound : msg;
     }
     
+    @Test
+    public void testShuffleOnlyCardsInDeckNoRanksOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        List<PlayingCard> discardPile = new ArrayList<>();
+        List<PlayingCard> stillInDeck = new ArrayList<>();
+        int counter = 0;
+        int halfCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
+        while (counter < halfCount) {
+            discardPile.add(deck.getNextCard());
+            counter++;
+        }
+        deck.shuffle();
+        while (deck.hasNext()) {
+            stillInDeck.add(deck.getNextCard());
+        }
+        List<PlayingCard> intersection = new ArrayList<>();
+        discardPile.stream().filter((card) -> (stillInDeck.contains(card)))
+                .forEachOrdered((card) -> {
+            intersection.add(card);
+        });
+        String msg = "The following cards were dealt twice: " 
+                + intersection.toString();
+        assert intersection.isEmpty() : msg;
+    }
+
+    @Test
+    public void testShuffleOnlyCardsInDeckNoSuitsOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        List<PlayingCard> discardPile = new ArrayList<>();
+        List<PlayingCard> stillInDeck = new ArrayList<>();
+        int counter = 0;
+        int halfCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
+        while (counter < halfCount) {
+            discardPile.add(deck.getNextCard());
+            counter++;
+        }
+        deck.shuffle();
+        while (deck.hasNext()) {
+            stillInDeck.add(deck.getNextCard());
+        }
+        List<PlayingCard> intersection = new ArrayList<>();
+        discardPile.stream().filter((card) -> (stillInDeck.contains(card)))
+                .forEachOrdered((card) -> {
+            intersection.add(card);
+        });
+        String msg = "The following cards were dealt twice: " 
+                + intersection.toString();
+        assert intersection.isEmpty() : msg;
+    }
+
     @org.junit.Ignore @Test
     public void testOmitSingleRank() {
         for (Rank omittedRank : Rank.values()) {
