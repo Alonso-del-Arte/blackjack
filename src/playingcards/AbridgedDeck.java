@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -56,7 +57,7 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public void shuffle() {
-        // TODO: Write tests for this
+        Collections.shuffle(this.cards);
     }
     
     private void removeCards(Predicate<PlayingCard> predicate) {
