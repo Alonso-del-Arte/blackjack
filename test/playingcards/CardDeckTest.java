@@ -220,11 +220,9 @@ public class CardDeckTest {
                 .forEachOrdered((card) -> {
             intersection.add(card);
         });
-        if (!intersection.isEmpty()) {
-            String message = "The following cards were dealt twice: " 
-                    + intersection.toString();
-            fail(message);
-        }
+        String msg = "The following cards were dealt twice: " 
+                + intersection.toString();
+        assert intersection.isEmpty() : msg;
     }
 
     /**
