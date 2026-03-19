@@ -1,8 +1,9 @@
 # The blackjack, or 21, game
 
 The game is ready to play on the console or terminal (text only), limited to a 
-dealer and only one player. I am working on a graphical user interface for this, 
-using Java Swing (see the `ui.graphical` package).
+dealer and only one player, no splitting, and overall in desperate need of 
+refactoring. I am working on a graphical user interface for this, using Java 
+Swing (see the `ui.graphical` package).
 
 There is a card server, so as to enable the game as a website (see 
 `CardJSONServer` in the `playingcards` package).
