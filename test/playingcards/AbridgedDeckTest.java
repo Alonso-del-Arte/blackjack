@@ -38,6 +38,8 @@ import static playingcards.PlayingCardTest.RANDOM;
  */
 public class AbridgedDeckTest {
     
+    private static final Rank[] ALL_RANKS = Rank.values();
+    
     private static final Rank[] NO_RANKS = {};
     
     private static final Suit[] NO_SUITS = {};
@@ -354,16 +356,20 @@ public class AbridgedDeckTest {
         System.out.println("\"" + excMsg + "\"");
     }
 
-    @org.junit.Ignore @Test
+    @Test
     public void testOmitSingleRank() {
-        for (Rank omittedRank : Rank.values()) {
+        int maxCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ALL_RANKS.length;
+        for (Rank omittedRank : ALL_RANKS) {
+            int currCount = 0;
             AbridgedDeck deck = new AbridgedDeck(omittedRank);
             deck.shuffle();
             String msgPart = " should not be " + omittedRank.getWord();
-            while (deck.hasNext()) {
+            while (currCount < maxCount) {
                 PlayingCard card = deck.getNextCard();
                 String msg = card.toString() + msgPart;
                 assert card.getRank() != omittedRank : msg;
+                currCount++;
             }
         }
     }
