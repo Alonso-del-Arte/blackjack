@@ -92,6 +92,7 @@ public final class AbridgedDeck extends CardDeck {
 //        for (Rank rankToRemove : ranks) {
 //            this.removeCards(card -> (card.getRank() == rankToRemove));
 //        }
+if (ranks.length > 0) this.removeCards(card -> card.getRank() == ranks[0]);
     }
     
     /**
