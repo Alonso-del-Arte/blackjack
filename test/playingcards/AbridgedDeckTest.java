@@ -376,16 +376,20 @@ public class AbridgedDeckTest {
         }
     }
     
-    @org.junit.Ignore @Test
+    @Test
     public void testOmitSingleSuit() {
-        for (Suit omittedSuit : Suit.values()) {
+        int maxCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ALL_RANKS.length;
+        for (Suit omittedSuit : ALL_SUITS) {
+            int currCount = 0;
             AbridgedDeck deck = new AbridgedDeck(omittedSuit);
             deck.shuffle();
-            String msgPart = " should not be of " + omittedSuit.getPluralWord();
-            while (deck.hasNext()) {
+            String msgPart = " should not be " + omittedSuit.getWord();
+            while (currCount < maxCount) {
                 PlayingCard card = deck.getNextCard();
                 String msg = card.toString() + msgPart;
-                assert card.getSuit() != omittedSuit : msg;
+                assert card.getSuit()!= omittedSuit : msg;
+                currCount++;
             }
         }
     }
