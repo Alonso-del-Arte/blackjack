@@ -361,7 +361,7 @@ public class AbridgedDeckTest {
     @Test
     public void testOmitSingleRank() {
         int maxCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
-                - ALL_RANKS.length;
+                - ALL_SUITS.length;
         for (Rank omittedRank : ALL_RANKS) {
             int currCount = 0;
             AbridgedDeck deck = new AbridgedDeck(omittedRank);
