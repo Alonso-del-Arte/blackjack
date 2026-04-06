@@ -108,6 +108,7 @@ if (ranks.length > 0) this.removeCards(card -> card.getRank() == ranks[0]);
 //        for (Suit suitToRemove : suits) {
 //            this.removeCards(card -> (card.getSuit() == suitToRemove));
 //        }
+if (suits.length > 0) this.removeCards(card -> card.getSuit() == suits[0]);
     }
     
 }
