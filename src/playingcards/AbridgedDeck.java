@@ -105,9 +105,9 @@ if (ranks.length > 0) this.removeCards(card -> card.getRank() == ranks[0]);
      * completely before any game can even begin.
      */
     public AbridgedDeck(Suit... suits) {
-        for (Suit suitToRemove : suits) {
-            this.removeCards(card -> (card.getSuit() == suitToRemove));
-        }
+//        for (Suit suitToRemove : suits) {
+//            this.removeCards(card -> (card.getSuit() == suitToRemove));
+//        }
     }
     
 }
