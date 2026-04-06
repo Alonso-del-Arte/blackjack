@@ -40,6 +40,8 @@ public class AbridgedDeckTest {
     
     private static final Rank[] ALL_RANKS = Rank.values();
     
+    private static final Suit[] ALL_SUITS = Suit.values();
+    
     private static final Rank[] NO_RANKS = {};
     
     private static final Suit[] NO_SUITS = {};
