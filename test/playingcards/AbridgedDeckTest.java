@@ -417,7 +417,8 @@ public class AbridgedDeckTest {
         Rank[] ranks = chooseRanksToOmit();
         CardDeck abridgedDeck = new AbridgedDeck(ranks);
         int count = 0;
-        int max = ranks.length * ALL_SUITS.length;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ranks.length * ALL_SUITS.length;
         String msgPartA = "After omitting " + Arrays.toString(ranks) 
                 + ", given card ";
         String msgPartB = " should not be of an omitted rank";
