@@ -89,9 +89,9 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Rank... ranks) {
-        for (Rank rankToRemove : ranks) {
-            this.removeCards(card -> (card.getRank() == rankToRemove));
-        }
+//        for (Rank rankToRemove : ranks) {
+//            this.removeCards(card -> (card.getRank() == rankToRemove));
+//        }
     }
     
     /**
@@ -104,9 +104,9 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Suit... suits) {
-        for (Suit suitToRemove : suits) {
-            this.removeCards(card -> (card.getSuit() == suitToRemove));
-        }
+//        for (Suit suitToRemove : suits) {
+//            this.removeCards(card -> (card.getSuit() == suitToRemove));
+//        }
     }
     
 }
