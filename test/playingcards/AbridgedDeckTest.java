@@ -412,17 +412,17 @@ public class AbridgedDeckTest {
         return ranks;
     }
     
-    @org.junit.Ignore @Test
+    @Test
     public void testOmitMultipleRanks() {
-        Rank[] ranksToOmit = chooseRanksToOmit();
-        CardDeck abridgedDeck = new AbridgedDeck(ranksToOmit);
-        String msgPartA = "After omitting " + Arrays.toString(ranksToOmit) 
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck abridgedDeck = new AbridgedDeck(ranks);
+        String msgPartA = "After omitting " + Arrays.toString(ranks) 
                 + ", given card ";
         String msgPartB = " should not be of an omitted rank";
         while (abridgedDeck.hasNext()) {
             PlayingCard card = abridgedDeck.getNextCard();
             String msg = msgPartA + card.toString() + msgPartB;
-            assert Arrays.binarySearch(ranksToOmit, card.getRank()) < 0 : msg;
+            assert Arrays.binarySearch(ranks, card.getRank()) < 0 : msg;
         }
     }
     
