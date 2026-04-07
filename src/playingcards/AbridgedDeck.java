@@ -109,7 +109,7 @@ public final class AbridgedDeck extends CardDeck {
      */
     public AbridgedDeck(Suit... suits) {
         if (suits == null) {
-            String excMsg = "Ranks array should not be null";
+            String excMsg = "Suits array should not be null";
             throw new NullPointerException(excMsg);
         }
         for (Suit suitToRemove : suits) {
