@@ -402,7 +402,7 @@ public class AbridgedDeckTest {
     
     private static Rank[] chooseRanksToOmit() {
         CardDeck choosingDeck = getChoosingDeck();
-        int capacity = (choosingDeck.getNextCard().cardValue() % 5) + 2;
+        int capacity = (choosingDeck.getNextCard().cardValue() % 5) + 3;
         Set<Rank> rankSet = new HashSet<>(capacity);
         while (rankSet.size() < capacity) {
             rankSet.add(choosingDeck.getNextCard().getRank());
@@ -416,11 +416,14 @@ public class AbridgedDeckTest {
     public void testOmitMultipleRanks() {
         Rank[] ranks = chooseRanksToOmit();
         CardDeck abridgedDeck = new AbridgedDeck(ranks);
+        int count = 0;
+        int max = ranks.length * ALL_SUITS.length;
         String msgPartA = "After omitting " + Arrays.toString(ranks) 
                 + ", given card ";
         String msgPartB = " should not be of an omitted rank";
-        while (abridgedDeck.hasNext()) {
+        while (count < max) {
             PlayingCard card = abridgedDeck.getNextCard();
+            count++;
             String msg = msgPartA + card.toString() + msgPartB;
             assert Arrays.binarySearch(ranks, card.getRank()) < 0 : msg;
         }
