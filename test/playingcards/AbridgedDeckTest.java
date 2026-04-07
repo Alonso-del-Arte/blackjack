@@ -460,4 +460,34 @@ public class AbridgedDeckTest {
         }
     }
     
+    @Test
+    public void testConstructorRejectsNullRankArray() {
+        Rank[] ranks = null;
+        String msg = "Constructor should reject null array";
+        Throwable t = assertThrows(() -> {
+            CardDeck badInstance = new AbridgedDeck(ranks);
+            System.out.println(msg + ", not created instance " 
+                    + badInstance.toString());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testConstructorRejectsNullSuitArray() {
+        Suit[] suits = null;
+        String msg = "Constructor should reject null array";
+        Throwable t = assertThrows(() -> {
+            CardDeck badInstance = new AbridgedDeck(suits);
+            System.out.println(msg + ", not created instance " 
+                    + badInstance.toString());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
 }
