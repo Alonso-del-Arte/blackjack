@@ -104,10 +104,9 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Suit... suits) {
-//        for (Suit suitToRemove : suits) {
-//            this.removeCards(card -> (card.getSuit() == suitToRemove));
-//        }
-if (suits.length > 0) this.removeCards(card -> card.getSuit() == suits[0]);
+        for (Suit suitToRemove : suits) {
+            this.removeCards(card -> (card.getSuit() == suitToRemove));
+        }
     }
     
 }
