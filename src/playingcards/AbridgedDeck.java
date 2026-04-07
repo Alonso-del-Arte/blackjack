@@ -89,9 +89,13 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Rank... ranks) {
-//        for (Rank rankToRemove : ranks) {
-//            this.removeCards(card -> (card.getRank() == rankToRemove));
-//        }
+        if (ranks == null) {
+            String excMsg = "Ranks array should not be null";
+            throw new NullPointerException(excMsg);
+        }
+        for (Rank rankToRemove : ranks) {
+            this.removeCards(card -> (card.getRank() == rankToRemove));
+        }
     }
     
     /**
@@ -104,9 +108,13 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Suit... suits) {
-//        for (Suit suitToRemove : suits) {
-//            this.removeCards(card -> (card.getSuit() == suitToRemove));
-//        }
+        if (suits == null) {
+            String excMsg = "Ranks array should not be null";
+            throw new NullPointerException(excMsg);
+        }
+        for (Suit suitToRemove : suits) {
+            this.removeCards(card -> (card.getSuit() == suitToRemove));
+        }
     }
     
 }
