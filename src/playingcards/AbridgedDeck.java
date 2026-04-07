@@ -89,10 +89,9 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Rank... ranks) {
-//        for (Rank rankToRemove : ranks) {
-//            this.removeCards(card -> (card.getRank() == rankToRemove));
-//        }
-if (ranks.length > 0) this.removeCards(card -> card.getRank() == ranks[0]);
+        for (Rank rankToRemove : ranks) {
+            this.removeCards(card -> (card.getRank() == rankToRemove));
+        }
     }
     
     /**
