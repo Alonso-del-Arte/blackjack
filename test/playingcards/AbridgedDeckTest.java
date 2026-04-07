@@ -442,15 +442,19 @@ public class AbridgedDeckTest {
         return suits;
     }
     
-    @org.junit.Ignore @Test
+    @Test
     public void testOmitTwoSuits() {
         Suit[] suitsToOmit = chooseTwoSuitsToOmit();
         CardDeck abridgedDeck = new AbridgedDeck(suitsToOmit);
+        int count = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 2 * ALL_RANKS.length;
         String msgPartA = "After omitting " + Arrays.toString(suitsToOmit) 
                 + ", given card ";
         String msgPartB = " should not be of an omitted suit";
-        while (abridgedDeck.hasNext()) {
+        while (count < max) {
             PlayingCard card = abridgedDeck.getNextCard();
+            count++;
             String msg = msgPartA + card.toString() + msgPartB;
             assert Arrays.binarySearch(suitsToOmit, card.getSuit()) < 0 : msg;
         }
