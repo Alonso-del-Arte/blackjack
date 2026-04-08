@@ -479,6 +479,23 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testDoesNotHaveNext() {
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        int count = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ranks.length * ALL_SUITS.length;
+        while (count < max) {
+            instance.getNextCard();
+            count++;
+        }
+        String msg = "Having dealt out " + count + " cards from deck with " 
+                + Arrays.toString(ranks) 
+                + " omitted, deck should not have next";
+        assert !instance.hasNext() : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
