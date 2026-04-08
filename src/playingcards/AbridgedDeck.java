@@ -31,7 +31,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public boolean hasNext() {
-        return false;// this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        return this.dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     }
     
     // TODO: Write tests for this
