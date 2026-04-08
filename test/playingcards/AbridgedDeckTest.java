@@ -461,6 +461,24 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testHasNext() {
+        System.out.println("hasNext");
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        int count = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ranks.length * ALL_SUITS.length;
+        String msgPartA = "Having dealt out ";
+        String msgPartB = " card(s), deck should have next";
+        while (count < max) {
+            String msg = msgPartA + count + msgPartB;
+            assert instance.hasNext() : msg;
+            instance.getNextCard();
+            count++;
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
