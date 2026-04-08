@@ -517,7 +517,8 @@ public class AbridgedDeckTest {
     public void testHasNextTwoSuitsOmitted() {
         Suit[] suits = chooseTwoSuitsToOmit();
         CardDeck instance = new AbridgedDeck(suits);
-        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - ALL_RANKS.length;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 2 * ALL_RANKS.length;
         String msgPartA = "Having dealt out ";
         String msgPartB = " card(s), deck should have next";
         int count = 0;
