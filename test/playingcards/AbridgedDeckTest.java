@@ -532,6 +532,42 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testDoesNotHaveNextOneSuitOmitted() {
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - ALL_RANKS.length;
+        for (Suit omittedSuit : ALL_SUITS) {
+            int count = 0;
+            AbridgedDeck deck = new AbridgedDeck(omittedSuit);
+            deck.shuffle();
+            while (count < max) {
+                deck.getNextCard();
+                count++;
+            }
+            String msg = "After dealing " + count + " cards, deck with " 
+                    + omittedSuit.name() 
+                    + " omitted should not have another card left to give";
+            assert !deck.hasNext() : msg;
+        }
+    }
+    
+    @Test
+    public void testDoesNotHaveNextTwoSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck instance = new AbridgedDeck(suits);
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 2 * ALL_RANKS.length;
+        int count = 0;
+        instance.shuffle();
+        while (count < max) {
+            instance.getNextCard();
+            count++;
+        }
+        String msg = "After dealing " + count + " cards, deck with " 
+                + Arrays.toString(suits) 
+                + " omitted should not have another card left to give";
+        assert !instance.hasNext() : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
