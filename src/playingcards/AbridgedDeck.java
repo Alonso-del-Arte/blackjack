@@ -28,12 +28,9 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-    
-    // TODO: Write tests for this
     @Override
     public boolean hasNext() {
-        return this.dealCount < this.max;
+        return this.dealCount < this.cards.size();
     }
     
     // TODO: Write tests for this
@@ -94,7 +91,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
-        this.max -= 4 * ranks.length;
     }
     
     /**
@@ -110,7 +106,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-        this.max -= 13 * suits.length;
     }
     
 }
