@@ -28,6 +28,8 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
+    private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+    
     @Override
     public boolean hasNext() {
         return this.dealCount < this.cards.size();
@@ -36,7 +38,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public PlayingCard getNextCard() {
-        if (this.dealCount == CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+        if (this.dealCount == this.max) {
             throw new RanOutOfCardsException();
         }
         return this.cards.get(this.dealCount++);
@@ -88,9 +90,10 @@ public final class AbridgedDeck extends CardDeck {
      * completely before any game can even begin.
      */
     public AbridgedDeck(Rank... ranks) {
-//        for (Rank rankToRemove : ranks) {
-//            this.removeCards(card -> (card.getRank() == rankToRemove));
-//        }
+        for (Rank rankToRemove : ranks) {
+            this.removeCards(card -> (card.getRank() == rankToRemove));
+        }
+        this.max -= 4 * ranks.length;
     }
     
     /**
