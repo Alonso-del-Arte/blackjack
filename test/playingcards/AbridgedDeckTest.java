@@ -633,6 +633,32 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testNoGetNextCardAfterShouldHaveRunOutOneSuitOmitted() {
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - ALL_RANKS.length;
+        for (Suit suit : ALL_SUITS) {
+            Suit[] suits = {suit};
+            CardDeck instance = new AbridgedDeck(suits);
+            instance.shuffle();
+            int count = 0;
+            while (count < max) {
+                instance.getNextCard();
+                count++;
+            }
+            String msg = "Having dealt out " + count + " cards from deck with " 
+                    + suit.getWord() + " omitted, deck should not have next";
+            Throwable t = assertThrows(() -> {
+                PlayingCard card = instance.getNextCard();
+                System.out.println(msg + ", should not have given out " 
+                        + card.toString());
+            }, RanOutOfCardsException.class, msg);
+            String excMsg = t.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+            assert !excMsg.isBlank() : "Exception message should not be blank";
+            System.out.println("\"" + excMsg + "\"");
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
