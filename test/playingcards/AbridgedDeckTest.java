@@ -614,6 +614,25 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testGetNextCardOneSuitOmitted() {
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - ALL_RANKS.length;
+        for (Suit suit : ALL_SUITS) {
+            Suit[] suits = {suit};
+            CardDeck instance = new AbridgedDeck(suits);
+            instance.shuffle();
+            int count = 0;
+            String msgPart = " should not be of omitted suit " + suit.getWord();
+            while (count < max) {
+                PlayingCard card = instance.getNextCard();
+                Suit cardSuit = card.getSuit();
+                String msg = card.toString() + msgPart;
+                assert !suit.equals(cardSuit) : msg;
+                count++;
+            }
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
