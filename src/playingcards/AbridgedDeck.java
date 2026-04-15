@@ -111,7 +111,7 @@ public final class AbridgedDeck extends CardDeck {
 //        }
 if (suits.length == 1) {
 this.removeCards(card -> card.getSuit() == suits[0]);
-}
+this.max -= 13;}
     }
     
 }
