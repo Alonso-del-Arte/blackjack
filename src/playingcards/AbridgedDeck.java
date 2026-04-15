@@ -109,7 +109,7 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-this.max -= 13 * suits.length;
+if (suits.length > 0) this.max -= 13;
     }
     
 }
