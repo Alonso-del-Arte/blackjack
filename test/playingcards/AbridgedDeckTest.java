@@ -568,6 +568,27 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testGetNextCard() {
+        System.out.println("getNextCard");
+        Rank[] ranks = chooseRanksToOmit();
+        Arrays.sort(ranks);
+        CardDeck instance = new AbridgedDeck(ranks);
+        instance.shuffle();
+        int count = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ranks.length * ALL_SUITS.length;
+        String msgPart = " should not be of omitted rank " 
+                + Arrays.toString(ranks);
+        while (count < max) {
+            PlayingCard card = instance.getNextCard();
+            String msg = card.toString() + msgPart;
+            Rank key = card.getRank();
+            assert Arrays.binarySearch(ranks, key) < 0 : msg;
+            count++;
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
