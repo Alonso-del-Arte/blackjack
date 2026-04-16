@@ -28,8 +28,6 @@ import static org.junit.Assert.*;
 import static org.testframe.api.Asserters.assertThrows;
 import static org.testframe.api.Asserters.assertZero;
 
-import static playingcards.PlayingCardTest.RANDOM;
-
 /**
  * Tests of the AbridgedDeck class. The tests for decks with no omissions are 
  * presented first, but of course JUnit is by default free to run tests in 
