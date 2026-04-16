@@ -35,7 +35,6 @@ public final class AbridgedDeck extends CardDeck {
         return this.dealCount < this.cards.size();
     }
     
-    // TODO: Write tests for this
     @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == this.max) {
