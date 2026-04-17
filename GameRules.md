@@ -5,7 +5,11 @@ casinos. I have never actually played blackjack in a casino or mock casino. The
 content of this document is based on what I've read in books and seen on YouTube 
 videos and TV (mostly dramas but also some comedies).
 
-See [Variants](Variants.md) for variations on the game.
+The blackjack table has a distinctive design that can't be used for other games. 
+The table has verbiage giving one or two rules of the game and some information 
+about payouts. Some blackjack variants require variant tables, sometimes 
+including the name of the variant. See [Variants](Variants.md) for variations on 
+the game.
 
 The concept of blackjack seems simple enough. You make a wager. The dealer gives 
 you cards ("hit") until you want no more cards ("stand") or you win by having a 
