@@ -20,9 +20,49 @@ stingier with payouts overall.
 
 Each player gets two hands, each with the same wager. But the thing that sets 
 this game apart from other blackjack games is that a player can switch cards 
-between hands.
+between hands. To compensate for this player advantage, the dealer doesn't bust 
+on 22.
 
-To compensate for this player advantage, the dealer doesn't bust on 22.
+Upon sitting down at the blackjack switch table, a player makes two identical 
+wagers. The dealer gives the player two pairs of cards for a total of four 
+cards.
+
+The dealer is expected to give the cards in such a way that the second card of 
+each hand is clearly on top of the first card dealt. The second card of the hand 
+is then called the "top" card, which is confusing because because one might 
+misunderstand and think "top" card refers to the card with the higher value.
+
+For example, suppose you get a Queen of Clubs and a Three of Diamonds in one 
+hand, with the Three of Diamonds as the top card of that hand, and an Eight of 
+Clubs and a Jack of Spades as the top card of that hand. In the latter hand, the 
+Jack of Spades is both the top card and the higher-valued card of the two, 
+whereas in the former the Three of Diamonds is the top card even though it has a 
+lower value than the first card of that hand.
+
+Just as in regular blackjack, only the dealer may touch the cards. To request 
+the top cards be switched, say "switch" or make a switch hand signal to the 
+dealer. In the example from the previous paragraph, you would have a hand with a 
+Queen of Clubs and a Jack of Spades (for a total value of 20) and a hand with an 
+Eight of Clubs and a Three of Diamonds (for a total value of 11).
+
+The game then proceeds conceptually the same as regular blackjack in which a 
+player has two hands due to splitting, even though splitting would not give 
+cards such as the ones in the example here.
+
+This means the player then plays the two hands separately. In the example, you 
+might decide to stand on the hand with two royals, as another card has a high 
+probability of going bust. But you might decide to get another card for your 
+hand with two pip cards, as the worst that could happen with that one is that 
+you only barely increase the value of that hand.
+
+Obviously switching is not allowed if either of a player's two hands are a 
+natural blackjack. Presumably switching is always otherwise allowed even if the 
+two top cards are of the same value, though perhaps players would have enough 
+sense to not ask for a switch in that situation.
+
+I'm guessing that splitting is allowed for hands that would be allowed to be 
+split at the casino's regular blackjack tables, but then the switching option 
+would be off the table.
 
 ## European blackjack
 
