@@ -5,14 +5,16 @@ variations regarding what pairs may be split, how many decks are used and what
 the payouts are.
 
 The game that I'm focusing on in this project is sometimes called "American 
-blackjack."
+blackjack." It's what you can expect to play at most casinos in the United 
+States.
 
 ## Atlantic City blackjack
 
 This variant, which first emerged in Atlantic City casinos, allows late 
 surrender (you can give up half the bet of a bad hand). Also, you can split 
 pairs thrice. Payout for natural blackjack is 6 to 5, rather than 3 to 2, 
-depending on the casino.
+depending on the casino. Though it has been a general trend for casinos to get 
+stingier with payouts overall.
 
 ## Blackjack switch
 
@@ -27,6 +29,8 @@ To compensate for this player advantage, the dealer doesn't bust on 22.
 This variant originated in European casinos. The dealer at first only has a face 
 up card, and it is only right before settling bets that the dealer takes a 
 second card.
+
+You might come across this variant at Canadian casinos.
 
 ## Perfect pairs
 
