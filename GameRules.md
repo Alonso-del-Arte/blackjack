@@ -1,11 +1,16 @@
 ## The rules of blackjack, as I understand them
 
-This document describes the game as it is usually played in American casinos. 
+This document describes the game as I believe it is usually played in American 
+casinos. I have never actually played blackjack in a casino or mock casino. The 
+content of this document is based on what I've read in books and seen on YouTube 
+videos and TV (mostly dramas but also some comedies).
+
 See [Variants](Variants.md) for variations on the game.
 
-The concept seems simple enough. You make a wager. The dealer gives you cards 
-("hit") until you want no more cards ("stand") or you win by having a score of 
-21 or you lose by going over 21 ("going bust").
+The concept of blackjack seems simple enough. You make a wager. The dealer gives 
+you cards ("hit") until you want no more cards ("stand") or you win by having a 
+score of 21 or you lose by going over 21 ("going bust"). You can also win with a 
+score of 18, 19 or 20 if the dealer had to stand on 17.
 
 The court cards (J&#9824;, Q&#9824;, K&#9824;, J&#9829;, etc.) are valued at 10 
 each. Aces are valued at 1 or 11 at the player's discretion (though in practice 
@@ -18,9 +23,10 @@ current state of the console application source).
 
 After the players make their initial wagers, the dealer gives each player two 
 cards face up. The dealer also gets two cards, but one of them is face down. 
-However, in British casinos, the dealer at first only gets one card face up (see 
-[Variants.md](Variants.md) for more information on different ways of playing 
-blackjack).
+However, in British casinos, the dealer at first only gets one card face up and 
+doesn't get a second card until the players don't want any more cards (see 
+[European blackjack](Variants.md#european-blackjack) for more information on 
+this variant).
 
 If the dealer's face-up card is an Ace, players may make side bets ("insurance") 
 that the dealer's face-down card is a Ten or a court card. Insurance is not yet 
@@ -54,14 +60,19 @@ Queen, that's natural blackjack and the dealer should pay you $150.
 
 It's not possible to go bust from the first two cards. Most likely no player has 
 a natural blackjack at this point, so they must decide either to get more cards 
-to try for 21 or stick to their cards in the hopes that the dealer goes bust. 
+to try for 21 or stick to their cards in the hopes that the dealer goes bust.
+
+A player says "hit me" or taps the table to ask the dealer for another card. 
+There's also a hand signal to indicate the dealer should not give the player 
+another card.
+
 Players who bust lose their wager even if the dealer also goes bust. Players who 
 hit 21 at this stage are paid their wager by the dealer.
 
 At this point, if I'm understanding correctly, the dealer reveals their 
 face-down card. If the dealer is under 17, the dealer must take cards until 
-going over 16, even though this risks going bust. Once over 17, the dealer must 
-stand.
+going over 16, even though this risks going bust. Once reaching or over 17, the 
+dealer must stand.
 
 If the dealer stands, the dealer pays up players who have a higher score without 
 going over 21, and collects the wagers of players with a lower score. And if the 
