@@ -47,6 +47,10 @@ allow certain splits, and other casinos allow some splits of cards of unequal
 rank. Although the `Hand` class has support for most splits of cards of equal 
 rank, this is not yet used in any form in the console application.
 
+Only the dealer may touch the cards, and that includes cards that have been 
+dealt to the players. To request a hand be split, a player says "split," or 
+perhaps makes some hand signal.
+
 At first I misunderstood wagers for splits. Suppose that you have wagered $100 
 and you decide to split your hand. I mistakenly thought that then both of your 
 hands would have $50 wagers. But I've been told that in such a case, the player 
@@ -61,6 +65,11 @@ other combinations that add up to 21 (such as three Sevens) as "blackjack."
 
 For example, you wager $100 on a hand and the dealer gives you an Ace and a 
 Queen, that's natural blackjack and the dealer should pay you $150.
+
+The suits of the cards only matter to the extent that blackjack is played with 
+the same kind of cards used for most variants of poker. A natural blackjack with 
+cards of the same suit wins just as much as a natural blackjack with two cards 
+of two different suits.
 
 It's not possible to go bust from the first two cards. Most likely no player has 
 a natural blackjack at this point, so they must decide either to get more cards 
