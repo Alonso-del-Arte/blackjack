@@ -43,6 +43,13 @@ public final class AbridgedDeck extends CardDeck {
         return this.cards.get(this.dealCount++);
     }
     
+    /**
+     * Reports how many cards are remaining to be dealt. The number will depend 
+     * on how many ranks or suits have been omitted.
+     * @return The number of cards remaining. For example, given a deck with the 
+     * Tens omitted but no cards dealt to any players yet, this function would 
+     * return 48.
+     */
     @Override
     public int countRemaining() {
         return this.max - this.dealCount;
@@ -107,7 +114,7 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-this.max -= 13 * suits.length;
+        this.max -= 13 * suits.length;
     }
     
 }
