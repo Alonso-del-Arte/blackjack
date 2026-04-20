@@ -23,13 +23,25 @@ import java.util.function.Predicate;
 
 /**
  * A deck of cards with certain ranks or suits taken out. This is to be used for 
- * games like Spanish 21, in which the Tens are removed.
+ * games like Spanish 21, in which the Tens are removed. But note that you need 
+ * to have a proper license from Masque Publishing for Spanish 21.
  * @author Alonso del Arte
  */
 public final class AbridgedDeck extends CardDeck {
     
     private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     
+    /**
+     * Supplies one card. The card is guaranteed to be of the next higher rank, 
+     * or of the next suit, if {@link #shuffle()} has never been called on this 
+     * deck <em>and</em> that rank or suit has not been omitted. For the 
+     * example, suppose this is a deck with the Tens omitted.
+     * @return A playing card. For example, 3&#9824;. With the example instance 
+     * from which the Tens were removed, this function should never return 
+     * 10&#9824;, 10&#9829;, 10&#9827; nor 10&#9830;.
+     * @throws RanOutOfCardsException If the deck has no more cards to give. 
+     * This exception may be avoided by checking {@link #hasNext()}.
+     */
     @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == this.max) {
