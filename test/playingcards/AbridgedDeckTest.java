@@ -727,6 +727,32 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testCountRemainingOneSuitOmitted() {
+        for (Suit suit : ALL_SUITS) {
+            Suit[] suits = {suit};
+            CardDeck instance = new AbridgedDeck(suits);
+            String msgPartA = "Having dealt out ";
+            String msgPartB = " card(s) from deck with " 
+                    + Arrays.toString(suits) + " omitted, deck should have ";
+            String msgPartC = " card(s) left";
+            int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                    - ALL_RANKS.length;
+            int dealCount = 0;
+            while (dealCount < max) {
+                int expected = max - dealCount;
+                int actual = instance.countRemaining();
+                String message = msgPartA + dealCount + msgPartB + expected 
+                        + msgPartC;
+                assertEquals(message, expected, actual);
+                instance.getNextCard();
+                dealCount++;
+            }
+            assertZero(instance.countRemaining(), 
+                    "Deck should be out of cards");
+        }
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
