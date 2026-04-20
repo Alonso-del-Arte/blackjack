@@ -86,7 +86,7 @@ blackjack.
 Note that Spanish 21 is a registered trademark of Masque Publishing since 2001, 
 renewed in 2020. I don't have a Spanish 21 license. While I don't discourage you 
 from using my software package to play Spanish 21, I don't encourage that 
-either.
+either. Look in the `AbridgedDeck` class.
 
 ## Vegas Strip blackjack
 
