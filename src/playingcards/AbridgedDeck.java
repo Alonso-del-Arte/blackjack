@@ -31,11 +31,6 @@ public final class AbridgedDeck extends CardDeck {
     private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     
     @Override
-    public boolean hasNext() {
-        return this.dealCount < this.cards.size();
-    }
-    
-    @Override
     public PlayingCard getNextCard() {
         if (this.dealCount == this.max) {
             throw new RanOutOfCardsException();
