@@ -65,7 +65,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public boolean provenance(PlayingCard card) {
-        return false;
+        return true;
     }
     
     @Override
