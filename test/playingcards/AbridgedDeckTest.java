@@ -894,6 +894,20 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testNoProvenancePresentRankFromDiffDeck() {
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        instance.shuffle();
+        PlayingCard provenanceCard = instance.getNextCard();
+        Rank rank = provenanceCard.getRank();
+        PlayingCard card = SERVER.giveCard(rank);
+        String msg = card.toString() + " from " + SERVER.toString() 
+                + " should not have provenance from " + instance.toString() 
+                + " with " + Arrays.toString(ranks) + " omitted";
+        assert !instance.provenance(card) : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
