@@ -72,11 +72,8 @@ public final class AbridgedDeck extends CardDeck {
                 > -1) {
             return false;
         }
-        if (java.util.Arrays.binarySearch(this.omittedSuits, card.cardSuit) 
-                > -1) {
-            return false;
-        }
-        return true;
+        return java.util.Arrays.binarySearch(this.omittedSuits, card.cardSuit) 
+                <= -1;
     }
     
     @Override
