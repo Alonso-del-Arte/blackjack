@@ -44,6 +44,8 @@ public class AbridgedDeckTest {
     
     private static final Suit[] NO_SUITS = {};
     
+    private static final CardServer SERVER = new CardServer(10);
+    
     @Test
     public void testNewDeckNoRanksOmittedHasNext() {
         CardDeck deck = new AbridgedDeck(NO_RANKS);
@@ -865,10 +867,17 @@ public class AbridgedDeckTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testNoProvenanceIfOmittedRank() {
-        fail("FINISH WRITING THIS TEST");
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        String msgPart = " should not have provenance from deck with " 
+                + Arrays.toString(ranks) + " omitted";
+        for (Rank rank : ranks) {
+            PlayingCard card = SERVER.giveCard(rank);
+            String msg = card.toString() + msgPart;
+            assert !instance.provenance(card) : msg;
+        }
     }
     
     @org.junit.Ignore
