@@ -880,10 +880,17 @@ public class AbridgedDeckTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testNoProvenanceIfOmittedSuit() {
-        fail("FINISH WRITING THIS TEST");
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck instance = new AbridgedDeck(suits);
+        String msgPart = " should not have provenance from deck with " 
+                + Arrays.toString(suits) + " omitted";
+        for (Suit suit : suits) {
+            PlayingCard card = SERVER.giveCard(suit);
+            String msg = card.toString() + msgPart;
+            assert !instance.provenance(card) : msg;
+        }
     }
     
     @Test
