@@ -31,6 +31,10 @@ public final class AbridgedDeck extends CardDeck {
     
     private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     
+    private final Rank[] omittedRanks;
+    
+    private final Suit[] omittedSuits;
+    
     /**
      * Supplies one card. The card is guaranteed to be of the next higher rank, 
      * or of the next suit, if {@link #shuffle()} has never been called on this 
@@ -62,9 +66,16 @@ public final class AbridgedDeck extends CardDeck {
         return this.max - this.dealCount;
     }
     
-    // TODO: Write tests for this
     @Override
     public boolean provenance(PlayingCard card) {
+        if (java.util.Arrays.binarySearch(this.omittedRanks, card.cardRank) 
+                > -1) {
+            return false;
+        }
+        if (java.util.Arrays.binarySearch(this.omittedSuits, card.cardSuit) 
+                > -1) {
+            return false;
+        }
         return true;
     }
     
@@ -106,6 +117,10 @@ public final class AbridgedDeck extends CardDeck {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
         this.max -= 4 * ranks.length;
+        this.omittedRanks = ranks;
+        this.omittedSuits = new Suit[0];
+        java.util.Arrays.sort(this.omittedRanks);
+        java.util.Arrays.sort(this.omittedSuits);
     }
     
     /**
@@ -122,6 +137,10 @@ public final class AbridgedDeck extends CardDeck {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
         this.max -= 13 * suits.length;
+        this.omittedRanks = new Rank[0];
+        this.omittedSuits = suits;
+        java.util.Arrays.sort(this.omittedRanks);
+        java.util.Arrays.sort(this.omittedSuits);
     }
     
 }
