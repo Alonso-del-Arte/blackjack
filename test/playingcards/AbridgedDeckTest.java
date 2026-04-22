@@ -815,7 +815,48 @@ public class AbridgedDeckTest {
         int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - ALL_SUITS.length * ranks.length;
         String msgPart = " dealt from " + instance.toString() 
-                + " should return true for provenance";
+                + " with " + Arrays.toString(ranks) 
+                + " omitted should return true for provenance";
+        while (dealCount < max) {
+            PlayingCard card = instance.getNextCard();
+            String msg = card.toString() + msgPart;
+            assert instance.provenance(card) : msg;
+            dealCount++;
+        }
+    }
+    
+    @Test
+    public void testProvenanceOneSuitOmitted() {
+        for (Suit suit : ALL_SUITS) {
+            Suit[] suits = {suit};
+            CardDeck instance = new AbridgedDeck(suits);
+            instance.shuffle();
+            int dealCount = 0;
+            int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                    - ALL_RANKS.length;
+            String msgPart = " dealt from " + instance.toString() + " with " 
+                    + Arrays.toString(suits) 
+                    + " omitted should return true for provenance";
+            while (dealCount < max) {
+                PlayingCard card = instance.getNextCard();
+                String msg = card.toString() + msgPart;
+                assert instance.provenance(card) : msg;
+                dealCount++;
+            }
+        }
+    }
+    
+    @Test
+    public void testProvenanceTwoSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck instance = new AbridgedDeck(suits);
+        instance.shuffle();
+        int dealCount = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 2 * ALL_RANKS.length;
+        String msgPart = " dealt from " + instance.toString() + " with " 
+                + Arrays.toString(suits) 
+                + " omitted should return true for provenance";
         while (dealCount < max) {
             PlayingCard card = instance.getNextCard();
             String msg = card.toString() + msgPart;
@@ -827,12 +868,6 @@ public class AbridgedDeckTest {
     @org.junit.Ignore
     @Test
     public void testNoProvenanceIfOmittedRank() {
-        fail("FINISH WRITING THIS TEST");
-    }
-    
-    @org.junit.Ignore
-    @Test
-    public void testProvenanceOneSuitOmitted() {
         fail("FINISH WRITING THIS TEST");
     }
     
