@@ -776,6 +776,73 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testProvenanceNoRanksOmitted() {
+        CardDeck instance = new AbridgedDeck(NO_RANKS);
+        instance.shuffle();
+        int dealCount = 0;
+        String msgPart = " dealt from " + instance.toString() 
+                + " should return true for provenance";
+        while (dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            PlayingCard card = instance.getNextCard();
+            String msg = card.toString() + msgPart;
+            assert instance.provenance(card) : msg;
+            dealCount++;
+        }
+    }
+    
+    @Test
+    public void testProvenanceNoSuitsOmitted() {
+        CardDeck instance = new AbridgedDeck(NO_SUITS);
+        instance.shuffle();
+        int dealCount = 0;
+        String msgPart = " dealt from " + instance.toString() 
+                + " should return true for provenance";
+        while (dealCount < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            PlayingCard card = instance.getNextCard();
+            String msg = card.toString() + msgPart;
+            assert instance.provenance(card) : msg;
+            dealCount++;
+        }
+    }
+    
+    @Test
+    public void testProvenance() {
+        System.out.println("provenance");
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        instance.shuffle();
+        int dealCount = 0;
+        int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - ALL_SUITS.length * ranks.length;
+        String msgPart = " dealt from " + instance.toString() 
+                + " should return true for provenance";
+        while (dealCount < max) {
+            PlayingCard card = instance.getNextCard();
+            String msg = card.toString() + msgPart;
+            assert instance.provenance(card) : msg;
+            dealCount++;
+        }
+    }
+    
+    @org.junit.Ignore
+    @Test
+    public void testNoProvenanceIfOmittedRank() {
+        fail("FINISH WRITING THIS TEST");
+    }
+    
+    @org.junit.Ignore
+    @Test
+    public void testProvenanceOneSuitOmitted() {
+        fail("FINISH WRITING THIS TEST");
+    }
+    
+    @org.junit.Ignore
+    @Test
+    public void testNoProvenanceIfOmittedSuit() {
+        fail("FINISH WRITING THIS TEST");
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
