@@ -35,8 +35,6 @@ public final class AbridgedDeck extends CardDeck {
     
     private final Suit[] omittedSuits;
     
-    private final boolean isRanksOmittedDeck;
-    
     /**
      * Supplies one card. The card is guaranteed to be of the next higher rank, 
      * or of the next suit, if {@link #shuffle()} has never been called on this 
@@ -119,7 +117,6 @@ public final class AbridgedDeck extends CardDeck {
         this.max -= 4 * ranks.length;
         this.omittedRanks = ranks;
         this.omittedSuits = new Suit[0];
-        this.isRanksOmittedDeck = true;
         java.util.Arrays.sort(this.omittedRanks);
         java.util.Arrays.sort(this.omittedSuits);
     }
@@ -140,7 +137,6 @@ public final class AbridgedDeck extends CardDeck {
         this.max -= 13 * suits.length;
         this.omittedRanks = new Rank[0];
         this.omittedSuits = suits;
-        this.isRanksOmittedDeck = false;
         java.util.Arrays.sort(this.omittedRanks);
         java.util.Arrays.sort(this.omittedSuits);
     }
