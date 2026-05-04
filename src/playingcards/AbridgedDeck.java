@@ -29,6 +29,8 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
+    private final boolean hasOmissions;
+    
     /**
      * Reports how many cards are remaining to be dealt. The number will depend 
      * on how many ranks or suits have been omitted.
@@ -54,15 +56,21 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public void shuffle() {
-        switch (this.dealCount) {
-            case 0 -> Collections.shuffle(this.cards);
-            case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1/* ,  
+        if (this.hasOmissions) {
+            switch (this.dealCount) {
+                case 0 -> Collections.shuffle(this.cards);
+                case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1/* ,  
                     CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK */ -> {
-                String excMsg = "Can't shuffle deck with one or no cards left";
-                throw new IllegalStateException(excMsg);
-            }
-            default -> Collections.shuffle(this.cards.subList(this.dealCount, 
+                    String excMsg = "Can't shuffle deck with one or no cards left";
+                    throw new IllegalStateException(excMsg);
+                }
+                default 
+                        -> Collections.shuffle(this.cards
+                                .subList(this.dealCount, 
                     CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK));
+            }
+        } else {
+//            return;
         }
     }
     
@@ -89,6 +97,7 @@ public final class AbridgedDeck extends CardDeck {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
+        this.hasOmissions = ranks.length > 0;
     }
     
     /**
@@ -104,6 +113,7 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
+        this.hasOmissions = suits.length > 0;
     }
     
 }
