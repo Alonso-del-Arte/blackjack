@@ -70,18 +70,6 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public boolean provenance(PlayingCard card) {
-        if (java.util.Arrays.binarySearch(this.omittedRanks, card.cardRank) 
-                > -1) {
-            return false;
-        } else {
-            if (this.isRanksOmittedDeck) {
-                int index = this.cards.indexOf(card);
-                if (index > -1) {
-                    PlayingCard ownCard = this.cards.get(index);
-                    return (card == ownCard);
-                }
-            }
-        }
         int index = this.cards.indexOf(card);
         if (index < 0) {
             return false;
