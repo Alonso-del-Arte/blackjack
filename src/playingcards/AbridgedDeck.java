@@ -117,8 +117,6 @@ public final class AbridgedDeck extends CardDeck {
         this.max -= 4 * ranks.length;
         this.omittedRanks = ranks;
         this.omittedSuits = new Suit[0];
-        java.util.Arrays.sort(this.omittedRanks);
-        java.util.Arrays.sort(this.omittedSuits);
     }
     
     /**
@@ -137,8 +135,6 @@ public final class AbridgedDeck extends CardDeck {
         this.max -= 13 * suits.length;
         this.omittedRanks = new Rank[0];
         this.omittedSuits = suits;
-        java.util.Arrays.sort(this.omittedRanks);
-        java.util.Arrays.sort(this.omittedSuits);
     }
     
 }
