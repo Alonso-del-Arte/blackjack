@@ -50,7 +50,7 @@ public class CardDeck implements CardSupplier {
     /**
      * Supplies one card. The card is guaranteed to be of the next higher rank, 
      * or of the next suit, if {@link #shuffle()} has never been called on this 
-     * deck.
+     * deck, provided this deck is not an instance of {@link AbridgedDeck}.
      * @return A playing card. For example, 3&#9824;.
      * @throws RanOutOfCardsException If the deck has no more cards to give. 
      * This exception may be avoided by checking {@link #hasNext()}.

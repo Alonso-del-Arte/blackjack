@@ -30,25 +30,6 @@ import java.util.function.Predicate;
 public final class AbridgedDeck extends CardDeck {
     
     /**
-     * Supplies one card. The card is guaranteed to be of the next higher rank, 
-     * or of the next suit, if {@link #shuffle()} has never been called on this 
-     * deck <em>and</em> that rank or suit has not been omitted. For the 
-     * example, suppose this is a deck with the Tens omitted.
-     * @return A playing card. For example, 3&#9824;. With the example instance 
-     * from which the Tens were removed, this function should never return 
-     * 10&#9824;, 10&#9829;, 10&#9827; nor 10&#9830;.
-     * @throws RanOutOfCardsException If the deck has no more cards to give. 
-     * This exception may be avoided by checking {@link #hasNext()}.
-     */
-    @Override
-    public PlayingCard getNextCard() {
-        if (this.dealCount == this.cards.size()) {
-            throw new RanOutOfCardsException();
-        }
-        return this.cards.get(this.dealCount++);
-    }
-    
-    /**
      * Reports how many cards are remaining to be dealt. The number will depend 
      * on how many ranks or suits have been omitted.
      * @return The number of cards remaining. For example, given a deck with the 
