@@ -82,8 +82,13 @@ public final class AbridgedDeck extends CardDeck {
                 }
             }
         }
-        return java.util.Arrays.binarySearch(this.omittedSuits, card.cardSuit) 
-                <= -1;
+        int index = this.cards.indexOf(card);
+        if (index < 0) {
+            return false;
+        } else {
+            PlayingCard ownCard = this.cards.get(index);
+            return (card == ownCard);
+        }
     }
     
     @Override
