@@ -29,8 +29,6 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    private int max = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
-    
     /**
      * Supplies one card. The card is guaranteed to be of the next higher rank, 
      * or of the next suit, if {@link #shuffle()} has never been called on this 
@@ -110,7 +108,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
-        this.max -= 4 * ranks.length;
     }
     
     /**
@@ -126,7 +123,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-        this.max -= 13 * suits.length;
     }
     
 }
