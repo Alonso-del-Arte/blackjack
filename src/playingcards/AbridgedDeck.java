@@ -44,7 +44,7 @@ public final class AbridgedDeck extends CardDeck {
      */
     @Override
     public PlayingCard getNextCard() {
-        if (this.dealCount == this.max) {
+        if (this.dealCount == this.cards.size()) {
             throw new RanOutOfCardsException();
         }
         return this.cards.get(this.dealCount++);
@@ -59,7 +59,7 @@ public final class AbridgedDeck extends CardDeck {
      */
     @Override
     public int countRemaining() {
-        return this.max - this.dealCount;
+        return this.cards.size() - this.dealCount;
     }
     
     @Override
