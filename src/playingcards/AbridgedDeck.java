@@ -60,6 +60,9 @@ public final class AbridgedDeck extends CardDeck {
             if (this.ranksOmitted) {
                 Collections.shuffle(this.cards);
             }
+            if (this.suitsOmitted) {
+                Collections.shuffle(this.cards);
+            }
         } else {
             switch (this.dealCount) {
                 case 0 -> Collections.shuffle(this.cards);
