@@ -65,17 +65,19 @@ public class CardDeck implements CardSupplier {
     
     /**
      * Reports how many cards are remaining to be dealt. For the example, 
-     * suppose this deck is being used for five-card draw poker for four 
-     * players.
+     * suppose this is a standard deck is being used for five-card draw poker 
+     * for four players. Note that if this deck is an instance of {@link 
+     * AbridgedDeck}, the initial number of cards might be less than {@link 
+     * #INITIAL_NUMBER_OF_CARDS_PER_DECK}.
      * @return The number of cards available to be dealt. In the example, this 
-     * would be 32. Edge cases: for a fresh deck, this should be {@link 
-     * #INITIAL_NUMBER_OF_CARDS_PER_DECK}, and 0 for a depleted deck (in which 
-     * case {@link #hasNext()} should return false and {@link #getNextCard()} 
-     * should throw {@link RanOutOfCardsException}).
+     * would be 32. Edge cases: for a fresh unabridged deck, this should be 
+     * {@link #INITIAL_NUMBER_OF_CARDS_PER_DECK}, and 0 for a depleted deck (in 
+     * which case {@link #hasNext()} should return false and {@link 
+     * #getNextCard()} should throw {@link RanOutOfCardsException}).
      */
     @Override
     public int countRemaining() {
-        return INITIAL_NUMBER_OF_CARDS_PER_DECK - this.dealCount;
+        return this.cards.size() - this.dealCount;
     }
 
     /**
