@@ -31,18 +31,6 @@ public final class AbridgedDeck extends CardDeck {
     
     private final boolean hasOmissions, ranksOmitted, suitsOmitted;
     
-    /**
-     * Reports how many cards are remaining to be dealt. The number will depend 
-     * on how many ranks or suits have been omitted.
-     * @return The number of cards remaining. For example, given a deck with the 
-     * Tens omitted but no cards dealt to any players yet, this function would 
-     * return 48.
-     */
-    @Override
-    public int countRemaining() {
-        return this.cards.size() - this.dealCount;
-    }
-    
     @Override
     public boolean provenance(PlayingCard card) {
         int index = this.cards.indexOf(card);
