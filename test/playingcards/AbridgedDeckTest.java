@@ -942,6 +942,25 @@ public class AbridgedDeckTest {
     }
     
     @Test
+    public void testShuffleSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck unshuffled = new AbridgedDeck(suits);
+        CardDeck shuffled = new AbridgedDeck(suits);
+        shuffled.shuffle();
+        PlayingCard fromShuffled, fromUnshuffled;
+        boolean diffCardFound = false;
+        while (shuffled.hasNext() && unshuffled.hasNext()) {
+            fromShuffled = shuffled.getNextCard();
+            fromUnshuffled = unshuffled.getNextCard();
+            diffCardFound = diffCardFound 
+                    || !fromShuffled.equals(fromUnshuffled);
+        }
+        String msg = "Shuffled deck with " + Arrays.toString(suits)
+                + " omitted should have cards in a different order";
+        assert diffCardFound : msg;
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
