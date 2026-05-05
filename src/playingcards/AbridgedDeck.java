@@ -29,7 +29,7 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    private final boolean hasOmissions;
+    private final boolean hasOmissions, ranksOmitted, suitsOmitted;
     
     /**
      * Reports how many cards are remaining to be dealt. The number will depend 
@@ -56,7 +56,7 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public void shuffle() {
-        if (this.hasOmissions) {
+        if (!this.hasOmissions) {
             switch (this.dealCount) {
                 case 0 -> Collections.shuffle(this.cards);
                 case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1/* ,  
@@ -98,6 +98,8 @@ public final class AbridgedDeck extends CardDeck {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
         this.hasOmissions = ranks.length > 0;
+        this.ranksOmitted = this.hasOmissions;
+        this.suitsOmitted = false;
     }
     
     /**
@@ -114,6 +116,8 @@ public final class AbridgedDeck extends CardDeck {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
         this.hasOmissions = suits.length > 0;
+        this.ranksOmitted = false;
+        this.suitsOmitted = this.hasOmissions;
     }
     
 }
