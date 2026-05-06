@@ -967,7 +967,8 @@ public class AbridgedDeckTest {
         List<PlayingCard> discardPile = new ArrayList<>();
         List<PlayingCard> stillInDeck = new ArrayList<>();
         int counter = 0;
-        int halfCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK / 2;
+        int halfCount = (CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 4 * ranks.length) / 2;
         while (counter < halfCount) {
             discardPile.add(deck.getNextCard());
             counter++;
