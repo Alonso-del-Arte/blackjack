@@ -46,6 +46,10 @@ public final class AbridgedDeck extends CardDeck {
     public void shuffle() {
         if (this.hasOmissions) {
             if (this.ranksOmitted) {
+                if (this.countRemaining() == 1) {
+                    String excMsg = "Can't shuffle deck with no cards left";
+                    throw new IllegalStateException(excMsg);
+                }
                 Collections.shuffle(this.cards.subList(this.dealCount, 
                         this.cards.size()));
             } else {
