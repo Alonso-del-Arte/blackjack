@@ -45,7 +45,12 @@ public final class AbridgedDeck extends CardDeck {
     @Override
     public void shuffle() {
         if (this.hasOmissions) {
-            Collections.shuffle(this.cards);
+            if (this.ranksOmitted) {
+                Collections.shuffle(this.cards.subList(this.dealCount, 
+                        this.cards.size()));
+            } else {
+                Collections.shuffle(this.cards);
+            }
         } else {
             switch (this.dealCount) {
                 case 0 -> Collections.shuffle(this.cards);
