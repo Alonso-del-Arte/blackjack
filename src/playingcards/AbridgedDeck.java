@@ -65,8 +65,8 @@ public final class AbridgedDeck extends CardDeck {
         } else {
             switch (this.dealCount) {
                 case 0 -> Collections.shuffle(this.cards);
-                case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1/* ,  
-                    CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK */ -> {
+                case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1 ,  
+                    CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
                     String excMsg = "Can't shuffle deck with one or no cards left";
                     throw new IllegalStateException(excMsg);
                 }
