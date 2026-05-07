@@ -44,38 +44,11 @@ public final class AbridgedDeck extends CardDeck {
     
     @Override
     public void shuffle() {
-        if (this.hasOmissions) {
-            if (this.ranksOmitted) {
-                if (this.countRemaining() < 2) {
-                    String excMsg 
-                            = "Can't shuffle deck with one or no cards left";
-                    throw new IllegalStateException(excMsg);
-                }
-                Collections.shuffle(this.cards.subList(this.dealCount, 
-                        this.cards.size()));
-            } else {
-                if (this.countRemaining() < 2) {
-                    String excMsg 
-                            = "Can't shuffle deck with one or no cards left";
-                    throw new IllegalStateException(excMsg);
-                }
-                Collections.shuffle(this.cards.subList(this.dealCount, 
-                        this.cards.size()));
-            }
-        } else {
-            switch (this.dealCount) {
-                case 0 -> Collections.shuffle(this.cards);
-                case CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1 ,  
-                    CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK -> {
-                    String excMsg = "Can't shuffle deck with one or no cards left";
-                    throw new IllegalStateException(excMsg);
-                }
-                default 
-                        -> Collections.shuffle(this.cards
-                                .subList(this.dealCount, 
-                    CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK));
-            }
+        if (this.countRemaining() < 2) {
+            String excMsg = "Can't shuffle deck with one or no cards left";
+            throw new IllegalStateException(excMsg);
         }
+        Collections.shuffle(this.cards.subList(this.dealCount, this.cards.size()));
     }
     
     private void removeCards(Predicate<PlayingCard> predicate) {
