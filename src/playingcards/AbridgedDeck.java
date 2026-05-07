@@ -54,7 +54,8 @@ public final class AbridgedDeck extends CardDeck {
                 Collections.shuffle(this.cards.subList(this.dealCount, 
                         this.cards.size()));
             } else {
-                Collections.shuffle(this.cards);
+                Collections.shuffle(this.cards.subList(this.dealCount, 
+                        this.cards.size()));
             }
         } else {
             switch (this.dealCount) {
