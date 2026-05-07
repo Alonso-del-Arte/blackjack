@@ -29,8 +29,6 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    private final boolean hasOmissions, ranksOmitted, suitsOmitted;
-    
     @Override
     public boolean provenance(PlayingCard card) {
         int index = this.cards.indexOf(card);
@@ -74,9 +72,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
-        this.hasOmissions = ranks.length > 0;
-        this.ranksOmitted = this.hasOmissions;
-        this.suitsOmitted = false;
     }
     
     /**
@@ -92,9 +87,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-        this.hasOmissions = suits.length > 0;
-        this.ranksOmitted = false;
-        this.suitsOmitted = this.hasOmissions;
     }
     
 }
