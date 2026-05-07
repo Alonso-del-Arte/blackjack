@@ -1083,6 +1083,28 @@ public class AbridgedDeckTest {
     }
 
     @Test
+    public void testNoShuffleForDepletedDeckTwoSuitsOmitted() {
+        Suit[] ranks = chooseTwoSuitsToOmit();
+        CardDeck deck = new AbridgedDeck(ranks);
+        int counter = 0;
+        int max = 26;
+        while (counter < max) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg 
+                = "Trying to shuffle deck with no cards should cause exception";
+        Throwable t = assertThrows(() -> {
+            deck.shuffle();
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
