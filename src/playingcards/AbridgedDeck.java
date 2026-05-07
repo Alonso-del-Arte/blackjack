@@ -17,7 +17,6 @@
 package playingcards;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -29,6 +28,20 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
+    /**
+     * Determines if a card comes from this deck. If a card was discarded from 
+     * this deck at initialization, its provenance from this deck is then 
+     * disavowed. For the examples, suppose this is a deck from which the Tens 
+     * were removed prior to the first deal.
+     * @param card The card to check the provenance of. Three examples: a Seven 
+     * of Spades that came from this deck, a Seven of Spades from another deck, 
+     * and a Ten of Clubs.
+     * @return True if the card came from this deck and was ever available to be 
+     * dealt to a player, false otherwise. In the examples, true for the Seven 
+     * of Spades from this deck, false for the Seven of Spades from a different 
+     * deck, and false for the Ten of Spades regardless of whether or not it was 
+     * present in the deck before the Tens were removed.
+     */
     @Override
     public boolean provenance(PlayingCard card) {
         int index = this.cards.indexOf(card);
