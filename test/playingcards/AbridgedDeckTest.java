@@ -359,6 +359,46 @@ public class AbridgedDeckTest {
     }
 
     @Test
+    public void testNoShuffleDepletedDeckNoRanksOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_RANKS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg 
+                = "Trying to shuffle deck with no cards should cause exception";
+        Throwable t = assertThrows(() -> {
+            deck.shuffle();
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+
+    @Test
+    public void testNoShuffleDepletedDeckNoSuitsOmitted() {
+        CardDeck deck = new AbridgedDeck(NO_SUITS);
+        int counter = 0;
+        while (counter < CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            deck.getNextCard();
+            counter++;
+        }
+        String msg 
+                = "Trying to shuffle deck with no cards should cause exception";
+        Throwable t = assertThrows(() -> {
+            deck.shuffle();
+            System.out.println(msg);
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+
+    @Test
     public void testOmitSingleRank() {
         int maxCount = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - ALL_SUITS.length;
