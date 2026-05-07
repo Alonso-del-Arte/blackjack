@@ -1034,6 +1034,33 @@ public class AbridgedDeckTest {
     }
 
     @Test
+    public void testShuffleOnlyCardsInDeckTwoSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck deck = new AbridgedDeck(suits);
+        List<PlayingCard> discardPile = new ArrayList<>();
+        List<PlayingCard> stillInDeck = new ArrayList<>();
+        int counter = 0;
+        int halfCount = 13;
+        while (counter < halfCount) {
+            discardPile.add(deck.getNextCard());
+            counter++;
+        }
+        deck.shuffle();
+        while (deck.hasNext()) {
+            stillInDeck.add(deck.getNextCard());
+        }
+        List<PlayingCard> intersection = new ArrayList<>();
+        discardPile.stream().filter((card) -> (stillInDeck.contains(card)))
+                .forEachOrdered((card) -> {
+            intersection.add(card);
+        });
+        String msg = "The following cards from deck with " 
+                + Arrays.toString(suits) + " omitted were dealt twice: " 
+                + intersection.toString();
+        assert intersection.isEmpty() : msg;
+    }
+
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
