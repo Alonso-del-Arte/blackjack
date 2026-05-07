@@ -40,15 +40,6 @@ public final class AbridgedDeck extends CardDeck {
         }
     }
     
-    @Override
-    public void shuffle() {
-        if (this.countRemaining() < 2) {
-            String excMsg = "Can't shuffle deck with one or no cards left";
-            throw new IllegalStateException(excMsg);
-        }
-        Collections.shuffle(this.cards.subList(this.dealCount, this.cards.size()));
-    }
-    
     private void removeCards(Predicate<PlayingCard> predicate) {
         List<PlayingCard> taggedCards 
                 = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);

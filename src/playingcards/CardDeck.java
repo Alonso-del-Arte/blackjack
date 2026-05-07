@@ -93,7 +93,10 @@ public class CardDeck implements CardSupplier {
 
     /**
      * Shuffles the cards of this deck. Only cards still in the deck are 
-     * shuffled.
+     * shuffled. This means that cards that have been dealt to players are not 
+     * shuffled. And if this is an instance of {@link AbridgedDeck}, cards that 
+     * were discarded prior to the first deal are not included in the shuffling 
+     * either.
      * @throws IllegalStateException If the deck has only one or zero cards 
      * left.
      */
