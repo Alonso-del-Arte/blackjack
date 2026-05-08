@@ -1159,6 +1159,28 @@ public class AbridgedDeckTest {
         String msg = "Unshuffled deck no omissions should be in same order";
         assert instance.sameOrderAs(other) : msg;
     }
+    
+    @Test
+    public void testSameOrderAsInitially() {
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instanceA = new AbridgedDeck(ranks);
+        CardDeck instanceB = new AbridgedDeck(ranks);
+        String msg = "Fresh unshuffled decks both with " 
+                + Arrays.toString(ranks) 
+                + " omitted should be in the same order";
+        assert instanceA.sameOrderAs(instanceB) : msg;
+    }
+
+    @Test
+    public void testSameOrderAsInitiallyTwoSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck instanceA = new AbridgedDeck(suits);
+        CardDeck instanceB = new AbridgedDeck(suits);
+        String msg = "Fresh unshuffled decks both with " 
+                + Arrays.toString(suits) 
+                + " omitted should be in the same order";
+        assert instanceA.sameOrderAs(instanceB) : msg;
+    }
 
     @Test
     public void testConstructorRejectsNullRankArray() {
