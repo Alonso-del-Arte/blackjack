@@ -1143,6 +1143,22 @@ public class AbridgedDeckTest {
         assert !excMsg.isBlank() : "Exception message should not be blank";
         System.out.println("\"" + excMsg + "\"");
     }
+    
+    @Test
+    public void testSameOrderAsInitiallyNoRanksOmittedSameAsBaseClass() {
+        CardDeck instance = new AbridgedDeck(NO_RANKS);
+        CardDeck other = new CardDeck();
+        String msg = "Unshuffled deck no omissions should be in same order";
+        assert instance.sameOrderAs(other) : msg;
+    }
+
+    @Test
+    public void testSameOrderAsInitiallyNoSuitsOmittedSameAsBaseClass() {
+        CardDeck instance = new AbridgedDeck(NO_SUITS);
+        CardDeck other = new CardDeck();
+        String msg = "Unshuffled deck no omissions should be in same order";
+        assert instance.sameOrderAs(other) : msg;
+    }
 
     @Test
     public void testConstructorRejectsNullRankArray() {
