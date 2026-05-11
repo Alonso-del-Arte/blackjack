@@ -1201,6 +1201,39 @@ public class AbridgedDeckTest {
                 + " omitted should not be in same order as unabridged deck";
         assert !abridgedDeck.sameOrderAs(other) : msg;
     }
+    
+    private static boolean isOfAnOmittedRank(PlayingCard card, Rank[] ranks) {
+        boolean match = false;
+        for (Rank rank : ranks) {
+            if (card.isOf(rank)) {
+                match = true;
+                break;
+            }
+        }
+        return match;
+    }
+    
+    @Test
+    public void testNotSameOrderAbridgedShuffledAsUnshuffledUnabridged() {
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck instance = new AbridgedDeck(ranks);
+        instance.shuffle();
+        int target = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 4 * ranks.length;
+        CardDeck other = new CardDeck();
+        Set<PlayingCard> selectedCards = new HashSet<>();
+        while (other.countRemaining() > target) {
+            PlayingCard card = other.getNextCard();
+            if (isOfAnOmittedRank(card, ranks)) {
+                selectedCards.add(card);
+            }
+        }
+        String msg = "Deck with " + Arrays.toString(ranks) 
+                + " omitted should not be in same order as deck that dealt " 
+                + selectedCards.toString() + " even though both decks have " 
+                + target + " cards remaining";
+        assert !instance.sameOrderAs(other) : msg;
+    }
 
     @Test
     public void testConstructorRejectsNullRankArray() {
