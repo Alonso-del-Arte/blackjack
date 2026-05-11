@@ -31,7 +31,7 @@ public final class AbridgedDeck extends CardDeck {
     // TODO: Write tests for this
     @Override
     public boolean sameOrderAs(CardDeck other) {
-        return true;
+        return this.countRemaining() == other.countRemaining();
     }
     
     /**
