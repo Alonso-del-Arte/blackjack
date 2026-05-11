@@ -28,10 +28,9 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    // TODO: Write tests for this
     @Override
     public boolean sameOrderAs(CardDeck other) {
-        return this.countRemaining() == other.countRemaining();
+        return this.cards.equals(other.cards);
     }
     
     /**
