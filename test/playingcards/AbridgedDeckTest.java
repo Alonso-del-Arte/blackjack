@@ -1221,6 +1221,7 @@ public class AbridgedDeckTest {
         int target = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
                 - 4 * ranks.length;
         CardDeck other = new CardDeck();
+        other.shuffle();
         Set<PlayingCard> selectedCards = new HashSet<>();
         while (other.countRemaining() > target) {
             PlayingCard card = other.getNextCard();
@@ -1229,6 +1230,40 @@ public class AbridgedDeckTest {
             }
         }
         String msg = "Deck with " + Arrays.toString(ranks) 
+                + " omitted should not be in same order as deck that dealt " 
+                + selectedCards.toString() + " even though both decks have " 
+                + target + " cards remaining";
+        assert !instance.sameOrderAs(other) : msg;
+    }
+
+    private static boolean isOfAnOmittedSuit(PlayingCard card, Suit[] suits) {
+        boolean match = false;
+        for (Suit suit : suits) {
+            if (card.isOf(suit)) {
+                match = true;
+                break;
+            }
+        }
+        return match;
+    }
+    
+    @Test
+    public void testNotSameOrderSuitsOmittedShuffledAsUnshuffledUnabridged() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck instance = new AbridgedDeck(suits);
+        instance.shuffle();
+        int target = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK 
+                - 13 * suits.length;
+        CardDeck other = new CardDeck();
+        other.shuffle();
+        Set<PlayingCard> selectedCards = new HashSet<>();
+        while (other.countRemaining() > target) {
+            PlayingCard card = other.getNextCard();
+            if (isOfAnOmittedSuit(card, suits)) {
+                selectedCards.add(card);
+            }
+        }
+        String msg = "Deck with " + Arrays.toString(suits) 
                 + " omitted should not be in same order as deck that dealt " 
                 + selectedCards.toString() + " even though both decks have " 
                 + target + " cards remaining";
