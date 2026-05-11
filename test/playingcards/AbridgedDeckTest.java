@@ -1183,6 +1183,26 @@ public class AbridgedDeckTest {
     }
 
     @Test
+    public void testNotSameOrderInitiallyAsDeckWithNoOmissions() {
+        Rank[] ranks = chooseRanksToOmit();
+        CardDeck abridgedDeck = new AbridgedDeck(ranks);
+        CardDeck other = new CardDeck();
+        String msg = "Fresh unshuffled deck with " + Arrays.toString(ranks) 
+                + " omitted should not be in same order as unabridged deck";
+        assert !abridgedDeck.sameOrderAs(other) : msg;
+    }
+
+    @Test
+    public void testNotSameOrderInitiallyTwoSuitsOmitAsDeckWithNoOmissions() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck abridgedDeck = new AbridgedDeck(suits);
+        CardDeck other = new CardDeck();
+        String msg = "Fresh unshuffled deck with " + Arrays.toString(suits) 
+                + " omitted should not be in same order as unabridged deck";
+        assert !abridgedDeck.sameOrderAs(other) : msg;
+    }
+
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
