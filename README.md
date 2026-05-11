@@ -14,13 +14,13 @@ bet, though some groundwork has been done for that.
 In 2025, I started taking some steps towards internationalization. A lot remains 
 to be done. I resumed that work in 2026.
 
-If you're interested in participating in Hacktoberfest 2026, see 
-[CONTRIBUTING.md](CONTRIBUTING.md). Follow those guidelines to ensure not just 
-that your contribution is accepted for Hacktoberfest, but also that it persists 
-in the main branch after Hacktoberfest.
+If you're interested in participating in Hacktoberfest 2026, see [the 
+contribution guidelines](CONTRIBUTING.md). Follow those guidelines to ensure not 
+just that your contribution is accepted for Hacktoberfest, but also that it 
+persists in the main branch after Hacktoberfest.
 
-For the rules of blackjack as I understand them, see 
-[GameRules.md](GameRules.md).
+For the rules of blackjack as I understand them, see [the game rules 
+document](GameRules.md).
 
 This project started out as a Java 8 project. However, I've decided it's now 
 going to be a Java 21 project. Seems kind of appropriate, doesn't it?
