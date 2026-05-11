@@ -18,6 +18,7 @@ package playingcards;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 /**
  * Represents a standard deck of 52 cards, without Jokers. Since some card games
@@ -33,7 +34,7 @@ public class CardDeck implements CardSupplier {
      */
     public static final int INITIAL_NUMBER_OF_CARDS_PER_DECK = 52;
 
-    final ArrayList<PlayingCard> cards;
+    final List<PlayingCard> cards;
 
     private int dealCount = 0;
 
