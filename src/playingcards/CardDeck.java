@@ -36,7 +36,7 @@ public class CardDeck implements CardSupplier {
 
     final List<PlayingCard> cards;
 
-    private int dealCount = 0;
+    int dealCount = 0;
 
     /**
      * Tells whether the deck can give another card.
