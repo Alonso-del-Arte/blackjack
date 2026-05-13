@@ -1290,6 +1290,25 @@ public class AbridgedDeckTest {
     }
 
     @Test
+    public void testNotSameOrderAsDiffDealCountsSuitsOmitted() {
+        Suit[] suits = chooseTwoSuitsToOmit();
+        CardDeck deckA = new AbridgedDeck(suits);
+        CardDeck deckB = new AbridgedDeck(suits);
+        int max = 26;
+        deckA.getNextCard();
+        int count = 1;
+        while (count < max) {
+            deckA.getNextCard();
+            deckB.getNextCard();
+            count++;
+            String msg = "Deck that has dealt " + count 
+                    + " card(s) should not be same order as deck dealt " 
+                    + (count - 1) + " card(s)";
+            assert !deckA.sameOrderAs(deckB) : msg;
+        }
+    }
+
+    @Test
     public void testConstructorRejectsNullRankArray() {
         Rank[] ranks = null;
         String msg = "Constructor should reject null array";
