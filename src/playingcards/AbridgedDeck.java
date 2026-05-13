@@ -28,10 +28,6 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    private final Rank[] omittedRanks;
-    
-    private final Suit[] omittedSuits;
-    
     @Override
     public boolean sameOrderAs(CardDeck other) {
         return this.cards.equals(other.cards) 
@@ -86,8 +82,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Rank rankToRemove : ranks) {
             this.removeCards(card -> (card.getRank() == rankToRemove));
         }
-        this.omittedRanks = ranks;
-        this.omittedSuits = new Suit[0];
     }
     
     /**
@@ -103,8 +97,6 @@ public final class AbridgedDeck extends CardDeck {
         for (Suit suitToRemove : suits) {
             this.removeCards(card -> (card.getSuit() == suitToRemove));
         }
-        this.omittedRanks = new Rank[0];
-        this.omittedSuits = suits;
     }
     
 }
