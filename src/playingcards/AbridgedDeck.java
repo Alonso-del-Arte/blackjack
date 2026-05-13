@@ -35,9 +35,9 @@ public final class AbridgedDeck extends CardDeck {
     @Override
     public boolean sameOrderAs(CardDeck other) {
         if (this.omittedRanks.length > 0) {
-            if (other instanceof AbridgedDeck) {
+            if (other instanceof AbridgedDeck abridgedDeck) {
                 return java.util.Arrays.equals(this.omittedRanks, 
-                        ((AbridgedDeck) other).omittedRanks);
+                        abridgedDeck.omittedRanks);
             }
         }
         return this.cards.equals(other.cards);
