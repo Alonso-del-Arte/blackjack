@@ -312,29 +312,33 @@ public class CardDeckTest {
         }
     }
     
-    // TODO: Write test with one deck shuffled but same deal count
-
     /**
      * Another test of the sameOrderAs function, of the CardDeck class.
      */
-    @org.junit.Ignore @Test
+    @Test
     public void testNotSameOrderAsAfterDiffDealCounts() {
-        fail("FINISH WRITING THIS TEST");
         CardDeck deck = new CardDeck();
         CardDeck other = new CardDeck();
-        deck.getNextCard();
-        int counterA = 1;
-        int counterB = 0;
-        while (deck.hasNext()) {
-            //
+        int counterA = 0;
+        int targetDealCountA = RANDOM.nextInt(2, 26);
+        while (counterA < targetDealCountA) {
+            deck.getNextCard();
+            other.getNextCard();
+            counterA++;
         }
-        CardDeck deck01 = new CardDeck();
-        deck01.getNextCard();
-        CardDeck deck02 = new CardDeck();
-        String msg = "Decks should differ after different number of deals";
-        assert !deck01.sameOrderAs(deck02) : msg;
-        assert !deck02.sameOrderAs(deck01) : msg;
+        int counterB = counterA;
+        int targetDealCountB = counterA + RANDOM.nextInt(2, 26);
+        while (counterB < targetDealCountB) {
+            other.getNextCard();
+            counterB++;
+        }
+        String msg = "Deck that has dealt " + counterA 
+                + " cards shouldn't be same order as deck that has dealt " 
+                + counterB + " cards";
+        assert !deck.sameOrderAs(other) : msg;
     }
+
+    // TODO: Write test with one deck shuffled but same deal count
 
     /**
      * Test of the provenance function, of the CardDeck class.
