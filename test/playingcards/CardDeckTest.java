@@ -17,6 +17,7 @@
 package playingcards;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -338,7 +339,34 @@ public class CardDeckTest {
         assert !deck.sameOrderAs(other) : msg;
     }
 
-    // TODO: Write test with one deck shuffled but same deal count
+    @Test
+    public void testNotSameOrderAs() {
+        CardDeck deck = new CardDeck();
+        CardDeck other = new CardDeck();
+        deck.shuffle();
+        int targetDealCount = RANDOM.nextInt(5, 16);
+        PlayingCard[] dealtFromDeck = new PlayingCard[targetDealCount];
+        PlayingCard[] dealtFromOther = new PlayingCard[targetDealCount];
+        boolean diffCardDealt = false;
+        int counter = 0;
+        while (counter < targetDealCount) {
+            dealtFromDeck[counter] = deck.getNextCard();
+            dealtFromOther[counter] = other.getNextCard();
+            diffCardDealt = diffCardDealt 
+                    | (!dealtFromDeck[counter].equals(dealtFromOther[counter]));
+            counter++;
+        }
+        String msg = "Deck that has so far dealt " 
+                + Arrays.toString(dealtFromDeck) 
+                + " shouldn't be same order as deck that has so far dealt " 
+                + Arrays.toString(dealtFromOther);
+        if (diffCardDealt) {
+            assert !deck.sameOrderAs(other) : msg;
+        } else {
+            String message = "Shuffle problem: ??? "+ msg + " ????";
+            throw new RuntimeException(message);
+        }
+    }
 
     /**
      * Test of the provenance function, of the CardDeck class.
