@@ -101,12 +101,12 @@ public class CardDeck implements CardSupplier {
      * left.
      */
     public void shuffle() {
-//        if (this.countRemaining() < 2) {
-//            String excMsg = "Can't shuffle deck with one or no cards left";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        Collections.shuffle(this.cards.subList(this.dealCount, 
-//                this.cards.size()));
+        if (this.countRemaining() < 2) {
+            String excMsg = "Can't shuffle deck with one or no cards left";
+            throw new IllegalStateException(excMsg);
+        }
+        Collections.shuffle(this.cards.subList(this.dealCount, 
+                this.cards.size()));
     }
 
     /**
