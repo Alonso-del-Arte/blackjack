@@ -28,12 +28,6 @@ import java.util.function.Predicate;
  */
 public final class AbridgedDeck extends CardDeck {
     
-    @Override
-    public boolean sameOrderAs(CardDeck other) {
-        return this.cards.equals(other.cards) 
-                && this.dealCount == other.dealCount;
-    }
-    
     /**
      * Determines if a card comes from this deck. If a card was discarded from 
      * this deck at initialization, its provenance from this deck is then 
