@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -19,10 +19,6 @@ package blackjack;
 import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
 import currency.CurrencyChooser;
-import playingcards.CardServer;
-import playingcards.PlayingCard;
-import playingcards.Rank;
-import playingcards.matchers.RankPairSpec;
 
 import java.util.Currency;
 import java.util.HashSet;
@@ -32,11 +28,21 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import playingcards.AbridgedDeck;
+import playingcards.CardDeck;
+import playingcards.CardServer;
+import playingcards.PlayingCard;
+import playingcards.Rank;
+import playingcards.matchers.RankPairSpec;
+
 /**
  * Tests of the Hand class.
  * @author Alonso del Arte
  */
 public class HandTest {
+    
+    private static final Rank[] ROYAL_RANKS 
+            = {Rank.JACK, Rank.QUEEN, Rank.KING};
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
