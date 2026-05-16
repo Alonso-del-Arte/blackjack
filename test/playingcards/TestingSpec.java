@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -58,17 +58,21 @@ public enum TestingSpec implements CardSpec {
     public boolean matches(PlayingCard card) {
         int value = card.integerValue();
         switch (this) {
-            case ODD_PIP:
+            case ODD_PIP -> {
                 int modVal = value % 13;
                 return modVal % 2 == 1 && modVal < 10;
-            case EVEN_PIP:
+            }
+            case EVEN_PIP -> {
                 return value % 2 == 0 && value < 11;
-            case COURT:
+            }
+            case COURT -> {
                 return value > 10 && value < 14;
-            default:
-                String excMsg = "Testing spec " + this.specWord 
+            }
+            default -> { 
+                String excMsg = "Testing spec " + this.specWord
                         + " not recognized";
                 throw new RuntimeException(excMsg);
+            }
         }
     }
 
