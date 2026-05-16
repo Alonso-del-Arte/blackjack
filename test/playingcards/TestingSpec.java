@@ -56,7 +56,7 @@ public enum TestingSpec implements CardSpec {
     
     @Override
     public boolean matches(PlayingCard card) {
-        int value = card.cardValue();
+        int value = card.integerValue();
         switch (this) {
             case ODD_PIP:
                 int modVal = value % 13;

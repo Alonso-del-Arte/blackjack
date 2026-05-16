@@ -442,7 +442,7 @@ public class AbridgedDeckTest {
     
     private static Rank[] chooseRanksToOmit() {
         CardDeck choosingDeck = getChoosingDeck();
-        int capacity = (choosingDeck.getNextCard().cardValue() % 5) + 3;
+        int capacity = (choosingDeck.getNextCard().integerValue() % 5) + 3;
         Set<Rank> rankSet = new HashSet<>(capacity);
         while (rankSet.size() < capacity) {
             rankSet.add(choosingDeck.getNextCard().getRank());

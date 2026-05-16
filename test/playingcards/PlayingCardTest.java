@@ -447,16 +447,16 @@ public class PlayingCardTest {
     }
 
     /**
-     * Test of the cardValue function, of the PlayingCard class.
+     * Test of the integerValue function, of the PlayingCard class.
      */
     @Test
-    public void testCardValue() {
+    public void testIntegerValue() {
         System.out.println("cardValue");
         for (Suit suit : SUITS) {
             for (Rank rank : RANKS) {
                 PlayingCard currCard = new PlayingCard(rank, suit);
                 int expected = rank.getIntVal();
-                int actual = currCard.cardValue();
+                int actual = currCard.integerValue();
                 assertEquals(expected, actual);
             }
         }

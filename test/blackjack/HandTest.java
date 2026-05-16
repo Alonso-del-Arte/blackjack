@@ -105,7 +105,7 @@ public class HandTest {
         do {
             PlayingCard card = this.SERVER.getNextCard();
             hand.add(card);
-            roughValueCount += card.cardValue();
+            roughValueCount += card.integerValue();
             expected = expected.replace("\u0029", "," + card.toString() 
                     + "\u0029");
             String actual = hand.toString().replace(" ", "");
@@ -150,7 +150,7 @@ public class HandTest {
         do {
             PlayingCard card = deck.getNextCard();
             instance.add(card);
-            expected += card.cardValue();
+            expected += card.integerValue();
             int actual = instance.cardsValue();
             String message = "Reckoning value of " + instance.toString();
             assertEquals(message, expected, actual);

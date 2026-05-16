@@ -129,7 +129,7 @@ public class PlayingCard {
      * the number of pips, e.g., 8. Though for Aces like A&#9830; it will be 14. 
      * Jacks are 11, Queens are 12 and Kings are 13.
      */
-    public int cardValue() {
+    public int integerValue() {
         return this.cardRank.getIntVal();
     }
     

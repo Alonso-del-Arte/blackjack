@@ -58,7 +58,7 @@ public class Hand {
                     cumulRank++;
                     aceCount++;
                 } else {
-                    cumulRank += card.cardValue();
+                    cumulRank += card.integerValue();
                 }
             }
         }
