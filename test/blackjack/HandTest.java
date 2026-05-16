@@ -41,8 +41,17 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
+    private final CardServer SERVER = new CardServer(50);
+    
+    private static final Dealer DEALER = new Dealer();
+    
+    private static final Rank[] RANKS = Rank.values();
+    
     private static final Rank[] ROYAL_RANKS 
             = {Rank.JACK, Rank.QUEEN, Rank.KING};
+    
+    private static final Rank[] ACES_AND_ROYAL_RANKS 
+            = {Rank.ACE, Rank.JACK, Rank.QUEEN, Rank.KING};
     
     private static final Currency DOLLARS = Currency.getInstance(Locale.US);
     
@@ -50,12 +59,6 @@ public class HandTest {
             = new CurrencyAmount(10000, DOLLARS);
     
     static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
-    
-    private final CardServer SERVER = new CardServer(50);
-    
-    private static final Dealer DEALER = new Dealer();
-    
-    private static final Rank[] RANKS = Rank.values();
     
     private Set<RankPairSpec> makeRankPairSpecSet() {
         Set<RankPairSpec> pairSpecs 
@@ -140,7 +143,18 @@ public class HandTest {
     @Test
     public void testCardsValue() {
         System.out.println("cardsValue");
-        fail("REWRITE THIS TEST");
+        CardDeck deck = new AbridgedDeck(ACES_AND_ROYAL_RANKS);
+        deck.shuffle();
+        Hand instance = new Hand(DEFAULT_WAGER);
+        int expected = 0;
+        do {
+            PlayingCard card = deck.getNextCard();
+            instance.add(card);
+            expected += card.cardValue();
+            int actual = instance.cardsValue();
+            String message = "Reckoning value of " + instance.toString();
+            assertEquals(message, expected, actual);
+        } while (expected < 21);
     }
     
     /**
