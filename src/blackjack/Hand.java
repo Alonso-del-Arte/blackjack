@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -79,7 +79,7 @@ public class Hand {
      * because a hand with an Ace as the only card is valued at 11.
      */
     public int cardsValue() {
-        return -this.handScore;
+        return this.handScore;
     }
     
     // TODO: Write tests for this
