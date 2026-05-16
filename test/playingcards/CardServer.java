@@ -20,6 +20,7 @@ import static playingcards.PlayingCardTest.RANDOM;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Provides cards of a specific rank or suit. This class should only be
@@ -160,6 +161,11 @@ public class CardServer implements CardSupplier {
      */
     public PlayingCard giveCard(Suit suit) {
         return this.findMatchingCard(suit);
+    }
+    
+    // TODO: Write tests for this
+    public PlayingCard giveCard(Predicate<PlayingCard> predicate) {
+        return this.getNextCard();
     }
     
     private static Rank chooseOtherRank(Rank rank) {
