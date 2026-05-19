@@ -44,7 +44,7 @@ public class CardServer implements CardSupplier {
     private int currDeckIndex = 0;
     
     private final List<PlayingCard> prevExamCards = new ArrayList<>();
-
+    
     /**
      * Tells whether this server can give another card.
      * @return True if this server can give another card, false if not.
@@ -163,9 +163,27 @@ public class CardServer implements CardSupplier {
         return this.findMatchingCard(suit);
     }
     
-    // TODO: Write tests for this
     public PlayingCard giveCard(Predicate<PlayingCard> predicate) {
-        return this.getNextCard();
+        int index = 0;
+        while (index < this.prevExamCards.size()) {
+            PlayingCard card = this.prevExamCards.get(index);
+            if (predicate.test(card)) {
+                return this.prevExamCards.remove(index);
+            }
+            index++;
+        }
+        while (this.currDeckIndex < this.decks.length) {
+            while (this.decks[this.currDeckIndex].hasNext()) {
+                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
+                if (predicate.test(card)) {
+                    return card;
+                } else {
+                    this.prevExamCards.add(card);
+                }
+            }
+            this.currDeckIndex++;
+        }
+        throw new RanOutOfCardsException("Could not find card for predicate");
     }
     
     private static Rank chooseOtherRank(Rank rank) {
