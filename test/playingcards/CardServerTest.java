@@ -296,6 +296,7 @@ public class CardServerTest {
             PlayingCard card = instance.giveCard(predicate);
             String msg = "Got " + card.toString() + pwd.description;
             assert predicate.test(card) : msg;
+            counter++;
         } while (counter < numberOfCalls);
     }
     
