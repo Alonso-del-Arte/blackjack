@@ -163,6 +163,16 @@ public class CardServer implements CardSupplier {
         return this.findMatchingCard(suit);
     }
     
+    /**
+     * Gives a card satisfying a specified predicate.
+     * @param predicate The predicate to match. For example, a pip card at least 
+     * a 5.
+     * @return A card matching the predicate. For example, 7&#9830;.
+     * @throws RanOutOfCardsException If this server has run out of cards 
+     * matching the predicate. Since this server should only be used for testing 
+     * purposes, it would probably be acceptable to simply initialize this 
+     * server with more decks.
+     */
     public PlayingCard giveCard(Predicate<PlayingCard> predicate) {
         while (this.hasNext()) {
             PlayingCard card = this.getNextCard();
