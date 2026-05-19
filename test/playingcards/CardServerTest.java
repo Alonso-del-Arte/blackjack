@@ -226,7 +226,6 @@ public class CardServerTest {
      */
     @Test
     public void testGiveCardRank() {
-        System.out.println("giveCard(Rank)");
         CardServer server = new CardServer();
         for (Rank expected : RANKS) {
             PlayingCard card = server.giveCard(expected);
@@ -264,7 +263,6 @@ public class CardServerTest {
      */
     @Test
     public void testGiveCardSuit() {
-        System.out.println("giveCard(Suit)");
         CardServer server = new CardServer();
         for (Suit expected : SUITS) {
             PlayingCard card = server.giveCard(expected);
