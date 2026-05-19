@@ -164,24 +164,11 @@ public class CardServer implements CardSupplier {
     }
     
     public PlayingCard giveCard(Predicate<PlayingCard> predicate) {
-        int index = 0;
-        while (index < this.prevExamCards.size()) {
-            PlayingCard card = this.prevExamCards.get(index);
+        while (this.hasNext()) {
+            PlayingCard card = this.getNextCard();
             if (predicate.test(card)) {
-                return this.prevExamCards.remove(index);
+                return card;
             }
-            index++;
-        }
-        while (this.currDeckIndex < this.decks.length) {
-            while (this.decks[this.currDeckIndex].hasNext()) {
-                PlayingCard card = this.decks[this.currDeckIndex].getNextCard();
-                if (predicate.test(card)) {
-                    return card;
-                } else {
-                    this.prevExamCards.add(card);
-                }
-            }
-            this.currDeckIndex++;
         }
         throw new RanOutOfCardsException("Could not find card for predicate");
     }
