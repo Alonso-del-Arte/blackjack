@@ -57,14 +57,9 @@ public class CardServerTest {
     
     private static PredicateWithDescription inventRankPredicate() {
         int remainder = RANDOM.nextInt(4);
-        Predicate<PlayingCard> pred = new Predicate<PlayingCard>() {
-            
-            @Override
-            public boolean test(PlayingCard card) {
-                return card.getRank().ordinal() % 4 == remainder;
-            }
-            
-        };
+        Predicate<PlayingCard> pred 
+                = (PlayingCard card) 
+                        -> card.getRank().ordinal() % 4 == remainder;
         String descr = "Card rank ordinal should be " + remainder + " mod 4";
         return new PredicateWithDescription(pred, descr);
     }
@@ -79,14 +74,9 @@ public class CardServerTest {
     
     private static PredicateWithDescription inventSuitPredicate() {
         Color suitColor = chooseColor();
-        Predicate<PlayingCard> pred = new Predicate<PlayingCard>() {
-            
-            @Override
-            public boolean test(PlayingCard card) {
-                return card.getSuit().getTextColor().equals(suitColor);
-            }
-            
-        };
+        Predicate<PlayingCard> pred 
+                = (PlayingCard card) 
+                        -> card.getSuit().getTextColor().equals(suitColor);
         String descr = "Card suit color should be " + suitColor.toString();
         return new PredicateWithDescription(pred, descr);
     }
