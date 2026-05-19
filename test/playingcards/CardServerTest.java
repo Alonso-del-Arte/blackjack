@@ -16,9 +16,11 @@
  */
 package playingcards;
 
+import java.awt.Color;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -39,6 +41,63 @@ public class CardServerTest {
     private static final Suit[] SUITS = Suit.values();
     
     private static final int DEFAULT_DECK_QUANTITY = 10;
+    
+    private static class PredicateWithDescription {
+        
+        final Predicate<PlayingCard> predicate;
+        
+        final String description;
+
+        PredicateWithDescription(Predicate<PlayingCard> pred, String descr) {
+            this.predicate = pred;
+            this.description = descr;
+        }    
+        
+    }
+    
+    private static PredicateWithDescription inventRankPredicate() {
+        int remainder = RANDOM.nextInt(4);
+        Predicate<PlayingCard> pred = new Predicate<PlayingCard>() {
+            
+            @Override
+            public boolean test(PlayingCard card) {
+                return card.getRank().ordinal() % 4 == remainder;
+            }
+            
+        };
+        String descr = "Card rank ordinal should be " + remainder + " mod 4";
+        return new PredicateWithDescription(pred, descr);
+    }
+    
+    private static Color chooseColor() {
+        int r = 0;
+        if (RANDOM.nextBoolean()) {
+            r = 255;
+        }
+        return new Color(r, 0, 0);
+    }
+    
+    private static PredicateWithDescription inventSuitPredicate() {
+        Color suitColor = chooseColor();
+        Predicate<PlayingCard> pred = new Predicate<PlayingCard>() {
+            
+            @Override
+            public boolean test(PlayingCard card) {
+                return card.getSuit().getTextColor().equals(suitColor);
+            }
+            
+        };
+        String descr = "Card suit color should be " + suitColor.toString();
+        return new PredicateWithDescription(pred, descr);
+    }
+    
+    private static PredicateWithDescription inventPredicate() {
+        if (RANDOM.nextBoolean()) {
+            return inventRankPredicate();
+        } else {
+            return inventSuitPredicate();
+        }
+    }
     
     @Test
     public void testHasNext() {
