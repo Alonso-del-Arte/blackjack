@@ -59,8 +59,8 @@ public class CardServerTest {
         int remainder = RANDOM.nextInt(4);
         Predicate<PlayingCard> pred 
                 = (PlayingCard card) 
-                        -> card.getRank().ordinal() % 4 == remainder;
-        String descr = "Card rank ordinal should be " + remainder + " mod 4";
+                        -> (card.getRank().ordinal() + 1) % 4 == remainder;
+        String descr = ", rank ordinal should be " + remainder + " mod 4";
         return new PredicateWithDescription(pred, descr);
     }
     
@@ -77,12 +77,12 @@ public class CardServerTest {
         Predicate<PlayingCard> pred 
                 = (PlayingCard card) 
                         -> card.getSuit().getTextColor().equals(suitColor);
-        String descr = "Card suit color should be " + suitColor.toString();
+        String descr = ", suit color should be " + suitColor.toString();
         return new PredicateWithDescription(pred, descr);
     }
     
     private static PredicateWithDescription inventPredicate() {
-        if (RANDOM.nextBoolean()) {
+        if (RANDOM.nextDouble() < 0.75) {
             return inventRankPredicate();
         } else {
             return inventSuitPredicate();
@@ -282,6 +282,21 @@ public class CardServerTest {
                 }
             }
         }
+    }
+    
+    @Test
+    public void testGiveCard() {
+        System.out.println("giveCard");
+        CardServer instance = new CardServer(DEFAULT_DECK_QUANTITY);
+        PredicateWithDescription pwd = inventPredicate();
+        Predicate<PlayingCard> predicate = pwd.predicate;
+        int numberOfCalls = 26;
+        int counter = 0;
+        do {
+            PlayingCard card = instance.giveCard(predicate);
+            String msg = "Got " + card.toString() + pwd.description;
+            assert predicate.test(card) : msg;
+        } while (counter < numberOfCalls);
     }
     
     @Test
