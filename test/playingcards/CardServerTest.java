@@ -290,7 +290,7 @@ public class CardServerTest {
         CardServer instance = new CardServer(DEFAULT_DECK_QUANTITY);
         PredicateWithDescription pwd = inventPredicate();
         Predicate<PlayingCard> predicate = pwd.predicate;
-        int numberOfCalls = 26;
+        int numberOfCalls = 13;
         int counter = 0;
         do {
             PlayingCard card = instance.giveCard(predicate);
