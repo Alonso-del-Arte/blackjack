@@ -421,59 +421,6 @@ public class CardServerTest {
     }
     
     /**
-     * Another test of the giveCards function, of class CardServer. I'm not 
-     * using assertThrows() for this test because I want a different message if 
-     * {@link RanOutOfCardsException} occurs.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testGiveCardsRankCanServeFromTwoDecks() {
-        fail("REWRITE THIS TEST THROUGH ALL RANKS OR ONE RANDOM RANK");
-        fail("REWRITE WITH assertDoesNotThrow()");
-        CardServer server = new CardServer(2);
-        Rank expected = Rank.SEVEN;
-        try {
-            PlayingCard[] cards = server.giveCards(expected, 7);
-            String assertionMessage = "Served card should be of rank " 
-                    + expected.getWord();
-            for (PlayingCard card : cards) {
-                assert card.isOf(expected) : assertionMessage;
-            }
-        } catch (RuntimeException re) {
-            String message = "Server should have been able to deal cards of rank " 
-                    + expected.getWord() + " from two decks without causing " 
-                    + re.getClass().getName();
-            fail(message);
-        }
-    }
-    
-    /**
-     * Another test of the giveCards function, of class CardServer. I'm not 
-     * using assertThrows() for this test because I want a different message if 
-     * {@link RanOutOfCardsException} occurs.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testGiveCardsSuitCanServeFromTwoDecks() {
-        fail("REWRITE THIS TEST THROUGH ALL SUITS OR ONE RANDOM SUIT");
-        CardServer server = new CardServer(2);
-        Suit expected = Suit.DIAMONDS;
-        try {
-            PlayingCard[] cards = server.giveCards(expected, 25);
-            String assertionMessage = "Served card should be of suit " 
-                    + expected.getWord();
-            for (PlayingCard card : cards) {
-                assert card.isOf(expected) : assertionMessage;
-            }
-        } catch (RuntimeException re) {
-            String msg = "Server should have been able to deal cards of rank " 
-                    + expected.getWord() + " from two decks without causing " 
-                    + re.getClass().getName();
-            fail(msg);
-        }
-    }
-    
-    /**
      * Test of the CardServer constructor. A negative number should be an 
      * invalid number of decks constructor parameter.
      */
