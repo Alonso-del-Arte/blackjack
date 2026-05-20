@@ -381,23 +381,24 @@ public class CardServerTest {
     /**
      * Test of the giveCards(Suit) function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
-    public void testGiveCardsSuitClubs() {
+    public void testGiveCardsBySuit() {
         System.out.println("giveCards(Suit)");
-        fail("REWRITE THIS TEST THROUGH ALL SUITS");
-        CardServer server = new CardServer();
-        Suit expected = Suit.CLUBS;
-        PlayingCard[] cards = server.giveCards(expected, 13);
-        String msg = "Served card should be of suit " 
-                + expected.getWord();
-        for (PlayingCard card : cards) {
-            assert card.isOf(expected) : msg;
-        }
-        for (int i = 0; i < 12; i++) {
-            for (int j = i + 1; j < 13; j++) {
-                assertNotEquals(cards[i], cards[j]);
+        int deckQty = RANDOM.nextInt(2, DEFAULT_DECK_QUANTITY + 1);
+        CardServer server = new CardServer(deckQty);
+        for (Suit suit : SUITS) {
+            int cardQty = RANDOM.nextInt(13, 13 * deckQty);
+            PlayingCard[] cards = server.giveCards(suit, cardQty);
+            String msg = "Served card should be of suit " + suit.getWord();
+            Set<PlayingCard> expected = Arrays.stream(RANKS)
+                    .map(rank -> new PlayingCard(rank, suit))
+                    .collect(Collectors.toSet());
+            Set<PlayingCard> actual = new HashSet<>(13);
+            for (PlayingCard card : cards) {
+                assert card.isOf(suit) : msg;
+                actual.add(card);
             }
+            assertEquals(expected, actual);
         }
     }
     
