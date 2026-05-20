@@ -403,28 +403,21 @@ public class CardServerTest {
     }
     
     /**
-     * Another test of the giveCards function, of class CardServer. I'm not 
-     * using assertThrows() for this test because I want a different message if 
-     * {@link RanOutOfCardsException} occurs.
+     * Another test of the giveCards function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
-    public void testGiveCardsCanDealFromTwoDecks() {
-        CardServer server = new CardServer(2);
-        try {
-            PlayingCard[] cards = server.giveCards(53);
-            System.out.println("Server gave " + cards[52].toASCIIString() 
-                    + " from second deck");
-        } catch (RanOutOfCardsException roce) {
-            String message = "Second deck should've had cards";
-            System.out.println(message);
-            System.out.println("\"" + roce.getMessage() + "\"");
-            fail(message);
-        } catch (RuntimeException re) {
-            String message = re.getClass().getName() 
-                    + " is wrong exception for second deck not having cards";
-            fail(message);
-        }
+    public void testGiveCardsCanDealFromMultipleDecks() {
+        int deckQty = RANDOM.nextInt(2, DEFAULT_DECK_QUANTITY + 1);
+        CardServer server = new CardServer(deckQty);
+        int cardQty = CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK * (deckQty - 1) 
+                + 1;
+        String msg = "Server with " + deckQty + " decks should be able to give " 
+                + cardQty + " cards";
+        assertDoesNotThrow(() -> {
+            PlayingCard[] cards = server.giveCards(cardQty);
+            System.out.println("Server gave " + cards[cardQty - 1].toString() 
+                    + " from last deck");
+        }, msg);
     }
     
     /**
