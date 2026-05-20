@@ -248,11 +248,10 @@ public class CardServer implements CardSupplier {
      * each suit and then it would fail to find another Ace of any suit.
      */
     public PlayingCard[] giveCards(Rank rank, int cardQty) {
-        PlayingCard[] cards = // new PlayingCard[cardQty];
-        {new PlayingCard(rank, Suit.CLUBS)};
-//        for (int i = 0; i < cardQty; i++) {
-//            cards[i] = this.giveCard(rank);
-//        }
+        PlayingCard[] cards = new PlayingCard[cardQty];
+        for (int i = 0; i < cardQty; i++) {
+            cards[i] = this.giveCard(rank);
+        }
         return cards;
     }
 
