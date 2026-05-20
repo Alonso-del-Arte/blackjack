@@ -272,11 +272,10 @@ public class CardServer implements CardSupplier {
      * acceptable to simply initialize this server with more decks.
      */
     public PlayingCard[] giveCards(Suit suit, int cardQty) {
-        PlayingCard[] cards // = new PlayingCard[cardQty];
-                = {new PlayingCard(Rank.JACK, suit)};
-//        for (int i = 0; i < cardQty; i++) {
-//            cards[i] = this.giveCard(suit);
-//        }
+        PlayingCard[] cards = new PlayingCard[cardQty];
+        for (int i = 0; i < cardQty; i++) {
+            cards[i] = this.giveCard(suit);
+        }
         return cards;
     }
 
