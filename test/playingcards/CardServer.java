@@ -221,6 +221,9 @@ public class CardServer implements CardSupplier {
      * to simply initialize this server with more decks.
      */
     public PlayingCard[] giveCards(int cardQty) {
+        if (cardQty > CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK) {
+            throw new RuntimeException("SORRY, PARTIAL REWIND TO FAIL");
+        }
         PlayingCard[] cards = new PlayingCard[cardQty];
         for (int i = 0; i < cardQty; i++) {
             cards[i] = this.getNextCard();
