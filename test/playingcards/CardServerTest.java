@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -354,24 +355,26 @@ public class CardServerTest {
     }
     
     /**
-     * Test of giveCards(Rank) method, of class CardServer.
+     * Test of the giveCards(Rank) function, of the CardServer class.
      */
-    @org.junit.Ignore
     @Test
-    public void testGiveCardsRankFour() {
+    public void testGiveCardsByRank() {
         System.out.println("giveCards(Rank)");
-        fail("REWRITE THIS TEST THROUGH ALL RANKS");
-        CardServer server = new CardServer();
-        Rank expected = Rank.FOUR;
-        PlayingCard[] cards = server.giveCards(expected, 4);
-        String msg = "Served card should be of rank " + expected.getWord();
-        for (PlayingCard card : cards) {
-            assert card.isOf(expected) : msg;
-        }
-        for (int i = 0; i < 3; i++) {
-            for (int j = i + 1; j < 4; j++) {
-                assertNotEquals(cards[i], cards[j]);
+        int deckQty = RANDOM.nextInt(2, DEFAULT_DECK_QUANTITY + 1);
+        CardServer server = new CardServer(deckQty);
+        for (Rank rank : RANKS) {
+            int cardQty = RANDOM.nextInt(4, 4 * deckQty);
+            PlayingCard[] cards = server.giveCards(rank, cardQty);
+            String msg = "Served card should be of rank " + rank.getWord();
+            Set<PlayingCard> expected = Arrays.stream(SUITS)
+                    .map(suit -> new PlayingCard(rank, suit))
+                    .collect(Collectors.toSet());
+            Set<PlayingCard> actual = new HashSet<>(4);
+            for (PlayingCard card : cards) {
+                assert card.isOf(rank) : msg;
+                actual.add(card);
             }
+            assertEquals(expected, actual);
         }
     }
     
