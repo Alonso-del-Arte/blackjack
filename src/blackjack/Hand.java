@@ -52,16 +52,16 @@ public class Hand {
         int cumulRank = 0;
         int aceCount = 0;
         for (PlayingCard card : this.cards) {
-//            if (card.isCourtCard()) {
-//                cumulRank += 10;
-//            } else {
+            if (card.isCourtCard()) {
+                cumulRank += 10;
+            } else {
                 if (card.isOf(Rank.ACE)) {
                     cumulRank++;
                     aceCount++;
                 } else {
                     cumulRank += card.integerValue();
                 }
-//            }
+            }
         }
         if (aceCount > 0 && cumulRank < 12) cumulRank += 10;
         this.open = (cumulRank < 21);
