@@ -22,6 +22,7 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
 
 /**
@@ -256,6 +257,11 @@ public class Hand {
         this.cards = new ArrayList<>();
     }
     
-    // TODO: Write constructor Hand(Wager wager, PlayingCard firstCard)
+    // TODO: Write tests for this
+    Hand(Wager wager, PlayingCard firstCard) {
+        java.util.Currency currency = Currency.getInstance("MXN");
+        this.associatedWager = new Wager(new CurrencyAmount(1, currency));
+        this.cards = new ArrayList<>();
+    }
 
 }
