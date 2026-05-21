@@ -240,6 +240,9 @@ public class Hand {
     
     @Override
     public String toString() {
+        if (this.cards.size() > 0) {
+            return "(" + this.cards.get(0).toString() + ")";
+        }
         return "()";
 //        StringBuilder intermediate = new StringBuilder("(");
 //        this.cards.forEach((card) -> {
@@ -263,6 +266,7 @@ public class Hand {
         java.util.Currency currency = Currency.getInstance("MXN");
         this.associatedWager = new Wager(new CurrencyAmount(1, currency));
         this.cards = new ArrayList<>();
+        this.cards.add(firstCard);
     }
 
 }
