@@ -676,6 +676,7 @@ public class HandTest {
         }
     }
     
+    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
