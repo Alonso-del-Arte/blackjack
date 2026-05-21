@@ -586,8 +586,10 @@ public class HandTest {
     /**
      * Another test of the add procedure, of the Hand class.
      */
+    @org.junit.Ignore
     @Test
-    public void testCantAddCardAfterWinning() {
+    public void testNoAddCardAfterWinning() {
+        fail("REWRITE THIS TEST USING assertThrows()");
         Hand winningHand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
