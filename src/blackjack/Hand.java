@@ -51,16 +51,16 @@ public class Hand {
         int cumulRank = 0;
         int aceCount = 0;
         for (PlayingCard card : this.cards) {
-            if (card.isCourtCard()) {
-                cumulRank += 10;
-            } else {
+//            if (card.isCourtCard()) {
+//                cumulRank += 10;
+//            } else {
                 if (card.isOf(Rank.ACE)) {
                     cumulRank++;
                     aceCount++;
                 } else {
                     cumulRank += card.integerValue();
                 }
-            }
+//            }
         }
         if (aceCount > 0 && cumulRank < 12) cumulRank += 10;
         this.open = (cumulRank < 21);
@@ -204,11 +204,11 @@ public class Hand {
      * @throws IllegalStateException If the hand has blackjack or has gone bust.
      */
     void add(PlayingCard card) {
-        if (!this.open) {
-            String excMsg = "Can't add card to hand valued at " 
-                    + this.handScore;
-            throw new IllegalStateException(excMsg);
-        }
+//        if (!this.open) {
+//            String excMsg = "Can't add card to hand valued at " 
+//                    + this.handScore;
+//            throw new IllegalStateException(excMsg);
+//        }
         int index = 0;
         PlayingCard alreadyCard;
         while (index < this.cards.size()) {
