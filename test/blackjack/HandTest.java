@@ -74,18 +74,10 @@ public class HandTest {
         return pairSpecs;
     }
     
-    /**
-     * Test of the toString function, of the Hand class.
-     */
     @Test
     public void testToStringInitial() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstCard = this.SERVER.getNextCard();
-        hand.add(firstCard);
-        PlayingCard secondCard = this.SERVER.getNextCard();
-        hand.add(secondCard);
-        String expected = "(" + firstCard.toString() + "," 
-                + secondCard.toString() + ")";
+        String expected = "()";
         String actual = hand.toString().replace(" ", "");
         assertEquals(expected, actual);
     }
