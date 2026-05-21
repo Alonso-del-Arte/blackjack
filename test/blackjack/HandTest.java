@@ -83,6 +83,15 @@ public class HandTest {
     }
     
     @Test
+    public void testToStringInitialAuxConstructor() {
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String expected = "(" + firstCard.toString() + ")";
+        String actual = hand.toString().replace(" ", "");
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testToString() {
         System.out.println("toString");
         Hand hand = new Hand(DEFAULT_WAGER);
