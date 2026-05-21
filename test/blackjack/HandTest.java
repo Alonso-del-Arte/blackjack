@@ -180,15 +180,16 @@ public class HandTest {
      */
     @Test
     public void testCourtCardsAreTenEach() {
-        fail("REWRITE THIS TEST");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
-        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
-        PlayingCard king = this.SERVER.giveCard(Rank.KING);
-        hand.add(jack);
-        hand.add(queen);
-        hand.add(king);
-        assertEquals(30, hand.cardsValue());
+        final int expected = 10;
+        for (Rank rank : ROYAL_RANKS) {
+            Hand hand = new Hand(DEFAULT_WAGER);
+            PlayingCard card = this.SERVER.giveCard(rank);
+            hand.add(card);
+            int actual = hand.cardsValue();
+            String message = "Getting value of " + card.toString() 
+                    + " in a blackjack hand";
+            assertEquals(message, expected, actual);
+        }
     }
     
     /**
