@@ -240,7 +240,7 @@ public class Hand {
     
     @Override
     public String toString() {
-        if (this.cards.size() > 0) {
+        if (!this.cards.isEmpty()) {
             return "(" + this.cards.get(0).toString() + ")";
         }
         return "()";
