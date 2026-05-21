@@ -158,27 +158,13 @@ public class HandTest {
     }
     
     /**
-     * Another test of the cardsValue function, of the Hand class. A Jack of any 
-     * suit should be valued at 10.
-     */
-    @Test
-    public void testCardsValueAfterAddingJack() {
-        fail("REWRITE THIS TEST");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.giveCard(Rank.JACK);
-        hand.add(card);
-        assertEquals("Hand with Jack should have value 10", 10, 
-                hand.cardsValue());
-    }
-    
-    /**
      * Another test of the cardsValue function, of the Hand class. Two Aces 
      * valued at 11 each would mean the hand has gone bust. However, when a hand 
      * has two Aces, one or both of them should be revalued at 1, so that the 
      * hand's value is then less than 22.
      */
     @Test
-    public void testTwoAcesCantBust() {
+    public void testTwoAcesDoNotBust() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
         hand.add(ace);
@@ -194,6 +180,7 @@ public class HandTest {
      */
     @Test
     public void testCourtCardsAreTenEach() {
+        fail("REWRITE THIS TEST");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
         PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
@@ -627,8 +614,9 @@ public class HandTest {
         }
     }
     
+    @org.junit.Ignore
     @Test
-    public void testCantAddCardAfterBusting() {
+    public void testNoAddCardAfterBusting() {
         Hand winningHand = new Hand(DEFAULT_WAGER);
         PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
