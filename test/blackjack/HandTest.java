@@ -620,6 +620,7 @@ public class HandTest {
     @org.junit.Ignore
     @Test
     public void testNoAddCardAfterBusting() {
+        fail("REWRITE THIS TEST USING assertThrows()");
         Hand winningHand = new Hand(DEFAULT_WAGER);
         PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
