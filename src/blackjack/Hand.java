@@ -240,16 +240,12 @@ public class Hand {
     
     @Override
     public String toString() {
-        if (!this.cards.isEmpty()) {
-            return "(" + this.cards.get(0).toString() + ")";
-        }
-        return "()";
-//        StringBuilder intermediate = new StringBuilder("(");
-//        this.cards.forEach((card) -> {
-//            intermediate.append(card.toString()).append(", ");
-//        });
-//        intermediate.append(")");
-//        return intermediate.toString().replace(", \u0029", "\u0029");
+        StringBuilder intermediate = new StringBuilder("(");
+        this.cards.forEach((card) -> {
+            intermediate.append(card.toString()).append(", ");
+        });
+        intermediate.append(")");
+        return intermediate.toString().replace(", \u0029", "\u0029");
     }
     
     /**
