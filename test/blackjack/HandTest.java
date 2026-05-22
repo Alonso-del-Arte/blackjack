@@ -20,8 +20,10 @@ import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
 import currency.CurrencyChooser;
 
+import java.util.ArrayList;
 import java.util.Currency;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -95,24 +97,22 @@ public class HandTest {
     public void testToString() {
         System.out.println("toString");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstCard = this.SERVER.getNextCard();
-        hand.add(firstCard);
-        PlayingCard secondCard = this.SERVER.getNextCard();
-        hand.add(secondCard);
-        String expected = "(" + firstCard.toString() + "," 
-                + secondCard.toString() + ")";
-        int roughValueCount = firstCard.getRank().getIntVal() 
-                + secondCard.getRank().getIntVal();
+        List<PlayingCard> cards = new ArrayList<>(11);
+        int roughValueCount = 0;
         do {
             PlayingCard card = this.SERVER.getNextCard();
             hand.add(card);
+            cards.add(card);
             roughValueCount += card.integerValue();
-            expected = expected.replace("\u0029", "," + card.toString() 
-                    + "\u0029");
+            String intermediate = cards.toString().replace(" ", "");
+            String expected = "(" + intermediate
+                    .substring(1, intermediate.length() - 1) + ")";
             String actual = hand.toString().replace(" ", "");
             assertEquals(expected, actual);
         } while (roughValueCount < 21);
     }
+    
+    // TODO: WRITE toString( ) TEST FOR AUX CONSTRUCTOR
     
     /**
      * Test of the getWager function, of the Hand class.
