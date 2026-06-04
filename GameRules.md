@@ -59,12 +59,18 @@ hand. That is, the player is expected to put more money on the table. So in the
 example, both of your hands would have $100 wagers each, not $50 each.
 
 If any player hits 21 from the first two cards, they have a "natural" blackjack, 
-and the dealer should pay 3/2 times the player's wager. However, some players 
-use the term "blackjack" alone to mean natural blackjack, and they don't regard 
-other combinations that add up to 21 (such as three Sevens) as "blackjack."
+and the dealer should pay 3/2 times the player's wager, provided the dealer does 
+not also have natural blackjack. So if the dealer's face up card is an Ace, a 
+Ten or a court card, the dealer can't pay out just yet.
 
-For example, you wager $100 on a hand and the dealer gives you an Ace and a 
-Queen, that's natural blackjack and the dealer should pay you $150.
+Some players use the term "blackjack" alone to mean natural blackjack, and they 
+don't regard other combinations that add up to 21 (such as three Sevens) as 
+"blackjack."
+
+Let's say you wager $100 on a hand and the dealer gives you an Ace and a Queen, 
+that's natural blackjack and the dealer should pay you $150. However, some 
+casinos have reduced the payout to 6/5, so in this example you would only get 
+$120.
 
 The suits of the cards only matter to the extent that blackjack is played with 
 the same kind of cards used for most variants of poker. A natural blackjack with 
