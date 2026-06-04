@@ -112,7 +112,25 @@ public class HandTest {
         } while (roughValueCount < 21);
     }
     
-    // TODO: WRITE toString( ) TEST FOR AUX CONSTRUCTOR
+    @Test
+    public void testToStringFromAuxConstructor() {
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        List<PlayingCard> cards = new ArrayList<>(11);
+        cards.add(firstCard);
+        int roughValueCount = firstCard.integerValue();
+        do {
+            PlayingCard card = this.SERVER.getNextCard();
+            hand.add(card);
+            cards.add(card);
+            roughValueCount += card.integerValue();
+            String intermediate = cards.toString().replace(" ", "");
+            String expected = "(" + intermediate
+                    .substring(1, intermediate.length() - 1) + ")";
+            String actual = hand.toString().replace(" ", "");
+            assertEquals(expected, actual);
+        } while (roughValueCount < 21);
+    }
     
     /**
      * Test of the getWager function, of the Hand class.
