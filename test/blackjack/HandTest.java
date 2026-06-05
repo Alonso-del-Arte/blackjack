@@ -732,4 +732,22 @@ fail("Finish writing test");
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testAuxConstructorRejectsNullWager() {
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        String msg = "Constructor should reject " + firstCard.toString() 
+                + " with null wager";
+        Throwable t = assertThrows(() -> {
+            Hand badInstance = new Hand(null, firstCard);
+            System.out.println(msg + ", not create instance " 
+                    + badInstance.getClass().getName() + "@" 
+                    + Integer.toHexString(System
+                            .identityHashCode(badInstance)));
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
 }
