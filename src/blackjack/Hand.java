@@ -266,6 +266,10 @@ public class Hand {
      * @param firstCard The first card. For example, Eight of Diamonds.
      */
     Hand(Wager wager, PlayingCard firstCard) {
+        if (wager == null) {
+            String excMsg = "Null wager is not valid";
+            throw new NullPointerException(excMsg);
+        }
         this.associatedWager = wager;
         this.cards.add(firstCard);
     }
