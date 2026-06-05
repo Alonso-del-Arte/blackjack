@@ -22,7 +22,6 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 /**
@@ -251,6 +250,7 @@ public class Hand {
     /**
      * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
      * cards using {@link #add(playingcards.PlayingCard) add()}.
+     * @param wager The wager. For example, $100.
      */
     Hand(Wager wager) {
         this.associatedWager = wager;
