@@ -148,6 +148,18 @@ public class HandTest {
     }
     
     @Test
+    public void testGetWagerFromAuxConstructorInstance() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager expected = new Wager(amount);
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        Hand hand = new Hand(expected, firstCard);
+        Wager actual = hand.getWager();
+        assertEquals(expected, actual);
+    }
+    
+    @Test
     public void testCardsValueNewEmptyHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         int expected = 0;
