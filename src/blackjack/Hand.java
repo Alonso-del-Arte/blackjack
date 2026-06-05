@@ -251,6 +251,7 @@ public class Hand {
      * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
      * cards using {@link #add(playingcards.PlayingCard) add()}.
      * @param wager The wager. For example, $100.
+     * @throws NullPointerException If {@code wager} is null.
      */
     Hand(Wager wager) {
         if (wager == null) {
@@ -264,6 +265,8 @@ public class Hand {
      * Creates a new hand with just one card. This is meant for splitting hands.
      * @param wager The wager. For example, $100.
      * @param firstCard The first card. For example, Eight of Diamonds.
+     * @throws NullPointerException If {@code wager} or {@code firstCard} is 
+     * null.
      */
     Hand(Wager wager, PlayingCard firstCard) {
         if (wager == null || firstCard == null) {
