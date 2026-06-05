@@ -270,6 +270,10 @@ public class Hand {
             String excMsg = "Null wager is not valid";
             throw new NullPointerException(excMsg);
         }
+        if (firstCard == null) {
+            String excMsg = "Null card is not valid";
+            throw new NullPointerException(excMsg);
+        }
         this.associatedWager = wager;
         this.cards.add(firstCard);
     }
