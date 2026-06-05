@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Hand {
 
-    private final List<PlayingCard> cards;
+    private final List<PlayingCard> cards = new ArrayList<>();
     
     private int handScore = 0;
     
@@ -254,14 +254,12 @@ public class Hand {
      */
     Hand(Wager wager) {
         this.associatedWager = wager;
-        this.cards = new ArrayList<>();
     }
     
     // TODO: Write tests for this
     Hand(Wager wager, PlayingCard firstCard) {
         java.util.Currency currency = Currency.getInstance("MXN");
         this.associatedWager = new Wager(new CurrencyAmount(1, currency));
-        this.cards = new ArrayList<>();
         this.cards.add(firstCard);
     }
 
