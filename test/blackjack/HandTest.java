@@ -30,6 +30,8 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 import playingcards.AbridgedDeck;
 import playingcards.CardDeck;
 import playingcards.CardServer;
@@ -712,6 +714,22 @@ public class HandTest {
         Wager.Outcome expected = Wager.Outcome.NATURAL_BLACKJACK;
 //        Wager.Outcome actual = hand.getSettlement();
 fail("Finish writing test");
+    }
+    
+    @Test
+    public void testPrimaryConstructorRejectsNullWager() {
+        String msg = "Constructor should reject null wager";
+        Throwable t = assertThrows(() -> {
+            Hand badInstance = new Hand(null);
+            System.out.println(msg + ", not create instance " 
+                    + badInstance.getClass().getName() + "@" 
+                    + Integer.toHexString(System
+                            .identityHashCode(badInstance)));
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
 }
