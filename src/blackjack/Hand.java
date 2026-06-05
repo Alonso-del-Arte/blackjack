@@ -256,10 +256,13 @@ public class Hand {
         this.associatedWager = wager;
     }
     
-    // TODO: Write tests for this
+    /**
+     * Creates a new hand with just one card. This is meant for splitting hands.
+     * @param wager The wager. For example, $100.
+     * @param firstCard The first card. For example, Eight of Diamonds.
+     */
     Hand(Wager wager, PlayingCard firstCard) {
-        java.util.Currency currency = Currency.getInstance("MXN");
-        this.associatedWager = new Wager(new CurrencyAmount(1, currency));
+        this.associatedWager = wager;
         this.cards.add(firstCard);
     }
 
