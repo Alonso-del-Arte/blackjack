@@ -253,6 +253,10 @@ public class Hand {
      * @param wager The wager. For example, $100.
      */
     Hand(Wager wager) {
+        if (wager == null) {
+            String excMsg = "Null wager is not valid";
+            throw new NullPointerException(excMsg);
+        }
         this.associatedWager = wager;
     }
     
