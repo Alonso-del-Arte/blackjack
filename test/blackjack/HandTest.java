@@ -272,11 +272,7 @@ public class HandTest {
                     + pairSpec.toString() + ", player should " 
                     + (expected ? "" : "not") + " be allowed to split " 
                     + hand.toString();
-            if (expected) {
-                assert actual : msg;
-            } else {
-                assert !actual : msg;
-            }
+            assert expected == actual : msg;
         }
     }
     
