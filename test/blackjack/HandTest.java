@@ -319,7 +319,7 @@ public class HandTest {
         }
     }
     
-    private static void assertCantSplit(Hand hand, Dealer dealer) {
+    private static void assertCanNotSplit(Hand hand, Dealer dealer) {
         String prevHandStr = hand.toString();
         try {
             Hand splitOffHand = hand.split(dealer);
@@ -354,7 +354,7 @@ public class HandTest {
                 if (maySplit) {
                     assertCanSplit(hand, dealer);
                 } else {
-                    assertCantSplit(hand, dealer);
+                    assertCanNotSplit(hand, dealer);
                 }
             }
         }
