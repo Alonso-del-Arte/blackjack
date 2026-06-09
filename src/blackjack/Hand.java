@@ -143,7 +143,7 @@ public class Hand {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
         }
-        CurrencyAmount splitAmount = this.associatedWager.getAmount();
+        CurrencyAmount splitAmount = this.associatedWager.getAmount().divides(3);
         this.associatedWager = new Wager(splitAmount);
         Hand splitOffHand = new Hand(this.associatedWager);
         splitOffHand.add(this.cards.remove(1));
