@@ -277,8 +277,26 @@ public class HandTest {
     }
     
     @Test
-    public void testAuxConstructorInstanceIsSplittableHand() {
-        fail("WRITE THIS TEST");
+    public void testAuxConstructorInstanceIsSplittable() {
+        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Dealer dealer = new Dealer(pairSpecs);
+        int maxPairs = 39;
+        for (int i = 0; i < maxPairs; i++) {
+            PlayingCard firstCard = this.SERVER.getNextCard();
+            Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+            PlayingCard card = this.SERVER.getNextCard();
+            hand.add(card);
+            RankPairSpec pairSpec = new RankPairSpec(firstCard.getRank(), 
+                    card.getRank());
+            boolean expected = pairSpecs.contains(pairSpec);
+            boolean actual = hand.isSplittable(dealer);
+            String msg = "Since test dealer is said to " 
+                    + (expected ? "allow" : "not allow") + " splitting " 
+                    + pairSpec.toString() + ", player should " 
+                    + (expected ? "" : "not") + " be allowed to split " 
+                    + hand.toString();
+            assert expected == actual : msg;
+        }
     }
     
     /**
