@@ -280,6 +280,11 @@ public class HandTest {
         }
     }
     
+    @Test
+    public void testAuxConstructorInstanceIsSplittableHand() {
+        fail("WRITE THIS TEST");
+    }
+    
     /**
      * Another test of the split function, of the Hand class.
      */
@@ -301,6 +306,11 @@ public class HandTest {
                     + " is the wrong exception to throw for split from empty";
             fail(msg);
         }
+    }
+    
+    @Test
+    public void testNoSplitNewHandAuxConstructorInstance() {
+        fail("WRITE THIS TEST");
     }
     
     private static void assertCanSplit(Hand hand, Dealer dealer) {
@@ -360,14 +370,21 @@ public class HandTest {
         }
     }
     
+    @Test
+    public void testSplitAuxConstructorInstance() {
+        fail("WRITE THIS TEST");
+    }
+    
     /**
      * Another test of the split function, of the Hand class. When a hand is 
      * split, the wager should also be split among the hands.
      */
     @Test
     public void testSplitOffHandHasSameWager() {
-        long wagerInCents = 12800L;
-        CurrencyAmount expected = new CurrencyAmount(wagerInCents, DOLLARS);
+        int cents = RANDOM.nextInt(1000, 100000);
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount expected = new CurrencyAmount(cents, currency);
+        fail("FINISH REWRITING THIS TEST");
         Wager originalWager = new Wager(expected);
         Hand firstHand = new Hand(originalWager);
         PlayingCard firstTen = this.SERVER.giveCard(Rank.TEN);
@@ -381,6 +398,11 @@ public class HandTest {
         splitWager = secondHand.getWager();
         actual = splitWager.getAmount();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testSplitOffHandHasSameWagerAuxConstructor() {
+        fail("WRITE THIS TEST");
     }
     
     /**
