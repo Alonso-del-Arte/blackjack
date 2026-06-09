@@ -118,8 +118,9 @@ public class Hand {
 //                            this.cards.get(1).getRank());
 //            return dealer.giveSplittablePairs().contains(pairSpec);
 //        } else {
-            return false;
+//            return false;
 //        }
+return true;
     }
     
     /**
