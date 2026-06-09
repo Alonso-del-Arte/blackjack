@@ -249,10 +249,10 @@ public class HandTest {
     }
     
     /**
-     * Test of the isSplittableHand function, of the Hand class.
+     * Test of the isSplittable function, of the Hand class.
      */
     @Test
-    public void testIsSplittableHand() {
+    public void testIsSplittable() {
         System.out.println("isSplittableHand");
         Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
@@ -266,7 +266,7 @@ public class HandTest {
             RankPairSpec pairSpec = new RankPairSpec(cardA.getRank(), 
                     cardB.getRank());
             boolean expected = pairSpecs.contains(pairSpec);
-            boolean actual = hand.isSplittableHand(dealer);
+            boolean actual = hand.isSplittable(dealer);
             String msg = "Since test dealer is said to " 
                     + (expected ? "allow" : "not allow") + " splitting " 
                     + pairSpec.toString() + ", player should " 

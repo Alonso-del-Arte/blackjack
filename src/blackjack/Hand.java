@@ -111,7 +111,7 @@ public class Hand {
      * valued 10. There is no stricture on splitting Aces, Fours, Fives or Tens 
      * (which some British casinos might enforce).
      */
-    public boolean isSplittableHand(Dealer dealer) {
+    public boolean isSplittable(Dealer dealer) {
 //        if (this.cards.size() == 2) {
 //            RankPairSpec pairSpec 
 //                    = new RankPairSpec(this.cards.get(0).getRank(), 
@@ -139,7 +139,7 @@ public class Hand {
      * {@link #isSplittableHand()}.
      */
     Hand split(Dealer dealer) {
-        if (!this.isSplittableHand(dealer)) {
+        if (!this.isSplittable(dealer)) {
             String excMsg = "Can't split this hand";
             throw new IllegalStateException(excMsg);
         }
