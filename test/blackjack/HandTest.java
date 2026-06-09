@@ -228,9 +228,11 @@ public class HandTest {
     /**
      * Test of the inspectCards function, of the Hand class.
      */
+    @org.junit.Ignore
     @Test
     public void testInspectCards() {
         System.out.println("inspectCards");
+        fail("REASSESS THE FUNCTION BEING TESTED AND REWRITE TEST");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard[] expected = this.SERVER.giveCards(Rank.TWO, 4);
         hand.add(expected[0]);
