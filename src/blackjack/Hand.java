@@ -112,14 +112,14 @@ public class Hand {
      * (which some British casinos might enforce).
      */
     public boolean isSplittableHand(Dealer dealer) {
-        if (this.cards.size() == 2) {
-            RankPairSpec pairSpec 
-                    = new RankPairSpec(this.cards.get(0).getRank(), 
-                            this.cards.get(1).getRank());
-            return dealer.giveSplittablePairs().contains(pairSpec);
-        } else {
+//        if (this.cards.size() == 2) {
+//            RankPairSpec pairSpec 
+//                    = new RankPairSpec(this.cards.get(0).getRank(), 
+//                            this.cards.get(1).getRank());
+//            return dealer.giveSplittablePairs().contains(pairSpec);
+//        } else {
             return false;
-        }
+//        }
     }
     
     /**
