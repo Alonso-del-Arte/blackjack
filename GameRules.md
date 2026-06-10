@@ -21,9 +21,10 @@ each. Aces are valued at 1 or 11 at the player's discretion (though in practice
 it's assumed the player wants them valued to win).
 
 If you win, the dealer pays up. If you lose, the dealer collects your wager. 
-Simple, right? Well, there are plenty of subtleties that threaten to make a 
-blackjack program into a mess of heavily indented nested If statements (the 
-current state of the console application source).
+There usually are other players at the table, but you're not in competition with 
+them. The settlement of another player's wager at the same table does not affect 
+the settlement of your wager other than that settling other players' wagers may 
+delay the dealer from settling your wager.
 
 After the players make their initial wagers, the dealer gives each player two 
 cards face up. The dealer also gets two cards, but one of them is face down. 
