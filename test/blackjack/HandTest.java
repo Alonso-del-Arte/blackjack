@@ -337,6 +337,25 @@ public class HandTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testNoSplitHandWithJustOneCard() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard card = SERVER.getNextCard();
+        hand.add(card);
+        String msg = "Shouldn't be able to split " + hand.toString() 
+                + " with wager " + DEFAULT_WAGER.toString();
+        Throwable t = assertThrows(() -> {
+            Hand splitOff = hand.split(DEALER);
+            System.out.println("Somehow created " + splitOff.toString() 
+                    + " valued at " + splitOff.cardsValue() 
+                    + " from hand with just one card");
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     private static void assertCanSplit(Hand hand, Dealer dealer) {
         PlayingCard[] cardsBeforeSplit = hand.inspectCards();
         assert cardsBeforeSplit.length == 2 : "Hand should only have two cards";
