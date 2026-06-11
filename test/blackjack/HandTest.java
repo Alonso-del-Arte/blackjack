@@ -305,21 +305,18 @@ public class HandTest {
     @Test
     public void testCanNotSplitNewHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        try {
+        String msg = "Shouldn't be able to split " + hand.toString() 
+                + " with wager " + DEFAULT_WAGER.toString();
+        Throwable t = assertThrows(() -> {
             Hand splitOff = hand.split(DEALER);
             System.out.println("Somehow created " + splitOff.toString() 
                     + " valued at " + splitOff.cardsValue() 
                     + " from new hand with no cards");
-            String msg = "Shouldn't've been able to split off from 0-card hand";
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Split from empty caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for split from empty";
-            fail(msg);
-        }
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
