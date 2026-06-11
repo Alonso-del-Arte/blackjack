@@ -321,7 +321,20 @@ public class HandTest {
     
     @Test
     public void testNoSplitNewHandAuxConstructorInstance() {
-        fail("WRITE THIS TEST");
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "Shouldn't be able to split " + hand.toString() 
+                + " with wager " + DEFAULT_WAGER.toString();
+        Throwable t = assertThrows(() -> {
+            Hand splitOff = hand.split(DEALER);
+            System.out.println("Somehow created " + splitOff.toString() 
+                    + " valued at " + splitOff.cardsValue() 
+                    + " from hand with just one card");
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     private static void assertCanSplit(Hand hand, Dealer dealer) {
