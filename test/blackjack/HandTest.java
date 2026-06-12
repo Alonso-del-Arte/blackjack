@@ -415,7 +415,24 @@ public class HandTest {
     
     @Test
     public void testSplitAuxConstructorInstance() {
-        fail("WRITE THIS TEST");
+        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Dealer dealer = new Dealer(pairSpecs);
+        for (Rank firstCardRank : RANKS) {
+            PlayingCard firstCard = this.SERVER.giveCard(firstCardRank);
+            for (Rank secondCardRank : RANKS) {
+                Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+                PlayingCard secondCard = this.SERVER.giveCard(secondCardRank);
+                hand.add(secondCard);
+                RankPairSpec pairSpec = new RankPairSpec(firstCardRank, 
+                        secondCardRank);
+                boolean maySplit = pairSpecs.contains(pairSpec);
+                if (maySplit) {
+                    assertCanSplit(hand, dealer);
+                } else {
+                    assertCanNotSplit(hand, dealer);
+                }
+            }
+        }
     }
     
     /**
