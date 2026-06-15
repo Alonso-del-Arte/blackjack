@@ -444,8 +444,8 @@ public class HandTest {
         int cents = RANDOM.nextInt(1000, 100000);
         Currency currency = CurrencyChooser.chooseCurrency();
         CurrencyAmount expected = new CurrencyAmount(cents, currency);
-        Wager originalWager = new Wager(expected);
-        Hand firstHand = new Hand(originalWager);
+        Wager wager = new Wager(expected);
+        Hand firstHand = new Hand(wager);
         PlayingCard firstCard = this.SERVER.getNextCard();
         Rank rank = firstCard.getRank();
         PlayingCard secondCard = this.SERVER.giveCard(rank);
@@ -467,7 +467,27 @@ public class HandTest {
     
     @Test
     public void testSplitOffHandHasSameWagerAuxConstructor() {
-        fail("WRITE THIS TEST");
+        int cents = RANDOM.nextInt(1000, 100000);
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount expected = new CurrencyAmount(cents, currency);
+        Wager originalWager = new Wager(expected);
+        PlayingCard firstCard = this.SERVER.getNextCard();
+        Hand firstHand = new Hand(originalWager, firstCard);
+        Rank rank = firstCard.getRank();
+        PlayingCard secondCard = this.SERVER.giveCard(rank);
+        firstHand.add(secondCard);
+        String originalHandLabel = firstHand.toString();
+        Hand secondHand = firstHand.split(DEALER);
+        String msgPart = " split off from " + originalHandLabel 
+                + " should have " + expected.toString() + " wager";
+        Wager splitWager = firstHand.getWager();
+        String message = "Hand " + firstHand.toString() + msgPart;
+        CurrencyAmount actual = splitWager.getAmount();
+        assertEquals(message, expected, actual);
+        message = "Hand " + secondHand.toString() + msgPart;
+        splitWager = secondHand.getWager();
+        actual = splitWager.getAmount();
+        assertEquals(message, expected, actual);
     }
     
     /**
