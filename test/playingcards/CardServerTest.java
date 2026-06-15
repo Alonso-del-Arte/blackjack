@@ -146,25 +146,49 @@ public class CardServerTest {
     }
     
     @Test
+    public void testCountRemainingInitial() {
+        int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
+        CardSupplier instance = new CardServer(deckQty);
+        String message = "Server initialized with " + deckQty 
+                + " decks has not dealt any cards yet";
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        int actual = instance.countRemaining();
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
     public void testCountRemaining() {
         System.out.println("countRemaining");
         int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
         CardSupplier instance = new CardServer(deckQty);
+        int initial = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        PlayingCard lastDealt = instance.getNextCard();
+        int count = 1;
         String msgPartA = "Server initialized with " + deckQty 
                 + " decks has so far dealt ";
         String msgPartB = " card(s), last of which was ";
-        PlayingCard lastDealt = null;
-        int count = 0;
-        for (int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
-                expected > 0; expected--) {
-            String message = msgPartA + count + msgPartB + lastDealt;
+        for (int expected = initial - 1; expected > 0; expected--) {
+            String message = msgPartA + count + msgPartB + lastDealt.toString();
             int actual = instance.countRemaining();
             assertEquals(message, expected, actual);
             lastDealt = instance.getNextCard();
+            count++;
         }
-        assert lastDealt != null;
+    }
+    
+    @Test
+    public void testCountRemainingDepleted() {
+        int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
+        CardSupplier instance = new CardServer(deckQty);
+        int count = 0;
+        for (int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
+                expected > 0; expected--) {
+            instance.getNextCard();
+            count++;
+        }
         int actual = instance.countRemaining();
-        String msg = msgPartA + count + msgPartB + lastDealt.toString();
+        String msg = "Server initialized with " + deckQty 
+                + " decks should be depleted after dealing " + count + " cards";
         assertZero(actual, msg);
     }
     
