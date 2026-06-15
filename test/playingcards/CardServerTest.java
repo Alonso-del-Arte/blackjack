@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
 
 import static org.testframe.api.Asserters.assertDoesNotThrow;
 import static org.testframe.api.Asserters.assertThrows;
+import static org.testframe.api.Asserters.assertZero;
 
 import static playingcards.PlayingCardTest.RANDOM;
 
@@ -142,6 +143,29 @@ public class CardServerTest {
         System.out.println("First card server gave was " + cards[0].toString() 
                 + ", last card was " + cards[numberOfCards - 1].toString());
         assert !server.hasNext() : msg;
+    }
+    
+    @Test
+    public void testCountRemaining() {
+        System.out.println("countRemaining");
+        int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
+        CardSupplier instance = new CardServer(deckQty);
+        String msgPartA = "Server initialized with " + deckQty 
+                + " decks has so far dealt ";
+        String msgPartB = " card(s), last of which was ";
+        PlayingCard lastDealt = null;
+        int count = 0;
+        for (int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK; 
+                expected > 0; expected--) {
+            String message = msgPartA + count + msgPartB + lastDealt;
+            int actual = instance.countRemaining();
+            assertEquals(message, expected, actual);
+            lastDealt = instance.getNextCard();
+        }
+        assert lastDealt != null;
+        int actual = instance.countRemaining();
+        String msg = msgPartA + count + msgPartB + lastDealt.toString();
+        assertZero(actual, msg);
     }
     
     /**
