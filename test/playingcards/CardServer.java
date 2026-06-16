@@ -180,7 +180,7 @@ public class CardServer implements CardSupplier {
      * server with more decks.
      */
     public PlayingCard giveCard(Predicate<PlayingCard> predicate) {
-        this.dealCount -= 2;
+        this.dealCount -= 120;
         while (this.hasNext()) {
             PlayingCard card = this.getNextCard();
             if (predicate.test(card)) {
