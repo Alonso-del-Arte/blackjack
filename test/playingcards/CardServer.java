@@ -151,6 +151,7 @@ public class CardServer implements CardSupplier {
      * probably be acceptable to simply initialize this server with more decks.
      */
     public PlayingCard giveCard(Rank rank) {
+        this.dealCount++;
         return this.findMatchingCard(rank);
     }
 
