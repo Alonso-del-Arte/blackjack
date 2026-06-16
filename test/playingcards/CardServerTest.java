@@ -200,6 +200,29 @@ public class CardServerTest {
     }
     
     @Test
+    public void testCountRemainingGiveCardBySuit() {
+        int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
+        CardServer instance = new CardServer(deckQty);
+        int count = 0;
+        int expected = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
+        int cardsPerSuit = deckQty * RANKS.length;
+        String msgPartA = "Server initialized with " + deckQty 
+                + " decks has so far dealt ";
+        for (Suit suit : SUITS) {
+            String msgPartB = " of rank " + suit.getWord();
+            for (int i = 0; i < cardsPerSuit; i++) {
+                instance.giveCard(suit);
+                expected--;
+                count++;
+                int actual = instance.countRemaining();
+                String message = msgPartA + count + " cards, including " 
+                        + (i + 1) + msgPartB;
+                assertEquals(message, expected, actual);
+            }
+        }
+    }
+    
+    @Test
     public void testCountRemainingDepleted() {
         int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
         CardSupplier instance = new CardServer(deckQty);
