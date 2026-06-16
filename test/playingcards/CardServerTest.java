@@ -27,6 +27,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import static org.testframe.api.Asserters.assertDoesNotThrow;
+import static org.testframe.api.Asserters.assertMaximum;
 import static org.testframe.api.Asserters.assertThrows;
 import static org.testframe.api.Asserters.assertZero;
 
@@ -220,6 +221,21 @@ public class CardServerTest {
                 assertEquals(message, expected, actual);
             }
         }
+    }
+    
+    @Test
+    public void testCountRemainingGiveCardByPredicate() {
+        int deckQty = RANDOM.nextInt(3, 2 * DEFAULT_DECK_QUANTITY);
+        CardServer instance = new CardServer(deckQty);
+        PredicateWithDescription pwd = inventPredicate();
+        Predicate<PlayingCard> predicate = pwd.predicate;
+        PlayingCard card = instance.giveCard(predicate);
+        int maximum = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK - 1;
+        int actual = instance.countRemaining();
+        String msg = "Server initialized with " + deckQty 
+                + " decks has given one card, " + card.toString() 
+                + ", to satisfy predicate" + pwd.description;
+        assertMaximum(actual, maximum, msg);
     }
     
     @Test
