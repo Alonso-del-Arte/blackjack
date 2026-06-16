@@ -45,6 +45,10 @@ public class CardServer implements CardSupplier {
     
     private final List<PlayingCard> prevExamCards = new ArrayList<>();
     
+    private final int total;
+    
+    private int dealCount = 0;
+    
     /**
      * Tells whether this server can give another card.
      * @return True if this server can give another card, false if not.
@@ -74,13 +78,13 @@ public class CardServer implements CardSupplier {
             String excMsg = "Ran out of decks to deal from";
             throw new RanOutOfCardsException(excMsg);
         }
+        this.dealCount++;
         return this.decks[this.currDeckIndex].getNextCard();
     }
 
-    // TODO: Write tests for this
     @Override
     public int countRemaining() {
-        return -1;
+        return this.total - this.dealCount;
     }
 
     /**
@@ -308,6 +312,7 @@ public class CardServer implements CardSupplier {
             this.decks[i] = new CardDeck();
             this.decks[i].shuffle();
         }
+        this.total = deckQty * CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK;
     }
 
 }
