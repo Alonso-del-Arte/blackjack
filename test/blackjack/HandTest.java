@@ -26,6 +26,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,6 +64,9 @@ public class HandTest {
             = new CurrencyAmount(10000, DOLLARS);
     
     static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
+    
+    private static final Predicate<PlayingCard> TEN_CARD_PREDICATE 
+            = ((card) -> card.integerValue() > 9);
     
     private Set<RankPairSpec> makeRankPairSpecSet() {
         Set<RankPairSpec> pairSpecs 
