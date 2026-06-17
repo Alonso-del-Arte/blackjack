@@ -645,6 +645,17 @@ public class HandTest {
         assert !hand.isWinning() : msg;
     }
 
+    @Test
+    public void testBustedHandAuxConstructorInstanceIsNotWinningHand() {
+        Hand hand = makeOpenHandAuxConstructor();
+        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        PlayingCard card = SERVER.giveCard(predicate);
+        hand.add(card);
+        String msg = "Hand " + hand.toString() 
+                + " should not be considered a winning hand";
+        assert !hand.isWinning() : msg;
+    }
+
     /**
      * Test of the isBusted function of the Hand class.
      */
