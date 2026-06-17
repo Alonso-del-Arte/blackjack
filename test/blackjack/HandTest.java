@@ -502,6 +502,12 @@ public class HandTest {
         assertEquals(message, expected, actual);
     }
     
+    @Test
+    public void testNewHandIsNotWinning() {
+        Hand instance = new Hand(DEFAULT_WAGER);
+        assert !instance.isWinning() : "New hand is not winning";
+    }
+    
     /**
      * Test of the isWinning function of the Hand class.
      */
