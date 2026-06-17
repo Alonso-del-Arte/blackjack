@@ -589,6 +589,21 @@ public class HandTest {
     }
     
     @Test
+    public void testOpenHandAuxConstructorIsNotWinningHand() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        int value = assessValue(firstCard);
+        while (value < 21) {
+            String msg = "Hand " + hand.toString() 
+                    + " should not be a winning hand";
+            assert !hand.isWinning() : msg;
+            PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+            hand.add(card);
+            value += assessValue(card);
+        }
+    }
+    
+    @Test
     public void testBustedHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
