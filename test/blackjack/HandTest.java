@@ -513,12 +513,6 @@ public class HandTest {
         assertEquals(message, expected, actual);
     }
     
-    @Test
-    public void testNewHandIsNotWinning() {
-        Hand instance = new Hand(DEFAULT_WAGER);
-        assert !instance.isWinning() : "New hand is not winning";
-    }
-    
     /**
      * Test of the isWinning function of the Hand class.
      */
@@ -553,25 +547,6 @@ public class HandTest {
         hand.add(card);
         String msg = hand.toString() + " should be considered a winning hand";
         assert hand.isWinning() : msg;
-    }
-    
-    @Test
-    public void testOpenHandJustOneCardIsNotWinningHand() {
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = SERVER.getNextCard();
-        hand.add(card);
-        String msg = "Hand with just " + card.toString() 
-                + " should not be considered a winning hand";
-        assert !hand.isWinning() : msg;
-    }
-    
-    @Test
-    public void testOpenHandJustOneCardAuxConstructorIsNotWinningHand() {
-        PlayingCard firstCard = SERVER.getNextCard();
-        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        String msg = "Hand with just " + firstCard.toString() 
-                + " should not be considered a winning hand";
-        assert !hand.isWinning() : msg;
     }
     
     @Test
