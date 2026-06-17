@@ -548,11 +548,20 @@ public class HandTest {
     }
     
     @Test
-    public void testOpenHandIsNotWinningHand() {
+    public void testOpenHandJustOneCardIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
+                + " should not be considered a winning hand";
+        assert !hand.isWinning() : msg;
+    }
+    
+    @Test
+    public void testOpenHandJustOneCardAuxConstructorIsNotWinningHand() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "Hand with just " + firstCard.toString() 
                 + " should not be considered a winning hand";
         assert !hand.isWinning() : msg;
     }
