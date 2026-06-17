@@ -81,11 +81,6 @@ public class Hand {
         return this.handScore;
     }
     
-    // TODO: Write tests for this
-    public int cardCount() {
-        return Integer.MAX_VALUE;
-    }
-    
     /**
      * Shows the cards in the hand. The cards are still held by the hand 
      * afterwards.
