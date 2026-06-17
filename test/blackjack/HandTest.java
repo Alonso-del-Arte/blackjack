@@ -519,6 +519,26 @@ public class HandTest {
     }
     
     @Test
+    public void testIsWinningAuxConstructorInstanceStartWithAce() {
+        PlayingCard firstCard = SERVER.giveCard(Rank.ACE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(TEN_CARD_PREDICATE);
+        hand.add(card);
+        String msg = hand.toString() + " should be considered a winning hand";
+        assert hand.isWinning() : msg;
+    }
+    
+    @Test
+    public void testIsWinningAuxConstructorInstanceStartWithTenCard() {
+        PlayingCard firstCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(Rank.ACE);
+        hand.add(card);
+        String msg = hand.toString() + " should be considered a winning hand";
+        assert hand.isWinning() : msg;
+    }
+    
+    @Test
     public void testOpenHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
