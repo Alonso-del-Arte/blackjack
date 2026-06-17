@@ -68,7 +68,7 @@ public class HandTest {
     static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
     
     private static final Predicate<PlayingCard> TEN_CARD_PREDICATE 
-            = ((card) -> card.integerValue() > 9);
+            = ((card) -> card.getRank().ordinal() > 8);
     
     @BeforeClass
     public static void setUpClass() {
@@ -510,10 +510,10 @@ public class HandTest {
         System.out.println("isWinning");
         Hand winningHand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = SERVER.giveCard(Rank.JACK);
+        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
         winningHand.add(ace);
-        winningHand.add(jack);
-        String msg = ace.toString() + " and " + jack.toString() 
+        winningHand.add(tenCard);
+        String msg = ace.toString() + " and " + tenCard.toString() 
                 + " should be considered a winning hand";
         assert winningHand.isWinning() : msg;
     }
