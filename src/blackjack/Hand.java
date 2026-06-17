@@ -167,7 +167,7 @@ public class Hand {
      * dealer's hand.
      */
     public boolean isWinning() {
-        return !this.won;
+        return this.won;
     }
     
     /**
