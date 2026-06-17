@@ -81,8 +81,8 @@ public class HandTest {
                 = new HashSet<>(BlackJack.DISTINCT_TEN_PAIRS);
         int stop = RANKS.length;
         for (int i = 0; i < stop; i++) {
-            PlayingCard cardA = this.SERVER.getNextCard();
-            PlayingCard cardB = this.SERVER.getNextCard();
+            PlayingCard cardA = SERVER.getNextCard();
+            PlayingCard cardB = SERVER.getNextCard();
             RankPairSpec pairSpec = new RankPairSpec(cardA.getRank(), 
                     cardB.getRank());
             pairSpecs.add(pairSpec);
@@ -100,7 +100,7 @@ public class HandTest {
     
     @Test
     public void testToStringInitialAuxConstructor() {
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         String expected = "(" + firstCard.toString() + ")";
         String actual = hand.toString().replace(" ", "");
@@ -114,7 +114,7 @@ public class HandTest {
         List<PlayingCard> cards = new ArrayList<>(11);
         int roughValueCount = 0;
         do {
-            PlayingCard card = this.SERVER.getNextCard();
+            PlayingCard card = SERVER.getNextCard();
             hand.add(card);
             cards.add(card);
             roughValueCount += card.integerValue();
@@ -128,13 +128,13 @@ public class HandTest {
     
     @Test
     public void testToStringFromAuxConstructor() {
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         List<PlayingCard> cards = new ArrayList<>(11);
         cards.add(firstCard);
         int roughValueCount = firstCard.integerValue();
         do {
-            PlayingCard card = this.SERVER.getNextCard();
+            PlayingCard card = SERVER.getNextCard();
             hand.add(card);
             cards.add(card);
             roughValueCount += card.integerValue();
@@ -167,7 +167,7 @@ public class HandTest {
         Currency currency = CurrencyChooser.chooseCurrency();
         CurrencyAmount amount = new CurrencyAmount(cents, currency);
         Wager expected = new Wager(amount);
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         Hand hand = new Hand(expected, firstCard);
         Wager actual = hand.getWager();
         assertEquals(expected, actual);
@@ -211,9 +211,9 @@ public class HandTest {
     @Test
     public void testTwoAcesDoNotBust() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
         hand.add(ace);
-        ace = this.SERVER.giveCard(Rank.ACE);
+        ace = SERVER.giveCard(Rank.ACE);
         hand.add(ace);
         int value = hand.cardsValue();
         assert value < 22 : "Two Aces shouldn't bust";
@@ -228,7 +228,7 @@ public class HandTest {
         final int expected = 10;
         for (Rank rank : ROYAL_RANKS) {
             Hand hand = new Hand(DEFAULT_WAGER);
-            PlayingCard card = this.SERVER.giveCard(rank);
+            PlayingCard card = SERVER.giveCard(rank);
             hand.add(card);
             int actual = hand.cardsValue();
             String message = "Getting value of " + card.toString() 
@@ -246,7 +246,7 @@ public class HandTest {
         System.out.println("inspectCards");
         fail("REASSESS THE FUNCTION BEING TESTED AND REWRITE TEST");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard[] expected = this.SERVER.giveCards(Rank.TWO, 4);
+        PlayingCard[] expected = SERVER.giveCards(Rank.TWO, 4);
         hand.add(expected[0]);
         hand.add(expected[1]);
         hand.add(expected[2]);
@@ -256,7 +256,7 @@ public class HandTest {
         String msg;
         for (PlayingCard card : actual) {
             msg = card.toString() + " came from the test class's card server";
-            assert this.SERVER.provenance(card) : msg;
+            assert SERVER.provenance(card) : msg;
         }
     }
     
@@ -270,8 +270,8 @@ public class HandTest {
         Dealer dealer = new Dealer(pairSpecs);
         int maxPairs = 39;
         for (int i = 0; i < maxPairs; i++) {
-            PlayingCard cardA = this.SERVER.getNextCard();
-            PlayingCard cardB = this.SERVER.getNextCard();
+            PlayingCard cardA = SERVER.getNextCard();
+            PlayingCard cardB = SERVER.getNextCard();
             Hand hand = new Hand(DEFAULT_WAGER);
             hand.add(cardA);
             hand.add(cardB);
@@ -294,9 +294,9 @@ public class HandTest {
         Dealer dealer = new Dealer(pairSpecs);
         int maxPairs = 39;
         for (int i = 0; i < maxPairs; i++) {
-            PlayingCard firstCard = this.SERVER.getNextCard();
+            PlayingCard firstCard = SERVER.getNextCard();
             Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-            PlayingCard card = this.SERVER.getNextCard();
+            PlayingCard card = SERVER.getNextCard();
             hand.add(card);
             RankPairSpec pairSpec = new RankPairSpec(firstCard.getRank(), 
                     card.getRank());
@@ -407,9 +407,9 @@ public class HandTest {
         Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         for (Rank firstCardRank : RANKS) {
-            PlayingCard firstCard = this.SERVER.giveCard(firstCardRank);
+            PlayingCard firstCard = SERVER.giveCard(firstCardRank);
             for (Rank secondCardRank : RANKS) {
-                PlayingCard secondCard = this.SERVER.giveCard(secondCardRank);
+                PlayingCard secondCard = SERVER.giveCard(secondCardRank);
                 Hand hand = new Hand(DEFAULT_WAGER);
                 hand.add(firstCard);
                 hand.add(secondCard);
@@ -430,10 +430,10 @@ public class HandTest {
         Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         for (Rank firstCardRank : RANKS) {
-            PlayingCard firstCard = this.SERVER.giveCard(firstCardRank);
+            PlayingCard firstCard = SERVER.giveCard(firstCardRank);
             for (Rank secondCardRank : RANKS) {
                 Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-                PlayingCard secondCard = this.SERVER.giveCard(secondCardRank);
+                PlayingCard secondCard = SERVER.giveCard(secondCardRank);
                 hand.add(secondCard);
                 RankPairSpec pairSpec = new RankPairSpec(firstCardRank, 
                         secondCardRank);
@@ -458,9 +458,9 @@ public class HandTest {
         CurrencyAmount expected = new CurrencyAmount(cents, currency);
         Wager wager = new Wager(expected);
         Hand firstHand = new Hand(wager);
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         Rank rank = firstCard.getRank();
-        PlayingCard secondCard = this.SERVER.giveCard(rank);
+        PlayingCard secondCard = SERVER.giveCard(rank);
         firstHand.add(firstCard);
         firstHand.add(secondCard);
         String originalHandLabel = firstHand.toString();
@@ -483,10 +483,10 @@ public class HandTest {
         Currency currency = CurrencyChooser.chooseCurrency();
         CurrencyAmount expected = new CurrencyAmount(cents, currency);
         Wager originalWager = new Wager(expected);
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         Hand firstHand = new Hand(originalWager, firstCard);
         Rank rank = firstCard.getRank();
-        PlayingCard secondCard = this.SERVER.giveCard(rank);
+        PlayingCard secondCard = SERVER.giveCard(rank);
         firstHand.add(secondCard);
         String originalHandLabel = firstHand.toString();
         Hand secondHand = firstHand.split(DEALER);
@@ -509,8 +509,8 @@ public class HandTest {
     public void testIsWinning() {
         System.out.println("isWinning");
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
         winningHand.add(ace);
         winningHand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -521,7 +521,7 @@ public class HandTest {
     @Test
     public void testOpenHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
                 + " should not be considered a winning hand";
@@ -531,9 +531,9 @@ public class HandTest {
     @Test
     public void testBustedHandIsNotWinningHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
         hand.add(eight);
         hand.add(four);
         hand.add(ten);
@@ -550,9 +550,9 @@ public class HandTest {
     public void testIsBustedHand() {
         System.out.println("isBustedHand");
         Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
         bustedHand.add(eight);
         bustedHand.add(four);
         bustedHand.add(ten);
@@ -565,8 +565,8 @@ public class HandTest {
     @Test
     public void testWinningHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -577,7 +577,7 @@ public class HandTest {
     @Test
     public void testOpenHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
                 + " should not be considered a busted hand";
@@ -587,8 +587,8 @@ public class HandTest {
     @Test
     public void testWinningHandIsClosedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -599,7 +599,7 @@ public class HandTest {
     @Test
     public void testOpenHandIsNotClosedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should not be considered a closed hand";
@@ -609,9 +609,9 @@ public class HandTest {
     @Test
     public void testBustedHandIsClosedHand() {
         Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
         bustedHand.add(eight);
         bustedHand.add(four);
         bustedHand.add(ten);
@@ -624,8 +624,8 @@ public class HandTest {
     @Test
     public void testWinningHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
         hand.add(ace);
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
@@ -640,7 +640,7 @@ public class HandTest {
     public void testIsOpen() {
         System.out.println("isOpen");
         Hand openHand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         openHand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should be considered an open hand";
@@ -650,9 +650,9 @@ public class HandTest {
     @Test
     public void testBustedHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = this.SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = this.SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
+        PlayingCard four = SERVER.giveCard(Rank.FOUR);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
         hand.add(eight);
         hand.add(four);
         hand.add(ten);
@@ -669,7 +669,7 @@ public class HandTest {
         PlayingCard card;
         String msg = "Open flag should be opposite of closed flag";
         while (hand.cardsValue() < 21) {
-            card = this.SERVER.getNextCard();
+            card = SERVER.getNextCard();
             hand.add(card);
             assert hand.isOpen() == !hand.isClosed() : msg;
         }
@@ -702,7 +702,7 @@ public class HandTest {
     @Test
     public void testAdd() {
         System.out.println("add");
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         Hand hand = new Hand(DEFAULT_WAGER);
         hand.add(card);
         String msg = "Value should be greater than 0 after adding " 
@@ -717,7 +717,7 @@ public class HandTest {
     @Test
     public void testCantAddSameCardTwice() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = this.SERVER.getNextCard();
+        PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         try {
             hand.add(card);
@@ -744,11 +744,11 @@ public class HandTest {
     public void testNoAddCardAfterWinning() {
         fail("REWRITE THIS TEST USING assertThrows()");
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
         winningHand.add(ace);
         winningHand.add(jack);
-        PlayingCard someCard = this.SERVER.getNextCard();
+        PlayingCard someCard = SERVER.getNextCard();
         try {
             winningHand.add(someCard);
             String msg = "Should not have been able to add " 
@@ -775,13 +775,13 @@ public class HandTest {
     public void testNoAddCardAfterBusting() {
         fail("REWRITE THIS TEST USING assertThrows()");
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
-        PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
-        PlayingCard queen = this.SERVER.giveCard(Rank.QUEEN);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
+        PlayingCard jack = SERVER.giveCard(Rank.JACK);
+        PlayingCard queen = SERVER.giveCard(Rank.QUEEN);
         winningHand.add(ten);
         winningHand.add(jack);
         winningHand.add(queen);
-        PlayingCard someCard = this.SERVER.getNextCard();
+        PlayingCard someCard = SERVER.getNextCard();
         try {
             winningHand.add(someCard);
             String msg = "Should not have been able to add " 
@@ -826,8 +826,8 @@ public class HandTest {
     public void testGetSettlement() {
         System.out.println("getSettlement");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
-        PlayingCard ten = this.SERVER.giveCard(Rank.TEN);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard ten = SERVER.giveCard(Rank.TEN);
         hand.add(ace);
         hand.add(ten);
         hand.markSettled();
@@ -854,7 +854,7 @@ fail("Finish writing test");
     
     @Test
     public void testAuxConstructorRejectsNullWager() {
-        PlayingCard firstCard = this.SERVER.getNextCard();
+        PlayingCard firstCard = SERVER.getNextCard();
         String msg = "Constructor should reject " + firstCard.toString() 
                 + " with null wager";
         Throwable t = assertThrows(() -> {
