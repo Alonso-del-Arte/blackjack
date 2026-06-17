@@ -93,6 +93,14 @@ public class HandTest {
         return pairSpecs;
     }
     
+    private static int assessValue(PlayingCard card) {
+        return switch (card.getRank()) {
+            case ACE -> 11;
+            case JACK, QUEEN, KING -> 10;
+            default -> card.integerValue();
+        };
+    }
+    
     @Test
     public void testToStringInitial() {
         Hand hand = new Hand(DEFAULT_WAGER);
@@ -564,6 +572,20 @@ public class HandTest {
         String msg = "Hand with just " + firstCard.toString() 
                 + " should not be considered a winning hand";
         assert !hand.isWinning() : msg;
+    }
+    
+    @Test
+    public void testOpenHandIsNotWinningHand() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        int value = 0;
+        while (value < 21) {
+            String msg = "Hand " + hand.toString() 
+                    + " should not be a winning hand";
+            assert !hand.isWinning() : msg;
+            PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+            hand.add(card);
+            value += assessValue(card);
+        }
     }
     
     @Test
