@@ -28,6 +28,8 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -46,7 +48,7 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
-    private final CardServer SERVER = new CardServer(50);
+    private static final CardServer SERVER = new CardServer(50);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -67,6 +69,12 @@ public class HandTest {
     
     private static final Predicate<PlayingCard> TEN_CARD_PREDICATE 
             = ((card) -> card.integerValue() > 9);
+    
+    @BeforeClass
+    public static void setUpClass() {
+        System.out.println("Card server has " + SERVER.countRemaining() 
+                + " cards remaining");
+    }
     
     private Set<RankPairSpec> makeRankPairSpecSet() {
         Set<RankPairSpec> pairSpecs 
@@ -881,6 +889,12 @@ fail("Finish writing test");
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
         System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @AfterClass
+    public static void tearDownClass() {
+        System.out.println("Card server has " + SERVER.countRemaining() 
+                + " cards remaining");
     }
     
 }
