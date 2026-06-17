@@ -101,6 +101,58 @@ public class HandTest {
         };
     }
     
+    private static Hand makeOpenHand() {
+        boolean suitable = false;
+        Hand hand = null;
+        while (!suitable) {
+            hand = new Hand(DEFAULT_WAGER);
+            int value = 0;
+            boolean firstAceEncounteredAlready = false;
+            while (value < 21) {
+                PlayingCard card = SERVER.getNextCard();
+                hand.add(card);
+                int addend = assessValue(card);
+                if (firstAceEncounteredAlready) {
+                    addend -= 10;
+                } else {
+                    firstAceEncounteredAlready = card.isOf(Rank.ACE);
+                }
+                value += addend;
+            }
+            suitable = value < 21;
+        }
+        return hand;
+    }
+    
+    private static Hand makeOpenHandAuxConstructor() {
+        boolean suitable = false;
+        Hand hand = null;
+        while (!suitable) {
+            PlayingCard firstCard = SERVER.getNextCard();
+            hand = new Hand(DEFAULT_WAGER, firstCard);
+            int value = assessValue(firstCard);
+            boolean firstAceEncounteredAlready = firstCard.isOf(Rank.ACE);
+            while (value < 21) {
+                PlayingCard card = SERVER.getNextCard();
+                hand.add(card);
+                int addend = assessValue(card);
+                if (firstAceEncounteredAlready) {
+                    addend -= 10;
+                } else {
+                    firstAceEncounteredAlready = card.isOf(Rank.ACE);
+                }
+                value += addend;
+            }
+            suitable = value < 21;
+        }
+        return hand;
+    }
+    
+    private static Predicate<PlayingCard> predicateForBust(int value) {
+        int target = 21 - value;
+        return ((card) -> card.integerValue() > target);
+    }
+    
     @Test
     public void testToStringInitial() {
         Hand hand = new Hand(DEFAULT_WAGER);
