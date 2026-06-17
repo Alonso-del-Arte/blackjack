@@ -491,11 +491,11 @@ public class HandTest {
     }
     
     /**
-     * Test of the isWinningHand function of the Hand class.
+     * Test of the isWinning function of the Hand class.
      */
     @Test
-    public void testIsWinningHand() {
-        System.out.println("isWinningHand");
+    public void testIsWinning() {
+        System.out.println("isWinning");
         Hand winningHand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
@@ -503,7 +503,7 @@ public class HandTest {
         winningHand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
                 + " should be considered a winning hand";
-        assert winningHand.isWinningHand() : msg;
+        assert winningHand.isWinning() : msg;
     }
     
     @Test
@@ -513,7 +513,7 @@ public class HandTest {
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
                 + " should not be considered a winning hand";
-        assert !hand.isWinningHand() : msg;
+        assert !hand.isWinning() : msg;
     }
     
     @Test
@@ -528,11 +528,11 @@ public class HandTest {
         String msg = "Hand with " + eight.toString() + ", " + four.toString() 
                 + " and " + ten.toString() 
                 + " should not be considered a winning hand";
-        assert !hand.isWinningHand() : msg;
+        assert !hand.isWinning() : msg;
     }
 
     /**
-     * Test of the isBustedHand function of the Hand class.
+     * Test of the isBusted function of the Hand class.
      */
     @Test
     public void testIsBustedHand() {
@@ -547,7 +547,7 @@ public class HandTest {
         String msg = "Hand with " + eight.toString() + ", " + four.toString() 
                 + " and " + ten.toString() 
                 + " should be considered a busted hand";
-        assert bustedHand.isBustedHand() : msg;
+        assert bustedHand.isBusted() : msg;
     }
 
     @Test
@@ -559,7 +559,7 @@ public class HandTest {
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
                 + " should not be considered a busted hand";
-        assert !hand.isBustedHand() : msg;
+        assert !hand.isBusted() : msg;
     }
     
     @Test
@@ -569,12 +569,11 @@ public class HandTest {
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
                 + " should not be considered a busted hand";
-        assert !hand.isBustedHand() : msg;
+        assert !hand.isBusted() : msg;
     }
     
     @Test
     public void testWinningHandIsClosedHand() {
-        System.out.println("isClosedHand");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = this.SERVER.giveCard(Rank.ACE);
         PlayingCard jack = this.SERVER.giveCard(Rank.JACK);
@@ -582,7 +581,7 @@ public class HandTest {
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
                 + " should be considered a closed hand";
-        assert hand.isClosedHand() : msg;
+        assert hand.isClosed() : msg;
     }
     
     @Test
@@ -592,7 +591,7 @@ public class HandTest {
         hand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should not be considered a closed hand";
-        assert !hand.isClosedHand() : msg;
+        assert !hand.isClosed() : msg;
     }
     
     @Test
@@ -607,7 +606,7 @@ public class HandTest {
         String msg = "Hand with " + eight.toString() + ", " + four.toString() 
                 + " and " + ten.toString() 
                 + " should be considered a closed hand";
-        assert bustedHand.isClosedHand() : msg;
+        assert bustedHand.isClosed() : msg;
     }
 
     @Test
@@ -619,21 +618,21 @@ public class HandTest {
         hand.add(jack);
         String msg = ace.toString() + " and " + jack.toString() 
                 + " should not be considered an open hand";
-        assert !hand.isOpenHand() : msg;
+        assert !hand.isOpen() : msg;
     }
     
     /**
-     * Test of isOpenHand method of class Hand.
+     * Test of isOpen method of class Hand.
      */
     @Test
-    public void testIsOpenHand() {
-        System.out.println("isOpenHand");
+    public void testIsOpen() {
+        System.out.println("isOpen");
         Hand openHand = new Hand(DEFAULT_WAGER);
         PlayingCard card = this.SERVER.getNextCard();
         openHand.add(card);
         String msg = "Hand with just " + card.toString()
                 + " should be considered an open hand";
-        assert openHand.isOpenHand() : msg;
+        assert openHand.isOpen() : msg;
     }
     
     @Test
@@ -648,7 +647,7 @@ public class HandTest {
         String msg = "Hand with " + eight.toString() + ", " + four.toString() 
                 + " and " + ten.toString() 
                 + " should not be considered an open hand";
-        assert !hand.isOpenHand() : msg;
+        assert !hand.isOpen() : msg;
     }
     
 @org.junit.Ignore
@@ -660,7 +659,7 @@ public class HandTest {
         while (hand.cardsValue() < 21) {
             card = this.SERVER.getNextCard();
             hand.add(card);
-            assert hand.isOpenHand() == !hand.isClosedHand() : msg;
+            assert hand.isOpen() == !hand.isClosed() : msg;
         }
     }
     
@@ -668,7 +667,7 @@ public class HandTest {
     public void testNewHandShouldNotBeSettledHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         String msg = "New hand should not be a settled hand";
-        assert !hand.isSettledHand() : msg;
+        assert !hand.isSettled() : msg;
     }
     
     @Test
@@ -682,7 +681,7 @@ public class HandTest {
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + secondCard.toString() 
                 + " was marked settled, should be recognized as settled";
-        assert hand.isSettledHand() : msg;
+        assert hand.isSettled() : msg;
     }
 
     /**

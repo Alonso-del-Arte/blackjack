@@ -136,8 +136,8 @@ public class BlackJack {
             // TODO: Give option to split pair, when applicable
             // TODO: Give option to double down, when applicable
             // TODO: Give option for insurance bet
-            if (playerHand.isWinningHand()) {
-                if (dealerHand.isWinningHand()) {
+            if (playerHand.isWinning()) {
+                if (dealerHand.isWinning()) {
                     System.out.println(
                             "You have natural blackjack, but so does the dealer"
                     );
@@ -152,7 +152,7 @@ public class BlackJack {
             } else {
                 boolean keepHitting = true;
                 String answer;
-                while (playerHand.isOpenHand() && keepHitting) {
+                while (playerHand.isOpen() && keepHitting) {
                     System.out.print("Hit or stand? ");
                     answer = input.nextLine();
                     if (answer.toLowerCase().startsWith("h")) {
@@ -179,8 +179,8 @@ public class BlackJack {
                             + dealerHand.cardsValue());
                     System.out.println();
                 }
-                if (dealerHand.isWinningHand()) {
-                    if (playerHand.isWinningHand()) {
+                if (dealerHand.isWinning()) {
+                    if (playerHand.isWinning()) {
                         System.out.println("Stand-off, you keep your wager.");
                     } else {
                         System.out.println("You lose your wager.");
@@ -188,10 +188,10 @@ public class BlackJack {
                 } else {
                     int dealerScore = dealerHand.cardsValue();
                     int playerScore = playerHand.cardsValue();
-                    if (dealerHand.isBustedHand()) {
+                    if (dealerHand.isBusted()) {
                         dealerScore = 30;
                     }
-                    if (playerHand.isBustedHand()) {
+                    if (playerHand.isBusted()) {
                         playerScore = 30;
                     }
                     int outcome = 100 * dealerScore + playerScore;

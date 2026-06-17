@@ -16,7 +16,6 @@
  */
 package blackjack;
 
-import currency.CurrencyAmount;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
@@ -154,7 +153,7 @@ public class Hand {
      * @return True if the hand is new or has cards valued at 2 to 20, false 
      * otherwise.
      */
-    public boolean isOpenHand() {
+    public boolean isOpen() {
         return this.open;
     }
     
@@ -167,7 +166,7 @@ public class Hand {
      * without regard to how this hand compares to other players' hands nor the 
      * dealer's hand.
      */
-    public boolean isWinningHand() {
+    public boolean isWinning() {
         return this.won;
     }
     
@@ -176,7 +175,7 @@ public class Hand {
      * @return True if cards' aggregate value is in excess of 21 (even after 
      * counting all Aces as 1 each), false otherwise.
      */
-    public boolean isBustedHand() {
+    public boolean isBusted() {
         return this.busted;
     }
     
@@ -184,7 +183,7 @@ public class Hand {
      * Indicates if no more cards may be added to this hand.
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
-    public boolean isClosedHand() {
+    public boolean isClosed() {
         return !this.open;
     }
     
@@ -192,7 +191,7 @@ public class Hand {
         this.settled = true;
     }
     
-    public boolean isSettledHand() {
+    public boolean isSettled() {
         return this.settled;
     }
 
