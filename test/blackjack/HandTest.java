@@ -48,7 +48,7 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
-    private static final CardServer SERVER = new CardServer(50);
+    private static final CardServer SERVER = new CardServer(25);
     
     private static final Dealer DEALER = new Dealer();
     
