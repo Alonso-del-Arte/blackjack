@@ -67,6 +67,9 @@ public class HandTest {
     
     static final Wager DEFAULT_WAGER = new Wager(HUNDRED_BUCKS);
     
+    private static final Predicate<PlayingCard> NOT_ACE_PREDICATE 
+            = ((card) -> card.getRank().ordinal() > 0);
+    
     private static final Predicate<PlayingCard> TEN_CARD_PREDICATE 
             = ((card) -> card.getRank().ordinal() > 8);
     
