@@ -50,6 +50,8 @@ public class HandTest {
     
     private static final CardServer SERVER = new CardServer(25);
     
+    private static final CardServer EXTRA_SERVER = new CardServer(10);
+    
     private static final Dealer DEALER = new Dealer();
     
     private static final Rank[] RANKS = Rank.values();
@@ -76,6 +78,8 @@ public class HandTest {
     @BeforeClass
     public static void setUpClass() {
         System.out.println("Card server has " + SERVER.countRemaining() 
+                + " cards remaining");
+        System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
                 + " cards remaining");
     }
     
@@ -108,8 +112,8 @@ public class HandTest {
             hand = new Hand(DEFAULT_WAGER);
             int value = 0;
             boolean firstAceEncounteredAlready = false;
-            while (value < 21) {
-                PlayingCard card = SERVER.getNextCard();
+            while (value < 16) {
+                PlayingCard card = EXTRA_SERVER.getNextCard();
                 hand.add(card);
                 int addend = assessValue(card);
                 if (firstAceEncounteredAlready) {
@@ -128,12 +132,12 @@ public class HandTest {
         boolean suitable = false;
         Hand hand = null;
         while (!suitable) {
-            PlayingCard firstCard = SERVER.getNextCard();
+            PlayingCard firstCard = EXTRA_SERVER.getNextCard();
             hand = new Hand(DEFAULT_WAGER, firstCard);
             int value = assessValue(firstCard);
             boolean firstAceEncounteredAlready = firstCard.isOf(Rank.ACE);
-            while (value < 21) {
-                PlayingCard card = SERVER.getNextCard();
+            while (value < 16) {
+                PlayingCard card = EXTRA_SERVER.getNextCard();
                 hand.add(card);
                 int addend = assessValue(card);
                 if (firstAceEncounteredAlready) {
@@ -632,15 +636,11 @@ public class HandTest {
     
     @Test
     public void testBustedHandIsNotWinningHand() {
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
-        hand.add(eight);
-        hand.add(four);
-        hand.add(ten);
-        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
-                + " and " + ten.toString() 
+        Hand hand = makeOpenHand();
+        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        PlayingCard card = SERVER.giveCard(predicate);
+        hand.add(card);
+        String msg = "Hand " + hand.toString() 
                 + " should not be considered a winning hand";
         assert !hand.isWinning() : msg;
     }
@@ -996,6 +996,8 @@ fail("Finish writing test");
     @AfterClass
     public static void tearDownClass() {
         System.out.println("Card server has " + SERVER.countRemaining() 
+                + " cards remaining");
+        System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
                 + " cards remaining");
     }
     
