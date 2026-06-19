@@ -50,7 +50,7 @@ public class HandTest {
     
     private static final CardServer SERVER = new CardServer(25);
     
-    private static final CardServer EXTRA_SERVER = new CardServer(25);
+    private static final CardServer EXTRA_SERVER = new CardServer(35);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -660,8 +660,8 @@ public class HandTest {
      * Test of the isBusted function of the Hand class.
      */
     @Test
-    public void testIsBustedHand() {
-        System.out.println("isBustedHand");
+    public void testIsBusted() {
+        System.out.println("isBusted");
         Hand bustedHand = new Hand(DEFAULT_WAGER);
         PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
         PlayingCard four = SERVER.giveCard(Rank.FOUR);
