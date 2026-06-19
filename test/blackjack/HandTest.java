@@ -50,7 +50,7 @@ public class HandTest {
     
     private static final CardServer SERVER = new CardServer(25);
     
-    private static final CardServer EXTRA_SERVER = new CardServer(10);
+    private static final CardServer EXTRA_SERVER = new CardServer(25);
     
     private static final Dealer DEALER = new Dealer();
     
