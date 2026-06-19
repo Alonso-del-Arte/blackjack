@@ -50,7 +50,9 @@ public class HandTest {
     
     private static final CardServer SERVER = new CardServer(25);
     
-    private static final CardServer EXTRA_SERVER = new CardServer(35);
+    private static final CardServer EXTRA_SERVER = new CardServer(100);
+    
+    private static CardServer thirdServer = new CardServer(250);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -81,6 +83,8 @@ public class HandTest {
                 + " cards remaining");
         System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
                 + " cards remaining");
+        System.out.println("Third server has " + thirdServer.countRemaining() 
+                + " cards remaining");
     }
     
     private Set<RankPairSpec> makeRankPairSpecSet() {
@@ -105,15 +109,26 @@ public class HandTest {
         };
     }
     
+    private static void checkThirdServerCapacity() {
+        if (thirdServer.countRemaining() < 260) {
+            if (EXTRA_SERVER.countRemaining() > 2080) {
+                thirdServer = EXTRA_SERVER;
+            } else {
+                thirdServer = new CardServer(125);
+            }
+        }
+    }
+    
     private static Hand makeOpenHand() {
         boolean suitable = false;
         Hand hand = null;
         while (!suitable) {
+            checkThirdServerCapacity();
             hand = new Hand(DEFAULT_WAGER);
             int value = 0;
             boolean firstAceEncounteredAlready = false;
             while (value < 16) {
-                PlayingCard card = EXTRA_SERVER.getNextCard();
+                PlayingCard card = thirdServer.getNextCard();
                 hand.add(card);
                 int addend = assessValue(card);
                 if (firstAceEncounteredAlready) {
@@ -132,12 +147,13 @@ public class HandTest {
         boolean suitable = false;
         Hand hand = null;
         while (!suitable) {
-            PlayingCard firstCard = EXTRA_SERVER.getNextCard();
+            checkThirdServerCapacity();
+            PlayingCard firstCard = thirdServer.getNextCard();
             hand = new Hand(DEFAULT_WAGER, firstCard);
             int value = assessValue(firstCard);
             boolean firstAceEncounteredAlready = firstCard.isOf(Rank.ACE);
             while (value < 16) {
-                PlayingCard card = EXTRA_SERVER.getNextCard();
+                PlayingCard card = thirdServer.getNextCard();
                 hand.add(card);
                 int addend = assessValue(card);
                 if (firstAceEncounteredAlready) {
@@ -662,17 +678,13 @@ public class HandTest {
     @Test
     public void testIsBusted() {
         System.out.println("isBusted");
-        Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
-        bustedHand.add(eight);
-        bustedHand.add(four);
-        bustedHand.add(ten);
-        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
-                + " and " + ten.toString() 
+        Hand hand = makeOpenHand();
+        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        PlayingCard card = SERVER.giveCard(predicate);
+        hand.add(card);
+        String msg = "Hand " + hand.toString() 
                 + " should be considered a busted hand";
-        assert bustedHand.isBusted() : msg;
+        assert hand.isBusted() : msg;
     }
 
     @Test
@@ -1009,6 +1021,8 @@ fail("Finish writing test");
         System.out.println("Card server has " + SERVER.countRemaining() 
                 + " cards remaining");
         System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
+                + " cards remaining");
+        System.out.println("Third server has " + thirdServer.countRemaining() 
                 + " cards remaining");
     }
     
