@@ -171,7 +171,7 @@ public class Hand {
      * counting all Aces as 1 each), false otherwise.
      */
     public boolean isBusted() {
-        return false;// this.busted;
+        return this.busted;
     }
     
     /**
