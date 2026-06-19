@@ -119,6 +119,7 @@ public class HandTest {
         }
     }
     
+    // TODO: Figure out why this occasionally runs out of cards
     private static Hand makeOpenHand() {
         boolean suitable = false;
         Hand hand = null;
@@ -143,6 +144,7 @@ public class HandTest {
         return hand;
     }
     
+    // TODO: Figure out why this occasionally runs out of cards
     private static Hand makeOpenHandAuxConstructor() {
         boolean suitable = false;
         Hand hand = null;
