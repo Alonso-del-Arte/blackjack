@@ -48,7 +48,8 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
-    private static final CardServer SERVER = new CardServer(100);
+    // TODO: Replace with replenishing server with a non-insane deck quantity
+    private static final CardServer SERVER = new CardServer(2500000);
     
     private static final CardServer EXTRA_SERVER = new CardServer(10);
     
