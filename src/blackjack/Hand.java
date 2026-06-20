@@ -162,7 +162,7 @@ public class Hand {
      * dealer's hand.
      */
     public boolean isWinning() {
-        return !this.won;
+        return this.won;
     }
     
     /**
@@ -171,7 +171,7 @@ public class Hand {
      * counting all Aces as 1 each), false otherwise.
      */
     public boolean isBusted() {
-        return !this.busted;
+        return this.busted;
     }
     
     /**
