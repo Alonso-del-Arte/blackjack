@@ -42,7 +42,9 @@ well as interfaces having one or more default implementations.
 * Do not delete test classes nor test stubs without explanation.
 * Do not add dependencies, except Hamcrest and JUnit if your IDE does not have 
 those in the project at the outset.
-* No comments except Javadoc, TODO or FIXME.
+* No comments except Javadoc, TODO or FIXME in the overall pull request. 
+However, intermediate commits may contain other kinds of comments provided they 
+are removed in a later commit in the pull request.
 * Prefer small commits. But avoid making a pull request for a single commit 
 (unless it's to fix a defect affecting end users).
 * Pull requests should address a TODO or FIXME comment in the source, or an open 
