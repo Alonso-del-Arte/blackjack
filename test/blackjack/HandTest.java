@@ -48,11 +48,9 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
-    private static final CardServer SERVER = new CardServer(25);
+    private static final CardServer SERVER = new CardServer(100);
     
-    private static final CardServer EXTRA_SERVER = new CardServer(100);
-    
-    private static CardServer thirdServer = new CardServer(250);
+    private static final CardServer EXTRA_SERVER = new CardServer(10);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -83,8 +81,6 @@ public class HandTest {
                 + " cards remaining");
         System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
                 + " cards remaining");
-        System.out.println("Third server has " + thirdServer.countRemaining() 
-                + " cards remaining");
     }
     
     private Set<RankPairSpec> makeRankPairSpecSet() {
@@ -109,63 +105,35 @@ public class HandTest {
         };
     }
     
-    private static void checkThirdServerCapacity() {
-        if (thirdServer.countRemaining() < 260) {
-            if (EXTRA_SERVER.countRemaining() > 2080) {
-                thirdServer = EXTRA_SERVER;
-            } else {
-                thirdServer = new CardServer(125);
-            }
-        }
-    }
-    
-    // TODO: Figure out why this occasionally runs out of cards
     private static Hand makeOpenHand() {
-        boolean suitable = false;
-        Hand hand = null;
-        while (!suitable) {
-            checkThirdServerCapacity();
-            hand = new Hand(DEFAULT_WAGER);
-            int value = 0;
-            boolean firstAceEncounteredAlready = false;
-            while (value < 16) {
-                PlayingCard card = thirdServer.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER);
+        boolean keepHitting = true;
+        int value = 0;
+        while (keepHitting) {
+            PlayingCard card = EXTRA_SERVER.getNextCard();
+            value += assessValue(card);
+            if (value < 20) {
                 hand.add(card);
-                int addend = assessValue(card);
-                if (firstAceEncounteredAlready) {
-                    addend -= 10;
-                } else {
-                    firstAceEncounteredAlready = card.isOf(Rank.ACE);
-                }
-                value += addend;
+            } else {
+                keepHitting = false;
             }
-            suitable = value < 21;
         }
         return hand;
     }
     
-    // TODO: Figure out why this occasionally runs out of cards
     private static Hand makeOpenHandAuxConstructor() {
-        boolean suitable = false;
-        Hand hand = null;
-        while (!suitable) {
-            checkThirdServerCapacity();
-            PlayingCard firstCard = thirdServer.getNextCard();
-            hand = new Hand(DEFAULT_WAGER, firstCard);
-            int value = assessValue(firstCard);
-            boolean firstAceEncounteredAlready = firstCard.isOf(Rank.ACE);
-            while (value < 16) {
-                PlayingCard card = thirdServer.getNextCard();
+        PlayingCard firstCard = EXTRA_SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        boolean keepHitting = true;
+        int value = assessValue(firstCard);
+        while (keepHitting) {
+            PlayingCard card = EXTRA_SERVER.getNextCard();
+            value += assessValue(card);
+            if (value < 20) {
                 hand.add(card);
-                int addend = assessValue(card);
-                if (firstAceEncounteredAlready) {
-                    addend -= 10;
-                } else {
-                    firstAceEncounteredAlready = card.isOf(Rank.ACE);
-                }
-                value += addend;
+            } else {
+                keepHitting = false;
             }
-            suitable = value < 21;
         }
         return hand;
     }
@@ -1023,8 +991,6 @@ fail("Finish writing test");
         System.out.println("Card server has " + SERVER.countRemaining() 
                 + " cards remaining");
         System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
-                + " cards remaining");
-        System.out.println("Third server has " + thirdServer.countRemaining() 
                 + " cards remaining");
     }
     
