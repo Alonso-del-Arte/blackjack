@@ -139,6 +139,26 @@ public class HandTest {
         return hand;
     }
     
+    private static Hand makeBustedHand() {
+        Hand hand = makeOpenHand();
+        if (hand.cardsValue() < 13) {
+            hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
+        }
+        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        hand.add(EXTRA_SERVER.giveCard(predicate));
+        return hand;
+    }
+    
+    private static Hand makeBustedHandAuxConstructor() {
+        Hand hand = makeOpenHandAuxConstructor();
+        if (hand.cardsValue() < 13) {
+            hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
+        }
+        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        hand.add(EXTRA_SERVER.giveCard(predicate));
+        return hand;
+    }
+    
     private static Predicate<PlayingCard> predicateForBust(int value) {
         int target = 21 - value;
         return ((card) -> card.integerValue() > target);
@@ -649,10 +669,7 @@ public class HandTest {
     @Test
     public void testIsBusted() {
         System.out.println("isBusted");
-        Hand hand = makeOpenHand();
-        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
-        PlayingCard card = SERVER.giveCard(predicate);
-        hand.add(card);
+        Hand hand = makeBustedHand();
         String msg = "Hand " + hand.toString() 
                 + " should be considered a busted hand";
         assert hand.isBusted() : msg;
