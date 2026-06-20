@@ -111,7 +111,7 @@ public class HandTest {
         boolean keepHitting = true;
         int value = 0;
         while (keepHitting) {
-            PlayingCard card = EXTRA_SERVER.getNextCard();
+            PlayingCard card = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
             value += assessValue(card);
             if (value < 20) {
                 hand.add(card);
@@ -123,12 +123,12 @@ public class HandTest {
     }
     
     private static Hand makeOpenHandAuxConstructor() {
-        PlayingCard firstCard = EXTRA_SERVER.getNextCard();
+        PlayingCard firstCard = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         boolean keepHitting = true;
         int value = assessValue(firstCard);
         while (keepHitting) {
-            PlayingCard card = EXTRA_SERVER.getNextCard();
+            PlayingCard card = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
             value += assessValue(card);
             if (value < 20) {
                 hand.add(card);
