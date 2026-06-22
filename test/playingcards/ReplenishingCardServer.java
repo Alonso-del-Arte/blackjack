@@ -22,4 +22,44 @@ package playingcards;
  */
 public class ReplenishingCardServer extends CardServer {
     
+    // TODO: Write tests for this
+    @Override
+    public boolean hasNext() {
+        return false;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public PlayingCard getNextCard() {
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public int countRemaining() {
+        return Integer.MIN_VALUE;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public boolean provenance(PlayingCard card) {
+        return false;
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public PlayingCard giveCard(Rank rank) {
+        return new PlayingCard(rank, Suit.CLUBS);
+    }
+    
+    // TODO: Write tests for this
+    @Override
+    public PlayingCard giveCard(Suit suit) {
+        return new PlayingCard(Rank.JACK, suit);
+    }
+    
+    // TODO: Write tests for this
+    // TODO: Write tests for this
+    // TODO: Write tests for this
+    // TODO: Write tests for this
 }
