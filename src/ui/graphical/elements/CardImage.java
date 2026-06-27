@@ -238,7 +238,7 @@ public class CardImage {
     public CardImage(PlayingCard card) {
         if (card == null) {
             String excMsg = "Playing card should not be null";
-            throw new RuntimeException(excMsg);
+            throw new NullPointerException(excMsg);
         }
         this.playingCard = card;
         this.textColor = this.playingCard.getTextColor();
