@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -27,6 +27,8 @@ import java.awt.Point;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the CardImage class.
  * @author Alonso del Arte
@@ -45,21 +47,15 @@ public class CardImageTest {
     
     @Test
     public void testConstructorRejectsNullCard() {
-        try {
+        String msg = "Null card should cause NPE";
+        Throwable t = assertThrows(() -> {
             CardImage badImage = new CardImage(null);
-            String msg = "Should not have been able to create " 
-                    + badImage.toString() + " with null card";
-            fail(msg);
-        } catch (NullPointerException npe) {
-            System.out.println("Trying to use null card correctly caused NPE");
-            String excMsg = npe.getMessage();
-            assert excMsg != null : "Exception message should not be null";
-            System.out.println("\"" + excMsg + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for null card";
-            fail(msg);
-        }
+            System.out.println(msg + ", not create " + badImage.toString() 
+                    + " with null card");
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
     }
     
 }
