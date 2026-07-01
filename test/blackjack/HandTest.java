@@ -48,8 +48,7 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
-    // TODO: Replace with replenishing server with a non-insane deck quantity
-    private static final CardServer SERVER = new CardServer(2500000);
+    private static final CardServer SERVER = new CardServer(25);
     
     private static final CardServer EXTRA_SERVER = new CardServer(10);
     
@@ -161,7 +160,7 @@ public class HandTest {
     
     private static Predicate<PlayingCard> predicateForBust(int value) {
         int target = 21 - value;
-        return ((card) -> card.integerValue() > target);
+        return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
     }
     
     @Test
