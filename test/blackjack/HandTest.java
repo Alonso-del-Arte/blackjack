@@ -143,6 +143,11 @@ public class HandTest {
         return hand;
     }
     
+    private static Predicate<PlayingCard> predicateForBust(int value) {
+        int target = 21 - value;
+        return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
+    }
+    
     private static Hand makeBustedHand() {
         Hand hand = makeOpenHand();
         if (hand.cardsValue() < 13) {
@@ -161,11 +166,6 @@ public class HandTest {
         Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
         hand.add(EXTRA_SERVER.giveCard(predicate));
         return hand;
-    }
-    
-    private static Predicate<PlayingCard> predicateForBust(int value) {
-        int target = 21 - value;
-        return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
     }
     
     @Test
