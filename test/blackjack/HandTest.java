@@ -647,10 +647,7 @@ public class HandTest {
     
     @Test
     public void testBustedHandIsNotWinningHand() {
-        Hand hand = makeOpenHand();
-        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
-        PlayingCard card = SERVER.giveCard(predicate);
-        hand.add(card);
+        Hand hand = makeBustedHand();
         String msg = "Hand " + hand.toString() 
                 + " should not be considered a winning hand";
         assert !hand.isWinning() : msg;
@@ -658,10 +655,7 @@ public class HandTest {
 
     @Test
     public void testBustedHandAuxConstructorInstanceIsNotWinningHand() {
-        Hand hand = makeOpenHandAuxConstructor();
-        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
-        PlayingCard card = SERVER.giveCard(predicate);
-        hand.add(card);
+        Hand hand = makeBustedHandAuxConstructor();
         String msg = "Hand " + hand.toString() 
                 + " should not be considered a winning hand";
         assert !hand.isWinning() : msg;
