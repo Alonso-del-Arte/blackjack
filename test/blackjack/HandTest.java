@@ -48,9 +48,12 @@ import playingcards.matchers.RankPairSpec;
  */
 public class HandTest {
     
+    private static final int DEFAULT_DECK_QUANTITY = 10;
+    
     private static final CardServer SERVER = new CardServer(25);
     
-    private static final CardServer EXTRA_SERVER = new CardServer(10);
+    private static final CardServer EXTRA_SERVER 
+            = new CardServer(DEFAULT_DECK_QUANTITY);
     
     private static final Dealer DEALER = new Dealer();
     
@@ -109,8 +112,9 @@ public class HandTest {
         Hand hand = new Hand(DEFAULT_WAGER);
         boolean keepHitting = true;
         int value = 0;
+        CardServer server = new CardServer(DEFAULT_DECK_QUANTITY);
         while (keepHitting) {
-            PlayingCard card = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
+            PlayingCard card = server.giveCard(NOT_ACE_PREDICATE);
             value += assessValue(card);
             if (value < 20) {
                 hand.add(card);
@@ -122,12 +126,13 @@ public class HandTest {
     }
     
     private static Hand makeOpenHandAuxConstructor() {
-        PlayingCard firstCard = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
+        CardServer server = new CardServer(DEFAULT_DECK_QUANTITY);
+        PlayingCard firstCard = server.giveCard(NOT_ACE_PREDICATE);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         boolean keepHitting = true;
         int value = assessValue(firstCard);
         while (keepHitting) {
-            PlayingCard card = EXTRA_SERVER.giveCard(NOT_ACE_PREDICATE);
+            PlayingCard card = server.giveCard(NOT_ACE_PREDICATE);
             value += assessValue(card);
             if (value < 20) {
                 hand.add(card);
