@@ -143,6 +143,11 @@ public class HandTest {
         return hand;
     }
     
+    private static Predicate<PlayingCard> predicateToStayOpen(int value) {
+        int threshold = 21 - value;
+        return ((card) -> card.integerValue() < threshold);
+    }
+    
     private static Predicate<PlayingCard> predicateForBust(int value) {
         int target = 21 - value;
         return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
@@ -686,11 +691,40 @@ public class HandTest {
     }
     
     @Test
+    public void testNewHandIsNotBustedHand() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        String msg = "New hand should not be considered a busted hand";
+        assert !hand.isBusted() : msg;
+    }
+    
+    @Test
+    public void testNewHandAuxConstructorIsNotBustedHand() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "New hand with just " + firstCard.toString()
+                + " should not be considered a busted hand";
+        assert !hand.isBusted() : msg;
+    }
+    
+    @Test
     public void testOpenHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
         hand.add(card);
         String msg = "Hand with just " + card.toString() 
+                + " should not be considered a busted hand";
+        assert !hand.isBusted() : msg;
+    }
+    
+    @Test
+    public void testOpenHandAuxConstructorIsNotBustedHand() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        Predicate<PlayingCard> predicate 
+                = predicateToStayOpen(firstCard.integerValue());
+        PlayingCard card = SERVER.giveCard(predicate);
+        hand.add(card);
+        String msg = "Hand " + hand.toString() 
                 + " should not be considered a busted hand";
         assert !hand.isBusted() : msg;
     }
