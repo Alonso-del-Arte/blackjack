@@ -810,11 +810,9 @@ public class HandTest {
     @Test
     public void testOpenClosedCorrespondence() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card;
         String msgPart = "Open flag should be opposite of closed flag for ";
         while (hand.cardsValue() < 21) {
-            card = SERVER.getNextCard();
-            hand.add(card);
+            hand.add(SERVER.getNextCard());
             String msg = msgPart + hand.toString();
             assert hand.isOpen() == !hand.isClosed() : msg;
         }
@@ -824,11 +822,9 @@ public class HandTest {
     public void testOpenClosedCorrespondenceAuxConstructor() {
         PlayingCard firstCard = SERVER.getNextCard();
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        PlayingCard card;
         String msgPart = "Open flag should be opposite of closed flag for ";
         while (hand.cardsValue() < 21) {
-            card = SERVER.getNextCard();
-            hand.add(card);
+            hand.add(SERVER.getNextCard());
             String msg = msgPart + hand.toString();
             assert hand.isOpen() == !hand.isClosed() : msg;
         }
