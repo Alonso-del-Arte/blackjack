@@ -821,6 +821,20 @@ public class HandTest {
     }
     
     @Test
+    public void testOpenClosedCorrespondenceAuxConstructor() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card;
+        String msgPart = "Open flag should be opposite of closed flag for ";
+        while (hand.cardsValue() < 21) {
+            card = SERVER.getNextCard();
+            hand.add(card);
+            String msg = msgPart + hand.toString();
+            assert hand.isOpen() == !hand.isClosed() : msg;
+        }
+    }
+    
+    @Test
     public void testNewHandShouldNotBeSettledHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         String msg = "New hand should not be a settled hand";
