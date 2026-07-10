@@ -779,7 +779,7 @@ public class HandTest {
     }
     
     /**
-     * Test of isOpen method of class Hand.
+     * Test of isOpen function of the Hand class.
      */
     @Test
     public void testIsOpen() {
@@ -807,15 +807,15 @@ public class HandTest {
         assert !hand.isOpen() : msg;
     }
     
-@org.junit.Ignore
     @Test
     public void testOpenClosedCorrespondence() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card;
-        String msg = "Open flag should be opposite of closed flag";
+        String msgPart = "Open flag should be opposite of closed flag for ";
         while (hand.cardsValue() < 21) {
             card = SERVER.getNextCard();
             hand.add(card);
+            String msg = msgPart + hand.toString();
             assert hand.isOpen() == !hand.isClosed() : msg;
         }
     }
