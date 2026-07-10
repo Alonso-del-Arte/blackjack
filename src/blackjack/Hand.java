@@ -179,7 +179,7 @@ public class Hand {
      * @return True if this is a winning hand or has gone bust, false otherwise.
      */
     public boolean isClosed() {
-        return !this.open;
+        return this.open;
     }
     
     void markSettled() {
