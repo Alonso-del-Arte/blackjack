@@ -186,6 +186,19 @@ public class Hand {
         this.settled = true;
     }
     
+    /**
+     * Indicates whether the hand has been settled. A hand is settled if there 
+     * is an outcome (blackjack, bust, stand-off, etc.), <em>and</em> the payout 
+     * has been paid or the losing wager has been collected. Examples: a natural 
+     * blackjack that has been paid at 3:2, a player's hand with two Tens but 
+     * the dealer still has a face down card, a player's hand with two Tens and 
+     * the dealer's hand has the same value and the dealer has collected the 
+     * wager.
+     * @return True if the hand is settled, false otherwise. In the examples, 
+     * true for the natural blackjack paid at 3:2 and also true for the two Tens 
+     * that stood off with the dealer, but false for the two Tens still waiting 
+     * on the dealer's hand.
+     */
     public boolean isSettled() {
         return this.settled;
     }
