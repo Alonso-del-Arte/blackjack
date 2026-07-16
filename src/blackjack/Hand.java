@@ -133,13 +133,13 @@ public class Hand {
      * {@link #isSplittableHand()}.
      */
     Hand split(Dealer dealer) {
-        if (!this.isSplittable(dealer)) {
-            String excMsg = "Can't split this hand";
-            throw new IllegalStateException(excMsg);
-        }
+//        if (!this.isSplittable(dealer)) {
+//            String excMsg = "Can't split this hand";
+//            throw new IllegalStateException(excMsg);
+//        }
         Hand splitOffHand = new Hand(this.associatedWager);
-        splitOffHand.add(this.cards.remove(1));
-        this.updateCardsValue();
+//        splitOffHand.add(this.cards.remove(1));
+//        this.updateCardsValue();
         return splitOffHand;
     }
     
