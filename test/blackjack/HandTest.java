@@ -695,6 +695,14 @@ public class HandTest {
                 + " should be considered a busted hand";
         assert hand.isBusted() : msg;
     }
+    
+    @Test
+    public void testIsBustedAuxConstructor() {
+        Hand hand = makeBustedHandAuxConstructor();
+        String msg = "Hand " + hand.toString() 
+                + " should be considered a busted hand";
+        assert hand.isBusted() : msg;
+    }
 
     @Test
     public void testWinningHandIsNotBustedHand() {
