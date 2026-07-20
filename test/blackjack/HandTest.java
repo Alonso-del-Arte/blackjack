@@ -153,9 +153,10 @@ public class HandTest {
         return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
     }
     
+    // TODO: Rewrite to not depend on cardsValue( )
     private static Hand makeBustedHand() {
         Hand hand = makeOpenHand();
-        if (hand.cardsValue() < 13) {
+        if (hand.cardsValue() < 12) {
             hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
         }
         Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
@@ -163,9 +164,10 @@ public class HandTest {
         return hand;
     }
     
+    // TODO: Rewrite to not depend on cardsValue( )
     private static Hand makeBustedHandAuxConstructor() {
         Hand hand = makeOpenHandAuxConstructor();
-        if (hand.cardsValue() < 13) {
+        if (hand.cardsValue() < 12) {
             hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
         }
         Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
