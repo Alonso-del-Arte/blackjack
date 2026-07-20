@@ -808,6 +808,14 @@ public class HandTest {
     }
 
     @Test
+    public void testBustedHandIsClosedHandAuxConstructor() {
+        Hand bustedHand = makeBustedHandAuxConstructor();
+        String msg = "Hand " + bustedHand.toString() 
+                + " should be considered a closed hand";
+        assert bustedHand.isClosed() : msg;
+    }
+
+    @Test
     public void testWinningHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = SERVER.giveCard(Rank.ACE);
