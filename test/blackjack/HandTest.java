@@ -148,6 +148,11 @@ public class HandTest {
         return ((card) -> card.integerValue() < threshold);
     }
     
+    private static Predicate<PlayingCard> predicateToFallShort(int value) {
+        int threshold = 20 - value;
+        return ((card) -> card.integerValue() < threshold);
+    }
+    
     private static Predicate<PlayingCard> predicateForBust(int value) {
         int target = 21 - value;
         return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
