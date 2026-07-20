@@ -779,15 +779,8 @@ public class HandTest {
     
     @Test
     public void testBustedHandIsClosedHand() {
-        Hand bustedHand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
-        bustedHand.add(eight);
-        bustedHand.add(four);
-        bustedHand.add(ten);
-        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
-                + " and " + ten.toString() 
+        Hand bustedHand = makeBustedHand();
+        String msg = "Hand " + bustedHand.toString() 
                 + " should be considered a closed hand";
         assert bustedHand.isClosed() : msg;
     }
