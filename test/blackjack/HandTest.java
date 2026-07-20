@@ -816,14 +816,34 @@ public class HandTest {
     }
 
     @Test
-    public void testWinningHandIsNotOpenHand() {
+    public void testNaturalBlackJackIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = SERVER.giveCard(Rank.JACK);
+        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
-        hand.add(jack);
-        String msg = ace.toString() + " and " + jack.toString() 
+        hand.add(tenCard);
+        String msg = ace.toString() + " and " + tenCard.toString() 
                 + " should not be considered an open hand";
+        assert !hand.isOpen() : msg;
+    }
+    
+    @Test
+    public void testNaturalBlackJackIsNotOpenHandAuxConstructorAceFirst() {
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        Hand hand = new Hand(DEFAULT_WAGER, ace);
+        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        hand.add(tenCard);
+        String msg = hand.toString() + " should not be considered an open hand";
+        assert !hand.isOpen() : msg;
+    }
+    
+    @Test
+    public void testNaturalBlackJackIsNotOpenHandAuxConstructorTenFirst() {
+        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        Hand hand = new Hand(DEFAULT_WAGER, tenCard);
+        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        hand.add(ace);
+        String msg = hand.toString() + " should not be considered an open hand";
         assert !hand.isOpen() : msg;
     }
     
