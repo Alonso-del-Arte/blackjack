@@ -158,24 +158,39 @@ public class HandTest {
         return ((card) -> card.integerValue() > target && !card.isOf(Rank.ACE));
     }
     
-    // TODO: Rewrite to not depend on cardsValue( )
     private static Hand makeBustedHand() {
-        Hand hand = makeOpenHand();
-        if (hand.cardsValue() < 12) {
-            hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        int value = assessValue(card);
+        hand.add(card);
+        card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        value += assessValue(card);
+        hand.add(card);
+        while (value < 13) {
+            Predicate<PlayingCard> predicate = predicateToFallShort(value);
+            card = EXTRA_SERVER.giveCard(predicate);
+            value += assessValue(card);
+            hand.add(card);
         }
-        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        Predicate<PlayingCard> predicate = predicateForBust(value);
         hand.add(EXTRA_SERVER.giveCard(predicate));
         return hand;
     }
     
-    // TODO: Rewrite to not depend on cardsValue( )
     private static Hand makeBustedHandAuxConstructor() {
-        Hand hand = makeOpenHandAuxConstructor();
-        if (hand.cardsValue() < 12) {
-            hand.add(EXTRA_SERVER.giveCard(TEN_CARD_PREDICATE));
+        PlayingCard firstCard = SERVER.giveCard(NOT_ACE_PREDICATE);
+        int value = assessValue(firstCard);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        value += assessValue(card);
+        hand.add(card);
+        while (value < 13) {
+            Predicate<PlayingCard> predicate = predicateToFallShort(value);
+            card = EXTRA_SERVER.giveCard(predicate);
+            value += assessValue(card);
+            hand.add(card);
         }
-        Predicate<PlayingCard> predicate = predicateForBust(hand.cardsValue());
+        Predicate<PlayingCard> predicate = predicateForBust(value);
         hand.add(EXTRA_SERVER.giveCard(predicate));
         return hand;
     }
