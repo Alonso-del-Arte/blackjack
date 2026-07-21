@@ -872,15 +872,8 @@ public class HandTest {
     
     @Test
     public void testBustedHandIsNotOpenHand() {
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
-        PlayingCard four = SERVER.giveCard(Rank.FOUR);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
-        hand.add(eight);
-        hand.add(four);
-        hand.add(ten);
-        String msg = "Hand with " + eight.toString() + ", " + four.toString() 
-                + " and " + ten.toString() 
+        Hand hand = makeBustedHand();
+        String msg = "Hand " + hand.toString() 
                 + " should not be considered an open hand";
         assert !hand.isOpen() : msg;
     }
