@@ -75,6 +75,10 @@ public class HandTest {
     private static final Predicate<PlayingCard> NOT_ACE_PREDICATE 
             = ((card) -> card.getRank().ordinal() > 0);
     
+    private static final Predicate<PlayingCard> REGULAR_PIP_CARD_PREDICATE 
+            = ((card) -> card.getRank().ordinal() > 0 
+                    && card.getRank().ordinal() < 9);
+    
     private static final Predicate<PlayingCard> TEN_CARD_PREDICATE 
             = ((card) -> card.getRank().ordinal() > 8);
     
@@ -151,6 +155,11 @@ public class HandTest {
     private static Predicate<PlayingCard> predicateToFallShort(int value) {
         int threshold = 20 - value;
         return ((card) -> card.integerValue() < threshold);
+    }
+    
+    private static Predicate<PlayingCard> predicateForBlackjack(int value) {
+        int target = 21 - value;
+        return ((card) -> card.integerValue() == target);
     }
     
     private static Predicate<PlayingCard> predicateForBust(int value) {
@@ -962,6 +971,55 @@ public class HandTest {
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + card.toString() 
                 + " was marked settled, should be recognized as settled";
+        assert hand.isSettled() : msg;
+    }
+    
+    @Test
+    public void testMarkSettledBlackjackMoreThanTwoCards() {
+        Hand hand = new Hand(DEFAULT_WAGER);
+        PlayingCard card = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        int value = assessValue(card);
+        hand.add(card);
+        card = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        value += assessValue(card);
+        hand.add(card);
+        if (value < 12) {
+            card = SERVER.giveCard(TEN_CARD_PREDICATE);
+            value += 10;
+            hand.add(card);
+        }
+        if (value < 21) {
+            Predicate<PlayingCard> predicate = predicateForBlackjack(value);
+            card = SERVER.giveCard(predicate);
+            hand.add(card);
+        }
+        hand.markSettled();
+        String msg = "Hand " + hand.toString() 
+                + " was marked settled, should be recognized as such";
+        assert hand.isSettled() : msg;
+    }
+    
+    @Test
+    public void testMarkSettledBlackjackMoreThanTwoCardsAuxConstructor() {
+        PlayingCard firstCard = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        int value = assessValue(firstCard);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        value += assessValue(card);
+        hand.add(card);
+        if (value < 12) {
+            card = SERVER.giveCard(TEN_CARD_PREDICATE);
+            value += 10;
+            hand.add(card);
+        }
+        if (value < 21) {
+            Predicate<PlayingCard> predicate = predicateForBlackjack(value);
+            card = SERVER.giveCard(predicate);
+            hand.add(card);
+        }
+        hand.markSettled();
+        String msg = "Hand " + hand.toString() 
+                + " was marked settled, should be recognized as such";
         assert hand.isSettled() : msg;
     }
     
