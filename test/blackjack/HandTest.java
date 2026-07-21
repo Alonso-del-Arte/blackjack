@@ -926,15 +926,41 @@ public class HandTest {
     }
     
     @Test
-    public void testMarkSettled() {
+    public void testMarkNaturalBlackjackSettled() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard firstCard = SERVER.giveCard(Rank.JACK);
+        PlayingCard firstCard = SERVER.giveCard(TEN_CARD_PREDICATE);
         hand.add(firstCard);
         PlayingCard secondCard = SERVER.giveCard(Rank.ACE);
         hand.add(secondCard);
         hand.markSettled();
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + secondCard.toString() 
+                + " was marked settled, should be recognized as settled";
+        assert hand.isSettled() : msg;
+    }
+
+    @Test
+    public void testMarkNaturalBlackjackSettledAuxConstructorAceFirst() {
+        PlayingCard firstCard = SERVER.giveCard(Rank.ACE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(TEN_CARD_PREDICATE);
+        hand.add(card);
+        hand.markSettled();
+        String msg = "Hand with " + firstCard.toString() + " and " 
+                + card.toString() 
+                + " was marked settled, should be recognized as settled";
+        assert hand.isSettled() : msg;
+    }
+
+    @Test
+    public void testMarkNaturalBlackjackSettledAuxConstructorTenFirst() {
+        PlayingCard firstCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard card = SERVER.giveCard(Rank.ACE);
+        hand.add(card);
+        hand.markSettled();
+        String msg = "Hand with " + firstCard.toString() + " and " 
+                + card.toString() 
                 + " was marked settled, should be recognized as settled";
         assert hand.isSettled() : msg;
     }
