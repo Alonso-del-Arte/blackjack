@@ -917,6 +917,15 @@ public class HandTest {
     }
     
     @Test
+    public void testNewHandAuxConstructorShouldNotBeSettledHand() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "New hand with just " + firstCard.toString() 
+                + " should not be a settled hand";
+        assert !hand.isSettled() : msg;
+    }
+    
+    @Test
     public void testMarkSettled() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard firstCard = SERVER.giveCard(Rank.JACK);
