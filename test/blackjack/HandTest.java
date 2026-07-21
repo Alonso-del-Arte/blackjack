@@ -879,6 +879,14 @@ public class HandTest {
     }
     
     @Test
+    public void testBustedHandIsNotOpenHandAuxConstructor() {
+        Hand hand = makeBustedHandAuxConstructor();
+        String msg = "Hand " + hand.toString() 
+                + " should not be considered an open hand";
+        assert !hand.isOpen() : msg;
+    }
+    
+    @Test
     public void testOpenClosedCorrespondence() {
         Hand hand = new Hand(DEFAULT_WAGER);
         String msgPart = "Open flag should be opposite of closed flag for ";
