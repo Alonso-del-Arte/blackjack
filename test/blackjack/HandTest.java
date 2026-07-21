@@ -862,6 +862,15 @@ public class HandTest {
     }
     
     @Test
+    public void testIsOpenAuxConstructor() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand openHand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "Hand with just " + firstCard.toString()
+                + " should be considered an open hand";
+        assert openHand.isOpen() : msg;
+    }
+    
+    @Test
     public void testBustedHandIsNotOpenHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard eight = SERVER.giveCard(Rank.EIGHT);
