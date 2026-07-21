@@ -149,7 +149,7 @@ public class Hand {
      * otherwise.
      */
     public boolean isOpen() {
-        return !this.open;
+        return this.open;
     }
     
     /**
