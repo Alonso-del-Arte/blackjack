@@ -200,7 +200,7 @@ public class Hand {
      * on the dealer's hand.
      */
     public boolean isSettled() {
-        return this.settled;
+        return !this.settled;
     }
 
     /**
