@@ -964,6 +964,24 @@ public class HandTest {
                 + " was marked settled, should be recognized as settled";
         assert hand.isSettled() : msg;
     }
+    
+    @Test
+    public void testMarkBustedHandSettled() {
+        Hand hand = makeBustedHand();
+        hand.markSettled();
+        String msg = "Hand " + hand.toString() 
+                + " was marked settled, should be recognized as such";
+        assert hand.isSettled() : msg;
+    }
+
+    @Test
+    public void testMarkBustedHandSettledAuxConstructor() {
+        Hand hand = makeBustedHandAuxConstructor();
+        hand.markSettled();
+        String msg = "Hand " + hand.toString() 
+                + " was marked settled, should be recognized as such";
+        assert hand.isSettled() : msg;
+    }
 
     /**
      * Test of the add procedure, of the Hand class.
