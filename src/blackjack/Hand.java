@@ -244,7 +244,7 @@ public class Hand {
     
     @Override
     public String toString() {
-        if (this.cards.size() == 0) return "()";
+        if (this.cards.isEmpty()) return "()";
         String intermediate = this.cards.toString();
         int endIndex = intermediate.length() - 1;
         return "(" + intermediate.substring(1, endIndex) + ")";
