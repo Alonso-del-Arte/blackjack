@@ -244,12 +244,10 @@ public class Hand {
     
     @Override
     public String toString() {
-        StringBuilder intermediate = new StringBuilder("(");
-        this.cards.forEach((card) -> {
-            intermediate.append(card.toString()).append(", ");
-        });
-        intermediate.append(")");
-        return intermediate.toString().replace(", \u0029", "\u0029");
+        if (this.cards.size() == 0) return "()";
+        String intermediate = this.cards.toString();
+        int endIndex = intermediate.length() - 1;
+        return "(" + intermediate.substring(1, endIndex) + ")";
     }
     
     /**
