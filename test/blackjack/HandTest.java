@@ -1105,6 +1105,26 @@ public class HandTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testNoAddCardAfterWinningAuxConstructorInstanceAceFirst() {
+        PlayingCard firstCard = SERVER.giveCard(Rank.ACE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        hand.add(tenCard);
+        PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        String msg = "Trying to add " + card.toString() + " to " 
+                + hand.toString() + " should cause an exception";
+        Throwable t = assertThrows(() -> {
+            hand.add(card);
+            System.out.println(msg + ", not reassessed hand value to " 
+                    + hand.cardsValue());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     @org.junit.Ignore
     @Test
     public void testNoAddCardAfterBusting() {
