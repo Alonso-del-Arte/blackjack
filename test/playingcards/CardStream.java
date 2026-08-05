@@ -42,11 +42,23 @@ public class CardStream {
         return SUITS[RANDOM.nextInt(SUIT_CHOICE_BOUND)];
     }
     
+    /**
+     * Gives a card of a specified rank. The choice of suit is pseudorandom. The 
+     * stream keeps no record of provenance.
+     * @param rank The requested rank. For example, {@link Rank#ACE}.
+     * @return A card of the requested rank. For example, A&#9829;.
+     */
     public static PlayingCard giveCard(Rank rank) {
         Suit suit = chooseSuit();
         return new PlayingCard(rank, suit);
     }
     
+    /**
+     * Gives a card of a specified suit. The choice of rank is pseudorandom. The 
+     * stream keeps no record of provenance.
+     * @param suit The requested suit. For example, {@link Suit#SPADES}.
+     * @return A card of the requested suit. For example, 10&#9824;.
+     */
     public static PlayingCard giveCard(Suit suit) {
         Rank rank = chooseRank();
         return new PlayingCard(rank, suit);
