@@ -18,15 +18,33 @@ package playingcards;
 
 import java.util.function.Predicate;
 
+import static playingcards.PlayingCardTest.RANDOM;
+
 /**
  *
  * @author Alonso del Arte
  */
 public class CardStream {
     
-    // TODO: Write a test for this
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final int RANK_CHOICE_BOUND = RANKS.length;
+    
+    private static final Suit[] SUITS = Suit.values();
+    
+    private static final int SUIT_CHOICE_BOUND = SUITS.length;
+    
+    private static Rank chooseRank() {
+        return Rank.ACE;
+    }
+    
+    private static Suit chooseSuit() {
+        return SUITS[RANDOM.nextInt(SUIT_CHOICE_BOUND)];
+    }
+    
     public static PlayingCard giveCard(Rank rank) {
-        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+        Suit suit = chooseSuit();
+        return new PlayingCard(rank, suit);
     }
     
     // TODO: Write a test for this
