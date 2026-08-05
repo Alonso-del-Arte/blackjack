@@ -47,6 +47,8 @@ public class CardStreamTest {
                 assert card.isOf(rank) : msg;
             }
         }
+        System.out.println("Successfully obtained " + numberOfCalls 
+                + " cards of each rank");
     }
     
 }
