@@ -6,7 +6,7 @@ the payouts are.
 
 The game that I'm focusing on in this project is sometimes called "American 
 blackjack." It's what you can expect to play at most casinos in the United 
-States.
+States. Everything else described in this document is a variant.
 
 ## Atlantic City blackjack
 
