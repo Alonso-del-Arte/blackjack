@@ -31,6 +31,10 @@ public class CardStreamTest {
     
     private static final int NUMBER_OF_RANKS = RANKS.length;
     
+    private static final Suit[] SUITS = Suit.values();
+    
+    private static final int NUMBER_OF_SUITS = SUITS.length;
+    
     @Test
     public void testGiveCard() {
         System.out.println("giveCard");
@@ -49,6 +53,25 @@ public class CardStreamTest {
         }
         System.out.println("Successfully obtained " + numberOfCalls 
                 + " cards of each rank");
+    }
+    
+    @Test
+    public void testGiveCardBySuit() {
+        int numberOfDecks = RANDOM.nextInt(2, 10);
+        int numberOfCalls = numberOfDecks * NUMBER_OF_SUITS 
+                + RANDOM.nextInt(NUMBER_OF_SUITS);
+        String msgPartA = "Card ";
+        String msgPartB1 = " should be of suit ";
+        for (Suit suit : SUITS) {
+            String msgPartB = msgPartB1 + suit.getWord();
+            for (int i = 0; i < numberOfCalls; i++) {
+                PlayingCard card = CardStream.giveCard(suit);
+                String msg = msgPartA + card.toString() + msgPartB;
+                assert card.isOf(suit) : msg;
+            }
+        }
+        System.out.println("Successfully obtained " + numberOfCalls 
+                + " cards of each suit");
     }
     
 }
