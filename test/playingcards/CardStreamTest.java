@@ -19,10 +19,34 @@ package playingcards;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import static playingcards.PlayingCardTest.RANDOM;
+
 /**
  * Tests of the CardStream class.
  * @author Alonso del Arte
  */
 public class CardStreamTest {
+    
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final int NUMBER_OF_RANKS = RANKS.length;
+    
+    @Test
+    public void testGiveCard() {
+        System.out.println("giveCard");
+        int numberOfDecks = RANDOM.nextInt(2, 10);
+        int numberOfCalls = numberOfDecks * NUMBER_OF_RANKS 
+                + RANDOM.nextInt(NUMBER_OF_RANKS);
+        String msgPartA = "Card ";
+        String msgPartB1 = " should be of rank ";
+        for (Rank rank : RANKS) {
+            String msgPartB = msgPartB1 + rank.getWord();
+            for (int i = 0; i < numberOfCalls; i++) {
+                PlayingCard card = CardStream.giveCard(rank);
+                String msg = msgPartA + card.toString() + msgPartB;
+                assert card.isOf(rank) : msg;
+            }
+        }
+    }
     
 }
