@@ -25,6 +25,16 @@ import java.util.function.Predicate;
 public class CardStream {
     
     // TODO: Write a test for this
+    public static PlayingCard giveCard(Rank rank) {
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+    }
+    
+    // TODO: Write a test for this
+    public static PlayingCard giveCard(Suit suit) {
+        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+    }
+    
+    // TODO: Write a test for this
     // The idea here is to make blackjack.HandTest less brittle
     public static PlayingCard giveCard(Predicate<PlayingCard> predicate) {
         return new PlayingCard(Rank.JACK, Suit.CLUBS);
