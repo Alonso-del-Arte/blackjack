@@ -16,7 +16,7 @@ pairs thrice. Payout for natural blackjack is 6 to 5, rather than 3 to 2,
 depending on the casino. Though it has been a general trend for casinos to get 
 stingier with payouts overall.
 
-## Blackjack switch
+## Blackjack Switch&reg;
 
 Each player gets two hands, each with the same wager. But the thing that sets 
 this game apart from other blackjack games is that a player can switch cards 
