@@ -17,9 +17,11 @@
 package playingcards;
 
 /**
- * Defines three functions that objects that hand out cards should implement. 
- * The implementing class may be a deck or a group of decks. This interface does 
- * not require implementing classes to provide a shuffling procedure.
+ * Defines four functions that objects that hand out cards should implement. The 
+ * implementing class may be a deck or a group of decks. This interface does not 
+ * require implementing classes to provide a shuffling procedure. It had 
+ * previously not been explicitly stated that this represents a supplier with a 
+ * finite supply of cards and {@link RanOutOfCardsException} can occur at times.
  * @author Alonso del Arte
  */
 public interface CardSupplier {
