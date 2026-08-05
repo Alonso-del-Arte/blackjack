@@ -35,7 +35,7 @@ public class CardStream {
     private static final int SUIT_CHOICE_BOUND = SUITS.length;
     
     private static Rank chooseRank() {
-        return Rank.ACE;
+        return RANKS[RANDOM.nextInt(RANK_CHOICE_BOUND)];
     }
     
     private static Suit chooseSuit() {
@@ -47,9 +47,9 @@ public class CardStream {
         return new PlayingCard(rank, suit);
     }
     
-    // TODO: Write a test for this
     public static PlayingCard giveCard(Suit suit) {
-        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+        Rank rank = chooseRank();
+        return new PlayingCard(rank, suit);
     }
     
     // TODO: Write a test for this
