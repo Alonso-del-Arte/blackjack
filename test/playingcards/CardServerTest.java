@@ -84,7 +84,7 @@ public class CardServerTest {
         return new PredicateWithDescription(pred, descr);
     }
     
-    private static PredicateWithDescription inventPredicate() {
+    static PredicateWithDescription inventPredicate() {
         if (RANDOM.nextDouble() < 0.75) {
             return inventRankPredicate();
         } else {
