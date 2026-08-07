@@ -16,6 +16,8 @@
  */
 package playingcards;
 
+import java.util.function.Predicate;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -72,6 +74,24 @@ public class CardStreamTest {
         }
         System.out.println("Successfully obtained " + numberOfCalls 
                 + " cards of each suit");
+    }
+    
+    @Test
+    public void testGiveCardByPredicate() {
+        int multiplier = RANDOM.nextInt(2, 5);
+        int numberOfCalls = multiplier * NUMBER_OF_RANKS 
+                + multiplier * NUMBER_OF_SUITS;
+        String msgPartA = "Card ";
+        String msgPartB = " should match predicate ";
+        for (int i = 0; i < numberOfCalls; i++) {
+            CardServerTest.PredicateWithDescription describedPredicate 
+                    = CardServerTest.inventPredicate();
+            Predicate<PlayingCard> predicate = describedPredicate.predicate;
+            PlayingCard card = CardStream.giveCard(predicate);
+            String msg = msgPartA + card.toString() + msgPartB 
+                    + describedPredicate.description;
+            assert predicate.test(card) : msg;
+        }
     }
     
 }
