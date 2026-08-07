@@ -45,7 +45,7 @@ public class CardServerTest {
     
     private static final int DEFAULT_DECK_QUANTITY = 10;
     
-    private static class PredicateWithDescription {
+    static class PredicateWithDescription {
         
         final Predicate<PlayingCard> predicate;
         
