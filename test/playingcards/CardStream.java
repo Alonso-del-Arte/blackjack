@@ -64,9 +64,17 @@ public class CardStream {
         return new PlayingCard(rank, suit);
     }
     
-    // TODO: Write a test for this
+    // TODO: Test that this doesn't always give the first matching card in an 
+    // unshuffled deck
     // The idea here is to make blackjack.HandTest less brittle
     public static PlayingCard giveCard(Predicate<PlayingCard> predicate) {
+        CardDeck deck = new CardDeck();
+        while (deck.hasNext()) {
+            PlayingCard card = deck.getNextCard();
+            if (predicate.test(card)) {
+                return card;
+            }
+        }
         return new PlayingCard(Rank.JACK, Suit.CLUBS);
     }
     
