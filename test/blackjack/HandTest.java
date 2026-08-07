@@ -112,41 +112,6 @@ public class HandTest {
         };
     }
     
-    private static Hand makeOpenHand() {
-        Hand hand = new Hand(DEFAULT_WAGER);
-        boolean keepHitting = true;
-        int value = 0;
-        CardServer server = new CardServer(DEFAULT_DECK_QUANTITY);
-        while (keepHitting) {
-            PlayingCard card = server.giveCard(NOT_ACE_PREDICATE);
-            value += assessValue(card);
-            if (value < 20) {
-                hand.add(card);
-            } else {
-                keepHitting = false;
-            }
-        }
-        return hand;
-    }
-    
-    private static Hand makeOpenHandAuxConstructor() {
-        CardServer server = new CardServer(DEFAULT_DECK_QUANTITY);
-        PlayingCard firstCard = server.giveCard(NOT_ACE_PREDICATE);
-        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        boolean keepHitting = true;
-        int value = assessValue(firstCard);
-        while (keepHitting) {
-            PlayingCard card = server.giveCard(NOT_ACE_PREDICATE);
-            value += assessValue(card);
-            if (value < 20) {
-                hand.add(card);
-            } else {
-                keepHitting = false;
-            }
-        }
-        return hand;
-    }
-    
     private static Predicate<PlayingCard> predicateToStayOpen(int value) {
         int threshold = 21 - value;
         return ((card) -> card.integerValue() < threshold);
