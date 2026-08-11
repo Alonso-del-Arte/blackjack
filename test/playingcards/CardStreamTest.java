@@ -16,10 +16,18 @@
  */
 package playingcards;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+
+import static org.testframe.api.Asserters.assertContainsSame;
 
 import static playingcards.PlayingCardTest.RANDOM;
 
@@ -55,6 +63,23 @@ public class CardStreamTest {
         }
         System.out.println("Successfully obtained " + numberOfCalls 
                 + " cards of each rank");
+    }
+    
+    @Test
+    public void testGiveCardByRankGivesAllSuits() {
+        int numberOfCalls = 10 * NUMBER_OF_SUITS;
+        List<Suit> suits = Arrays.asList(SUITS);
+        for (Rank rank : RANKS) {
+            Set<PlayingCard> expected = suits.stream()
+                    .map(suit -> new PlayingCard(rank, suit))
+                    .collect(Collectors.toSet());
+            Set<PlayingCard> actual = new HashSet<>(NUMBER_OF_SUITS);
+            for (int i = 0; i < numberOfCalls; i++) {
+                PlayingCard card = CardStream.giveCard(rank);
+                actual.add(card);
+            }
+            assertContainsSame(expected, actual);
+        }
     }
     
     @Test
