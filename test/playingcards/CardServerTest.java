@@ -51,7 +51,8 @@ public class CardServerTest {
         
         final String description;
 
-        PredicateWithDescription(Predicate<PlayingCard> pred, String descr) {
+        private PredicateWithDescription(Predicate<PlayingCard> pred, 
+                String descr) {
             this.predicate = pred;
             this.description = descr;
         }    
