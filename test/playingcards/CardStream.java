@@ -51,7 +51,7 @@ public class CardStream {
     // TODO: Test suit is not always the same
     public static PlayingCard giveCard(Rank rank) {
         Suit suit = chooseSuit();
-        return new PlayingCard(rank, Suit.CLUBS);
+        return new PlayingCard(rank, suit);
     }
     
     /**
