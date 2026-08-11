@@ -48,7 +48,6 @@ public class CardStream {
      * @param rank The requested rank. For example, {@link Rank#ACE}.
      * @return A card of the requested rank. For example, A&#9829;.
      */
-    // TODO: Test suit is not always the same
     public static PlayingCard giveCard(Rank rank) {
         Suit suit = chooseSuit();
         return new PlayingCard(rank, suit);
@@ -60,10 +59,9 @@ public class CardStream {
      * @param suit The requested suit. For example, {@link Suit#SPADES}.
      * @return A card of the requested suit. For example, 10&#9824;.
      */
-    // TODO: Test rank is not always the same
     public static PlayingCard giveCard(Suit suit) {
         Rank rank = chooseRank();
-        return new PlayingCard(Rank.ACE, suit);
+        return new PlayingCard(rank, suit);
     }
     
     // TODO: Test that this doesn't always give the first matching card in an 
