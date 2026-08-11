@@ -102,6 +102,23 @@ public class CardStreamTest {
     }
     
     @Test
+    public void testGiveCardBySuitGivesAllRanks() {
+        int numberOfCalls = 12 * NUMBER_OF_RANKS;
+        List<Rank> ranks = Arrays.asList(RANKS);
+        for (Suit suit : SUITS) {
+            Set<PlayingCard> expected = ranks.stream()
+                    .map(rank -> new PlayingCard(rank, suit))
+                    .collect(Collectors.toSet());
+            Set<PlayingCard> actual = new HashSet<>(NUMBER_OF_RANKS);
+            for (int i = 0; i < numberOfCalls; i++) {
+                PlayingCard card = CardStream.giveCard(suit);
+                actual.add(card);
+            }
+            assertContainsSame(expected, actual);
+        }
+    }
+    
+    @Test
     public void testGiveCardByPredicate() {
         int multiplier = RANDOM.nextInt(2, 5);
         int numberOfCalls = multiplier * NUMBER_OF_RANKS 
