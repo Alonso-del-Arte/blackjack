@@ -67,15 +67,17 @@ public class CardStream {
     // TODO: Test that this doesn't always give the first matching card in an 
     // unshuffled deck
     // The idea here is to make blackjack.HandTest less brittle
+    // TODO: Test impossible predicate causes NoSuchElementException
     public static PlayingCard giveCard(Predicate<PlayingCard> predicate) {
         CardDeck deck = new CardDeck();
+        deck.shuffle();
         while (deck.hasNext()) {
             PlayingCard card = deck.getNextCard();
             if (predicate.test(card)) {
                 return card;
             }
         }
-        return new PlayingCard(Rank.JACK, Suit.CLUBS);
+        return new PlayingCard(Rank.JACK, Suit.DIAMONDS);
     }
     
 }
