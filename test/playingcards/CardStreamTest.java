@@ -136,4 +136,31 @@ public class CardStreamTest {
         }
     }
     
+    @Test
+    public void testGiveCardByPredicateEventuallyGivesAllMatching() {
+        List<PlayingCard> cards 
+                = new ArrayList<>(CardDeck.INITIAL_NUMBER_OF_CARDS_PER_DECK);
+        for (Rank rank : RANKS) {
+            for (Suit suit : SUITS) {
+                cards.add(new PlayingCard(rank, suit));
+            }
+        }
+        CardServerTest.PredicateWithDescription describedPredicate 
+                = CardServerTest.inventPredicate();
+        Predicate<PlayingCard> predicate = describedPredicate.predicate;
+        Set<PlayingCard> expected = cards.stream().filter(predicate)
+                .collect(Collectors.toSet());
+        int initialCapacity = expected.size();
+        Set<PlayingCard> actual = new HashSet<>(initialCapacity);
+        int numberOfCalls = 20 * initialCapacity;
+        for (int i = 0; i < numberOfCalls; i++) {
+            actual.add(CardStream.giveCard(predicate));
+        }
+        String msg = "Need to get all cards satisfying predicate " 
+                + describedPredicate.description;
+        assertContainsSame(expected, actual, msg);
+    }
+    
+    // TODO: Test impossible predicate
+    
 }
