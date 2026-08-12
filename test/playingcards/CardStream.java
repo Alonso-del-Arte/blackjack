@@ -16,6 +16,7 @@
  */
 package playingcards;
 
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 import static playingcards.PlayingCardTest.RANDOM;
@@ -64,10 +65,14 @@ public class CardStream {
         return new PlayingCard(rank, suit);
     }
     
-    // TODO: Test that this doesn't always give the first matching card in an 
-    // unshuffled deck
-    // The idea here is to make blackjack.HandTest less brittle
-    // TODO: Test impossible predicate causes NoSuchElementException
+    /**
+     * Gives a card satisfying a specified predicate. A brand new deck, shuffled 
+     * once, is used for each call.
+     * @param predicate The predicate. For example odd pip cards not Aces.
+     * @return A card satisfying the predicate. For example, the Five of Clubs.
+     * @throws NoSuchElementException If no card in a brand new deck matches the 
+     * predicate.
+     */
     public static PlayingCard giveCard(Predicate<PlayingCard> predicate) {
         CardDeck deck = new CardDeck();
         deck.shuffle();
@@ -77,7 +82,9 @@ public class CardStream {
                 return card;
             }
         }
-        return new PlayingCard(Rank.JACK, Suit.DIAMONDS);
+        String excMsg = "No card found matching predicate " 
+                + predicate.toString();
+        throw new NoSuchElementException(excMsg);
     }
     
 }
