@@ -20,14 +20,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import static org.testframe.api.Asserters.assertContainsSame;
+import static org.testframe.api.Asserters.assertThrows;
 
 import static playingcards.PlayingCardTest.RANDOM;
 
@@ -161,6 +162,21 @@ public class CardStreamTest {
         assertContainsSame(expected, actual, msg);
     }
     
-    // TODO: Test impossible predicate
+    @Test
+    public void testImpossiblePredicateCausesException() {
+        int unavailableValue = -RANDOM.nextInt(256);
+        Predicate<PlayingCard> predicate 
+                = (card) -> card.integerValue() == unavailableValue;
+        String msg = "Predicate with unavailable value " + unavailableValue 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            PlayingCard card = CardStream.giveCard(predicate);
+            System.out.println(msg + ", not given " + card.toString());
+        }, NoSuchElementException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
     
 }
