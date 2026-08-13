@@ -943,6 +943,7 @@ public class HandTest {
     
     @Test
     public void testMarkSettledBlackjackMoreThanTwoCards() {
+        fail("REWRITE THIS TEST, STILL BRITTLE WITH predicateForBlackjack");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         int value = assessValue(card);
