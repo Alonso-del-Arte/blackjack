@@ -607,8 +607,8 @@ public class HandTest {
     public void testIsWinning() {
         System.out.println("isWinning");
         Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = SERVER.giveCard(Rank.ACE);
-        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         winningHand.add(ace);
         winningHand.add(tenCard);
         String msg = ace.toString() + " and " + tenCard.toString() 
@@ -628,9 +628,9 @@ public class HandTest {
     
     @Test
     public void testIsWinningAuxConstructorInstanceStartWithTenCard() {
-        PlayingCard firstCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        PlayingCard firstCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        PlayingCard card = SERVER.giveCard(Rank.ACE);
+        PlayingCard card = CardStream.giveCard(Rank.ACE);
         hand.add(card);
         String msg = hand.toString() + " should be considered a winning hand";
         assert hand.isWinning() : msg;
@@ -644,7 +644,7 @@ public class HandTest {
             String msg = "Hand " + hand.toString() 
                     + " should not be a winning hand";
             assert !hand.isWinning() : msg;
-            PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+            PlayingCard card = CardStream.giveCard(NOT_ACE_PREDICATE);
             hand.add(card);
             value += assessValue(card);
         }
@@ -659,7 +659,7 @@ public class HandTest {
             String msg = "Hand " + hand.toString() 
                     + " should not be a winning hand";
             assert !hand.isWinning() : msg;
-            PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+            PlayingCard card = CardStream.giveCard(NOT_ACE_PREDICATE);
             hand.add(card);
             value += assessValue(card);
         }
@@ -703,6 +703,7 @@ public class HandTest {
 
     @Test
     public void testWinningHandIsNotBustedHand() {
+        fail("REWRITE WITH CardStream, MORE VARIED TEN CARDS");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard ace = SERVER.giveCard(Rank.ACE);
         PlayingCard jack = SERVER.giveCard(Rank.JACK);
@@ -804,9 +805,9 @@ public class HandTest {
     
     @Test
     public void testNaturalBlackJackIsNotOpenHandAuxConstructorAceFirst() {
-        PlayingCard ace = SERVER.giveCard(Rank.ACE);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
         Hand hand = new Hand(DEFAULT_WAGER, ace);
-        PlayingCard tenCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(tenCard);
         String msg = hand.toString() + " should not be considered an open hand";
         assert !hand.isOpen() : msg;
@@ -916,9 +917,9 @@ public class HandTest {
 
     @Test
     public void testMarkNaturalBlackjackSettledAuxConstructorAceFirst() {
-        PlayingCard firstCard = SERVER.giveCard(Rank.ACE);
+        PlayingCard firstCard = CardStream.giveCard(Rank.ACE);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        PlayingCard card = SERVER.giveCard(TEN_CARD_PREDICATE);
+        PlayingCard card = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(card);
         hand.markSettled();
         String msg = "Hand with " + firstCard.toString() + " and " 
@@ -929,9 +930,9 @@ public class HandTest {
 
     @Test
     public void testMarkNaturalBlackjackSettledAuxConstructorTenFirst() {
-        PlayingCard firstCard = SERVER.giveCard(TEN_CARD_PREDICATE);
+        PlayingCard firstCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        PlayingCard card = SERVER.giveCard(Rank.ACE);
+        PlayingCard card = CardStream.giveCard(Rank.ACE);
         hand.add(card);
         hand.markSettled();
         String msg = "Hand with " + firstCard.toString() + " and " 
@@ -943,20 +944,20 @@ public class HandTest {
     @Test
     public void testMarkSettledBlackjackMoreThanTwoCards() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         int value = assessValue(card);
         hand.add(card);
-        card = SERVER.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         value += assessValue(card);
         hand.add(card);
         if (value < 12) {
-            card = SERVER.giveCard(TEN_CARD_PREDICATE);
+            card = CardStream.giveCard(TEN_CARD_PREDICATE);
             value += 10;
             hand.add(card);
         }
         if (value < 21) {
             Predicate<PlayingCard> predicate = predicateForBlackjack(value);
-            card = SERVER.giveCard(predicate);
+            card = CardStream.giveCard(predicate);
             hand.add(card);
         }
         hand.markSettled();
@@ -1027,6 +1028,7 @@ public class HandTest {
      */
     @Test
     public void testCantAddSameCardTwice() {
+        fail("REWRITE WITH assertThrows()");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
         hand.add(card);
