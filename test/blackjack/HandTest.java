@@ -38,6 +38,7 @@ import static org.testframe.api.Asserters.assertThrows;
 import playingcards.AbridgedDeck;
 import playingcards.CardDeck;
 import playingcards.CardServer;
+import playingcards.CardStream;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
@@ -134,38 +135,38 @@ public class HandTest {
     
     private static Hand makeBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        PlayingCard card = CardStream.giveCard(NOT_ACE_PREDICATE);
         int value = assessValue(card);
         hand.add(card);
-        card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        card = CardStream.giveCard(NOT_ACE_PREDICATE);
         value += assessValue(card);
         hand.add(card);
         while (value < 13) {
             Predicate<PlayingCard> predicate = predicateToFallShort(value);
-            card = EXTRA_SERVER.giveCard(predicate);
+            card = CardStream.giveCard(predicate);
             value += assessValue(card);
             hand.add(card);
         }
         Predicate<PlayingCard> predicate = predicateForBust(value);
-        hand.add(EXTRA_SERVER.giveCard(predicate));
+        hand.add(CardStream.giveCard(predicate));
         return hand;
     }
     
     private static Hand makeBustedHandAuxConstructor() {
-        PlayingCard firstCard = SERVER.giveCard(NOT_ACE_PREDICATE);
+        PlayingCard firstCard = CardStream.giveCard(NOT_ACE_PREDICATE);
         int value = assessValue(firstCard);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
-        PlayingCard card = SERVER.giveCard(NOT_ACE_PREDICATE);
+        PlayingCard card = CardStream.giveCard(NOT_ACE_PREDICATE);
         value += assessValue(card);
         hand.add(card);
         while (value < 13) {
             Predicate<PlayingCard> predicate = predicateToFallShort(value);
-            card = EXTRA_SERVER.giveCard(predicate);
+            card = CardStream.giveCard(predicate);
             value += assessValue(card);
             hand.add(card);
         }
         Predicate<PlayingCard> predicate = predicateForBust(value);
-        hand.add(EXTRA_SERVER.giveCard(predicate));
+        hand.add(CardStream.giveCard(predicate));
         return hand;
     }
     
