@@ -214,19 +214,19 @@ public class Hand {
                     + this.handScore;
             throw new IllegalStateException(excMsg);
         }
-        int index = 0;
-        while (index < this.cards.size()) {
-            PlayingCard alreadyCard = this.cards.get(index);
-            if (card.equals(alreadyCard)) {
-                int hash = System.identityHashCode(card);
-                if (hash == System.identityHashCode(alreadyCard)) {
-                    String excMsg = "Can't add card " + card.toASCIIString() 
-                            + " (" + hash + ") twice";
-                    throw new IllegalArgumentException(excMsg);
-                }
-            }
-            index++;
-        }
+//        int index = 0;
+//        while (index < this.cards.size()) {
+//            PlayingCard alreadyCard = this.cards.get(index);
+//            if (card.equals(alreadyCard)) {
+//                int hash = System.identityHashCode(card);
+//                if (hash == System.identityHashCode(alreadyCard)) {
+//                    String excMsg = "Can't add card " + card.toASCIIString() 
+//                            + " (" + hash + ") twice";
+//                    throw new IllegalArgumentException(excMsg);
+//                }
+//            }
+//            index++;
+//        }
         this.cards.add(card);
         this.updateCardsValue();
     }
