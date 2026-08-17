@@ -1046,6 +1046,23 @@ public class HandTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testCanNotAddSameCardTwiceAuxConstructorInstance() {
+        PlayingCard firstCard = SERVER.getNextCard();
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        String msg = "Should not be able to add " + firstCard.toString() + " (@" 
+                + Integer.toHexString(System.identityHashCode(firstCard)) 
+                + ") to hand twice";
+        Throwable t = assertThrows(() -> {
+            hand.add(firstCard);
+            System.out.println(msg + " but now hand is " + hand.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     /**
      * Another test of the add procedure, of the Hand class.
      */
