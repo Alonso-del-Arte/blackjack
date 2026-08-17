@@ -1029,25 +1029,20 @@ public class HandTest {
      */
     @Test
     public void testCanNotAddSameCardTwice() {
-        fail("REWRITE WITH assertThrows()");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
         hand.add(card);
-        try {
+        String msg = "Should not be able to add " + card.toString() + " (@" 
+                + Integer.toHexString(System.identityHashCode(card)) 
+                + ") to hand twice";
+        Throwable t = assertThrows(() -> {
             hand.add(card);
-            String msg = "Should not have been able to add " + card.toString() 
-                    + " (" + System.identityHashCode(card) + ") twice";
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Add same card twice correcly caused IAE");
-            System.out.println("\"" + iae.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to add "
-                    + card.toString() + " (" + System.identityHashCode(card) 
-                    + ") twice";
-            fail(msg);
-        }
+            System.out.println(msg + " but now hand is " + hand.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
