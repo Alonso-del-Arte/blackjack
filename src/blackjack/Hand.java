@@ -215,9 +215,8 @@ public class Hand {
             throw new IllegalStateException(excMsg);
         }
         int index = 0;
-        PlayingCard alreadyCard;
         while (index < this.cards.size()) {
-            alreadyCard = this.cards.get(index);
+            PlayingCard alreadyCard = this.cards.get(index);
             if (card.equals(alreadyCard)) {
                 int hash = System.identityHashCode(card);
                 if (hash == System.identityHashCode(alreadyCard)) {
