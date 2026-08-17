@@ -1028,7 +1028,7 @@ public class HandTest {
      * Another test of the add procedure, of the Hand class.
      */
     @Test
-    public void testCantAddSameCardTwice() {
+    public void testCanNotAddSameCardTwice() {
         fail("REWRITE WITH assertThrows()");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = SERVER.getNextCard();
