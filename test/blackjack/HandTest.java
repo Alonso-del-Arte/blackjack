@@ -714,6 +714,26 @@ public class HandTest {
     }
     
     @Test
+    public void testWinningHandIsNotBustedHandAuxConstructorAceFirst() {
+        PlayingCard firstCard = CardStream.giveCard(Rank.ACE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
+        hand.add(tenCard);
+        String msg = hand.toString() + " shouldn't be considered a busted hand";
+        assert !hand.isBusted() : msg;
+    }
+    
+    @Test
+    public void testWinningHandIsNotBustedHandAuxConstructorTenCardFirst() {
+        PlayingCard firstCard = CardStream.giveCard(TEN_CARD_PREDICATE);
+        Hand hand = new Hand(DEFAULT_WAGER, firstCard);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
+        hand.add(ace);
+        String msg = hand.toString() + " shouldn't be considered a busted hand";
+        assert !hand.isBusted() : msg;
+    }
+    
+    @Test
     public void testNewHandIsNotBustedHand() {
         Hand hand = new Hand(DEFAULT_WAGER);
         String msg = "New hand should not be considered a busted hand";
