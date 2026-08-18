@@ -703,13 +703,12 @@ public class HandTest {
 
     @Test
     public void testWinningHandIsNotBustedHand() {
-        fail("REWRITE WITH CardStream, MORE VARIED TEN CARDS");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = SERVER.giveCard(Rank.ACE);
-        PlayingCard jack = SERVER.giveCard(Rank.JACK);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
-        hand.add(jack);
-        String msg = ace.toString() + " and " + jack.toString() 
+        hand.add(tenCard);
+        String msg = ace.toString() + " and " + tenCard.toString() 
                 + " should not be considered a busted hand";
         assert !hand.isBusted() : msg;
     }
