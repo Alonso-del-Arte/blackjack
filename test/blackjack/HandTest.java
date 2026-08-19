@@ -962,7 +962,6 @@ public class HandTest {
     
     @Test
     public void testMarkSettledBlackjackMoreThanTwoCards() {
-        fail("REWRITE THIS TEST, STILL BRITTLE WITH predicateForBlackjack");
         Hand hand = new Hand(DEFAULT_WAGER);
         PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         int value = assessValue(card);
@@ -970,6 +969,11 @@ public class HandTest {
         card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         value += assessValue(card);
         hand.add(card);
+        if (value == 10) {
+            card = CardStream.giveCard(Rank.TWO);
+            value += 2;
+            hand.add(card);
+        }
         if (value < 12) {
             card = CardStream.giveCard(TEN_CARD_PREDICATE);
             value += 10;
