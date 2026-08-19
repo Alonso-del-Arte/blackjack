@@ -988,13 +988,17 @@ public class HandTest {
     
     @Test
     public void testMarkSettledBlackjackMoreThanTwoCardsAuxConstructor() {
-        fail("OKAY, REALLY NEED TO REWRITE predicateForBlackjack()");
         PlayingCard firstCard = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         int value = assessValue(firstCard);
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
         value += assessValue(card);
         hand.add(card);
+        if (value == 10) {
+            card = CardStream.giveCard(Rank.TWO);
+            value += 2;
+            hand.add(card);
+        }
         if (value < 12) {
             card = CardStream.giveCard(TEN_CARD_PREDICATE);
             value += 10;
