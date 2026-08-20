@@ -1154,37 +1154,22 @@ public class HandTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
-    @org.junit.Ignore
     @Test
     public void testNoAddCardAfterBusting() {
-        fail("REWRITE THIS TEST USING assertThrows()");
-        Hand winningHand = new Hand(DEFAULT_WAGER);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
-        PlayingCard jack = SERVER.giveCard(Rank.JACK);
-        PlayingCard queen = SERVER.giveCard(Rank.QUEEN);
-        winningHand.add(ten);
-        winningHand.add(jack);
-        winningHand.add(queen);
-        PlayingCard someCard = SERVER.getNextCard();
-        try {
-            winningHand.add(someCard);
-            String msg = "Should not have been able to add " 
-                    + someCard.toString() + " after " + ten.toString() + ", " 
-                    + jack.toString() + " and " + queen.toString();
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Trying to add " + someCard.toASCIIString() 
-                    + " after " + ten.toASCIIString() + ", " 
-                    + jack.toASCIIString() + " and " + queen.toASCIIString()
-                    + " correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to add "
-                    + someCard.toString() + " after " + ten.toString() + " and " 
-                    + jack.toString() + " and " + queen.toString();
-            fail(msg);
-        }
+        Hand hand = makeBustedHand();
+        PlayingCard card = SERVER.getNextCard();
+        String msg = "Trying to add " + card.toString() + " to hand " 
+                + hand.toString() + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            hand.add(card);
+            System.out.println(msg + ", not made hand " + hand.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String s = card.toASCIIString();
+        String containsMsg = "Exception message should contain \"" + s + "\"";
+        assert excMsg.contains(s) : containsMsg;
     }
     
     @Test
