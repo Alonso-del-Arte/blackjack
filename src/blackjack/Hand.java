@@ -209,7 +209,7 @@ public class Hand {
      * @throws IllegalStateException If the hand has blackjack or has gone bust.
      */
     void add(PlayingCard card) {
-        if (this.won) {
+        if (this.won || this.busted) {
             String excMsg = "Can't add card to hand valued at " 
                     + this.handScore;
             throw new IllegalStateException(excMsg);
