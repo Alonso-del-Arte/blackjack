@@ -210,8 +210,8 @@ public class Hand {
      */
     void add(PlayingCard card) {
         if (this.won || this.busted) {
-            String excMsg = "Can't add card to hand valued at " 
-                    + this.handScore;
+            String excMsg = "Can't add " + card.toASCIIString() 
+                    + " to hand valued at " + this.handScore;
             throw new IllegalStateException(excMsg);
         }
         int index = 0;
