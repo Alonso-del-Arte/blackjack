@@ -1173,6 +1173,24 @@ public class HandTest {
     }
     
     @Test
+    public void testNoAddCardAfterBustingAuxConstructor() {
+        Hand hand = makeBustedHandAuxConstructor();
+        PlayingCard card = SERVER.getNextCard();
+        String msg = "Trying to add " + card.toString() + " to hand " 
+                + hand.toString() + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            hand.add(card);
+            System.out.println(msg + ", not made hand " + hand.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String s = card.toASCIIString();
+        String containsMsg = "Exception message should contain \"" + s + "\"";
+        assert excMsg.contains(s) : containsMsg;
+    }
+    
+    @Test
     public void testNoSettlementBeforeMarkingSettled() {
         Hand hand = new Hand(DEFAULT_WAGER);
         try {
