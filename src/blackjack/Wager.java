@@ -178,7 +178,7 @@ public class Wager {
          * The player wins the wager. Or say the player stood at 20 but the 
          * dealer busted at 22. The player also wins.
          */
-        BETTER_SCORE(cur -> cur.negate()),
+        BETTER_SCORE(cur -> cur),
         
         /**
          * The player wins an insurance bet that the dealer has a blackjack. The 
