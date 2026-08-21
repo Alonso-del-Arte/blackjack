@@ -267,10 +267,22 @@ public class WagerTest {
         Wager instance = new Wager(amount);
         instance.settle(Wager.Outcome.BUST);
         CurrencyAmount expected = amount.negate();
-        CurrencyAmount actual = Wager.Outcome.BUST.payoutFunction
-                .apply(amount);
+        CurrencyAmount actual = Wager.Outcome.BUST.payoutFunction.apply(amount);
         String message = "Payout for wager of " + amount.toString() 
                 + " on bust";
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
+    public void testPayoutFunctionLowerScore() {
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
+        instance.settle(Wager.Outcome.LOWER_SCORE);
+        CurrencyAmount expected = amount.negate();
+        CurrencyAmount actual = Wager.Outcome.LOWER_SCORE.payoutFunction
+                .apply(amount);
+        String message = "Payout for wager of " + amount.toString() 
+                + " on lower score";
         assertEquals(message, expected, actual);
     }
     
