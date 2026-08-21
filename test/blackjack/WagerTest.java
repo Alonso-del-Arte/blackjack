@@ -173,6 +173,19 @@ public class WagerTest {
         }
     }
     
+    @Test
+    public void testPayoutFunctionNaturalBlackjack() {
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
+        instance.settle(Wager.Outcome.NATURAL_BLACKJACK);
+        CurrencyAmount expected = amount.times(3).divides(2);
+        CurrencyAmount actual = Wager.Outcome.NATURAL_BLACKJACK.payoutFunction
+                .apply(amount);
+        String message = "Payout for wager of " + amount.toString() 
+                + " on natural blackjack";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the getSettlement function, of the Wager class.
      */
