@@ -222,6 +222,19 @@ public class WagerTest {
         assertEquals(message, expected, actual);
     }
     
+    @Test
+    public void testPayoutFunctionReplaced() {
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
+        instance.settle(Wager.Outcome.REPLACED);
+        CurrencyAmount expected = new CurrencyAmount(0, amount.getCurrency());
+        CurrencyAmount actual = Wager.Outcome.REPLACED.payoutFunction
+                .apply(amount);
+        String message = "Payout for wager of " + amount.toString() 
+                + " on replaced";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the getSettlement function, of the Wager class.
      */
