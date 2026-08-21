@@ -1208,19 +1208,20 @@ public class HandTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
         Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard ace = SERVER.giveCard(Rank.ACE);
-        PlayingCard ten = SERVER.giveCard(Rank.TEN);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
-        hand.add(ten);
+        hand.add(tenCard);
         hand.markSettled();
         Wager.Outcome expected = Wager.Outcome.NATURAL_BLACKJACK;
-//        Wager.Outcome actual = hand.getSettlement();
-fail("Finish writing test");
+        Wager.Outcome actual = hand.getSettlement().getOutcome();
+        String message = "Outcome for settling " + hand.toString() 
+                + " should be " + expected.toString();
+        assertEquals(message, expected, actual);
     }
     
     @Test
