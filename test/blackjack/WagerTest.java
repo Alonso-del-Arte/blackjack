@@ -186,6 +186,18 @@ public class WagerTest {
         assertEquals(message, expected, actual);
     }
     
+    @Test
+    public void testPayoutFunctionAccumulatedBlackjack() {
+        CurrencyAmount expected = chooseAmount();
+        Wager instance = new Wager(expected);
+        instance.settle(Wager.Outcome.BLACKJACK);
+        CurrencyAmount actual = Wager.Outcome.BLACKJACK.payoutFunction
+                .apply(expected);
+        String message = "Payout for wager of " + expected.toString() 
+                + " on accumulated blackjack";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the getSettlement function, of the Wager class.
      */
