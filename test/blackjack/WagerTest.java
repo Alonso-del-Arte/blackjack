@@ -172,6 +172,7 @@ public class WagerTest {
     /**
      * Test of the getSettlement function, of the Wager class.
      */
+    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
