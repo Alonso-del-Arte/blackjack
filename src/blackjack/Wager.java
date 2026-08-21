@@ -162,8 +162,7 @@ public class Wager {
          * The player's first two cards are an ace and a ten or a royal card. 
          * Usually merits a 3/2 payout.
          */
-        // TODO: Write a test for the payout function
-        NATURAL_BLACKJACK(cur -> cur.negate()), 
+        NATURAL_BLACKJACK(cur -> cur.times(3).divides(2)), 
         
         /**
          * The player's hand of more than two cards is valued at 21. For 
