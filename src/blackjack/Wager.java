@@ -191,7 +191,6 @@ public class Wager {
          * at or below 21. The dealer does not collect the player's wager for 
          * the hand (but might collect a player's insurance bet).
          */
-        // TODO: Write a test for the payout function
         STANDOFF(cur -> cur.times(0)), 
         
         /**
@@ -200,15 +199,13 @@ public class Wager {
          * wager is refunded and then replaced with the larger wager, but the 
          * player should perceive it as one transaction.
          */
-        // TODO: Write a test for the payout function
         REPLACED(cur -> cur.times(0)),
         
         /**
          * The player loses an insurance bet that the dealer has a blackjack. 
          * The wager is usually equal to half the hand's wager and pays 2 to 1.
          */
-        // TODO: Write a test for the payout function
-        INSURANCE_LOST(cur -> cur), 
+        INSURANCE_LOST(cur -> cur.negate()), 
         
         /**
          * The player's hand is valued at more than 21. The dealer collects the 
