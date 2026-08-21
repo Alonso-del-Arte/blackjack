@@ -104,6 +104,11 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
                 addend.amountInCents), this.currency);
     }
     
+    /**
+     * Negates this amount. For the example, suppose this amount is $100.00.
+     * @return The negated amount. For example, $&minus;100.00. Will only be the 
+     * same if this amount is 0 of a given currency.
+     */
     public CurrencyAmount negate() {
         return new CurrencyAmount(-this.amountInCents, this.currency);
     }
@@ -112,6 +117,13 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         return this.plus(subtrahend.negate());
     }
     
+    /**
+     * Multiplies this currency amount by an integer. For the example, suppose 
+     * this amount is $100.00.
+     * @param multiplier The multiplier. For example, 3.
+     * @return The currency amount multiplied by the {@code multiplier}. In the 
+     * example, this would be $300.00.
+     */
     public CurrencyAmount times(int multiplier) {
         return new CurrencyAmount(multiplier 
                 * this.amountInCents, this.currency);
@@ -127,6 +139,19 @@ public class CurrencyAmount implements Comparable<CurrencyAmount>,
         }
     }
     
+    /**
+     * Divides this currency amount by an integer. For the example, suppose this 
+     * amount is $300.00.
+     * @param divisor The divisor. For example, 2. Should not be 0.
+     * @return The amount divided by the {@code divisor}. In the example, this 
+     * would be $150.00. Note that rounding or truncation may occur. For 
+     * example, 300.0 divided by 7 is 42.857142857142854, so $300.00 divided by 
+     * 7 might be reported as $42.85 or $42.86.
+     * @throws ArithmeticException If {@code divisor} is 0, depending on how the 
+     * division is reckoned.
+     * @throws IllegalArgumentException If {@code divisor} is 0 depending on how 
+     * the division is reckoned.
+     */
     public CurrencyAmount divides(int divisor) {
         return new CurrencyAmount(this.amountInCents / divisor, this.currency);
     }
