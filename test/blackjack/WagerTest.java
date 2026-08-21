@@ -189,28 +189,16 @@ public class WagerTest {
             CurrencyAmount expected;
             CurrencyAmount actual = settlement.getAmount();
             switch (outcome) {
-                case NATURAL_BLACKJACK:
-                    expected = amount.times(3).divides(2);
-                    break;
-                case BLACKJACK:
-                case BETTER_SCORE:
-                case INSURANCE_WON:
-                    expected = amount;
-                    break;
-                case REPLACED:
-                case STANDOFF:
-                    expected = new CurrencyAmount(0, DOLLARS);
-                    break;
-                case INSURANCE_LOST:
-                case BUST:
-                case LOWER_SCORE:
-                    expected = amount.negate();
-                    break;
-                default:
+                case NATURAL_BLACKJACK -> expected = amount.times(3).divides(2);
+                case BLACKJACK, BETTER_SCORE, INSURANCE_WON -> expected = amount;
+                case REPLACED, STANDOFF -> expected = new CurrencyAmount(0, DOLLARS);
+                case INSURANCE_LOST, BUST, LOWER_SCORE -> expected = amount.negate();
+                default -> {
                     expected = amount;
                     String msg = "Unexpected outcome " + outcome.toString() 
                             + "; either add test or remove unexpected outcome";
                     fail(msg);
+                }
             }
             assertEquals(expected, actual);
         }
