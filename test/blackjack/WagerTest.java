@@ -195,9 +195,9 @@ public class WagerTest {
                 case INSURANCE_LOST, BUST, LOWER_SCORE -> expected = amount.negate();
                 default -> {
                     expected = amount;
-                    String msg = "Unexpected outcome " + outcome.toString() 
+                    String message = "Unexpected outcome " + outcome.toString() 
                             + "; either add test or remove unexpected outcome";
-                    fail(msg);
+                    fail(message);
                 }
             }
             assertEquals(expected, actual);
