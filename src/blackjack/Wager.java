@@ -201,7 +201,7 @@ public class Wager {
          * player should perceive it as one transaction.
          */
         // TODO: Write a test for the payout function
-        REPLACED(cur -> new CurrencyAmount(0, cur.getCurrency())),
+        REPLACED(cur -> cur.times(0)),
         
         /**
          * The player loses an insurance bet that the dealer has a blackjack. 
