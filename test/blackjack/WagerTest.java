@@ -210,6 +210,18 @@ public class WagerTest {
         assertEquals(message, expected, actual);
     }
     
+    @Test
+    public void testPayoutFunctionInsuranceWon() {
+        CurrencyAmount expected = chooseAmount();
+        Wager instance = new Wager(expected);
+        instance.settle(Wager.Outcome.INSURANCE_WON);
+        CurrencyAmount actual = Wager.Outcome.INSURANCE_WON.payoutFunction
+                .apply(expected);
+        String message = "Payout for wager of " + expected.toString() 
+                + " on insurance won";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the getSettlement function, of the Wager class.
      */
