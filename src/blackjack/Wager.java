@@ -184,8 +184,7 @@ public class Wager {
          * The player wins an insurance bet that the dealer has a blackjack. The 
          * wager is usually equal to half the hand's wager and pays 2 to 1.
          */
-        // TODO: Write a test for the payout function
-        INSURANCE_WON(cur -> cur.negate()),
+        INSURANCE_WON(cur -> cur),
         
         /**
          * Neither the dealer nor the player has blackjack but they're tied 
