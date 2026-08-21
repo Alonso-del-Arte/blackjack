@@ -211,8 +211,7 @@ public class Wager {
          * The player's hand is valued at more than 21. The dealer collects the 
          * player's wager even if the dealer also goes bust.
          */
-        // TODO: Write a test for the payout function
-        BUST(cur -> cur), 
+        BUST(cur -> cur.negate()), 
         
         /**
          * The player did not get blackjack nor go bust, but the dealer has a 
