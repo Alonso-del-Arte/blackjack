@@ -18,6 +18,8 @@ package blackjack;
 
 import currency.CurrencyAmount;
 
+import java.util.function.UnaryOperator;
+
 /**
  * Represents a wager for a blackjack hand or bet. Includes an enumeration of 
  * possible outcomes &mdash; natural blackjack, standoff, insurance lost, etc. 
@@ -160,7 +162,8 @@ public class Wager {
          * The player's first two cards are an ace and a ten or a royal card. 
          * Usually merits a 3/2 payout.
          */
-        NATURAL_BLACKJACK, 
+        // TODO: Write a test for the payout function
+        NATURAL_BLACKJACK(cur -> cur.negate()), 
         
         /**
          * The player's hand of more than two cards is valued at 21. For 
@@ -168,7 +171,8 @@ public class Wager {
          * 6&#9829;. The player wins, unless the dealer also has a blackjack, in 
          * which case it's a standoff (see {@link #STANDOFF}).
          */
-        BLACKJACK, 
+        // TODO: Write a test for the payout function
+        BLACKJACK(cur -> cur.negate()), 
         
         /**
          * The player stood below 21 but the dealer has a lower score or busted. 
@@ -176,20 +180,22 @@ public class Wager {
          * The player wins the wager. Or say the player stood at 20 but the 
          * dealer busted at 22. The player also wins.
          */
-        BETTER_SCORE,
+        BETTER_SCORE(cur -> cur.negate()),
         
         /**
          * The player wins an insurance bet that the dealer has a blackjack. The 
          * wager is usually equal to half the hand's wager and pays 2 to 1.
          */
-        INSURANCE_WON,
+        // TODO: Write a test for the payout function
+        INSURANCE_WON(cur -> cur.negate()),
         
         /**
          * Neither the dealer nor the player has blackjack but they're tied 
          * at or below 21. The dealer does not collect the player's wager for 
          * the hand (but might collect a player's insurance bet).
          */
-        STANDOFF, 
+        // TODO: Write a test for the payout function
+        STANDOFF(cur -> cur.negate()), 
         
         /**
          * The wager has been replaced for a larger wager. This should be the 
@@ -197,25 +203,35 @@ public class Wager {
          * wager is refunded and then replaced with the larger wager, but the 
          * player should perceive it as one transaction.
          */
-        REPLACED,
+        // TODO: Write a test for the payout function
+        REPLACED(cur -> cur.negate()),
         
         /**
          * The player loses an insurance bet that the dealer has a blackjack. 
          * The wager is usually equal to half the hand's wager and pays 2 to 1.
          */
-        INSURANCE_LOST, 
+        // TODO: Write a test for the payout function
+        INSURANCE_LOST(cur -> cur), 
         
         /**
          * The player's hand is valued at more than 21. The dealer collects the 
          * player's wager even if the dealer also goes bust.
          */
-        BUST, 
+        // TODO: Write a test for the payout function
+        BUST(cur -> cur), 
         
         /**
          * The player did not get blackjack nor go bust, but the dealer has a 
          * higher score without busting. The dealer collects the player's wager.
          */
-        LOWER_SCORE
+        // TODO: Write a test for the payout function
+        LOWER_SCORE(cur -> cur.times(2));
+        
+        final UnaryOperator<CurrencyAmount> payoutFunction;
+        
+        private Outcome(UnaryOperator<CurrencyAmount> payout) {
+            this.payoutFunction = payout;
+        }
         
     }
     
