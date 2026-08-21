@@ -294,8 +294,8 @@ public class Wager {
         private Settlement(Outcome outcome) {
             switch (outcome) {
                 case NATURAL_BLACKJACK:
-                    this.outcomeAmount = Wager.this.wagerAmount.times(3)
-                            .divides(2);
+                    this.outcomeAmount = Wager.this.wagerAmount.times(6)
+                            .divides(5);
                     break;
                 case BLACKJACK:
                 case BETTER_SCORE:
