@@ -113,6 +113,7 @@ public class WagerTest {
     
     @Test
     public void testTryingToGetSettlementBeforeSettleCausesException() {
+        fail("REWRITE WITH assertThrows( )");
         Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
         try {
             Wager.Settlement invalidSettlement = wager.getSettlement();
@@ -146,6 +147,7 @@ public class WagerTest {
     
     @Test
     public void testCanNotSettleTwice() {
+        fail("REWRITE WITH assertThrows( )");
         Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
         Wager.Outcome firstOutcome = pickOutcome();
         wager.settle(firstOutcome);
@@ -214,6 +216,7 @@ public class WagerTest {
      */
     @Test
     public void testNoDoubleDownTwice() {
+        fail("REWRITE WITH assertThrows( )");
         int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) + DEFAULT_CENTS;
         CurrencyAmount originalAmount = new CurrencyAmount(cents, DOLLARS);
         Wager wager = new Wager(originalAmount);
@@ -264,6 +267,7 @@ public class WagerTest {
     
     @Test
     public void testConstructorRejectsNegativeAmount() {
+        fail("REWRITE WITH assertThrows( )");
         CurrencyAmount badAmount = new CurrencyAmount(-10000, DOLLARS);
         try {
             Wager badWager = new Wager(badAmount);
@@ -291,6 +295,7 @@ public class WagerTest {
     
     @Test
     public void testConstructorRejectsAmountZero() {
+        fail("REWRITE WITH assertThrows( )");
         CurrencyAmount badAmount = new CurrencyAmount(0, DOLLARS);
         try {
             Wager badWager = new Wager(badAmount);
