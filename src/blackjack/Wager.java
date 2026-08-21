@@ -170,8 +170,7 @@ public class Wager {
          * 6&#9829;. The player wins, unless the dealer also has a blackjack, in 
          * which case it's a standoff (see {@link #STANDOFF}).
          */
-        // TODO: Write a test for the payout function
-        BLACKJACK(cur -> cur.negate()), 
+        BLACKJACK(cur -> cur), 
         
         /**
          * The player stood below 21 but the dealer has a lower score or busted. 
