@@ -192,7 +192,7 @@ public class Wager {
          * the hand (but might collect a player's insurance bet).
          */
         // TODO: Write a test for the payout function
-        STANDOFF(cur -> cur.negate()), 
+        STANDOFF(cur -> cur.times(0)), 
         
         /**
          * The wager has been replaced for a larger wager. This should be the 
