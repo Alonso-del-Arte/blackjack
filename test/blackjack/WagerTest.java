@@ -261,6 +261,19 @@ public class WagerTest {
         assertEquals(message, expected, actual);
     }
     
+    @Test
+    public void testPayoutFunctionBust() {
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
+        instance.settle(Wager.Outcome.BUST);
+        CurrencyAmount expected = amount.negate();
+        CurrencyAmount actual = Wager.Outcome.BUST.payoutFunction
+                .apply(amount);
+        String message = "Payout for wager of " + amount.toString() 
+                + " on bust";
+        assertEquals(message, expected, actual);
+    }
+    
     /**
      * Test of the getSettlement function, of the Wager class.
      */
