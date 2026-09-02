@@ -2,11 +2,18 @@ This project will be open to Hacktoberfest 2026.
 
 # Guidelines for Hacktoberfest 2026 Contributors
 
+Preferably you are someone who has played blackjack, though not necessarily in a 
+real casino with real money.
+
 ## Guidelines for "low-code" or "no-code" track contributors
 
 I need help with internationalization (i18n) and making sure I have the rules of 
 the game correct. See the src/i18n folder for the former and [the game rules 
 document](GameRules.md) for the latter.
+
+I also need help from experienced blackjack players with [the game rules 
+document](GameRules.md) and [the game variants document](Variants.md), verifying 
+that they are as correct as we can make them.
 
 ## Guidelines for programming track contributors
 
@@ -49,4 +56,6 @@ are removed in a later commit in the pull request.
 (unless it's to fix a defect affecting end users).
 * Pull requests should address a TODO or FIXME comment in the source, or an open 
 issue on GitHub.
-* Do not knowingly violate anyone's copyright or trademarks.
+* Do not knowingly violate anyone's copyright, patents or trademarks. Be aware 
+that some blackjack variants, such as Blackjack Switch and Spanish 21, are 
+modern intellectual property.
