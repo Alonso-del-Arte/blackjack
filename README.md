@@ -23,12 +23,20 @@ For the rules of blackjack as I understand them, see [the game rules
 document](GameRules.md).
 
 This project started out as a Java 8 project. However, I've decided it's now 
-going to be a Java 21 project. Seems kind of appropriate, doesn't it?
+going to be a Java 21 project. Seems kind of appropriate.
 
 The main test dependency is JUnit 4. On January 21, 2025, I added TestFrame 1.0 
 so that I can use `assertThrows()` in some tests.
 
 ## Sample plays of the console applicaton
+
+Currently the limited text game can be played on the command line by running 
+`blackjack.BlackJack`. Eventually that will be changed to `ui.text.game`, with 
+the GUI game being played from `ui.graphical.Game`.
+
+A major criticism of the text game is that it goes by too fast, especially when 
+you lose. For now I think I won't fix that. But I will make an effort to make 
+the GUI game feel that it goes at the right speed.
 
 ### Win with natural blackjack
 
