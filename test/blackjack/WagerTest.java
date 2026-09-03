@@ -25,6 +25,8 @@ import java.util.Locale;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the Wager class. The play money wagers are drawn in U.&nbsp;S. 
  * dollars (USD), euros (EUR), Swiss francs (CHF) and Japanese yen (JPY).
@@ -111,25 +113,20 @@ public class WagerTest {
         assert !wager.isSettled() : msg;
     }
     
-    @org.junit.Ignore
     @Test
     public void testTryingToGetSettlementBeforeSettleCausesException() {
-        fail("REWRITE WITH assertThrows( )");
         Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
-        try {
+        String msg = "Trying to get settlement of " + wager.toString() 
+                + " before wager is settled should cause exception";
+        Throwable t = assertThrows(() -> {
             Wager.Settlement invalidSettlement = wager.getSettlement();
-            String msg = "Should not have gotten invalid settlement " 
-                    + invalidSettlement.toString() 
-                    + " because wager is not settled yet";
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Premature settlement fetch caused exception");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for premature settlement fetch";
-            fail(msg);
-        }
+            System.out.println(msg + ", not given " 
+                    + invalidSettlement.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
