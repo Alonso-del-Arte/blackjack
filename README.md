@@ -36,7 +36,7 @@ the GUI game being played from `ui.graphical.Game`.
 
 A major criticism of the text game is that it goes by too fast, especially when 
 you lose. For now I think I won't fix that. But I will make an effort to make 
-the GUI game feel that it goes at the right speed.
+the GUI game feel like it goes at the right speed.
 
 ### Win with natural blackjack
 
