@@ -143,31 +143,25 @@ public class WagerTest {
         assert wager.isSettled() : msg;
     }
     
-    @org.junit.Ignore
     @Test
     public void testCanNotSettleTwice() {
-        fail("REWRITE WITH assertThrows( )");
         Wager wager = new Wager(DEFAULT_WAGER_AMOUNT);
         Wager.Outcome firstOutcome = pickOutcome();
         wager.settle(firstOutcome);
         Wager.Outcome secondOutcome = pickOutcome();
-        String msgPart = "After settling with outcome " 
+        String msg = "After settling " + wager.toString() + " with outcome " 
                 + firstOutcome.toString() 
                 + " trying to settle a second time with outcome " 
-                + secondOutcome.toString() + " ";
-        try {
+                + secondOutcome.toString() + " should cause exception";
+        Throwable t = assertThrows(() -> {
             wager.settle(secondOutcome);
-            String msg = msgPart + "should not have been allowed";
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println(msgPart 
-                    + "correctly caused IllegalStateException");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = msgPart + "should not have caused " 
-                    + re.getClass().getName();
-            fail(msg);
-        }
+            System.out.println(msg + ", not given settlement " 
+                    + wager.getSettlement().toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
