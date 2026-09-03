@@ -74,10 +74,10 @@ public class Wager {
      * @throws IllegalStateException If the wager has already been settled.
      */
     void settle(Outcome outcome) {
-//        if (this.settleFlag) {
-//            String excMsg = "Wager was already settled";
-//            throw new IllegalStateException(excMsg);
-//        }
+        if (this.settleFlag) {
+            String excMsg = "Wager was already settled";
+            throw new IllegalStateException(excMsg);
+        }
         this.settleFlag = true;
         this.settlement = new Settlement(outcome);
     }
