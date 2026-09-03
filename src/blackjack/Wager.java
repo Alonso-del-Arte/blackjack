@@ -91,10 +91,10 @@ public class Wager {
      * @throws IllegalStateException If the wager hasn't been settled yet.
      */
     public Settlement getSettlement() {
-        if (!this.settleFlag) {
-            String excMsg = "Wager is not settled yet";
-            throw new IllegalStateException(excMsg);
-        }
+//        if (!this.settleFlag) {
+//            String excMsg = "Wager is not settled yet";
+//            throw new IllegalStateException(excMsg);
+//        }
         return this.settlement;
     }
     
