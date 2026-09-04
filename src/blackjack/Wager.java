@@ -278,38 +278,15 @@ public class Wager {
          * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
          * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
          * of an insurance bet, or {@link Outcome#REPLACED} in the case of 
-         * doubling down (the original <code>Wager</code> object is settled and 
-         * a new <code>Wager</code> object is created to reflect the larger 
-         * wager).
+         * doubling down (the original {@code Wager} object is settled and a new 
+         * {@code Wager} object is created to reflect the larger wager).
          * @throws RuntimeException In the unlikely event of an unforeseen 
          * outcome.
          */
         private Settlement(Outcome outcome) {
-            switch (outcome) {
-                case NATURAL_BLACKJACK:
-                    this.outcomeAmount = Wager.this.wagerAmount.times(6)
-                            .divides(5);
-                    break;
-                case BLACKJACK:
-                case BETTER_SCORE:
-                case INSURANCE_WON:
-                    this.outcomeAmount = Wager.this.wagerAmount;
-                    break;
-                case REPLACED:
-                case STANDOFF:
-                    this.outcomeAmount = new CurrencyAmount(0, 
-                            Wager.this.wagerAmount.getCurrency());
-                    break;
-                case INSURANCE_LOST:
-                case BUST:
-                case LOWER_SCORE:
-                    this.outcomeAmount = Wager.this.wagerAmount.negate();
-                    break;
-                default:
-                    String excMsg = "Unexpected outcome " + outcome.toString();
-                    throw new RuntimeException(excMsg);
-            }
             this.wagerOutcome = outcome;
+            this.outcomeAmount = this.wagerOutcome.payoutFunction
+                    .apply(Wager.this.wagerAmount);
         }
         
     }
