@@ -280,7 +280,6 @@ public class WagerTest {
     /**
      * Test of the getSettlement function, of the Wager class.
      */
-    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
@@ -295,21 +294,11 @@ public class WagerTest {
             Wager.Settlement settlement = wager.getSettlement();
             Wager.Outcome actualOutcome = settlement.getOutcome();
             assertEquals(outcome, actualOutcome);
-            CurrencyAmount expected;
+            CurrencyAmount expected = outcome.payoutFunction.apply(amount);
             CurrencyAmount actual = settlement.getAmount();
-            switch (outcome) {
-                case NATURAL_BLACKJACK -> expected = amount.times(3).divides(2);
-                case BLACKJACK, BETTER_SCORE, INSURANCE_WON -> expected = amount;
-                case REPLACED, STANDOFF -> expected = new CurrencyAmount(0, DOLLARS);
-                case INSURANCE_LOST, BUST, LOWER_SCORE -> expected = amount.negate();
-                default -> {
-                    expected = amount;
-                    String message = "Unexpected outcome " + outcome.toString() 
-                            + "; either add test or remove unexpected outcome";
-                    fail(message);
-                }
-            }
-            assertEquals(expected, actual);
+            String message = "Payout on " + wager.toString() + " with outcome " 
+                    + outcome.toString();
+            assertEquals(message, expected, actual);
         }
     }
     
