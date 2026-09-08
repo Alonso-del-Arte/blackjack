@@ -280,8 +280,6 @@ public class Wager {
          * of an insurance bet, or {@link Outcome#REPLACED} in the case of 
          * doubling down (the original {@code Wager} object is settled and a new 
          * {@code Wager} object is created to reflect the larger wager).
-         * @throws RuntimeException In the unlikely event of an unforeseen 
-         * outcome.
          */
         private Settlement(Outcome outcome) {
             this.wagerOutcome = outcome;
