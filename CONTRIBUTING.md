@@ -13,7 +13,9 @@ document](GameRules.md) for the latter.
 
 I also need help from experienced blackjack players with [the game rules 
 document](GameRules.md) and [the game variants document](Variants.md), verifying 
-that they are as correct as we can make them.
+that they are as correct as we can make them. If you have played a blackjack 
+variant, I'd appreciate your proofreading the existing section on that variant, 
+or starting a section on that variant if it doesn't already exist.
 
 ## Guidelines for programming track contributors
 
