@@ -7,9 +7,9 @@ real casino with real money.
 
 ## Guidelines for "low-code" or "no-code" track contributors
 
-I need help with internationalization (i18n) and making sure I have the rules of 
-the game correct. See the src/i18n folder for the former and [the game rules 
-document](GameRules.md) for the latter.
+I need help with internationalization (i18n). If you know the terminology for 
+blackjack specifically or playing cards generally in a language other than 
+English, I could use your help. See the src/i18n folder.
 
 I also need help from experienced blackjack players with [the game rules 
 document](GameRules.md) and [the game variants document](Variants.md), verifying 
