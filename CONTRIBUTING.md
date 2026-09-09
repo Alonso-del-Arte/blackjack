@@ -9,7 +9,9 @@ real casino with real money.
 
 I need help with internationalization (i18n). If you know the terminology for 
 blackjack specifically or playing cards generally in a language other than 
-English, I could use your help. See the src/i18n folder.
+English, I could use your help. See if the src/i18n folder has a CardNaming or 
+GameMessages file bearing the ISO-639 code of a language you speak and write as 
+a suffix ("en" for English is treated as a default in this project).
 
 I also need help from experienced blackjack players with [the game rules 
 document](GameRules.md) and [the game variants document](Variants.md), verifying 
