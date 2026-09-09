@@ -18,6 +18,7 @@ package blackjack;
 
 import static blackjack.DealerTest.RANDOM;
 import currency.CurrencyAmount;
+import currency.CurrencyChooser;
 
 import java.util.Currency;
 import java.util.Locale;
@@ -358,34 +359,27 @@ public class WagerTest {
         String msg = "Wager initialized through aux constructor not insurance";
         assert !wager.isInsuranceWager() : msg;
     }
-    
-    @org.junit.Ignore
+
     @Test
     public void testConstructorRejectsNegativeAmount() {
-        fail("REWRITE WITH assertThrows( )");
-        CurrencyAmount badAmount = new CurrencyAmount(-10000, DOLLARS);
-        try {
+        int cents = -RANDOM.nextInt(10000) - 1;
+        Currency currency = CurrencyChooser.chooseCurrency(
+                cur -> !cur.getCurrencyCode().equals(cur.getSymbol())
+        );
+        CurrencyAmount badAmount = new CurrencyAmount(cents, currency);
+        String amtStr = badAmount.toString();
+        String msg = "Trying to create wager with amount " + amtStr 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
             Wager badWager = new Wager(badAmount);
-            String msg = "Should not have been able to create wager " 
-                    + badWager.toString() + " with amount " 
-                    + badAmount.toString();
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to create wager with " 
-                    + badAmount.toString() 
-                    + " correctly caused IllegalArgumentException");
-            String excMsg = iae.getMessage();
-            System.out.println("\"" + excMsg + "\"");
-            String currencySymbol = badAmount.getCurrency().getSymbol();
-            String msg = "Exception message should contain currency symbol " 
-                    + currencySymbol;
-            assert excMsg.contains(currencySymbol) : msg;
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for wager amount " 
-                    + badAmount.toString();
-            fail(msg);
-        }
+            System.out.println(msg + ", not created " + badWager.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Message should contain \"" + amtStr + "\"";
+        assert excMsg.contains(amtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @org.junit.Ignore
