@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -214,6 +214,31 @@ public class CurrencyChooserTest {
                 + " distinct, should've given at least " + minimum 
                 + " distinct";
         assertMinimum(minimum, actual, msg);
+    }
+    
+    @Test
+    public void testChooseCurrencyByBadPredicateCausesException() {
+        String invalidDisplayName = "Invalid display name " 
+                + System.currentTimeMillis();
+        Predicate<Currency> predicate 
+                = (Currency cur) -> cur.getDisplayName()
+                        .equals(invalidDisplayName);
+        Duration allottedTime = Duration.of(10, ChronoUnit.SECONDS);
+        String msg = "Bad predicate for invalid display name \"" 
+                + invalidDisplayName + "\" should not take more than " 
+                + allottedTime.toString() + " to cause exception";
+        assertTimeout(() -> {
+            Throwable t = assertThrows(() -> {
+                Currency currency = CurrencyChooser.chooseCurrency(predicate);
+                System.out.println("Search for \"" + invalidDisplayName 
+                        + "\" somehow gave " + currency.getDisplayName() + " (" 
+                        + currency.getCurrencyCode() + ")");
+            }, NoSuchElementException.class);
+            String excMsg = t.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+            assert !excMsg.isBlank() : "Exception message should not be blank";
+            System.out.println("\"" + excMsg + "\"");
+        }, allottedTime, msg);
     }
     
 }
