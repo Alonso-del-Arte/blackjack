@@ -131,7 +131,11 @@ public class CurrencyChooser {
     }
     
     public static Currency chooseCurrency(Predicate<Currency> predicate) {
-        return Currency.getInstance("CLF");
+        Currency currency = Currency.getInstance("CLF");
+        if (!predicate.test(currency)) {
+            throw new NoSuchElementException("Invalid predicate");
+        }
+        return currency;
     }
     
     public static Currency chooseCurrency(Set<Currency> set) {
