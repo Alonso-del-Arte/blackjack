@@ -241,4 +241,27 @@ public class CurrencyChooserTest {
         }, allottedTime, msg);
     }
     
+    @Test
+    public void testChooseCurrencyByPredicate() {
+        int remainder = Math.abs(((int) System.currentTimeMillis()) % 12);
+        System.out.println("remainder = " + remainder);
+        Predicate<Currency> predicate 
+                = (currency) -> currency.getNumericCode() % 12 == remainder;
+        Set<Currency> filtered = CURRENCIES.stream().filter(predicate)
+                .filter((currency) -> accept(currency))
+                .collect(Collectors.toSet());
+        Set<Currency> expected = new HashSet<>(filtered);
+        Set<Currency> actual = new HashSet<>();
+        String msg = "Choosing currencies with numeric code " + remainder 
+                + " modulo 20";
+        int totalNumberOfCalls = 20 * expected.size();
+        int callsSoFar = 0;
+        while (callsSoFar < totalNumberOfCalls) {
+            actual.add(CurrencyChooser.chooseCurrency(predicate));
+            callsSoFar++;
+        }
+        System.out.println(expected.toString());
+        assertContainsSame(expected, actual, msg);
+    }
+    
 }
