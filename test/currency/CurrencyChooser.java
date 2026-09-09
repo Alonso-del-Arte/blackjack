@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -18,6 +18,7 @@ package currency;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Currency;
 import java.util.HashSet;
 import java.util.HashMap;
@@ -131,6 +132,7 @@ public class CurrencyChooser {
     }
     
     public static Currency chooseCurrency(Predicate<Currency> predicate) {
+        Collections.shuffle(CURRENCIES);
         for (Currency currency : CURRENCIES) {
             if (predicate.test(currency)) {
                 return currency;
