@@ -102,12 +102,18 @@ public class Wager {
      * Doubles down on the wager. It is up to the caller to ensure that the 
      * player has sufficient money to actually double down. It is also up to the 
      * caller to offer the player the option to double down when it is 
-     * appropriate to do so.
-     * @return A wager. This has not been tested yet
-     * @throws IllegalStateException If already settled?
+     * appropriate to do so. For the example, suppose this is a wager of 
+     * 100,00&euro;.
+     * @return A new wager of twice the money of the original wager. For 
+     * example, a wager of 200,00&euro;. This wager is the original wager and it 
+     * is settled as replaced. In regular blackjack, the new wager is the one 
+     * that is then eventually settled according to the player's hand and the 
+     * dealer's hand.
+     * @throws IllegalStateException If there is an attempt to double down 
+     * twice. The exception message will say the wager was already settled.
      */
     public Wager doubleDown() {
-//        this.settle(Outcome.REPLACED);
+        this.settle(Outcome.REPLACED);
         Wager replacementWager = new Wager(this.wagerAmount.times(2));
         return replacementWager;
     }
