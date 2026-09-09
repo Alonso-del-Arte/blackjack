@@ -244,7 +244,6 @@ public class CurrencyChooserTest {
     @Test
     public void testChooseCurrencyByPredicate() {
         int remainder = Math.abs(((int) System.currentTimeMillis()) % 12);
-        System.out.println("remainder = " + remainder);
         Predicate<Currency> predicate 
                 = (currency) -> currency.getNumericCode() % 12 == remainder;
         Set<Currency> filtered = CURRENCIES.stream().filter(predicate)
@@ -260,7 +259,6 @@ public class CurrencyChooserTest {
             actual.add(CurrencyChooser.chooseCurrency(predicate));
             callsSoFar++;
         }
-        System.out.println(expected.toString());
         assertContainsSame(expected, actual, msg);
     }
     
