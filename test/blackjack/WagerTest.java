@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -309,25 +309,23 @@ public class WagerTest {
      * that calling doubleDown() twice on the same Wager object should cause an 
      * IllegalStateException.
      */
-    @org.junit.Ignore
     @Test
     public void testNoDoubleDownTwice() {
-        fail("REWRITE WITH assertThrows( )");
         int cents = DealerTest.RANDOM.nextInt(DEFAULT_CENTS) + DEFAULT_CENTS;
         CurrencyAmount originalAmount = new CurrencyAmount(cents, DOLLARS);
         Wager wager = new Wager(originalAmount);
         wager.doubleDown();
-        try {
-            wager.doubleDown();
-            fail("Should not have been able to double down twice");
-        } catch (IllegalStateException ise) {
-            System.out.println("Double down twice same wager caused exception");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is wrong exception for double down twice same wager";
-            fail(msg);
-        }
+        String msg = "Doubling down twice on " + wager.toString() 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager replacementWager = wager.doubleDown();
+            System.out.println(msg + " not given " 
+                    + replacementWager.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
