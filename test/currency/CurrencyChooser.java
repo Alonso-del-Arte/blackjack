@@ -128,7 +128,7 @@ public class CurrencyChooser {
     }
 
     public static Currency chooseCurrency(int fractionDigits) {
-        return Currency.getInstance("CLF");
+        return Currency.getInstance("JPY");
     }
     
     public static Currency chooseCurrency(Predicate<Currency> predicate) {
