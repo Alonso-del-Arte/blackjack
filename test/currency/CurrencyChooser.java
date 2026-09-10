@@ -129,18 +129,23 @@ public class CurrencyChooser {
 
     public static Currency chooseCurrency(int fractionDigits) {
         switch (fractionDigits) {
-            case 0:
+            case 0 -> {
                 return Currency.getInstance("JPY");
-            case 2:
+            }
+            case 2 -> {
                 return Currency.getInstance("USD");
-            case 3:
+            }
+            case 3 -> {
                 return Currency.getInstance("JOD");
-            case 4:
+            }
+            case 4 -> {
                 return Currency.getInstance("CLF");
-            default:
-                String excMsg = "No currency with " + fractionDigits 
+            }
+            default -> { 
+                String excMsg = "No currency with " + fractionDigits
                         + " fraction digits";
                 throw new NoSuchElementException(excMsg);
+            }
         }
     }
     
