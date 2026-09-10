@@ -382,6 +382,50 @@ public class WagerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testConstructorRejectsNegativeAmountForInsurance() {
+        int cents = -RANDOM.nextInt(10000) - 1;
+        Currency currency = CurrencyChooser.chooseCurrency(
+                cur -> !cur.getCurrencyCode().equals(cur.getSymbol())
+        );
+        CurrencyAmount badAmount = new CurrencyAmount(cents, currency);
+        String amtStr = badAmount.toString();
+        String msg = "Trying to create wager with amount " + amtStr 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager badWager = new Wager(badAmount, true);
+            System.out.println(msg + ", not created " + badWager.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Message should contain \"" + amtStr + "\"";
+        assert excMsg.contains(amtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testConstructorRejectsNegativeAmountExplicitlyNotInsurance() {
+        int cents = -RANDOM.nextInt(10000) - 1;
+        Currency currency = CurrencyChooser.chooseCurrency(
+                cur -> !cur.getCurrencyCode().equals(cur.getSymbol())
+        );
+        CurrencyAmount badAmount = new CurrencyAmount(cents, currency);
+        String amtStr = badAmount.toString();
+        String msg = "Trying to create wager with amount " + amtStr 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager badWager = new Wager(badAmount, false);
+            System.out.println(msg + ", not created " + badWager.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Message should contain \"" + amtStr + "\"";
+        assert excMsg.contains(amtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     @org.junit.Ignore
     @Test
     public void testConstructorRejectsAmountZero() {
