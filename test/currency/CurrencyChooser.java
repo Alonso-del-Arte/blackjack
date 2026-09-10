@@ -128,6 +128,9 @@ public class CurrencyChooser {
     }
 
     public static Currency chooseCurrency(int fractionDigits) {
+        if (fractionDigits > 0) {
+            return Currency.getInstance("USD");
+        }
         return Currency.getInstance("JPY");
     }
     
