@@ -131,6 +131,11 @@ public class CurrencyChooser {
         if (fractionDigits > 0) {
             if (fractionDigits > 2) {
                 if (fractionDigits > 3) {
+                    if (fractionDigits > 4) {
+                        String excMsg = "No currency with " + fractionDigits 
+                                + " fraction digits";
+                        throw new NoSuchElementException(excMsg);
+                    }
                     return Currency.getInstance("CLF");
                 }
                 return Currency.getInstance("JOD");
