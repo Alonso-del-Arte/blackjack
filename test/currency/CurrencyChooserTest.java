@@ -247,6 +247,16 @@ public class CurrencyChooserTest {
     }
 
     @Test
+    public void testChooseCurrencyWith10000Divisions() {
+        int expected = 4;
+        Currency currency = CurrencyChooser.chooseCurrency(expected);
+        int actual = currency.getDefaultFractionDigits();
+        String message = "Chosen currency " + currency.getDisplayName() 
+                + " should have " + expected + " default fraction digits";
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
     public void testChooseCurrencyByBadPredicateCausesException() {
         String invalidDisplayName = "Invalid display name " 
                 + System.currentTimeMillis();
