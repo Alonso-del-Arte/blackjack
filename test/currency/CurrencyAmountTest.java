@@ -43,7 +43,7 @@ public class CurrencyAmountTest {
             = Currency.getInstance(Locale.forLanguageTag("ar-ly"));
     static final Currency YEN = Currency.getInstance(Locale.JAPAN);
     
-    private static final Random RANDOM = new Random();
+    static final Random RANDOM = new Random();
 
     @Test
     public void testToString() {
