@@ -284,6 +284,29 @@ public class CurrencyChooserTest {
     }
     
     @Test
+    public void testChooseNoCentsCurrencyRandomlyEnough() {
+        int fractionDigits = 0;
+        Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(fractionDigits);
+        int total = noCentCurrencies.size();
+        Set<Currency> chosenCurrencies = new HashSet<>();
+        for (int i = 0; i < total; i++) {
+            Currency currency = CurrencyChooser.chooseCurrency(fractionDigits);
+            String message = "Currency " + currency.getDisplayName() + " (" 
+                    + currency.getCurrencyCode() + ") expected to have " 
+                    + fractionDigits + " fraction digits";
+            assertEquals(message,fractionDigits, 
+                    currency.getDefaultFractionDigits());
+            chosenCurrencies.add(currency);
+        }
+        int minimum = total / 3;
+        int actual = chosenCurrencies.size();
+        String msg = "Out of " + total 
+                + " currencies with no divisions, at least " + minimum 
+                + " should've been chosen, " + actual + " were chosen";
+        assertMinimum(minimum, actual, msg);
+    }
+    
+    @Test
     public void testChooseCurrencyByBadPredicateCausesException() {
         String invalidDisplayName = "Invalid display name " 
                 + System.currentTimeMillis();
