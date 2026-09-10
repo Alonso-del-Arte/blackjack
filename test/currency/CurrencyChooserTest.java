@@ -16,6 +16,8 @@
  */
 package currency;
 
+import static currency.CurrencyAmountTest.RANDOM;
+
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -254,6 +256,31 @@ public class CurrencyChooserTest {
         String message = "Chosen currency " + currency.getDisplayName() 
                 + " should have " + expected + " default fraction digits";
         assertEquals(message, expected, actual);
+    }
+    
+    @Test
+    public void testUnavailableFractionDigitsCauseException() {
+        int bound = 128;
+        int fractionDigits = bound + RANDOM.nextInt(bound);
+        String msg = "Asking for currency with " + fractionDigits 
+                + " fraction digits should cause exception";
+        Throwable t = assertThrows(() -> {
+            Currency badCurrency 
+                    = CurrencyChooser.chooseCurrency(fractionDigits);
+            System.out.println("Somehow asking for currency with " 
+                    + fractionDigits + " fraction digits gave " 
+                    + badCurrency.getDisplayName() + " (" 
+                    + badCurrency.getCurrencyCode() + "), which only has "
+                    + badCurrency.getDefaultFractionDigits()
+                    + " fraction digits");
+        }, NoSuchElementException.class, msg); 
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
+        String digitString = Integer.toString(fractionDigits);
+        String containsMsg = "Exception message should include \"" + digitString 
+                + "\"";
+        assert excMsg.contains(digitString) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
