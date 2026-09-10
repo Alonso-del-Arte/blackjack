@@ -217,6 +217,16 @@ public class CurrencyChooserTest {
     }
     
     @Test
+    public void testChooseCurrencyWithNoCentsOrDarahim() {
+        int expected = 0;
+        Currency currency = CurrencyChooser.chooseCurrency(expected);
+        int actual = currency.getDefaultFractionDigits();
+        String message = "Chosen currency " + currency.getDisplayName() 
+                + " should have " + expected + " default fraction digits";
+        assertEquals(message, expected, actual);
+    }
+
+    @Test
     public void testChooseCurrencyByBadPredicateCausesException() {
         String invalidDisplayName = "Invalid display name " 
                 + System.currentTimeMillis();
