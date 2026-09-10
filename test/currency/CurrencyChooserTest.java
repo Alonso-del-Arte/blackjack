@@ -307,6 +307,31 @@ public class CurrencyChooserTest {
     }
     
     @Test
+    public void testChooseCentCurrencyRandomlyEnough() {
+        int fractionDigits = 2;
+        Set<Currency> noCentCurrencies = FRACT_DIGITS_MAP.get(fractionDigits);
+        int total = noCentCurrencies.size();
+        Set<Currency> chosenCurrencies = new HashSet<>();
+        int maxCallCount = total / 3;
+        for (int i = 0; i < maxCallCount; i++) {
+            Currency currency = CurrencyChooser.chooseCurrency(fractionDigits);
+            String message = "Currency " + currency.getDisplayName() + " (" 
+                    + currency.getCurrencyCode() + ") expected to have " 
+                    + fractionDigits + " fraction digits";
+            assertEquals(message,fractionDigits, 
+                    currency.getDefaultFractionDigits());
+            chosenCurrencies.add(currency);
+        }
+        int minimum = maxCallCount / 8;
+        int actual = chosenCurrencies.size();
+        String msg = "Out of " + total 
+                + " currencies dividing into 100 cents, at least " + minimum 
+                + " should've been chosen after " + maxCallCount + " calls, " 
+                + actual + " were chosen";
+        assertMinimum(minimum, actual, msg);
+    }
+    
+    @Test
     public void testChooseCurrencyByBadPredicateCausesException() {
         String invalidDisplayName = "Invalid display name " 
                 + System.currentTimeMillis();
