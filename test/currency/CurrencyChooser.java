@@ -128,21 +128,20 @@ public class CurrencyChooser {
     }
 
     public static Currency chooseCurrency(int fractionDigits) {
-        if (fractionDigits > 0) {
-            if (fractionDigits > 2) {
-                if (fractionDigits > 3) {
-                    if (fractionDigits > 4) {
-                        String excMsg = "No currency with " + fractionDigits 
-                                + " fraction digits";
-                        throw new NoSuchElementException(excMsg);
-                    }
-                    return Currency.getInstance("CLF");
-                }
+        switch (fractionDigits) {
+            case 0:
+                return Currency.getInstance("JPY");
+            case 2:
+                return Currency.getInstance("USD");
+            case 3:
                 return Currency.getInstance("JOD");
-            }
-            return Currency.getInstance("USD");
+            case 4:
+                return Currency.getInstance("CLF");
+            default:
+                String excMsg = "No currency with " + fractionDigits 
+                        + " fraction digits";
+                throw new NoSuchElementException(excMsg);
         }
-        return Currency.getInstance("JPY");
     }
     
     public static Currency chooseCurrency(Predicate<Currency> predicate) {
