@@ -128,24 +128,16 @@ public class CurrencyChooser {
     }
 
     public static Currency chooseCurrency(int fractionDigits) {
-        switch (fractionDigits) {
-            case 0 -> {
-                return Currency.getInstance("JPY");
-            }
-            case 2 -> {
-                return Currency.getInstance("USD");
-            }
-            case 3 -> {
-                return Currency.getInstance("JOD");
-            }
-            case 4 -> {
-                return Currency.getInstance("CLF");
-            }
-            default -> { 
-                String excMsg = "No currency with " + fractionDigits
-                        + " fraction digits";
-                throw new NoSuchElementException(excMsg);
-            }
+        if (CURRENCIES_DIGITS_MAP.containsKey(fractionDigits)) {
+            List<Currency> currencies 
+                    = new ArrayList<>(CURRENCIES_DIGITS_MAP
+                            .get(fractionDigits));
+            int index = RANDOM.nextInt(currencies.size());
+            return currencies.get(index);
+        } else {
+            String excMsg = "No available currency with " + fractionDigits 
+                    + " fraction digits";
+            throw new NoSuchElementException(excMsg);
         }
     }
     
