@@ -147,12 +147,12 @@ public class Wager {
      * regardless of the currency.
      */
     Wager(CurrencyAmount amount, boolean isInsurance) {
-        if (amount.isNotPositive()) {
-            String excMsg = "Amount " + amount.toString() 
-                    + " is not a valid wager amount, needs to be more than " 
-                    + amount.getCurrency().getSymbol() + "0";
-            throw new IllegalArgumentException(excMsg);
-        }
+//        if (amount.isNotPositive()) {
+//            String excMsg = "Amount " + amount.toString() 
+//                    + " is not a valid wager amount, needs to be more than " 
+//                    + amount.getCurrency().getSymbol() + "0";
+//            throw new IllegalArgumentException(excMsg);
+//        }
         this.wagerAmount = amount;
         this.insuranceFlag = isInsurance;
     }
