@@ -147,7 +147,7 @@ public class Wager {
      * regardless of the currency.
      */
     Wager(CurrencyAmount amount, boolean isInsurance) {
-        if (amount.isNotPositive()) {
+        if (amount.isNegative()) {
             String excMsg = "Amount " + amount.toString() 
                     + " is not a valid wager amount, needs to be more than " 
                     + amount.getCurrency().getSymbol() + "0";
