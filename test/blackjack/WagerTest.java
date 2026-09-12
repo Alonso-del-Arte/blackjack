@@ -447,4 +447,46 @@ public class WagerTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testConstructorRejectsAmountZeroInsuranceWager() {
+        Currency currency = CurrencyChooser.chooseCurrency(
+                (cur) -> !cur.getSymbol().equals(cur.getCurrencyCode())
+        );
+        CurrencyAmount badAmount = new CurrencyAmount(0, currency);
+        String amtStr = badAmount.toString();
+        String msg = "Amount " + amtStr + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager badWager = new Wager(badAmount, true);
+            System.out.println(msg + ", not created " + badWager.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + amtStr 
+                + "\"";
+        assert excMsg.contains(amtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testConstructorRejectsAmountZeroExplicitlyNotInsurance() {
+        Currency currency = CurrencyChooser.chooseCurrency(
+                (cur) -> !cur.getSymbol().equals(cur.getCurrencyCode())
+        );
+        CurrencyAmount badAmount = new CurrencyAmount(0, currency);
+        String amtStr = badAmount.toString();
+        String msg = "Amount " + amtStr + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager badWager = new Wager(badAmount, false);
+            System.out.println(msg + ", not created " + badWager.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + amtStr 
+                + "\"";
+        assert excMsg.contains(amtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
 }
