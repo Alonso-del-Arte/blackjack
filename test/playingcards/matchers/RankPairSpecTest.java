@@ -54,6 +54,22 @@ public class RankPairSpecTest {
         }
     }
     
+    @Test
+    public void testToStringInvertedAtConstruction() {
+        int start = NUMBER_OF_RANKS - 1;
+        for (int a = start; a > 0; a--) {
+            Rank rankA = RANKS[a];
+            for (int b = 0; b < a; b++) {
+                Rank rankB = RANKS[b];
+                RankPairSpec instance = new RankPairSpec(rankA, rankB);
+                String expected = "(" + rankB.getWord() + "," + rankA.getWord() 
+                        + ")";
+                String actual = instance.toString().replace(" ", "");
+                assertEquals(expected, actual);
+            }
+        }
+    }
+    
     @org.junit.Ignore
     @Test
     public void testReferentialEquality() {
