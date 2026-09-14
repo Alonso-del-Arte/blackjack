@@ -493,6 +493,9 @@ public class HandTest {
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
+        String containsMsg = "Exception message should contain \"" + prevHandStr 
+                + "\"";
+        assert excMsg.contains(prevHandStr) : containsMsg;
         System.out.println("\"" + excMsg + "\"");
     }
     
