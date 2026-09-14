@@ -134,7 +134,7 @@ public class Hand {
      */
     Hand split(Dealer dealer) {
         if (!this.isSplittable(dealer)) {
-            String excMsg = "Can't split this hand";
+            String excMsg = "Can't split hand " + this.toString();
             throw new IllegalStateException(excMsg);
         }
         Hand splitOffHand = new Hand(this.associatedWager);
