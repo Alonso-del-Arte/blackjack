@@ -46,7 +46,6 @@ public class RankPairSpec extends PairSpec<Rank> {
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
-    // TODO: Rewrite tests for this
     @Override
     public String toString() {
         return this.specStr;
@@ -75,7 +74,11 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        this.specStr = "(" + rankA.getWord() + ", " + rankB.getWord() + ")";
+        if (rankA.ordinal() <= rankB.ordinal()) {
+            this.specStr = "(" + rankA.getWord() + ", " + rankB.getWord() + ")";
+        } else {
+            this.specStr = "(" + rankB.getWord() + ", " + rankA.getWord() + ")";
+        }
     }
 
 }
