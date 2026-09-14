@@ -237,7 +237,7 @@ public class Hand {
             String excMsg = "No settlement for this hand yet";
             throw new IllegalStateException(excMsg);
         }
-        this.associatedWager.settle(Wager.Outcome.INSURANCE_LOST);
+        this.associatedWager.settle(Wager.Outcome.NATURAL_BLACKJACK);
         return this.associatedWager.getSettlement();
     }
     
