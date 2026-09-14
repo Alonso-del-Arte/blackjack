@@ -91,7 +91,7 @@ public class HandTest {
                 + " cards remaining");
     }
     
-    private Set<RankPairSpec> makeRankPairSpecSet() {
+    private static Set<RankPairSpec> makeRankPairSpecSet() {
         Set<RankPairSpec> pairSpecs 
                 = new HashSet<>(BlackJack.DISTINCT_TEN_PAIRS);
         int stop = RANKS.length;
@@ -346,7 +346,7 @@ public class HandTest {
     @Test
     public void testIsSplittable() {
         System.out.println("isSplittableHand");
-        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Set<RankPairSpec> pairSpecs = makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         int maxPairs = 39;
         for (int i = 0; i < maxPairs; i++) {
@@ -370,7 +370,7 @@ public class HandTest {
     
     @Test
     public void testAuxConstructorInstanceIsSplittable() {
-        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Set<RankPairSpec> pairSpecs = makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         int maxPairs = 39;
         for (int i = 0; i < maxPairs; i++) {
@@ -505,7 +505,7 @@ public class HandTest {
     @Test
     public void testSplit() {
         System.out.println("split");
-        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Set<RankPairSpec> pairSpecs = makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         for (Rank firstCardRank : RANKS) {
             PlayingCard firstCard = CardStream.giveCard(firstCardRank);
@@ -528,7 +528,7 @@ public class HandTest {
     
     @Test
     public void testSplitAuxConstructorInstance() {
-        Set<RankPairSpec> pairSpecs = this.makeRankPairSpecSet();
+        Set<RankPairSpec> pairSpecs = makeRankPairSpecSet();
         Dealer dealer = new Dealer(pairSpecs);
         for (Rank firstCardRank : RANKS) {
             PlayingCard firstCard = CardStream.giveCard(firstCardRank);
