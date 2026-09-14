@@ -24,9 +24,7 @@ import playingcards.Rank;
  * @author Alonso del Arte
  */
 public class RankPairSpec extends PairSpec<Rank> {
-    
-    private final String specStr;
-    
+        
     /**
      * Determines whether or not two cards match this pair specification. Order 
      * does not matter. For example, suppose this pair specification is for 
@@ -44,11 +42,6 @@ public class RankPairSpec extends PairSpec<Rank> {
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
         return this.matches(cardA.getRank(), cardB.getRank());
-    }
-    
-    @Override
-    public String toString() {
-        return this.specStr;
     }
     
     // TODO: Rewrite tests for this
@@ -74,11 +67,6 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        if (rankA.ordinal() <= rankB.ordinal()) {
-            this.specStr = "(" + rankA.getWord() + ", " + rankB.getWord() + ")";
-        } else {
-            this.specStr = "(" + rankB.getWord() + ", " + rankA.getWord() + ")";
-        }
     }
 
 }
