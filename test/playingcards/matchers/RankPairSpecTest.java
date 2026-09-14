@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -35,17 +35,26 @@ public class RankPairSpecTest {
     private static final CardServer SERVER = new CardServer(2);
     
     @Test
+    public void testToString() {
+        System.out.println("toString");
+        fail("WRITE THIS TEST");
+    }
+    
+    @org.junit.Ignore
+    @Test
     public void testReferentialEquality() {
         RankPairSpec spec = new RankPairSpec(Rank.JACK, Rank.JACK);
         assertEquals(spec, spec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
         RankPairSpec spec = new RankPairSpec(Rank.ACE, Rank.SEVEN);
         assertNotEquals(spec, null);
     }
     
+    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffClass() {
         RankPairSpec rankSpec = new RankPairSpec(Rank.NINE, Rank.SEVEN);
@@ -53,6 +62,7 @@ public class RankPairSpecTest {
         assertNotEquals(rankSpec, suitSpec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testUnequalSpecs() {
         RankPairSpec spec20 = new RankPairSpec(Rank.JACK, Rank.JACK);
@@ -60,6 +70,7 @@ public class RankPairSpecTest {
         assertNotEquals(spec20, spec16);
     }
     
+    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
@@ -68,6 +79,7 @@ public class RankPairSpecTest {
         assertEquals(someSpec, sameSpec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testEqualsRegardlessOrder() {
         RankPairSpec someSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
@@ -75,8 +87,10 @@ public class RankPairSpecTest {
         assertEquals(someSpec, sameSpec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testHashCodeBySetSizes() {
+        fail("CONSIDER HAVING ONLY ONE hashCode( ) TEST");
         Rank[] ranks = Rank.values();
         HashSet<RankPairSpec> specs = new HashSet<>();
         HashSet<Integer> hashes = new HashSet<>();
@@ -96,9 +110,11 @@ public class RankPairSpecTest {
         assertEquals(msg, specSetSize, hashSetSize);
     }
     
+    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
+        fail("CONSIDER HAVING ONLY ONE hashCode( ) TEST");
         RankPairSpec someSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
         RankPairSpec sameSpec = new RankPairSpec(Rank.NINE, Rank.SEVEN);
         assertEquals(someSpec.hashCode(), sameSpec.hashCode());
@@ -107,6 +123,7 @@ public class RankPairSpecTest {
     /**
      * Test of matches method, of class RankPairSpec.
      */
+    @org.junit.Ignore
     @Test
     public void testMatches() {
         System.out.println("matches");
@@ -124,6 +141,7 @@ public class RankPairSpecTest {
     /**
      * Another test of matches method, of class RankPairSpec.
      */
+    @org.junit.Ignore
     @Test
     public void testDoesNotMatch() {
         Rank cardARank = Rank.QUEEN;

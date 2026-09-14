@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2020 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -42,6 +42,24 @@ public class RankPairSpec extends PairSpec<Rank> {
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
         return this.matches(cardA.getRank(), cardB.getRank());
+    }
+    
+    // TODO: Rewrite tests for this
+    @Override
+    public String toString() {
+        return "REWIND TO FAILING";
+    }
+    
+    // TODO: Rewrite tests for this
+    @Override
+    public boolean equals(Object obj) {
+        return false;
+    }
+    
+    // TODO: Rewrite tests for this
+    @Override
+    public int hashCode() {
+        return 0;
     }
     
     /**
