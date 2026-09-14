@@ -70,11 +70,16 @@ public class RankPairSpecTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testReferentialEquality() {
-        RankPairSpec spec = new RankPairSpec(Rank.JACK, Rank.JACK);
-        assertEquals(spec, spec);
+        for (Rank rankA : RANKS) {
+            for (Rank rankB : RANKS) {
+                RankPairSpec instance = new RankPairSpec(rankA, rankB);
+                String message = instance.toString() 
+                        + " should be equal to itself";
+                assertEquals(message, instance, instance);
+            }
+        }
     }
     
     @org.junit.Ignore
