@@ -484,16 +484,16 @@ public class HandTest {
     
     private static void assertCanNotSplit(Hand hand, Dealer dealer) {
         String prevHandStr = hand.toString();
-        try {
+        String msg = "Trying to split " + prevHandStr 
+                + " should cause an exception";
+        Throwable t = assertThrows(() -> {
             Hand splitOffHand = hand.split(dealer);
-            String msg = "Should not have been able to split " + prevHandStr 
-                    + " to " + hand.toString() + " and " 
-                    + splitOffHand.toString();
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            String excMsg = ise.getMessage();
-            assert excMsg != null : "Exception message should not be null";
-        }
+            System.out.println(msg + ", not given " + splitOffHand.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     /**
