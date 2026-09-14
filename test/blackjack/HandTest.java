@@ -467,6 +467,8 @@ public class HandTest {
     }
     
     private static void assertCanSplit(Hand hand, Dealer dealer) {
+        System.out.println("Asserting that " + hand.toString() 
+                + " may be split according to " + dealer.toString());
         PlayingCard[] cardsBeforeSplit = hand.inspectCards();
         assert cardsBeforeSplit.length == 2 : "Hand should only have two cards";
         Hand splitOffHand = hand.split(dealer);
