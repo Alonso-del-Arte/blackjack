@@ -93,7 +93,7 @@ public class HandTest {
     
     private static Set<RankPairSpec> makeRankPairSpecSet() {
         Set<RankPairSpec> pairSpecs 
-                = new HashSet<>(BlackJack.DISTINCT_TEN_PAIRS);
+                = new HashSet<>(BlackJack.DEFAULT_SPLITTABLE_PAIRS);
         int stop = RANKS.length;
         for (int i = 0; i < stop; i++) {
             PlayingCard cardA = SERVER.getNextCard();
