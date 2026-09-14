@@ -32,12 +32,26 @@ import static org.junit.Assert.*;
  */
 public class RankPairSpecTest {
     
+    private static final Rank[] RANKS = Rank.values();
+    
+    private static final int NUMBER_OF_RANKS = RANKS.length;
+    
     private static final CardServer SERVER = new CardServer(2);
     
     @Test
     public void testToString() {
         System.out.println("toString");
-        fail("WRITE THIS TEST");
+        for (int a = 0; a < NUMBER_OF_RANKS; a++) {
+            Rank rankA = RANKS[a];
+            for (int b = a; b < NUMBER_OF_RANKS; b++) {
+                Rank rankB = RANKS[b];
+                RankPairSpec instance = new RankPairSpec(rankA, rankB);
+                String expected = "(" + rankA.getWord() + "," + rankB.getWord() 
+                        + ")";
+                String actual = instance.toString().replace(" ", "");
+                assertEquals(expected, actual);
+            }
+        }
     }
     
     @org.junit.Ignore
