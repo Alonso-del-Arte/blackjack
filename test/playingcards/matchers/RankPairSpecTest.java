@@ -17,6 +17,7 @@
 package playingcards.matchers;
 
 import playingcards.CardServer;
+import playingcards.CardStream;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.Suit;
@@ -82,11 +83,13 @@ public class RankPairSpecTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
-        RankPairSpec spec = new RankPairSpec(Rank.ACE, Rank.SEVEN);
-        assertNotEquals(spec, null);
+        Rank rankA = SERVER.getNextCard().getRank();
+        Rank rankB = SERVER.getNextCard().getRank();
+        RankPairSpec spec = new RankPairSpec(rankA, rankB);
+        String message = spec.toString() + " should not equal null";
+        assertNotEquals(message, spec, null);
     }
     
     @org.junit.Ignore
