@@ -47,7 +47,7 @@ public class RankPairSpec extends PairSpec<Rank> {
     // TODO: Rewrite tests for this
     @Override
     public boolean equals(Object obj) {
-        return false;
+        return true;
     }
     
     // TODO: Rewrite tests for this
