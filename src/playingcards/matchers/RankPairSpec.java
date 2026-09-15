@@ -24,6 +24,8 @@ import playingcards.Rank;
  * @author Alonso del Arte
  */
 public class RankPairSpec extends PairSpec<Rank> {
+    
+    private final Rank rA, rB;
         
     /**
      * Determines whether or not two cards match this pair specification. Order 
@@ -47,7 +49,17 @@ public class RankPairSpec extends PairSpec<Rank> {
     // TODO: Rewrite tests for this
     @Override
     public boolean equals(Object obj) {
-        return obj instanceof RankPairSpec;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        RankPairSpec other = (RankPairSpec) obj;
+        return this.rA == other.rA && this.rB == other.rB;
     }
     
     // TODO: Rewrite tests for this
@@ -67,6 +79,13 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
+        if (rankA.ordinal() > rankB.ordinal()) {
+            this.rA = rankA;
+            this.rB = rankB;
+        } else {
+            this.rA = rankB;
+            this.rB = rankA;
+        }
     }
 
 }
