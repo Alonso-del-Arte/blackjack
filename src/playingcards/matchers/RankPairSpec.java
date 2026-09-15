@@ -61,10 +61,9 @@ public class RankPairSpec extends PairSpec<Rank> {
         return this.rA == other.rA && this.rB == other.rB;
     }
     
-    // TODO: Rewrite tests for this
     @Override
     public int hashCode() {
-        return 0;
+        return (this.rA.hashCode() << 16) + this.rB.hashCode();
     }
     
     /**
