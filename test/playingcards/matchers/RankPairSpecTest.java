@@ -191,15 +191,14 @@ public class RankPairSpecTest {
         assertEquals(message, expected, actual);
     }
     
-    /**
-     * Test of matches method, of class RankPairSpec.
-     */
-    @org.junit.Ignore
     @Test
     public void testMatches() {
         System.out.println("matches");
-        Rank cardARank = Rank.QUEEN;
-        Rank cardBRank = Rank.THREE;
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank cardARank = ranks.getFirst();
+        Collections.shuffle(ranks);
+        Rank cardBRank = ranks.getLast();
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
         RankPairSpec spec = new RankPairSpec(cardARank, cardBRank);
@@ -209,15 +208,15 @@ public class RankPairSpecTest {
         assert spec.matches(cardA, cardB) : msg;
     }
     
-    /**
-     * Another test of matches method, of class RankPairSpec.
-     */
-    @org.junit.Ignore
     @Test
     public void testDoesNotMatch() {
-        Rank cardARank = Rank.QUEEN;
-        Rank cardBRank = Rank.FOUR;
-        Rank cardCRank = Rank.FIVE;
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank cardARank = ranks.removeFirst();
+        Collections.shuffle(ranks);
+        Rank cardBRank = ranks.removeLast();
+        Collections.shuffle(ranks);
+        Rank cardCRank = ranks.getFirst();
         PlayingCard cardA = SERVER.giveCard(cardARank);
         PlayingCard cardB = SERVER.giveCard(cardBRank);
         RankPairSpec spec = new RankPairSpec(cardCRank, cardARank);
