@@ -46,26 +46,6 @@ public class RankPairSpec extends PairSpec<Rank> {
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        RankPairSpec other = (RankPairSpec) obj;
-        return this.rA == other.rA && this.rB == other.rB;
-    }
-    
-    @Override
-    public int hashCode() {
-        return (this.rA.hashCode() << 16) + this.rB.hashCode();
-    }
-    
     /**
      * Constructor. Order does not matter, the superclass takes care of ensuring 
      * equality and matching operations are carried out without regard for the 
