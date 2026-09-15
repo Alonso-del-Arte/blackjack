@@ -25,8 +25,6 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
-    private final Rank rA, rB;
-        
     /**
      * Determines whether or not two cards match this pair specification. Order 
      * does not matter. For example, suppose this pair specification is for 
@@ -35,10 +33,9 @@ public class RankPairSpec extends PairSpec<Rank> {
      * @param cardB The other card of the pair. For example, Q&#9827;.
      * @return True if the cards match this pair specification, false otherwise. 
      * In the example, 7&#9830; and Q&#9827; match this pair specification. If 
-     * the cards were switched, with <code>cardA</code> being Q&#9827; and 
-     * <code>cardB</code> being 7&#9830;, the result would also be true. But it 
-     * would be false if both cards were Sevens, or if both cards were Queens, 
-     * etc.
+     * the cards were switched, with {@code cardA} being Q&#9827; and {@code 
+     * cardB} being 7&#9830;, the result would also be true. But it would be 
+     * false if both cards were Sevens, or if both cards were Queens, etc.
      * @throws NullPointerException If either card is null.
      */
     @Override
@@ -47,23 +44,16 @@ public class RankPairSpec extends PairSpec<Rank> {
     }
     
     /**
-     * Constructor. Order does not matter, the superclass takes care of ensuring 
-     * equality and matching operations are carried out without regard for the 
-     * order of constructor parameters.
+     * Constructor. Order does not matter, the equality and matching operations 
+     * will be carried out without regard for the order of the constructor 
+     * parameters.
      * @param rankA Rank of one card of a pair of cards. May or may not be the 
-     * same as <code>rankB</code>. For example, Seven.
+     * same as {@code rankB}. For example, Seven.
      * @param rankB  Rank of one card of a pair of cards. May or may not be the 
-     * same as <code>rankA</code>. For example, Queen.
+     * same as {@code rankA}. For example, Queen.
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        if (rankB.ordinal() > rankA.ordinal()) {
-            this.rA = rankA;
-            this.rB = rankB;
-        } else {
-            this.rA = rankB;
-            this.rB = rankA;
-        }
     }
 
 }
