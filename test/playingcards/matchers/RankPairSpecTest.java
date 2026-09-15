@@ -41,7 +41,8 @@ public class RankPairSpecTest {
     
     private static final int NUMBER_OF_RANKS = RANKS.length;
     
-    private static final List<Rank> RANKS_LIST = Arrays.asList(RANKS);
+    private static final Set<Rank> RANKS_SET 
+            = new HashSet<>(Arrays.asList(RANKS));
     
     private static final CardServer SERVER = new CardServer(2);
     
@@ -115,10 +116,10 @@ public class RankPairSpecTest {
     
     @Test
     public void testNotEqualsDiffRankA() {
-        Collections.shuffle(RANKS_LIST);
-        Rank rankB = RANKS_LIST.getFirst();
-        Collections.shuffle(RANKS_LIST);
-        List<Rank> ranks = new ArrayList<>(RANKS_LIST);
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankB = ranks.getFirst();
+        Collections.shuffle(ranks);
         Rank origRankA = ranks.removeFirst();
         RankPairSpec unexpected = new RankPairSpec(origRankA, rankB);
         String msgPart = unexpected.toString() + " should not equal ";
@@ -131,10 +132,10 @@ public class RankPairSpecTest {
     
     @Test
     public void testNotEqualsDiffRankB() {
-        Collections.shuffle(RANKS_LIST);
-        Rank rankA = RANKS_LIST.getFirst();
-        Collections.shuffle(RANKS_LIST);
-        List<Rank> ranks = new ArrayList<>(RANKS_LIST);
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankA = ranks.getFirst();
+        Collections.shuffle(ranks);
         Rank origRankB = ranks.removeFirst();
         RankPairSpec unexpected = new RankPairSpec(rankA, origRankB);
         String msgPart = unexpected.toString() + " should not equal ";
@@ -148,10 +149,11 @@ public class RankPairSpecTest {
     @Test
     public void testEquals() {
         System.out.println("equals");
-        Collections.shuffle(RANKS_LIST);
-        Rank rankA = RANKS_LIST.getFirst();
-        Collections.shuffle(RANKS_LIST);
-        Rank rankB = RANKS_LIST.getLast();
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankA = ranks.getFirst();
+        Collections.shuffle(ranks);
+        Rank rankB = ranks.getLast();
         RankPairSpec someSpec = new RankPairSpec(rankA, rankB);
         RankPairSpec sameSpec = new RankPairSpec(rankA, rankB);
         assertEquals(someSpec, sameSpec);
@@ -159,10 +161,11 @@ public class RankPairSpecTest {
     
     @Test
     public void testEqualsRegardlessOrder() {
-        Collections.shuffle(RANKS_LIST);
-        Rank rankA = RANKS_LIST.getFirst();
-        Collections.shuffle(RANKS_LIST);
-        Rank rankB = RANKS_LIST.getLast();
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankA = ranks.getFirst();
+        Collections.shuffle(ranks);
+        Rank rankB = ranks.getLast();
         RankPairSpec someSpec = new RankPairSpec(rankA, rankB);
         RankPairSpec sameSpec = new RankPairSpec(rankB, rankA);
         assertEquals(someSpec, sameSpec);
