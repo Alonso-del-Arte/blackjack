@@ -92,12 +92,19 @@ public class RankPairSpecTest {
         assertNotEquals(message, spec, null);
     }
     
-    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffClass() {
-        RankPairSpec rankSpec = new RankPairSpec(Rank.NINE, Rank.SEVEN);
-        SuitPairSpec suitSpec = new SuitPairSpec(Suit.SPADES, Suit.SPADES);
-        assertNotEquals(rankSpec, suitSpec);
+        PlayingCard cardA = SERVER.getNextCard();
+        PlayingCard cardB = SERVER.getNextCard();
+        Rank rankA = cardA.getRank();
+        Rank rankB = cardB.getRank();
+        RankPairSpec rankSpec = new RankPairSpec(rankA, rankB);
+        Suit suitA = cardA.getSuit();
+        Suit suitB = cardB.getSuit();
+        SuitPairSpec suitSpec = new SuitPairSpec(suitA, suitB);
+        String message = rankSpec.toString() + " should not equal " 
+                + suitSpec.toString();
+        assertNotEquals(message, rankSpec, suitSpec);
     }
     
     @org.junit.Ignore
