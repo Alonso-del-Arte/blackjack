@@ -48,7 +48,17 @@ public class RankPairSpec extends PairSpec<Rank> {
     
     @Override
     public boolean equals(Object obj) {
-        return this == obj;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        RankPairSpec other = (RankPairSpec) obj;
+        return this.rA == other.rA && this.rB == other.rB;
     }
     
     // TODO: Rewrite tests for this
@@ -68,7 +78,7 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        if (rankA.ordinal() > rankB.ordinal()) {
+        if (rankB.ordinal() > rankA.ordinal()) {
             this.rA = rankA;
             this.rB = rankB;
         } else {
