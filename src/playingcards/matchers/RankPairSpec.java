@@ -46,20 +46,9 @@ public class RankPairSpec extends PairSpec<Rank> {
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
-    // TODO: Rewrite tests for this
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        RankPairSpec other = (RankPairSpec) obj;
-        return this.rA == other.rA && this.rB == other.rB;
+        return this == obj;
     }
     
     // TODO: Rewrite tests for this
