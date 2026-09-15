@@ -171,7 +171,6 @@ public class RankPairSpecTest {
         assertEquals(someSpec, sameSpec);
     }
     
-    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
