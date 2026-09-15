@@ -129,14 +129,22 @@ public class RankPairSpecTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
-    public void testUnequalSpecs() {
-        RankPairSpec spec20 = new RankPairSpec(Rank.JACK, Rank.JACK);
-        RankPairSpec spec16 = new RankPairSpec(Rank.NINE, Rank.SEVEN);
-        assertNotEquals(spec20, spec16);
+    public void testNotEqualsDiffRankB() {
+        Collections.shuffle(RANKS_LIST);
+        Rank rankA = RANKS_LIST.getFirst();
+        Collections.shuffle(RANKS_LIST);
+        List<Rank> ranks = new ArrayList<>(RANKS_LIST);
+        Rank origRankB = ranks.removeFirst();
+        RankPairSpec unexpected = new RankPairSpec(rankA, origRankB);
+        String msgPart = unexpected.toString() + " should not equal ";
+        for (Rank rankB : ranks) {
+            RankPairSpec actual = new RankPairSpec(rankA, rankB);
+            String message = msgPart + actual.toString();
+            assertNotEquals(message, unexpected, actual);
+        }
     }
-    
+        
     @org.junit.Ignore
     @Test
     public void testEquals() {
