@@ -43,7 +43,7 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
-        return this.matches(cardA.getRank(), cardB.getRank());
+        return !this.matches(cardA.getRank(), cardB.getRank());
     }
     
     /**
