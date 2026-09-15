@@ -21,7 +21,11 @@ import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.Suit;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;
@@ -36,6 +40,8 @@ public class RankPairSpecTest {
     private static final Rank[] RANKS = Rank.values();
     
     private static final int NUMBER_OF_RANKS = RANKS.length;
+    
+    private static final List<Rank> RANKS_LIST = Arrays.asList(RANKS);
     
     private static final CardServer SERVER = new CardServer(2);
     
@@ -105,6 +111,22 @@ public class RankPairSpecTest {
         String message = rankSpec.toString() + " should not equal " 
                 + suitSpec.toString();
         assertNotEquals(message, rankSpec, suitSpec);
+    }
+    
+    @Test
+    public void testNotEqualsDiffRankA() {
+        Collections.shuffle(RANKS_LIST);
+        Rank rankB = RANKS_LIST.getFirst();
+        Collections.shuffle(RANKS_LIST);
+        List<Rank> ranks = new ArrayList<>(RANKS_LIST);
+        Rank origRankA = ranks.removeFirst();
+        RankPairSpec unexpected = new RankPairSpec(origRankA, rankB);
+        String msgPart = unexpected.toString() + " should not equal ";
+        for (Rank rankA : ranks) {
+            RankPairSpec actual = new RankPairSpec(rankA, rankB);
+            String message = msgPart + actual.toString();
+            assertNotEquals(message, unexpected, actual);
+        }
     }
     
     @org.junit.Ignore
