@@ -145,20 +145,26 @@ public class RankPairSpecTest {
         }
     }
         
-    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
-        RankPairSpec someSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
-        RankPairSpec sameSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
+        Collections.shuffle(RANKS_LIST);
+        Rank rankA = RANKS_LIST.getFirst();
+        Collections.shuffle(RANKS_LIST);
+        Rank rankB = RANKS_LIST.getLast();
+        RankPairSpec someSpec = new RankPairSpec(rankA, rankB);
+        RankPairSpec sameSpec = new RankPairSpec(rankA, rankB);
         assertEquals(someSpec, sameSpec);
     }
     
-    @org.junit.Ignore
     @Test
     public void testEqualsRegardlessOrder() {
-        RankPairSpec someSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
-        RankPairSpec sameSpec = new RankPairSpec(Rank.NINE, Rank.SEVEN);
+        Collections.shuffle(RANKS_LIST);
+        Rank rankA = RANKS_LIST.getFirst();
+        Collections.shuffle(RANKS_LIST);
+        Rank rankB = RANKS_LIST.getLast();
+        RankPairSpec someSpec = new RankPairSpec(rankA, rankB);
+        RankPairSpec sameSpec = new RankPairSpec(rankB, rankA);
         assertEquals(someSpec, sameSpec);
     }
     
