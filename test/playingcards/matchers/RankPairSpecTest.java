@@ -17,12 +17,12 @@
 package playingcards.matchers;
 
 import playingcards.CardServer;
-import playingcards.CardStream;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.Suit;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -134,35 +134,23 @@ public class RankPairSpecTest {
     
     @org.junit.Ignore
     @Test
-    public void testHashCodeBySetSizes() {
-        fail("CONSIDER HAVING ONLY ONE hashCode( ) TEST");
-        Rank[] ranks = Rank.values();
-        HashSet<RankPairSpec> specs = new HashSet<>();
-        HashSet<Integer> hashes = new HashSet<>();
-        RankPairSpec spec;
-        int hash;
-        for (Rank first : ranks) {
-            for (Rank second: ranks) {
-                spec = new RankPairSpec(first, second);
-                hash = spec.hashCode();
-                specs.add(spec);
-                hashes.add(hash);
-            }
-        }
-        int specSetSize = specs.size();
-        int hashSetSize = hashes.size();
-        String msg = "Set of specs should be the same size as set of hash codes";
-        assertEquals(msg, specSetSize, hashSetSize);
-    }
-    
-    @org.junit.Ignore
-    @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        fail("CONSIDER HAVING ONLY ONE hashCode( ) TEST");
-        RankPairSpec someSpec = new RankPairSpec(Rank.SEVEN, Rank.NINE);
-        RankPairSpec sameSpec = new RankPairSpec(Rank.NINE, Rank.SEVEN);
-        assertEquals(someSpec.hashCode(), sameSpec.hashCode());
+        Rank[] ranks = Rank.values();
+        Set<RankPairSpec> specs = new HashSet<>();
+        Set<Integer> hashes = new HashSet<>();
+        for (Rank rankA : ranks) {
+            for (Rank rankB: ranks) {
+                RankPairSpec instance = new RankPairSpec(rankA, rankB);
+                specs.add(instance);
+                hashes.add(instance.hashCode());
+            }
+        }
+        int expected = specs.size();
+        int actual = hashes.size();
+        String message = "For " + expected 
+                + " specs there should be as many hash codes";
+        assertEquals(message, expected, actual);
     }
     
     /**
