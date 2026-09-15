@@ -48,7 +48,7 @@ public class RankPairSpec extends PairSpec<Rank> {
     
     @Override
     public String toString() {
-        return "REWIND TO FAILING";
+        return "(" + this.rA.getWord() + ", " + this.rB.getWord() + ")";
     }
     
     @Override
