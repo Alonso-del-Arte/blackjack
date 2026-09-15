@@ -47,11 +47,6 @@ public class RankPairSpec extends PairSpec<Rank> {
     }
     
     @Override
-    public String toString() {
-        return "(" + this.rA.getWord() + ", " + this.rB.getWord() + ")";
-    }
-    
-    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
