@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -71,18 +71,19 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!this.getClass().equals(obj.getClass())) {
-            return false;
-        }
-        final PairSpec other = (PairSpec) obj;
-        return (this.elementA.equals(other.elementA) 
-                && this.elementB.equals(other.elementB));
+        return false;
+//        if (this == obj) {
+//            return true;
+//        }
+//        if (obj == null) {
+//            return false;
+//        }
+//        if (!this.getClass().equals(obj.getClass())) {
+//            return false;
+//        }
+//        final PairSpec other = (PairSpec) obj;
+//        return (this.elementA.equals(other.elementA) 
+//                && this.elementB.equals(other.elementB));
     }
     
     /**
@@ -92,8 +93,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public int hashCode() {
-        return (this.elementA.ordinal() + 1) * HASH_SEP 
-                + (this.elementB.ordinal()) + 1;
+        return 0;// (this.elementA.ordinal() + 1) * HASH_SEP 
+                // + (this.elementB.ordinal()) + 1;
     }
     
     /**
@@ -104,8 +105,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public String toString() {
-        return "(" + this.elementA.getWord() + ", " + this.elementB.getWord() 
-                + ")";
+        return "? (" + this.elementA.getWord() + ", " + this.elementB.getWord() 
+                + ") ?";
     }
     
     /**
