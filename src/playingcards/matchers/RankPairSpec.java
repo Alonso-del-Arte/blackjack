@@ -43,10 +43,6 @@ public class RankPairSpec extends PairSpec<Rank> {
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
-    private static Rank passThrough(Rank rank) {
-        return (rank == null) ? Rank.ACE : rank;
-    }
-    
     /**
      * Constructor. Order does not matter, the equality and matching operations 
      * will be carried out without regard for the order of the constructor 
@@ -57,7 +53,11 @@ public class RankPairSpec extends PairSpec<Rank> {
      * same as {@code rankA}. For example, Queen.
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
-        super(passThrough(rankA), passThrough(rankB));
+        super(rankA, rankB);
+        if (rankA == null || rankB == null) {
+            String excMsg = "Ranks should not be null";
+            throw new NullPointerException(excMsg);
+        }
     }
 
 }
