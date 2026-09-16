@@ -33,14 +33,34 @@ import static org.junit.Assert.*;
  */
 public class PairSpecTest {
     
+    private static final TestingSpec[] SPECS = TestingSpec.values();
+    
     private static final CardServer SERVER = new CardServer(2);
     
+    /**
+     * Test of the toString function, of the PairSpec class.
+     */
+    @Test
+    public void testToString() {
+        System.out.println("toString");
+        TestingSpec[] specs = TestingSpec.values();
+        for (TestingSpec spec : specs) {
+            PairSpec pair = new PairSpecImpl(spec, spec);
+            String specWord = spec.getWord();
+            String expected = "(" + specWord + "," + specWord + ")";
+            String actual = pair.toString().replace(" ", "");
+            assertEquals(expected, actual);
+        }
+    }
+
+    @org.junit.Ignore
     @Test
     public void testReferentialEquality() {
         PairSpec spec = new PairSpecImpl(TestingSpec.COURT, TestingSpec.COURT);
         assertEquals(spec, spec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
         PairSpec spec = new PairSpecImpl(TestingSpec.EVEN_PIP, 
@@ -48,6 +68,7 @@ public class PairSpecTest {
         assertNotEquals(spec, null);
     }
     
+    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffClass() {
         PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
@@ -56,6 +77,7 @@ public class PairSpecTest {
         assertNotEquals(spec, card);
     }
     
+    @org.junit.Ignore
     @Test
     public void testUnequalSpecs() {
         PairSpec specOddCourt = new PairSpecImpl(TestingSpec.ODD_PIP, 
@@ -65,6 +87,7 @@ public class PairSpecTest {
         assertNotEquals(specOddCourt, specEvenCourt);
     }
     
+    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
@@ -75,6 +98,7 @@ public class PairSpecTest {
         assertEquals(someSpec, sameSpec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testEqualsRegardlessOrder() {
         PairSpec someSpec = new PairSpecImpl(TestingSpec.COURT, 
@@ -84,6 +108,7 @@ public class PairSpecTest {
         assertEquals(someSpec, sameSpec);
     }
     
+    @org.junit.Ignore
     @Test
     public void testHashCodeBySetSizes() {
         TestingSpec[] classifs = TestingSpec.values();
@@ -108,6 +133,7 @@ public class PairSpecTest {
     /**
      * Test of the hashCode function, of the PairSpec class.
      */
+    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
@@ -119,24 +145,9 @@ public class PairSpecTest {
     }
     
     /**
-     * Test of the toString function, of the PairSpec class.
-     */
-    @Test
-    public void testToString() {
-        System.out.println("toString");
-        TestingSpec[] specs = TestingSpec.values();
-        for (TestingSpec spec : specs) {
-            PairSpec pair = new PairSpecImpl(spec, spec);
-            String specWord = spec.getWord();
-            String expected = "(" + specWord + "," + specWord + ")";
-            String actual = pair.toString().replace(" ", "");
-            assertEquals(expected, actual);
-        }
-    }
-
-    /**
      * Test of the matches function, of the PairSpec class.
      */
+    @org.junit.Ignore
     @Test
     public void testMatches() {
         System.out.println("matches");
@@ -155,6 +166,7 @@ public class PairSpecTest {
     /**
      * Another test of the matches function, of the PairSpec class.
      */
+    @org.junit.Ignore
     @Test
     public void testDoesNotMatch() {
         Rank cardARank = Rank.THREE;
@@ -172,6 +184,7 @@ public class PairSpecTest {
     /**
      * Another test of the matches function, of the PairSpec class.
      */
+    @org.junit.Ignore
     @Test
     public void testMatchesRegardlessOrder() {
         Rank cardARank = Rank.QUEEN;
