@@ -51,13 +51,11 @@ public class RankPairSpec extends PairSpec<Rank> {
      * same as {@code rankB}. For example, Seven.
      * @param rankB  Rank of one card of a pair of cards. May or may not be the 
      * same as {@code rankA}. For example, Queen.
+     * @throws NullPointerException If either {@code rankA} or {@code rankB} is 
+     * null.
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        if (rankA == null || rankB == null) {
-            String excMsg = "Ranks should not be null";
-            throw new NullPointerException(excMsg);
-        }
     }
 
 }
