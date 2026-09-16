@@ -31,6 +31,8 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the RankPairSpec class.
  * @author Alonso del Arte
@@ -224,6 +226,46 @@ public class RankPairSpecTest {
                 + " and " + cardCRank.getWord() + " should NOT match " 
                 + cardA.toString() + " and " + cardB.toString();
         assert !spec.matches(cardA, cardB) : msg;
+    }
+    
+    @Test
+    public void testConstructorRejectsNullRankA() {
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankB = ranks.removeLast();
+        String msg = "Constructor should reject null rank A with rank B " 
+                + rankB.toString();
+        Throwable t = assertThrows(() -> {
+            RankPairSpec badInstance = new RankPairSpec(null, rankB);
+            System.out.println(msg + ", not give instance " 
+                    + badInstance.getClass().getName() + "@" 
+                    + Integer.toHexString(System
+                            .identityHashCode(badInstance)));
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testConstructorRejectsNullRankB() {
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank rankA = ranks.removeFirst();
+        String msg = "Constructor should reject rank A " + rankA.toString() 
+                + " with null rank B";
+        Throwable t = assertThrows(() -> {
+            RankPairSpec badInstance = new RankPairSpec(rankA, null);
+            System.out.println(msg + ", not give instance " 
+                    + badInstance.getClass().getName() + "@" 
+                    + Integer.toHexString(System
+                            .identityHashCode(badInstance)));
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
 }
