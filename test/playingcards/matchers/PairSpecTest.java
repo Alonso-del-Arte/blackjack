@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -190,24 +190,16 @@ public class PairSpecTest {
         
         private TestingSpec classify(PlayingCard card) {
             switch (card.getRank()) {
-                case ACE:
-                case THREE:
-                case FIVE:
-                case SEVEN:
-                case NINE:
+                case ACE, THREE, FIVE, SEVEN, NINE -> {
                     return TestingSpec.ODD_PIP;
-                case TWO:
-                case FOUR:
-                case SIX:
-                case EIGHT:
-                case TEN:
+                }
+                case TWO, FOUR, SIX, EIGHT, TEN -> {
                     return TestingSpec.EVEN_PIP;
-                case JACK:
-                case QUEEN:
-                case KING:
+                }
+                case JACK, QUEEN, KING -> {
                     return TestingSpec.COURT;
-                default:
-                    throw new RuntimeException("Match error");
+                }
+                default -> throw new RuntimeException("Match error");
             }
         }
 
