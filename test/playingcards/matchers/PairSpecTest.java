@@ -58,6 +58,22 @@ public class PairSpecTest {
         }
     }
 
+    @Test
+    public void testToStringInvertedAtConstruction() {
+        int start = NUMBER_OF_SPECS - 1;
+        for (int a = start; a > 0; a--) {
+            TestingSpec specA = SPECS[a];
+            for (int b = 0; b < a; b++) {
+                TestingSpec specB = SPECS[b];
+                PairSpec pair = new PairSpecImpl(specA, specB);
+                String expected = "(" + specB.getWord() + "," + specA.getWord() 
+                        + ")";
+                String actual = pair.toString().replace(" ", "");
+                assertEquals(expected, actual);
+            }
+        }
+    }
+
     @org.junit.Ignore
     @Test
     public void testReferentialEquality() {
