@@ -35,6 +35,8 @@ public class PairSpecTest {
     
     private static final TestingSpec[] SPECS = TestingSpec.values();
     
+    private static final int NUMBER_OF_SPECS = SPECS.length;
+    
     private static final CardServer SERVER = new CardServer(2);
     
     /**
@@ -43,10 +45,9 @@ public class PairSpecTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        int total = SPECS.length;
-        for (int a = 0; a < total; a++) {
+        for (int a = 0; a < NUMBER_OF_SPECS; a++) {
             TestingSpec specA = SPECS[a];
-            for (int b = a; b < total; b++) {
+            for (int b = a; b < NUMBER_OF_SPECS; b++) {
                 TestingSpec specB = SPECS[b];
                 PairSpec pair = new PairSpecImpl(specA, specB);
                 String expected = "(" + specA.getWord() + "," + specB.getWord() 
