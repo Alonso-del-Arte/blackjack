@@ -43,13 +43,17 @@ public class PairSpecTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        TestingSpec[] specs = TestingSpec.values();
-        for (TestingSpec spec : specs) {
-            PairSpec pair = new PairSpecImpl(spec, spec);
-            String specWord = spec.getWord();
-            String expected = "(" + specWord + "," + specWord + ")";
-            String actual = pair.toString().replace(" ", "");
-            assertEquals(expected, actual);
+        int total = SPECS.length;
+        for (int a = 0; a < total; a++) {
+            TestingSpec specA = SPECS[a];
+            for (int b = a; b < total; b++) {
+                TestingSpec specB = SPECS[b];
+                PairSpec pair = new PairSpecImpl(specA, specB);
+                String expected = "(" + specA.getWord() + "," + specB.getWord() 
+                        + ")";
+                String actual = pair.toString().replace(" ", "");
+                assertEquals(expected, actual);
+            }
         }
     }
 
