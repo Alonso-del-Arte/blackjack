@@ -105,8 +105,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public String toString() {
-        return "? (" + this.elementA.getWord() + ", " + this.elementB.getWord() 
-                + ") ?";
+        return "(" + this.elementA.getWord() + ", " + this.elementB.getWord() 
+                + ")";
     }
     
     /**
