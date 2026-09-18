@@ -244,6 +244,26 @@ public class PairSpecTest {
     }
            
     
+    @Test
+    public void testConstructorRejectsNullElementB() {
+        for (TestingSpec specA : SPECS) {
+            String msg = "Constructor should reject A " + specA.getWord() 
+                    + " with null B";
+            Throwable t = assertThrows(() -> {
+                PairSpec badInstance = new PairSpecImpl(specA, null);
+                System.out.println(msg + ", not given " 
+                        + badInstance.getClass().getName() + "@" 
+                        + Integer.toHexString(System
+                                .identityHashCode(badInstance)));
+            }, NullPointerException.class, msg);
+            String excMsg = t.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+            assert !excMsg.isBlank() : "Exception message should not be blank";
+            System.out.println("\"" + excMsg + "\"");
+        }
+    }
+           
+    
     class PairSpecImpl extends PairSpec<TestingSpec> {
         
         private TestingSpec classify(PlayingCard card) {
