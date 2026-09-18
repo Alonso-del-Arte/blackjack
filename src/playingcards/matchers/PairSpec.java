@@ -117,13 +117,13 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * <code>elemA</code>.
      */
     PairSpec(E elemA, E elemB) {
-        if (elemB.ordinal() > elemA.ordinal()) {
+//        if (elemB.ordinal() > elemA.ordinal()) {
             this.elementA = elemA;
             this.elementB = elemB;
-        } else {
-            this.elementA = elemB;
-            this.elementB = elemA;
-        }
+//        } else {
+//            this.elementA = elemB;
+//            this.elementB = elemA;
+//        }
     }
     
 }
