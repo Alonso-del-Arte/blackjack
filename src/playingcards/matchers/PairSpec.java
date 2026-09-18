@@ -117,6 +117,10 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * <code>elemA</code>.
      */
     PairSpec(E elemA, E elemB) {
+        if (elemA == null || elemB == null) {
+            String excMsg = "Elements should not be null";
+            throw new NullPointerException(excMsg);
+        }
 //        if (elemB.ordinal() > elemA.ordinal()) {
             this.elementA = elemA;
             this.elementB = elemB;
