@@ -27,6 +27,8 @@ import java.util.Set;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the PairSpec class.
  * @author Alonso del Arte
@@ -221,6 +223,26 @@ public class PairSpecTest {
                 + cardA.toString() + " and " + cardB.toString();
         assert spec.matches(cardA, cardB) : msg;
     }
+    
+    @Test
+    public void testConstructorRejectsNullElementA() {
+        for (TestingSpec specB : SPECS) {
+            String msg = "Constructor should reject null A with B " 
+                    + specB.getWord();
+            Throwable t = assertThrows(() -> {
+                PairSpec badInstance = new PairSpecImpl(null, specB);
+                System.out.println(msg + ", not given " 
+                        + badInstance.getClass().getName() + "@" 
+                        + Integer.toHexString(System
+                                .identityHashCode(badInstance)));
+            }, NullPointerException.class, msg);
+            String excMsg = t.getMessage();
+            assert excMsg != null : "Exception message should not be null";
+            assert !excMsg.isBlank() : "Exception message should not be blank";
+            System.out.println("\"" + excMsg + "\"");
+        }
+    }
+           
     
     class PairSpecImpl extends PairSpec<TestingSpec> {
         
