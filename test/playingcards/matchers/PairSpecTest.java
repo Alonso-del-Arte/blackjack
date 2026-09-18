@@ -111,35 +111,36 @@ public class PairSpecTest {
         }
     }
     
-    @org.junit.Ignore
-    @Test
-    public void testUnequalSpecs() {
-        PairSpec specOddCourt = new PairSpecImpl(TestingSpec.ODD_PIP, 
-                TestingSpec.COURT);
-        PairSpec specEvenCourt = new PairSpecImpl(TestingSpec.EVEN_PIP, 
-                TestingSpec.COURT);
-        assertNotEquals(specOddCourt, specEvenCourt);
-    }
-    
-    @org.junit.Ignore
     @Test
     public void testEquals() {
         System.out.println("equals");
-        PairSpec someSpec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        PairSpec sameSpec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        assertEquals(someSpec, sameSpec);
-    }
-    
-    @org.junit.Ignore
-    @Test
-    public void testEqualsRegardlessOrder() {
-        PairSpec someSpec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.EVEN_PIP);
-        PairSpec sameSpec = new PairSpecImpl(TestingSpec.EVEN_PIP, 
-                TestingSpec.COURT);
-        assertEquals(someSpec, sameSpec);
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec instanceA = new PairSpecImpl(specA, specB);
+                Set<TestingSpec> setA = new HashSet<>(2);
+                setA.add(specA);
+                setA.add(specB);
+                String msgPart = instanceA.toString() + " should ";
+                for (TestingSpec specC : SPECS) {
+                    for (TestingSpec specD : SPECS) {
+                        PairSpec instanceB = new PairSpecImpl(specC, specD);
+                        Set<TestingSpec> setB = new HashSet<>(2);
+                        setB.add(specC);
+                        setB.add(specD);
+                        boolean equality = setA.equals(setB);
+                        if (equality) {
+                            String message = msgPart + "equal " 
+                                    + instanceB.toString();
+                            assertEquals(message, instanceA, instanceB);
+                        } else {
+                            String message = msgPart + "not equal " 
+                                    + instanceB.toString();
+                            assertNotEquals(message, instanceA, instanceB);
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @org.junit.Ignore
