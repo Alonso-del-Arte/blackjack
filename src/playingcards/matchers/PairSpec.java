@@ -92,8 +92,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public int hashCode() {
-        return 0;// (this.elementA.ordinal() + 1) * HASH_SEP 
-                // + (this.elementB.ordinal()) + 1;
+        return (this.elementA.ordinal() + 1) * HASH_SEP 
+                + (this.elementB.ordinal()) + 1;
     }
     
     /**
