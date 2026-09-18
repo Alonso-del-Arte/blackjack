@@ -71,13 +71,13 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public boolean equals(Object obj) {
-        return obj != null;
-//        if (this == obj) {
-//            return true;
-//        }
-//        if (obj == null) {
-//            return false;
-//        }
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        return obj instanceof PairSpec;
 //        if (!this.getClass().equals(obj.getClass())) {
 //            return false;
 //        }
