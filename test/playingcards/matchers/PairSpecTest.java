@@ -98,13 +98,17 @@ public class PairSpecTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testNotEqualsDiffClass() {
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        PlayingCard card = SERVER.getNextCard();
-        assertNotEquals(spec, card);
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec instance = new PairSpecImpl(specA, specB);
+                String message = instance.toString() + " should not equal " 
+                        + specA.getWord() + " nor " + specB.getWord();
+                assertNotEquals(message, instance, specA);
+                assertNotEquals(message, instance, specB);
+            }
+        }
     }
     
     @org.junit.Ignore
