@@ -30,8 +30,6 @@ import playingcards.PlayingCard;
  */
 abstract class PairSpec<E extends Enum & CardSpec> {
     
-    private static final int HASH_SEP = 65536;
-    
     private final E elementA, elementB;
     
     /**
@@ -92,8 +90,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      */
     @Override
     public int hashCode() {
-        return (this.elementA.ordinal() + 1) * HASH_SEP 
-                + (this.elementB.ordinal()) + 1;
+        return ((this.elementA.ordinal() + 1) << 16) + (this.elementB.ordinal()) 
+                + 1;
     }
     
     /**
