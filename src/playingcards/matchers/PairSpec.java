@@ -77,13 +77,12 @@ abstract class PairSpec<E extends Enum & CardSpec> {
         if (obj == null) {
             return false;
         }
-        return obj instanceof PairSpec;
-//        if (!this.getClass().equals(obj.getClass())) {
-//            return false;
-//        }
-//        final PairSpec other = (PairSpec) obj;
-//        return (this.elementA.equals(other.elementA) 
-//                && this.elementB.equals(other.elementB));
+        if (!this.getClass().equals(obj.getClass())) {
+            return false;
+        }
+        final PairSpec other = (PairSpec) obj;
+        return (this.elementA.equals(other.elementA) 
+                && this.elementB.equals(other.elementB));
     }
     
     /**
