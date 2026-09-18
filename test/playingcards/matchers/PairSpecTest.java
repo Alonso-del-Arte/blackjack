@@ -74,11 +74,16 @@ public class PairSpecTest {
         }
     }
 
-    @org.junit.Ignore
     @Test
     public void testReferentialEquality() {
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, TestingSpec.COURT);
-        assertEquals(spec, spec);
+        String msgPart = " should be equal to itself";
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec obj = new PairSpecImpl(specA, specB);
+                String msg = obj.toString() + msgPart;
+                assert obj.equals(obj) : msg;
+            }
+        }
     }
     
     @org.junit.Ignore
