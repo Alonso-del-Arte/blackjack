@@ -86,12 +86,16 @@ public class PairSpecTest {
         }
     }
     
-    @org.junit.Ignore
     @Test
     public void testNotEqualsNull() {
-        PairSpec spec = new PairSpecImpl(TestingSpec.EVEN_PIP, 
-                TestingSpec.ODD_PIP);
-        assertNotEquals(spec, null);
+        String msgPart = " should not equal null";
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec instance = new PairSpecImpl(specA, specB);
+                String message = instance.toString() + msgPart;
+                assertNotEquals(message, instance, null);
+            }
+        }
     }
     
     @org.junit.Ignore
