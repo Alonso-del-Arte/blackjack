@@ -143,40 +143,28 @@ public class PairSpecTest {
         }
     }
     
-    @org.junit.Ignore
-    @Test
-    public void testHashCodeBySetSizes() {
-        TestingSpec[] classifs = TestingSpec.values();
-        Set<PairSpec> specs = new HashSet<>();
-        Set<Integer> hashes = new HashSet<>();
-        PairSpec spec;
-        int hash;
-        for (TestingSpec outer : classifs) {
-            for (TestingSpec inner: classifs) {
-                spec = new PairSpecImpl(outer, inner);
-                hash = spec.hashCode();
-                specs.add(spec);
-                hashes.add(hash);
-            }
-        }
-        int specSetSize = specs.size();
-        int hashSetSize = hashes.size();
-        String msg = "Set of specs should be same size as set of hash codes";
-        assertEquals(msg, specSetSize, hashSetSize);
-    }
-    
     /**
      * Test of the hashCode function, of the PairSpec class.
      */
-    @org.junit.Ignore
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        PairSpec someSpec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        PairSpec sameSpec = new PairSpecImpl(TestingSpec.ODD_PIP, 
-                TestingSpec.COURT);
-        assertEquals(someSpec.hashCode(), sameSpec.hashCode());
+        int initialCapacity = 2 * NUMBER_OF_SPECS;
+        Set<PairSpec> specs = new HashSet<>(initialCapacity);
+        Set<Integer> hashes = new HashSet<>(initialCapacity);
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec instance = new PairSpecImpl(specA, specB);
+                int hash = instance.hashCode();
+                specs.add(instance);
+                hashes.add(hash);
+            }
+        }
+        int expected = specs.size();
+        int actual = hashes.size();
+        String message = "For " + expected 
+                + " pairs there should be as many hashes";
+        assertEquals(message, expected, actual);
     }
     
     /**
