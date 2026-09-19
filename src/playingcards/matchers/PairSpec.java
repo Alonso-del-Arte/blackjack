@@ -24,8 +24,8 @@ import playingcards.PlayingCard;
  * of playing cards either matches or doesn't, regardless of order. This is 
  * mostly going to be used with rank and suit.
  * @param <E> An enumeration that represents a characteristic of a playing card. 
- * Generally this should be either <code>Rank</code> or <code>Suit</code>. Other 
- * characteristics are rare but allowed.
+ * Generally this should be either {@link playingcards.Rank Rank} or {@link 
+ * playingcards.Suit Suit}. Other characteristics are rare but allowed.
  * @author Alonso del Arte
  */
 abstract class PairSpec<E extends Enum & CardSpec> {
@@ -51,19 +51,19 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     /**
      * Determines whether or not two cards match this pair specification. Order 
      * should not matter. This function should be implemented by calling the 
-     * protected <code>matches(E, E)</code> function.
+     * protected {@code matches(E, E)} function.
      * @param cardA One card of the pair.
      * @param cardB The other card of the pair.
-     * @return 
+     * @return True if the cards match this pair specification, false otherwise.
      */
     public abstract boolean matches(PlayingCard cardA, PlayingCard cardB);
     
     /**
      * Determines whether an object is equal to this pair specification.
      * @param obj The object to compare for equality. May be null.
-     * @return True if <code>obj</code> is of the same runtime class as this 
-     * pair specification <em>and</em> both specify the same characteristics for 
-     * a pair of playing cards, false under any other circumstance. Order is not 
+     * @return True if {@code obj} is of the same runtime class as this pair 
+     * specification <em>and</em> both specify the same characteristics for a 
+     * pair of playing cards, false under any other circumstance. Order is not 
      * considered, but that depends on the subclasses letting this class take 
      * care of holding on to the pair characteristics.
      */
@@ -85,8 +85,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
     
     /**
      * Gives a hash code for this pair specification.
-     * @return A positive integer derived from the enumeration ordinals of the 
-     * pair of characteristics.
+     * @return An integer, most likely positive, derived from the enumeration 
+     * ordinals of the pair of characteristics.
      */
     @Override
     public int hashCode() {
@@ -111,10 +111,10 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * elements are stored so that their order as constructor parameters does 
      * not matter for equality and matching operations.
      * @param elemA Enumerated element specifying the characteristic of one card 
-     * of a pair of cards. May or may not be the same as <code>elemB</code>.
+     * of a pair of cards. May or may not be the same as {@code elemB}.
      * @param elemB Enumerated element specifying the characteristic of the 
-     * other card of the pair of cards. May or may not be the same as 
-     * <code>elemA</code>.
+     * other card of the pair of cards. May or may not be the same as {@code 
+     * elemA}.
      */
     PairSpec(E elemA, E elemB) {
         if (elemB.ordinal() > elemA.ordinal()) {
