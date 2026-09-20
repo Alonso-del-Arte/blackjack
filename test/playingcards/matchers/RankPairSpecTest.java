@@ -229,6 +229,43 @@ public class RankPairSpecTest {
     }
     
     @Test
+    public void testMatchesRejectsNullCardA() {
+        Rank rankA = SERVER.getNextCard().getRank();
+        Rank rankB = SERVER.getNextCard().getRank();
+        PairSpec instance = new RankPairSpec(rankA, rankB);
+        PlayingCard cardB = SERVER.giveCard(rankB);
+        String msg = "Trying to match pair of null card A and " 
+                + cardB.toString() + " to " + instance.toString() 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            boolean result = instance.matches(null, cardB);
+            System.out.println(msg + ", not given result " + result);
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
+    public void testMatchesRejectsNullCardB() {
+        Rank rankA = SERVER.getNextCard().getRank();
+        Rank rankB = SERVER.getNextCard().getRank();
+        PairSpec instance = new RankPairSpec(rankA, rankB);
+        PlayingCard cardA = SERVER.giveCard(rankA);
+        String msg = "Trying to match pair of " + cardA.toString() + " to " 
+                + instance.toString() + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            boolean result = instance.matches(cardA, null);
+            System.out.println(msg + ", not given result " + result);
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
     public void testConstructorRejectsNullRankA() {
         List<Rank> ranks = new ArrayList<>(RANKS_SET);
         Collections.shuffle(ranks);
