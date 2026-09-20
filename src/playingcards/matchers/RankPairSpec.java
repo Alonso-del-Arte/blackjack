@@ -39,7 +39,10 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
-        if (cardA == null || cardB == null) return false;
+        if (cardA == null || cardB == null) {
+            String excMsg = "Cards should not be null";
+            throw new NullPointerException(excMsg);
+        }
         return this.matches(cardA.getRank(), cardB.getRank());
     }
     
