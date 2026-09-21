@@ -41,7 +41,7 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * @return True if the characteristics match this pair specification, false 
      * otherwise. Order does not matter.
      */
-    protected boolean matches(E fromCardA, E fromCardB) {
+    boolean matches(E fromCardA, E fromCardB) {
         return (this.elementA.equals(fromCardA) 
                 && this.elementB.equals(fromCardB)) 
                 || (this.elementA.equals(fromCardB) 
@@ -98,7 +98,8 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * Identifies the two card specifications of this pair. This override is 
      * provided only for the sake of testing.
      * @return "(a, b)", where "a" stands for the first card specification and 
-     * "b" stands for the second card classification.
+     * "b" stands for the second card specification (the order may or may not be 
+     * the same as the constructor parameters).
      */
     @Override
     public String toString() {
