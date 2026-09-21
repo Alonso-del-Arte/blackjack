@@ -36,6 +36,8 @@ public class RankPairSpec extends PairSpec<Rank> {
      * the cards were switched, with {@code cardA} being Q&#9827; and {@code 
      * cardB} being 7&#9830;, the result would also be true. But it would be 
      * false if both cards were Sevens, or if both cards were Queens, etc.
+     * @throws NullPointerException If either {@code cardA} or {@code cardB} is 
+     * null.
      */
     @Override
     public boolean matches(PlayingCard cardA, PlayingCard cardB) {
