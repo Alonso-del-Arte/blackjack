@@ -42,10 +42,10 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * otherwise. Order does not matter.
      */
     boolean matches(E fromCardA, E fromCardB) {
-        return (this.elementA.equals(fromCardA) 
-                && this.elementB.equals(fromCardB)) 
-                || (this.elementA.equals(fromCardB) 
-                && this.elementB.equals(fromCardA));
+        return false;// (this.elementA.equals(fromCardA) 
+//                && this.elementB.equals(fromCardB)) 
+//                || (this.elementA.equals(fromCardB) 
+//                && this.elementB.equals(fromCardA));
     }
     
     /**
