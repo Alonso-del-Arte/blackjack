@@ -25,6 +25,12 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
+    // TODO: Write tests for this
+    @Override
+    boolean matches(Rank fromCardA, Rank fromCardB) {
+        return false;
+    }
+    
     /**
      * Determines whether or not two cards match this pair specification. Order 
      * does not matter. For example, suppose this pair specification is for 
