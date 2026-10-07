@@ -40,8 +40,10 @@ doesn't get a second card until the players don't want any more cards (see
 this variant).
 
 If the dealer's face-up card is an Ace, players may make side bets ("insurance") 
-that the dealer's face-down card is a Ten or a court card. Insurance is not yet 
-implemented in the console application.
+that the dealer's face-down card is a Ten or a court card. As far as I know, 
+insurance always pays 2 to 1, and every image of a blackjack table I have 
+scrutinized has words to that effect. Insurance is not yet implemented in the 
+console application.
 
 When a player's first two cards add up to 9, 10 or 11, that player may make 
 another wager equal to their original wager ("doubling down"). The dealer then 
