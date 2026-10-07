@@ -104,6 +104,19 @@ face-down card. If the dealer's score is under 17, the dealer must take cards
 until going over 16, even though this risks going bust. Once reaching or over 
 17, the dealer must stand.
 
+There's a lot of variability on what happens if the dealer has exactly 17, so 
+it's important for players to pay attention to the verbiage on the table. Some 
+tables state "Dealer must stand on all 17" or "Dealer must draw to 16, and stand 
+on all 17s". Some tables state "Dealer must stand on hard 17 or soft 18". This 
+might not be a complete listing even ignoring variations of wording or 
+punctuation with the same meaning.
+
+A hand is soft if it contains any Ace valued at 1, otherwise it is a hard hand. 
+So if the dealer has an Ace and a Six, or a ten card and a Seven, he or she must 
+stand. But if the table requires a hard 17 for the dealer to stand, and a dealer 
+has, for example, two Eights and an Ace, then he or she must draw another card 
+(remember that the dealer is not allowed to split).
+
 If the dealer stands, the dealer pays up players who have a higher score without 
 going over 21, and collects the wagers of players with a lower score. And if the 
 dealer and a player have the same score without going over, it's a stand-off, 
