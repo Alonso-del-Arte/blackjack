@@ -12,6 +12,10 @@ about payouts. Some blackjack variants require variant tables, sometimes
 including the name of the variant. See [Variants](Variants.md) for variations on 
 the game.
 
+Generally, blackjack is played with multiple decks of standard playing cards 
+shuffled together and placed in a "shoe" for the dealer to deal from. The Jokers 
+are removed (though there are a few variants using Jokers).
+
 The concept of blackjack seems simple enough. You make a wager. The dealer gives 
 you cards ("hit") until you want no more cards ("stand") or you win by having a 
 score of 21 or you lose by going over 21 ("going bust"). You can also win with a 

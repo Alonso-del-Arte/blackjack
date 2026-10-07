@@ -1,12 +1,16 @@
 # Blackjack variants
 
 There are a lot of variants of blackjack, even if we ignore individual casino 
-variations regarding what pairs may be split, how many decks are used and what 
-the payouts are.
+variations regarding what pairs may be split, how many decks are used, what the 
+payouts are and whether or not a dealer must stand on a soft 17.
 
 The game that I'm focusing on in this project is sometimes called "American 
 blackjack." It's what you can expect to play at most casinos in the United 
 States. Everything else described in this document is a variant.
+
+I am vaguely aware of variants with Jokers. It doesn't seem to be a given that 
+the Jokers would be wild, which could theoretically give a player an advantage. 
+But casinos always find a way to erode such advantages.
 
 ## Atlantic City blackjack
 
