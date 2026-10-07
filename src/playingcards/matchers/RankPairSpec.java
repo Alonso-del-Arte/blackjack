@@ -28,7 +28,7 @@ public class RankPairSpec extends PairSpec<Rank> {
     // TODO: Write tests for this
     @Override
     boolean matches(Rank fromCardA, Rank fromCardB) {
-        return false;
+        return true;
     }
     
     /**
