@@ -29,6 +29,9 @@ public class RankPairSpec extends PairSpec<Rank> {
     
     @Override
     boolean matches(Rank fromCardA, Rank fromCardB) {
+        if (fromCardA == null || fromCardB == null) {
+            return false;
+        }
         return (this.elA.equals(fromCardA) && this.elB.equals(fromCardB))  
                 || (this.elA.equals(fromCardB) && this.elB.equals(fromCardA));
     }
