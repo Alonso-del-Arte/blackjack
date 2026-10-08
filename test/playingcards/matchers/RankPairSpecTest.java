@@ -247,6 +247,25 @@ public class RankPairSpecTest {
     }
     
     @Test
+    public void testMatchesRejectsNullRankB() {
+        Rank fromCardA = SERVER.getNextCard().getRank();
+        Rank rankB = SERVER.getNextCard().getRank();
+        PairSpec instance = new RankPairSpec(fromCardA, rankB);
+        PlayingCard cardA = SERVER.giveCard(fromCardA);
+        String msg = "Trying to match pair of " + cardA.toString() 
+                + " and null to " + instance.toString() 
+                + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            boolean result = instance.matches(fromCardA, null);
+            System.out.println(msg + ", not given result " + result);
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
     public void testMatches() {
         System.out.println("matches");
         List<Rank> ranks = new ArrayList<>(RANKS_SET);
