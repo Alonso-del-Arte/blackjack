@@ -17,12 +17,15 @@
 package playingcards.matchers;
 
 import playingcards.CardServer;
+import playingcards.CardStream;
 import playingcards.PlayingCard;
 import playingcards.Rank;
 import playingcards.TestingSpec;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -40,6 +43,30 @@ public class PairSpecTest {
     private static final int NUMBER_OF_SPECS = SPECS.length;
     
     private static final CardServer SERVER = new CardServer(2);
+    
+    private static boolean isOddPip(PlayingCard card) {
+        int ordinal = card.getRank().ordinal();
+        return ordinal % 2 == 0 && ordinal < 9;
+    }
+    
+    private static boolean isEvenPip(PlayingCard card) {
+        int ordinal = card.getRank().ordinal();
+        return ordinal % 2 == 1 && ordinal < 10;
+    }
+    
+    private static final Predicate<PlayingCard> ODD_PIP_PREDICATE 
+            = (card) -> isOddPip(card);
+    
+    private static final Predicate<PlayingCard> EVEN_PIP_PREDICATE 
+            = (card) -> isEvenPip(card);
+    
+    private static final Predicate<PlayingCard> ROYAL_CARD_PREDICATE 
+            = (card) -> card.getRank().isCourtRank();
+    
+    private static final Map<TestingSpec, Predicate<PlayingCard>> 
+            SPEC_PREDICATE_MAP = Map.of(TestingSpec.ODD_PIP, ODD_PIP_PREDICATE, 
+                    TestingSpec.EVEN_PIP, EVEN_PIP_PREDICATE, 
+                    TestingSpec.COURT, ROYAL_CARD_PREDICATE);
     
     /**
      * Test of the toString function, of the PairSpec class.
@@ -172,20 +199,25 @@ public class PairSpecTest {
     /**
      * Test of the matches function, of the PairSpec class.
      */
-    @org.junit.Ignore
     @Test
     public void testMatches() {
         System.out.println("matches");
-        Rank cardARank = Rank.THREE;
-        Rank cardBRank = Rank.QUEEN;
-        PlayingCard cardA = SERVER.giveCard(cardARank);
-        PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        String msg = "Pair specification for " + TestingSpec.COURT.getWord()
-                + " and " + TestingSpec.ODD_PIP.getWord() + " should match " 
-                + cardA.toString() + " and " + cardB.toString();
-        assert spec.matches(cardA, cardB) : msg;
+        for (TestingSpec fromCardA : SPECS) {
+            Predicate<PlayingCard> predicateA 
+                    = SPEC_PREDICATE_MAP.get(fromCardA);
+            PlayingCard cardA = CardStream.giveCard(predicateA);
+            for (TestingSpec fromCardB : SPECS) {
+                Predicate<PlayingCard> predicateB 
+                        = SPEC_PREDICATE_MAP.get(fromCardB);
+                PlayingCard cardB = CardStream.giveCard(predicateB);
+                PairSpec<TestingSpec> instance 
+                        = new PairSpecImpl(fromCardB, fromCardB);
+                String msg = "Pair specification for " + fromCardA.getWord() 
+                        + " and " + fromCardB.getWord() + " should match " 
+                        + cardA.toString() + " and " + cardB.toString();
+                assert instance.matches(fromCardA, fromCardB) : msg;
+            }
+        }
     }
 
     /**
