@@ -25,10 +25,12 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
-    // TODO: Write tests for this
+    private final Rank elA, elB;
+    
     @Override
     boolean matches(Rank fromCardA, Rank fromCardB) {
-        return true;
+        return (this.elA.equals(fromCardA) && this.elB.equals(fromCardB))  
+                || (this.elA.equals(fromCardB) && this.elB.equals(fromCardA));
     }
     
     /**
@@ -66,6 +68,8 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
+        this.elA = rankA;
+        this.elB = rankB;
     }
 
 }
