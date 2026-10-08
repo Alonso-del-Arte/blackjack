@@ -29,7 +29,11 @@ public class RankPairSpec extends PairSpec<Rank> {
     
     @Override
     boolean matches(Rank fromCardA, Rank fromCardB) {
-        if (fromCardA == null || fromCardB == null) {
+        if (fromCardA == null) {
+            String excMsg = "Rank A should not be null";
+            throw new NullPointerException(excMsg);
+        }
+        if (fromCardB == null) {
             return false;
         }
         return (this.elA.equals(fromCardA) && this.elB.equals(fromCardB))  
