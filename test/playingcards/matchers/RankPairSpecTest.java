@@ -210,6 +210,24 @@ public class RankPairSpecTest {
     }
     
     @Test
+    public void testDoesNotMatchRanks() {
+        List<Rank> ranks = new ArrayList<>(RANKS_SET);
+        Collections.shuffle(ranks);
+        Rank fromCardA = ranks.removeFirst();
+        Collections.shuffle(ranks);
+        Rank fromCardB = ranks.removeLast();
+        Collections.shuffle(ranks);
+        Rank cardCRank = ranks.getFirst();
+        PlayingCard cardA = SERVER.giveCard(fromCardA);
+        PlayingCard cardB = SERVER.giveCard(fromCardB);
+        RankPairSpec spec = new RankPairSpec(cardCRank, fromCardA);
+        String msg = "Pair specification for " + fromCardA.getWord() 
+                + " and " + cardCRank.getWord() + " should NOT match " 
+                + cardA.toString() + " and " + cardB.toString();
+        assert !spec.matches(fromCardA, fromCardB) : msg;
+    }
+    
+    @Test
     public void testMatches() {
         System.out.println("matches");
         List<Rank> ranks = new ArrayList<>(RANKS_SET);
