@@ -302,7 +302,7 @@ public class PairSpecTest {
     }
            
     
-    class PairSpecImpl extends PairSpec<TestingSpec> {
+    private class PairSpecImpl extends PairSpec<TestingSpec> {
         
         private static TestingSpec classify(PlayingCard card) {
             switch (card.getRank()) {
