@@ -321,7 +321,7 @@ public class PairSpecTest {
 
         @Override
         public boolean matches(PlayingCard cardA, PlayingCard cardB) {
-            return this.matches(this.classify(cardA), this.classify(cardB));
+            return this.matches(classify(cardA), classify(cardB));
         }
 
         public PairSpecImpl(TestingSpec specA, TestingSpec specB) {
