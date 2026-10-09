@@ -220,22 +220,46 @@ public class PairSpecTest {
         }
     }
 
-    /**
-     * Another test of the matches function, of the PairSpec class.
-     */
-    @org.junit.Ignore
     @Test
-    public void testDoesNotMatch() {
-        Rank cardARank = Rank.THREE;
-        Rank cardBRank = Rank.QUEEN;
-        PlayingCard cardA = SERVER.giveCard(cardARank);
-        PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.EVEN_PIP, 
-                TestingSpec.COURT);
-        String msg = "Pair specification for " + TestingSpec.EVEN_PIP.getWord()
-                + " and " + TestingSpec.COURT.getWord() + " should NOT match " 
-                + cardA.toString() + " and " + cardB.toString();
-        assert !spec.matches(cardA, cardB) : msg;
+    public void testDoesNotMatchFromA() {
+        for (TestingSpec fromCardA : SPECS) {
+            Predicate<PlayingCard> predicateA 
+                    = SPEC_PREDICATE_MAP.get(fromCardA);
+            PlayingCard cardA = CardStream.giveCard(predicateA.negate());
+            for (TestingSpec fromCardB : SPECS) {
+                Predicate<PlayingCard> predicateB 
+                        = SPEC_PREDICATE_MAP.get(fromCardB);
+                PlayingCard cardB = CardStream.giveCard(predicateB);
+                PairSpec<TestingSpec> instance 
+                        = new PairSpecImpl(fromCardA, fromCardB);
+                String msg = "Pair specification for " + fromCardA.getWord() 
+                        + " and " + fromCardB.getWord() + " should not match " 
+                        + cardA.toString() + " and " + cardB.toString();
+                assert !instance.matches(PairSpecImpl.classify(cardA), 
+                        fromCardB) : msg;
+            }
+        }
+    }
+
+    @Test
+    public void testDoesNotMatchFromB() {
+        for (TestingSpec fromCardA : SPECS) {
+            Predicate<PlayingCard> predicateA 
+                    = SPEC_PREDICATE_MAP.get(fromCardA);
+            PlayingCard cardA = CardStream.giveCard(predicateA);
+            for (TestingSpec fromCardB : SPECS) {
+                Predicate<PlayingCard> predicateB 
+                        = SPEC_PREDICATE_MAP.get(fromCardB);
+                PlayingCard cardB = CardStream.giveCard(predicateB.negate());
+                PairSpec<TestingSpec> instance 
+                        = new PairSpecImpl(fromCardA, fromCardB);
+                String msg = "Pair specification for " + fromCardA.getWord() 
+                        + " and " + fromCardB.getWord() + " should not match " 
+                        + cardA.toString() + " and " + cardB.toString();
+                assert !instance.matches(fromCardA, 
+                        PairSpecImpl.classify(cardB)) : msg;
+            }
+        }
     }
 
     /**
@@ -298,7 +322,7 @@ public class PairSpecTest {
     
     class PairSpecImpl extends PairSpec<TestingSpec> {
         
-        private TestingSpec classify(PlayingCard card) {
+        private static TestingSpec classify(PlayingCard card) {
             switch (card.getRank()) {
                 case ACE, THREE, FIVE, SEVEN, NINE -> {
                     return TestingSpec.ODD_PIP;
