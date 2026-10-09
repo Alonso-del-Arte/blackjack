@@ -19,7 +19,6 @@ package playingcards.matchers;
 import playingcards.CardServer;
 import playingcards.CardStream;
 import playingcards.PlayingCard;
-import playingcards.Rank;
 import playingcards.TestingSpec;
 
 import java.util.HashSet;
