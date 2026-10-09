@@ -16,7 +16,6 @@
  */
 package playingcards.matchers;
 
-import playingcards.CardServer;
 import playingcards.CardStream;
 import playingcards.PlayingCard;
 import playingcards.TestingSpec;
@@ -40,8 +39,6 @@ public class PairSpecTest {
     private static final TestingSpec[] SPECS = TestingSpec.values();
     
     private static final int NUMBER_OF_SPECS = SPECS.length;
-    
-    private static final CardServer SERVER = new CardServer(2);
     
     private static boolean isOddPip(PlayingCard card) {
         int ordinal = card.getRank().ordinal();
