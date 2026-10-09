@@ -262,24 +262,6 @@ public class PairSpecTest {
         }
     }
 
-    /**
-     * Another test of the matches function, of the PairSpec class.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testMatchesRegardlessOrder() {
-        Rank cardARank = Rank.QUEEN;
-        Rank cardBRank = Rank.THREE;
-        PlayingCard cardA = SERVER.giveCard(cardARank);
-        PlayingCard cardB = SERVER.giveCard(cardBRank);
-        PairSpec spec = new PairSpecImpl(TestingSpec.COURT, 
-                TestingSpec.ODD_PIP);
-        String msg = "Pair specification for " + TestingSpec.COURT.getWord()
-                + " and " + TestingSpec.ODD_PIP.getWord() + " should match " 
-                + cardA.toString() + " and " + cardB.toString();
-        assert spec.matches(cardA, cardB) : msg;
-    }
-    
     @Test
     public void testConstructorRejectsNullElementA() {
         for (TestingSpec specB : SPECS) {
