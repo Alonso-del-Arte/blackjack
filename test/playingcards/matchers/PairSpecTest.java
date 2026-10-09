@@ -211,7 +211,7 @@ public class PairSpecTest {
                         = SPEC_PREDICATE_MAP.get(fromCardB);
                 PlayingCard cardB = CardStream.giveCard(predicateB);
                 PairSpec<TestingSpec> instance 
-                        = new PairSpecImpl(fromCardB, fromCardB);
+                        = new PairSpecImpl(fromCardA, fromCardB);
                 String msg = "Pair specification for " + fromCardA.getWord() 
                         + " and " + fromCardB.getWord() + " should match " 
                         + cardA.toString() + " and " + cardB.toString();
