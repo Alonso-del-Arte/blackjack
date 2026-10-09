@@ -10,7 +10,8 @@ States. Everything else described in this document is a variant.
 
 I am vaguely aware of variants with Jokers. It doesn't seem to be a given that 
 the Jokers would be wild, which could theoretically give a player an advantage. 
-But casinos always find a way to erode such advantages.
+But casinos always find a way to erode such advantages. Or at least limit them, 
+such as, for example, putting in only one Joker in a 6-deck shoe.
 
 ## Atlantic City blackjack
 
