@@ -320,7 +320,7 @@ public class PairSpecTest {
             return this.matches(classify(cardA), classify(cardB));
         }
 
-        public PairSpecImpl(TestingSpec specA, TestingSpec specB) {
+        private PairSpecImpl(TestingSpec specA, TestingSpec specB) {
             super(specA, specB);
         }
 
