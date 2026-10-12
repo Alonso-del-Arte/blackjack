@@ -31,7 +31,8 @@ import static org.junit.Assert.*;
 import static org.testframe.api.Asserters.assertThrows;
 
 /**
- * Tests of the PairSpec class.
+ * Tests of the PairSpec class. These tests use an implementation of {@code 
+ * PairSpec} on {@link playingcards.TestingSpec TestingSpec}.
  * @author Alonso del Arte
  */
 public class PairSpecTest {
