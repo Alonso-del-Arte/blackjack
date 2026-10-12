@@ -300,7 +300,7 @@ public class PairSpecTest {
     
     private class PairSpecImpl extends PairSpec<TestingSpec> {
         
-        private static TestingSpec classify(PlayingCard card) {
+        static TestingSpec classify(PlayingCard card) {
             switch (card.getRank()) {
                 case ACE, THREE, FIVE, SEVEN, NINE -> {
                     return TestingSpec.ODD_PIP;
@@ -320,7 +320,7 @@ public class PairSpecTest {
             return this.matches(classify(cardA), classify(cardB));
         }
 
-        private PairSpecImpl(TestingSpec specA, TestingSpec specB) {
+        PairSpecImpl(TestingSpec specA, TestingSpec specB) {
             super(specA, specB);
         }
 
