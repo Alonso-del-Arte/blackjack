@@ -280,6 +280,26 @@ public class PairSpecTest {
     }
 
     @Test
+    public void testMatchesRejectsNullSpecB() {
+        for (TestingSpec specA : SPECS) {
+            for (TestingSpec specB : SPECS) {
+                PairSpec<TestingSpec> instance = new PairSpecImpl(specA, specB);
+                String msg = "Trying to match spec A " + specA.getWord() 
+                        + " and null spec B to " + instance.toString()
+                        + " should cause exception";
+                Throwable t = assertThrows(() -> {
+                    boolean result = instance.matches(specA, null);
+                    System.out.println(msg + ", not given result " + result);
+                }, NullPointerException.class, msg);
+                String excMsg = t.getMessage();
+                assert excMsg != null : "Exception message should not be null";
+                assert !excMsg.isBlank() 
+                        : "Exception message should not be null";
+            }
+        }
+    }
+
+    @Test
     public void testConstructorRejectsNullElementA() {
         for (TestingSpec specB : SPECS) {
             String msg = "Constructor should reject null A with B " 
