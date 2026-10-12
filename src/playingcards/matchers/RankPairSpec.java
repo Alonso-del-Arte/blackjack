@@ -25,14 +25,6 @@ import playingcards.Rank;
  */
 public class RankPairSpec extends PairSpec<Rank> {
     
-    private final Rank elA, elB;
-    
-    @Override
-    boolean matches(Rank fromCardA, Rank fromCardB) {
-        return (fromCardA.equals(this.elA) && fromCardB.equals(this.elB))  
-                || (fromCardB.equals(this.elA) && fromCardA.equals(this.elB));
-    }
-    
     /**
      * Determines whether or not two cards match this pair specification. Order 
      * does not matter. For example, suppose this pair specification is for 
@@ -68,8 +60,6 @@ public class RankPairSpec extends PairSpec<Rank> {
      */
     public RankPairSpec(Rank rankA, Rank rankB) {
         super(rankA, rankB);
-        this.elA = rankA;
-        this.elB = rankB;
     }
 
 }
