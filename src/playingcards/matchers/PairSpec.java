@@ -42,6 +42,10 @@ abstract class PairSpec<E extends Enum & CardSpec> {
      * otherwise. Order does not matter.
      */
     boolean matches(E fromCardA, E fromCardB) {
+        if (fromCardA == null) {
+            String excMsg = "Card specification A should not be null";
+            throw new NullPointerException(excMsg);
+        }
         return (this.elementA.equals(fromCardA) 
                 && this.elementB.equals(fromCardB)) 
                 || (this.elementA.equals(fromCardB) 
