@@ -53,8 +53,8 @@ a combined value of 17.
 
 The concept of blackjack seems simple enough. You make a wager. The dealer gives 
 you cards ("hit") until you want no more cards ("stand") or you win by having a 
-score of 21 or you lose by going over 21 ("going bust"). You can also win with a 
-score of 18, 19 or 20 if the dealer had to stand on 17.
+score of 21 or you lose by going over 21 ("going bust"). You might also win with 
+a score of 18, 19 or 20 if the dealer has an even lower score or goes bust.
 
 The court cards (J&#9824;, Q&#9824;, K&#9824;, J&#9829;, etc.) are valued at 10 
 each. Aces are valued at 1 or 11 at the player's discretion, though in practice 
