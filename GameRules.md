@@ -17,7 +17,39 @@ shuffled together and placed in a "shoe" for the dealer to deal from. Each
 regular card has one of four suits (Spades, Diamonds, Clubs and Hearts) and one 
 of thirteen ranks (Ace, Two through Ten, Jack, Queen and King).
 
-The Jokers are removed (though there are a few variants using Jokers).
+The rank and suit symbols are traditionally printed on both long edges of each 
+card in a symmetrical manner. Traditional designs take up the main area of the 
+card, though virtual casinos with live dealers tend to use special cards in 
+which the rank and suit symbols are printed large on each card without the 
+traditional designs.
+
+The royal cards have special traditional designs featuring a symmetrical 
+portrait of a prince (jack), queen or king.
+
+The even pip cards (Two, Four, Six, Eight and Ten) have on the main area of the 
+card an arrangement of the suit symbols (pips) arranged in a symmetrical manner.
+
+The odd pip cards (Ace, Three, Five, Seven and Nine) have similar arrangements 
+of pips which would be symmetrical but for the central pip, though some Nine 
+cards further break the symmetry by offsetting the central pip to the "upper" 
+region of the card. The Ace of Spades almost always has a special design that's 
+different from the other Aces.
+
+Physically printed decks typically come with four additional special cards: two 
+Jokers and two advertisement cards. To my knowledge, there is no commonly played 
+card game using the advertisement cards. The Jokers are removed for most casino 
+games, including blackjack (though there are a few blackjack variants using 
+Jokers).
+
+Games that use Jokers may make them "wild," meaning that they can be used in 
+place of a regular card that the player wishes he had but doesn't. Poker seems 
+to be the only major game using Jokers, but this usually has to be declared 
+before any cards are dealt, e.g., "poker, Aces high, Jokers wild."
+
+The value of Aces and royal cards depend on the game. The numbered pip cards are 
+almost always valued at the face value of the rank, e.g., a Seven of Clubs is 
+valued as 7. That Seven of Clubs together with, say, a Ten of Hearts, would have 
+a combined value of 17.
 
 The concept of blackjack seems simple enough. You make a wager. The dealer gives 
 you cards ("hit") until you want no more cards ("stand") or you win by having a 
