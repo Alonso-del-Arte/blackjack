@@ -13,8 +13,11 @@ including the name of the variant. See [Variants](Variants.md) for variations on
 the game.
 
 Generally, blackjack is played with multiple decks of standard playing cards 
-shuffled together and placed in a "shoe" for the dealer to deal from. The Jokers 
-are removed (though there are a few variants using Jokers).
+shuffled together and placed in a "shoe" for the dealer to deal from. Each 
+regular card has one of four suits (Spades, Diamonds, Clubs and Hearts) and one 
+of thirteen ranks (Ace, Two through Ten, Jack, Queen and King).
+
+The Jokers are removed (though there are a few variants using Jokers).
 
 The concept of blackjack seems simple enough. You make a wager. The dealer gives 
 you cards ("hit") until you want no more cards ("stand") or you win by having a 
