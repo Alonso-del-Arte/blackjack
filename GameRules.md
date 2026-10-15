@@ -81,8 +81,7 @@ this variant).
 If the dealer's face-up card is an Ace, players may make side bets ("insurance") 
 that the dealer's face-down card is a Ten or a court card. As far as I know, 
 insurance always pays 2 to 1, and every image of a blackjack table I have 
-scrutinized has words to that effect. Insurance is not yet implemented in the 
-console application.
+scrutinized has words to that effect.
 
 When a player's first two cards add up to 9, 10 or 11, that player may make 
 another wager equal to their original wager ("doubling down"). The dealer then 
@@ -92,8 +91,7 @@ settled. Doubling down is also not yet implemented in the console application.
 If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 
 7&#9827;), the player may split them into separate hands. Some casinos don't 
 allow certain splits, and other casinos allow some splits of cards of unequal 
-rank. Although the `Hand` class has support for most splits of cards of equal 
-rank, this is not yet used in any form in the console application.
+rank.
 
 Only the dealer may touch the cards, and that includes cards that have been 
 dealt to the players. To request a hand be split, a player says "split," or 
