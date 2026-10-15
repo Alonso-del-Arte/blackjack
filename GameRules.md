@@ -86,7 +86,7 @@ scrutinized has words to that effect.
 When a player's first two cards add up to 9, 10 or 11, that player may make 
 another wager equal to their original wager ("doubling down"). The dealer then 
 gives that player a card face down, which stays face down until other bets are 
-settled. Doubling down is also not yet implemented in the console application.
+settled.
 
 If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 
 7&#9827;), the player may split them into separate hands. Some casinos don't 
