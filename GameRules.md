@@ -102,6 +102,14 @@ From there, game play proceeds the same as if the two hands were held by
 different players, though some casinos place limits on how many times a player 
 may split. The dealer is never allowed to split the dealer's hand.
 
+In the earlier scenario of a player getting two Aces, splitting them may be an 
+option. That can be very advantageous for the player, especially if the next two 
+cards to be dealt are likely to be Tens or royal cards. That would not count as 
+natural blackjack. Even so, some casinos restrict splitting Aces.
+
+As a matter of basic strategy, players are strongly advised to always split 
+Eights. Splitting other pairs is subject to disagreement among expert players.
+
 At first I misunderstood wagers for splits. Suppose that you have wagered $100 
 and you decide to split your hand. I mistakenly thought that then both of your 
 hands would have $50 wagers. But I've been told that in such a case, the player 
