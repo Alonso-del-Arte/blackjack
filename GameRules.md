@@ -89,9 +89,9 @@ gives that player a card face down, which stays face down until other bets are
 settled.
 
 If a player's first two cards are a pair of equal rank (e.g., 7&#9830; and 
-7&#9827;), the player may split them into separate hands. Some casinos don't 
-allow certain splits, and other casinos allow some splits of cards of unequal 
-rank.
+7&#9827;), the player may ask the dealer to split them into separate hands. Some 
+casinos don't allow certain splits, and other casinos allow some splits of cards 
+of unequal rank.
 
 Only the dealer may touch the cards, and that includes cards that have been 
 dealt to the players. To request a hand be split, a player says "split," or 
