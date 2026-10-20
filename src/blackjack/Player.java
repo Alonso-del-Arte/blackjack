@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -29,7 +29,7 @@ public class Player {
     
     private final String playerName;
     
-    private final ArrayList<Hand> hands = new ArrayList<>();
+    private final List<Hand> hands = new ArrayList<>();
     
     private CurrencyAmount bankroll = new CurrencyAmount(Long.MIN_VALUE, 
             java.util.Currency.getInstance("LYD"));
