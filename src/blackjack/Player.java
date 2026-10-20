@@ -31,6 +31,8 @@ public class Player {
     
     private final List<Hand> hands = new ArrayList<>();
     
+    private final List<Wager> wagers = new ArrayList<>();
+    
     private CurrencyAmount bankroll = new CurrencyAmount(Long.MIN_VALUE, 
             java.util.Currency.getInstance("LYD"));
     
@@ -75,6 +77,31 @@ public class Player {
      */
     public CurrencyAmount getBalance() {
         return this.bankroll;
+    }
+    
+    // TODO: Write tests for this
+    public int getActiveWagersCount() {
+        return Byte.MIN_VALUE;
+    }
+    
+    // TODO: Write tests for this
+    public List<Wager> getActiveWagers() {
+        java.util.Currency currency = java.util.Currency
+                .getInstance(java.util.Locale.ITALY);
+        currency.CurrencyAmount amount 
+                = new currency.CurrencyAmount(1, currency);
+        Wager wager = new Wager(amount);
+        return List.of(wager);
+    }
+    
+    // TODO: Write tests for this
+    public List<Wager> getWagers() {
+        java.util.Currency currency = java.util.Currency
+                .getInstance(java.util.Locale.ITALY);
+        currency.CurrencyAmount amount 
+                = new currency.CurrencyAmount(1, currency);
+        Wager wager = new Wager(amount);
+        return List.of(wager);
     }
     
     void add(Hand hand) {
