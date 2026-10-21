@@ -48,7 +48,7 @@ public class Player {
      * Should be 0 in between rounds.
      */
     public int getActiveHandsCount() {
-        return 0;
+        return this.hands.size();
 //        return (int) this.hands.stream().filter(hand -> !hand.isSettled())
 //                .count();
     }
