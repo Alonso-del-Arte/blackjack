@@ -16,10 +16,19 @@ such as, for example, putting in only one Joker in a 6-deck shoe.
 ## Atlantic City blackjack
 
 This variant, which first emerged in Atlantic City casinos, allows late 
-surrender (you can give up half the bet of a bad hand). Also, you can split 
-pairs thrice. Payout for natural blackjack is 6 to 5, rather than 3 to 2, 
-depending on the casino. Though it has been a general trend for casinos to get 
-stingier with payouts overall.
+surrender, in which you can give up half the bet of a bad hand rather than play 
+the hand to the grueling end. For example, your hand's value is 15, the dealer 
+is showing a Ten of Clubs and you believe you will bust if you take another 
+card. If the dealer doesn't have natural blackjack, then you may surrender half 
+your wager and keep the other half, instead of losing your whole wager when the 
+dealer stands on something higher than 15.
+
+Also, you can split pairs thrice, which might in some cases be a better way to 
+cope with a bad hand (such as a pair of Eights). 
+
+Payout for natural blackjack is 6 to 5, rather than 3 to 2, depending on the 
+casino. Though it has been a general trend for casinos to get stingier with 
+payouts overall.
 
 ## Blackjack Switch&reg;
 
