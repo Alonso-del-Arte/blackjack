@@ -61,30 +61,19 @@ public class PlayerTest {
     @Test
     public void testNoAddNegativeToBankroll() {
         Player player = getPlayer();
-        int minusCents = -DealerTest.RANDOM.nextInt(10000) - 1;
-        CurrencyAmount negational = new CurrencyAmount(minusCents, 
-                WagerTest.DOLLARS);
-        String negAmtStr = negational.toString();
-        try {
-            player.add(negational);
-            String msg = "Should not have been able to add " + negAmtStr 
-                    + " to player's bankroll";
-            fail(msg);
-        } catch (IllegalArgumentException iae) {
-            System.out.println("Trying to add " + negAmtStr  
-                    + " to bankroll correctly caused IllegalArgumentException");
-            String excMsg = iae.getMessage();
-            assert excMsg != null : "Message should not be null";
-            String msg = "Exception message should include \"" + negAmtStr 
-                    + "\"";
-            assert excMsg.contains(negAmtStr) : msg;
-            System.out.println("\"" + excMsg + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception to throw for trying to add " 
-                    + negAmtStr + " to player's bankroll";
-            fail(msg);
-        }
+        int cents = -DealerTest.RANDOM.nextInt(10000) - 1;
+        CurrencyAmount amount = new CurrencyAmount(cents, WagerTest.DOLLARS);
+        String negAmtStr = amount.toString();
+        String msg = "Trying to add " + negAmtStr + " should cause exception";
+        Throwable t = assertThrows(() -> {
+            player.add(amount);
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Message should not be null";
+        String containsMsg = "Exception message should include \"" + negAmtStr 
+                + "\"";
+        assert excMsg.contains(negAmtStr) : containsMsg;
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
