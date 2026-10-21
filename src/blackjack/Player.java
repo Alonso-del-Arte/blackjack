@@ -117,13 +117,14 @@ public class Player {
      * @throws currency.CurrencyConversionNeededException If the amount to be 
      * added is of a different currency. For example, if the player's bankroll 
      * is $2,000, trying to add 100&euro; would cause this exception.
+     * @throws IllegalArgumentException If {@code amount} is negative.
      */
     public void add(CurrencyAmount amount) {
-//        if (amount.isNegative()) {
-//            String excMsg = "Can't add " + amount.toString() 
-//                    + " to bankroll, should not be negative";
-//            throw new IllegalArgumentException(excMsg);
-//        }
+        if (amount.isNegative()) {
+            String excMsg = "Can't add " + amount.toString() 
+                    + " to bankroll, should not be negative";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.bankroll = this.bankroll.plus(amount);
     }
     
