@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import playingcards.CardServer;
+import playingcards.PlayingCard;
 import playingcards.Rank;
 
 import static org.junit.Assert.*;
@@ -95,28 +96,23 @@ public class PlayerTest {
         assertZero(actual, msg);
     }
     
-    @org.junit.Ignore
     @Test
     public void testGetActiveHandsCount() {
         System.out.println("getActiveHandsCount");
-        fail("REWRITE THIS TEST");
-        Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
-        firstHand.add(SERVER.giveCard(Rank.EIGHT));
-        firstHand.add(SERVER.getNextCard());
-        Hand secondHand = new Hand(HandTest.DEFAULT_WAGER);
-        secondHand.add(SERVER.giveCard(Rank.EIGHT));
-        secondHand.add(SERVER.getNextCard());
-        Hand thirdHand = new Hand(HandTest.DEFAULT_WAGER);
-        thirdHand.add(SERVER.giveCard(Rank.EIGHT));
-        thirdHand.add(SERVER.getNextCard());
         Player player = getPlayer();
-        assertEquals(0, player.getActiveHandsCount());
-        player.add(firstHand);
-        assertEquals(1, player.getActiveHandsCount());
-        player.add(secondHand);
-        assertEquals(2, player.getActiveHandsCount());
-        player.add(thirdHand);
-        assertEquals(3, player.getActiveHandsCount());
+        int initialCapacity = 4;
+        List<Hand> hands = new ArrayList<>(initialCapacity);
+        String msgPart = "Getting active hand count for player with ";
+        for (int expected = 1; initialCapacity >= expected; expected++) {
+            PlayingCard firstCard = SERVER.getNextCard();
+            Hand hand = new Hand(HandTest.DEFAULT_WAGER, firstCard);
+            hand.add(SERVER.getNextCard());
+            player.add(hand);
+            int actual = player.getActiveHandsCount();
+            hands.add(hand);
+            String message = msgPart + hands.toString();
+            assertEquals(message, expected, actual);
+        }
     }
     
     @Test
