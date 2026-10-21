@@ -28,6 +28,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import static org.testframe.api.Asserters.assertThrows;
+import static org.testframe.api.Asserters.assertZero;
 
 /**
  * Tests of the Player class.
@@ -83,6 +84,15 @@ public class PlayerTest {
         Player player = new Player(expected, DEFAULT_INITIAL_BANKROLL);
         String actual = player.getName();
         assertEquals(expected, actual);
+    }
+    
+    @Test
+    public void testGetActiveHandsCountZeroAtFirst() {
+        Player player = new Player(DEFAULT_PLAYER_NAME, 
+                DEFAULT_INITIAL_BANKROLL);
+        String msg = "New player at table shouldn't have active hands";
+        int actual = player.getActiveHandsCount();
+        assertZero(actual, msg);
     }
     
     @org.junit.Ignore
