@@ -115,18 +115,25 @@ public class PlayerTest {
         }
     }
     
+    /**
+     * Another test of the getActiveHandsCount function of the Player class. For 
+     * this test, it doesn't matter why the hand is settled, only that it is.
+     */
     @Test
     public void testSettledHandDoesNotCountAsActive() {
         Hand hand = new Hand(HandTest.DEFAULT_WAGER);
-        hand.add(SERVER.giveCard(Rank.TEN));
-        hand.add(SERVER.giveCard(Rank.TEN));
+        hand.add(SERVER.getNextCard());
+        hand.add(SERVER.getNextCard());
         Player player = getPlayer();
         player.add(hand);
-        assertEquals(1, player.getActiveHandsCount());
+        while (hand.cardsValue() < 21) {
+            hand.add(SERVER.getNextCard());
+        }
         hand.markSettled();
-        String message = "After player stands on hand " + hand.toString() 
-                + ", that hand should not count as active";
-        assertEquals(message, 0, player.getActiveHandsCount());
+        String msg = "After hand " + hand.toString() 
+                + " is settled, that hand should not count as active";
+        int actual = player.getActiveHandsCount();
+        assertZero(actual, msg);
     }
     
     @Test
