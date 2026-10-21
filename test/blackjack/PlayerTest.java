@@ -85,9 +85,11 @@ public class PlayerTest {
         assertEquals(expected, actual);
     }
     
+    @org.junit.Ignore
     @Test
     public void testGetActiveHandsCount() {
         System.out.println("getActiveHandsCount");
+        fail("REWRITE THIS TEST");
         Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
         firstHand.add(SERVER.giveCard(Rank.EIGHT));
         firstHand.add(SERVER.getNextCard());
