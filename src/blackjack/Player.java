@@ -81,7 +81,7 @@ public class Player {
     
     // TODO: Write tests for this
     public int getActiveWagersCount() {
-        return Byte.MIN_VALUE;
+        return 0;
     }
     
     // TODO: Write tests for this
