@@ -137,6 +137,15 @@ public class PlayerTest {
     }
     
     @Test
+    public void testGetActiveWagersCountZeroAtFirst() {
+        Player player = new Player(DEFAULT_PLAYER_NAME, 
+                DEFAULT_INITIAL_BANKROLL);
+        String msg = "New player at table shouldn't have active wagers";
+        int actual = player.getActiveWagersCount();
+        assertZero(actual, msg);
+    }
+    
+    @Test
     public void testGetHands() {
         System.out.println("getHands");
         Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
