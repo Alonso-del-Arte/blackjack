@@ -146,6 +146,29 @@ public class PlayerTest {
     }
     
     @Test
+    public void testGetActiveWagersCount() {
+        System.out.println("getActiveWagersCount");
+        Player player = getPlayer();
+        int initialCapacity = 4;
+        List<Hand> hands = new ArrayList<>(initialCapacity);
+        String msgPart = "Getting active wager count for player with ";
+        for (int expected = 1; initialCapacity >= expected; expected++) {
+            PlayingCard firstCard = SERVER.getNextCard();
+            Hand hand = new Hand(HandTest.DEFAULT_WAGER, firstCard);
+            hand.add(SERVER.getNextCard());
+            player.add(hand);
+            int actual = player.getActiveWagersCount();
+            hands.add(hand);
+            String message = msgPart + hands.toString();
+            assertEquals(message, expected, actual);
+        }
+    }
+    
+    // TODO: Test insurance wagers and others get counted
+    
+    // TODO: Test settled wagers don't count as active
+    
+    @Test
     public void testGetHands() {
         System.out.println("getHands");
         Hand firstHand = new Hand(HandTest.DEFAULT_WAGER);
