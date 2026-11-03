@@ -103,6 +103,9 @@ has natural blackjack. If you get to 21 by three or more cards, you also beat
 the dealer, unless the dealer happens to have natural blackjack, in which case 
 the dealer wins.
 
+The payout for natural blackjack in Spanish 21 is 3:2, as it would be unfair to 
+reduce it to 6:5 given that natural blackjack is harder to get in this variant.
+
 Note that Spanish 21 is a registered trademark of Masque Publishing since 2001, 
 renewed in 2020. I don't have a Spanish 21 license. While I don't discourage you 
 from using my software package to play Spanish 21, I don't encourage that 
