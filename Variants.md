@@ -97,9 +97,11 @@ that player wins a side bet.
 
 ## Spanish 21
 
-Standard decks are used but with the Tens removed. This makes blackjack harder 
-to get, but when you do get blackjack, you win even if the dealer also has 
-blackjack.
+Standard decks are used but with the Tens removed. This makes natural blackjack 
+harder to get, but when you do get blackjack, you win even if the dealer also 
+has natural blackjack. If you get to 21 by three or more cards, you also beat 
+the dealer, unless the dealer happens to have natural blackjack, in which case 
+the dealer wins.
 
 Note that Spanish 21 is a registered trademark of Masque Publishing since 2001, 
 renewed in 2020. I don't have a Spanish 21 license. While I don't discourage you 
