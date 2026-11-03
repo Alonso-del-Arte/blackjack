@@ -81,7 +81,7 @@ public class Player {
     
     // TODO: Write tests for this
     public int getActiveWagersCount() {
-        return 0;
+        return this.getActiveHandsCount();
     }
     
     // TODO: Write tests for this
