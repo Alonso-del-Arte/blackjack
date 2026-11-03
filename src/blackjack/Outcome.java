@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -48,13 +48,17 @@ public enum Outcome {
      */
     BUST_WITH_DEALER_BUST,
     
-    // TODO: Finish writing Javadoc
     /**
-     * When neither the player nor the dealer has 21, but neither [FINISH 
-     * WRITING]
+     * When neither the player nor the dealer has 21, but the dealer and the 
+     * player have the same score, it's a stand-off. For example, say the dealer 
+     * has a Ten of Hearts showing and the player stands after getting three 
+     * cards adding up to 20, hoping that the dealer will stand on 17, 18 or 19. 
+     * But instead it turns out the dealer's face down card is a Ten of Clubs. 
+     * That would be a stand-off.
      */
     STANDOFF, 
     
+    // TODO: Finish writing Javadoc
     OVER,
     
     UNDER;
