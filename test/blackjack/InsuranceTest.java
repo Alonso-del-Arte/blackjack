@@ -17,8 +17,17 @@
  */
 package blackjack;
 
+import static blackjack.DealerTest.RANDOM;
+import currency.CurrencyAmount;
+import currency.CurrencyChooser;
+
+import java.util.Currency;
+import java.util.Locale;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import static org.testframe.api.Asserters.assertThrows;
 
 /**
  * Tests of the Insurance class.
@@ -54,6 +63,27 @@ public class InsuranceTest {
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
+    }
+    
+    @Test
+    public void testConstructorRequiresInsuranceWager() {
+        int cents = RANDOM.nextInt(10000, 100000);
+        Currency currency = CurrencyChooser.chooseCurrency(
+                cur -> !cur.getSymbol().equals(cur.getCurrencyCode())
+        );
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, false);
+        String msg = "Constructor should reject " + wager.toString() 
+                + ", which is not marked as an insurance wager";
+        Throwable t = assertThrows(() -> {
+            Insurance badInstance = new Insurance(wager);
+            System.out.println(msg + ", not created instance " 
+                    + badInstance.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
 }
