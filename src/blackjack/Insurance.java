@@ -22,13 +22,11 @@ package blackjack;
  */
 public class Insurance extends Bettable {
     
-    // TODO: Write tests for this
+    private Wager associatedWager;
+    
     @Override
     public Wager getWager() {
-        java.util.Currency currency = java.util.Currency.getInstance("XCD");
-        currency.CurrencyAmount amount 
-                = new currency.CurrencyAmount(1, currency);
-        return new Wager(amount);
+        return this.associatedWager;
     }
     
     // TODO: Write tests for this
@@ -48,6 +46,7 @@ public class Insurance extends Bettable {
             String excMsg = wager.toString() + " is not an insurance wager";
             throw new IllegalArgumentException(excMsg);
         }
+        this.associatedWager = wager;
     }
     
 }
