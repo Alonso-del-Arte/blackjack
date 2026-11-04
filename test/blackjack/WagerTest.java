@@ -81,8 +81,15 @@ public class WagerTest {
         assertEquals(expected, actual);
     }
     
-    // TODO: Test toString() for insurance wager
-
+    @Test
+    public void testToStringInsurance() {
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount, true);
+        String expected = "Insurance wager of " + amount.toString();
+        String actual = instance.toString();
+        assertEquals(expected, actual);
+    }
+    
     // TODO: Test toString() for settled regular wager
     
     // TODO: Test toString() for settled insurance wager
