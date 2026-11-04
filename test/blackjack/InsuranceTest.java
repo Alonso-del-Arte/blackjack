@@ -36,20 +36,20 @@ import static org.testframe.api.Asserters.assertThrows;
 public class InsuranceTest {
     
     /**
-     * Test of getWager method, of class Insurance.
+     * Test of the getWager function, of the Hand class.
      */
-    @org.junit.Ignore
     @Test
     public void testGetWager() {
         System.out.println("getWager");
-        Insurance instance = null;
-        Wager expResult = null;
-        Wager result = instance.getWager();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager expected = new Wager(amount, true);
+        Insurance instance = new Insurance(expected);
+        Wager actual = instance.getWager();
+        assertEquals(expected, actual);
     }
-
+    
     /**
      * Test of getSettlement method, of class Insurance.
      */
