@@ -126,6 +126,9 @@ public class Wager {
      */ // TODO: Write test for wager that has been settled
     @Override
     public String toString() {
+        if (this.insuranceFlag) {
+            return "Insurance wager of " + this.wagerAmount.toString();
+        }
         return "Wager of " + this.wagerAmount.toString();
     }
     
