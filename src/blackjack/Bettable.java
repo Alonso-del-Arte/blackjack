@@ -22,7 +22,13 @@ package blackjack;
  */
 abstract class Bettable {
     
-    public abstract Wager getWager();
+    // TODO: Write a test for this
+    public Wager getWager() {
+        java.util.Currency currency = java.util.Currency.getInstance("XCD");
+        currency.CurrencyAmount amount 
+                = new currency.CurrencyAmount(1, currency);
+        return new Wager(amount);
+    }
     
     public abstract Wager.Settlement getSettlement();
     
