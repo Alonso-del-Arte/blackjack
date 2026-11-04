@@ -29,7 +29,7 @@ import java.util.List;
  * the values of the Aces are reassessed if necessary.
  * @author Alonso del Arte
  */
-public class Hand {
+public class Hand implements Bettable {
 
     private final List<PlayingCard> cards = new ArrayList<>();
     
@@ -42,6 +42,7 @@ public class Hand {
     
     private Wager associatedWager;
     
+    @Override
     public Wager getWager() {
         return this.associatedWager;
     }
@@ -232,6 +233,7 @@ public class Hand {
     }
     
     // TODO: Write tests for this
+    @Override
     public Wager.Settlement getSettlement() {
         if (!this.settled) {
             String excMsg = "No settlement for this hand yet";

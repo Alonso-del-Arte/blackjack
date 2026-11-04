@@ -20,10 +20,11 @@ package blackjack;
  *
  * @author Alonso del Arte
  */
-public class Insurance {
+public class Insurance implements Bettable {
     
     // TODO: Write tests for this
-    Wager getWager() {
+    @Override
+    public Wager getWager() {
         java.util.Currency currency = java.util.Currency.getInstance("XCD");
         currency.CurrencyAmount amount 
                 = new currency.CurrencyAmount(1, currency);
@@ -31,7 +32,8 @@ public class Insurance {
     }
     
     // TODO: Write tests for this
-    Wager.Settlement getSettlement() {
+    @Override
+    public Wager.Settlement getSettlement() {
         java.util.Currency currency = java.util.Currency.getInstance("XCD");
         currency.CurrencyAmount amount 
                 = new currency.CurrencyAmount(1, currency);
