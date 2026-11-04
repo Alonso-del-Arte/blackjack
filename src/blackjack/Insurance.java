@@ -44,6 +44,10 @@ public class Insurance extends Bettable {
     
     Insurance(Wager wager) {
         super(wager);
+        if (!wager.isInsuranceWager()) {
+            String excMsg = wager.toString() + " is not an insurance wager";
+            throw new IllegalArgumentException(excMsg);
+        }
     }
     
 }
