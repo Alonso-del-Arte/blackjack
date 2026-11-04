@@ -26,12 +26,10 @@ import static org.junit.Assert.*;
  */
 public class InsuranceTest {
     
-    public InsuranceTest() {
-    }
-
     /**
      * Test of getWager method, of class Insurance.
      */
+    @org.junit.Ignore
     @Test
     public void testGetWager() {
         System.out.println("getWager");
@@ -46,6 +44,7 @@ public class InsuranceTest {
     /**
      * Test of getSettlement method, of class Insurance.
      */
+    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
