@@ -26,4 +26,8 @@ abstract class Bettable {
     
     public abstract Wager.Settlement getSettlement();
     
+    Bettable(Wager wager) {
+        //
+    }
+    
 }

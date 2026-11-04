@@ -258,6 +258,7 @@ public class Hand extends Bettable {
      * @throws NullPointerException If {@code wager} is null.
      */
     Hand(Wager wager) {
+        super(wager);
         if (wager == null) {
             String excMsg = "Null wager is not valid";
             throw new NullPointerException(excMsg);
@@ -273,6 +274,7 @@ public class Hand extends Bettable {
      * null.
      */
     Hand(Wager wager, PlayingCard firstCard) {
+        super(wager);
         if (wager == null || firstCard == null) {
             String excMsg = "Wager, first card must both be not null";
             throw new NullPointerException(excMsg);

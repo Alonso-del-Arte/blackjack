@@ -43,7 +43,7 @@ public class Insurance extends Bettable {
     }
     
     Insurance(Wager wager) {
-        //
+        super(wager);
     }
     
 }
