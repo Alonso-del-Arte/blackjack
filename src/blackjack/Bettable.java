@@ -24,8 +24,6 @@ interface Bettable {
     
     Wager getWager();
     
-    void markSettled();
-    
     Wager.Settlement getSettlement();
     
 }
