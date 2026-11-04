@@ -20,10 +20,10 @@ package blackjack;
  *
  * @author Alonso del Arte
  */
-interface Bettable {
+abstract class Bettable {
     
-    Wager getWager();
+    public abstract Wager getWager();
     
-    Wager.Settlement getSettlement();
+    public abstract Wager.Settlement getSettlement();
     
 }

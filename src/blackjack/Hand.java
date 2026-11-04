@@ -29,7 +29,7 @@ import java.util.List;
  * the values of the Aces are reassessed if necessary.
  * @author Alonso del Arte
  */
-public class Hand implements Bettable {
+public class Hand extends Bettable {
 
     private final List<PlayingCard> cards = new ArrayList<>();
     

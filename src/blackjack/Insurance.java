@@ -20,7 +20,7 @@ package blackjack;
  *
  * @author Alonso del Arte
  */
-public class Insurance implements Bettable {
+public class Insurance extends Bettable {
     
     // TODO: Write tests for this
     @Override
