@@ -264,7 +264,8 @@ public class Hand extends Bettable {
     }
     
     /**
-     * Creates a new hand with just one card. This is meant for splitting hands.
+     * Creates a new hand with just one card. This is meant for splitting hands. 
+     * I am therefore considering this the auxiliary constructor.
      * @param wager The wager. For example, $100. Should not be an insurance 
      * wager.
      * @param firstCard The first card. For example, Eight of Diamonds.
@@ -274,8 +275,8 @@ public class Hand extends Bettable {
      */
     Hand(Wager wager, PlayingCard firstCard) {
         super(wager);
-        if (wager == null || firstCard == null) {
-            String excMsg = "Wager, first card must both be not null";
+        if (firstCard == null) {
+            String excMsg = "First card should not be null";
             throw new NullPointerException(excMsg);
         }
         if (wager.isInsuranceWager()) {
