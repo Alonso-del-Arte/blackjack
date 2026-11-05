@@ -254,7 +254,9 @@ public class Hand extends Bettable {
     /**
      * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
      * cards using {@link #add(playingcards.PlayingCard) add()}.
-     * @param wager The wager. For example, $100.
+     * @param wager The wager. For example, $100. Should not be an insurance 
+     * wager.
+     * @throws IllegalArgumentException If {@code wager} is an insurance wager.
      * @throws NullPointerException If {@code wager} is null.
      */
     Hand(Wager wager) {
@@ -263,13 +265,20 @@ public class Hand extends Bettable {
             String excMsg = "Null wager is not valid";
             throw new NullPointerException(excMsg);
         }
+        if (wager.isInsuranceWager()) {
+            String excMsg = wager.toString() 
+                    + " should not be an insurance wager";
+            throw new IllegalArgumentException(excMsg);
+        }
         this.associatedWager = wager;
     }
     
     /**
      * Creates a new hand with just one card. This is meant for splitting hands.
-     * @param wager The wager. For example, $100.
+     * @param wager The wager. For example, $100. Should not be an insurance 
+     * wager.
      * @param firstCard The first card. For example, Eight of Diamonds.
+     * @throws IllegalArgumentException If {@code wager} is an insurance wager.
      * @throws NullPointerException If {@code wager} or {@code firstCard} is 
      * null.
      */
@@ -278,6 +287,11 @@ public class Hand extends Bettable {
         if (wager == null || firstCard == null) {
             String excMsg = "Wager, first card must both be not null";
             throw new NullPointerException(excMsg);
+        }
+        if (wager.isInsuranceWager()) {
+            String excMsg = wager.toString() 
+                    + " should not be an insurance wager";
+            throw new IllegalArgumentException(excMsg);
         }
         this.associatedWager = wager;
         this.cards.add(firstCard);
