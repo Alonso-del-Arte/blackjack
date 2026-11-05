@@ -71,7 +71,7 @@ public class InsuranceTest {
             Insurance badInstance = new Insurance(null);
             System.out.println(msg + ", not created instance " 
                     + badInstance.toString());
-        }, IllegalArgumentException.class, msg);
+        }, NullPointerException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
