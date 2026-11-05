@@ -1297,7 +1297,7 @@ public class HandTest {
             Hand badInstance = new Hand(wager, firstCard);
             System.out.println(msg + ", not create instance " 
                     + badInstance.toString());
-        }, NullPointerException.class, msg);
+        }, IllegalArgumentException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
@@ -1316,7 +1316,7 @@ public class HandTest {
             Hand badInstance = new Hand(wager);
             System.out.println(msg + ", not create instance " 
                     + badInstance.toString());
-        }, NullPointerException.class, msg);
+        }, IllegalArgumentException.class, msg);
         String excMsg = t.getMessage();
         assert excMsg != null : "Exception message should not be null";
         assert !excMsg.isBlank() : "Exception message should not be blank";
