@@ -42,11 +42,6 @@ public class Hand extends Bettable {
     
     private Wager associatedWager;
     
-    @Override
-    public Wager getWager() {
-        return this.associatedWager;
-    }
-    
     private void updateCardsValue() {
         int cumulRank = 0;
         int aceCount = 0;

@@ -22,13 +22,6 @@ package blackjack;
  */
 public class Insurance extends Bettable {
     
-    private Wager associatedWager;
-    
-    @Override
-    public Wager getWager() {
-        return this.associatedWager;
-    }
-    
     // TODO: Write tests for this
     @Override
     public Wager.Settlement getSettlement() {
@@ -46,7 +39,6 @@ public class Insurance extends Bettable {
             String excMsg = wager.toString() + " is not an insurance wager";
             throw new IllegalArgumentException(excMsg);
         }
-        this.associatedWager = wager;
     }
     
 }
