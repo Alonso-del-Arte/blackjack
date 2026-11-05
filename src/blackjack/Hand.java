@@ -246,7 +246,8 @@ public class Hand extends Bettable {
     
     /**
      * Creates a new hand. The hand has no cards and is valued at 0 points. Add 
-     * cards using {@link #add(playingcards.PlayingCard) add()}.
+     * cards using {@link #add(playingcards.PlayingCard) add()}. I am 
+     * considering this the primary constructor.
      * @param wager The wager. For example, $100. Should not be an insurance 
      * wager.
      * @throws IllegalArgumentException If {@code wager} is an insurance wager.
@@ -254,10 +255,6 @@ public class Hand extends Bettable {
      */
     Hand(Wager wager) {
         super(wager);
-        if (wager == null) {
-            String excMsg = "Null wager is not valid";
-            throw new NullPointerException(excMsg);
-        }
         if (wager.isInsuranceWager()) {
             String excMsg = wager.toString() 
                     + " should not be an insurance wager";
