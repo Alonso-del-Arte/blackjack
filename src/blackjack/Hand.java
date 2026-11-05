@@ -40,8 +40,6 @@ public class Hand extends Bettable {
     private boolean busted = false;
     private boolean settled = false;
     
-    private Wager associatedWager;
-    
     private void updateCardsValue() {
         int cumulRank = 0;
         int aceCount = 0;
@@ -288,7 +286,6 @@ public class Hand extends Bettable {
                     + " should not be an insurance wager";
             throw new IllegalArgumentException(excMsg);
         }
-        this.associatedWager = wager;
         this.cards.add(firstCard);
     }
 

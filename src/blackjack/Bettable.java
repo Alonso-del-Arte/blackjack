@@ -22,7 +22,7 @@ package blackjack;
  */
 abstract class Bettable {
     
-    private Wager associatedWager;
+    Wager associatedWager;
     
     public Wager getWager() {
         return this.associatedWager;
