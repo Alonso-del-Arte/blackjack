@@ -31,6 +31,10 @@ abstract class Bettable {
     public abstract Wager.Settlement getSettlement();
     
     Bettable(Wager wager) {
+        if (wager == null) {
+            String excMsg = "Wager should not be null";
+            throw new NullPointerException(excMsg);
+        }
         this.associatedWager = wager;
     }
     
