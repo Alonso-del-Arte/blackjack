@@ -193,6 +193,7 @@ public class Hand extends Bettable {
      * that stood off with the dealer, but false for the two Tens still waiting 
      * on the dealer's hand.
      */
+    @Override
     public boolean isSettled() {
         return this.settled;
     }

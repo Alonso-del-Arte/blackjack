@@ -64,6 +64,11 @@ public class BettableTest {
     }
     
     public class BettableImpl extends Bettable {
+        
+        @Override
+        public boolean isSettled() {
+            return false;
+        }
 
         @Override
         public Wager.Settlement getSettlement() {

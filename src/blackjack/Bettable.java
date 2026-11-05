@@ -24,6 +24,8 @@ abstract class Bettable {
     
     Wager associatedWager;
     
+    public abstract boolean isSettled();
+    
     public Wager getWager() {
         return this.associatedWager;
     }

@@ -27,6 +27,7 @@ public class Insurance extends Bettable {
     }
     
     // TODO: Write tests for this
+    @Override
     public boolean isSettled() {
         return true;
     }
