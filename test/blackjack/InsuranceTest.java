@@ -22,7 +22,6 @@ import currency.CurrencyAmount;
 import currency.CurrencyChooser;
 
 import java.util.Currency;
-import java.util.Locale;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
