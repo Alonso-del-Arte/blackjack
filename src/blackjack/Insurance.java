@@ -22,6 +22,15 @@ package blackjack;
  */
 public class Insurance extends Bettable {
     
+    void markSettled(boolean won) {
+        // TODO: Write tests for this
+    }
+    
+    // TODO: Write tests for this
+    public boolean isSettled() {
+        return true;
+    }
+    
     // TODO: Write tests for this
     @Override
     public Wager.Settlement getSettlement() {
