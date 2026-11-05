@@ -17,6 +17,12 @@
  */
 package blackjack;
 
+import static blackjack.DealerTest.RANDOM;
+import currency.CurrencyAmount;
+import currency.CurrencyChooser;
+
+import java.util.Currency;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -26,21 +32,19 @@ import static org.junit.Assert.*;
  */
 public class BettableTest {
     
-    public BettableTest() {
-    }
-
     /**
-     * Test of getWager method, of class Bettable.
+     * Test of the getWager function, of the Bettable class.
      */
     @Test
     public void testGetWager() {
         System.out.println("getWager");
-        Bettable instance = null;
-        Wager expResult = null;
-        Wager result = instance.getWager();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager expected = new Wager(amount, true);
+        Bettable instance = new BettableImpl(expected);
+        Wager actual = instance.getWager();
+        assertEquals(expected, actual);
     }
 
     public class BettableImpl extends Bettable {
