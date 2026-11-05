@@ -22,18 +22,16 @@ package blackjack;
  */
 abstract class Bettable {
     
-    // TODO: Write a test for this
+    private Wager associatedWager;
+    
     public Wager getWager() {
-        java.util.Currency currency = java.util.Currency.getInstance("XCD");
-        currency.CurrencyAmount amount 
-                = new currency.CurrencyAmount(1, currency);
-        return new Wager(amount);
+        return this.associatedWager;
     }
     
     public abstract Wager.Settlement getSettlement();
     
     Bettable(Wager wager) {
-        //
+        this.associatedWager = wager;
     }
     
 }
