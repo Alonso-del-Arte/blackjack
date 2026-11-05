@@ -1284,6 +1284,26 @@ public class HandTest {
         System.out.println("\"" + excMsg + "\"");
     }
     
+    @Test
+    public void testAuxConstructorRequiresNonInsuranceWager() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        PlayingCard firstCard = SERVER.getNextCard();
+        String msg = "Constructor should reject " + wager.toString() 
+                + " because it's an insurance wager";
+        Throwable t = assertThrows(() -> {
+            Hand badInstance = new Hand(wager, firstCard);
+            System.out.println(msg + ", not create instance " 
+                    + badInstance.toString());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     @AfterClass
     public static void tearDownClass() {
         System.out.println("Card server has " + SERVER.countRemaining() 
