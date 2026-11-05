@@ -65,6 +65,20 @@ public class InsuranceTest {
     }
     
     @Test
+    public void testConstructorRejectsNullWager() {
+        String msg = "Constructor should reject null wager";
+        Throwable t = assertThrows(() -> {
+            Insurance badInstance = new Insurance(null);
+            System.out.println(msg + ", not created instance " 
+                    + badInstance.toString());
+        }, IllegalArgumentException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
     public void testConstructorRequiresInsuranceWager() {
         int cents = RANDOM.nextInt(10000, 100000);
         Currency currency = CurrencyChooser.chooseCurrency(
