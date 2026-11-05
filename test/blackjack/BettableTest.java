@@ -26,6 +26,8 @@ import java.util.Currency;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertThrows;
+
 /**
  * Tests of the Bettable class.
  * @author Alonso del Arte
@@ -47,6 +49,20 @@ public class BettableTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testConstructorRejectsNullWager() {
+        String msg = "Constructor should reject null wager";
+        Throwable t = assertThrows(() -> {
+            Bettable badInstance = new BettableImpl(null);
+            System.out.println(msg + ", not created instance " 
+                    + badInstance.toString());
+        }, NullPointerException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     public class BettableImpl extends Bettable {
 
         @Override
