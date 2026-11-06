@@ -83,6 +83,14 @@ that the dealer's face-down card is a Ten or a court card. As far as I know,
 insurance always pays 2 to 1, and every image of a blackjack table I have 
 scrutinized has words to that effect.
 
+To place an insurance bet, make a wager that is half the wager of your hand. For 
+example, if you wagered $100 on your hand and you decide to make an insurance 
+bet when you see the dealer has an Ace face up, you need to wager $50.
+
+Suppose then you stand on 20 but it turns out the dealer has natural blackjack 
+after all. You lose the $100 you wagered on your hand, but the dealer pays you 
+$100 for the insurance and so you're down just $50 instead of $100.
+
 When a player's first two cards add up to 9, 10 or 11, that player may make 
 another wager equal to their original wager ("doubling down"). The dealer then 
 gives that player a card face down, which stays face down until other bets are 
