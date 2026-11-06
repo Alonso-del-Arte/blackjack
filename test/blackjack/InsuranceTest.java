@@ -34,6 +34,18 @@ import static org.testframe.api.Asserters.assertThrows;
  */
 public class InsuranceTest {
     
+    @Test
+    public void testNewInsuranceIsNotAlreadySettled() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        String msg = "New insurance with " + wager.toString() 
+                + " should not be already settled";
+        assert !instance.isSettled() : msg;
+    }
+    
     /**
      * Test of the getWager function, of the Hand class.
      */
