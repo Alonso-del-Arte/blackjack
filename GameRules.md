@@ -127,6 +127,10 @@ example, both of your hands would have $100 wagers each, not $50 each. As a
 consequence of this, a player who wants to split a pair may not be able to if he 
 or she does not have enough money for the additional wager.
 
+Once players start requesting hands to be split, the window to make an insurance 
+bet, if it was open, is now closed. Thus a player may only have one active 
+insurance wager during a round, even if he or she splits one or more times.
+
 If any player hits 21 from the first two cards, they have a "natural" blackjack, 
 and the dealer should pay 3/2 times the player's wager, provided the dealer does 
 not also have natural blackjack. So if the dealer's face up card is an Ace, a 
