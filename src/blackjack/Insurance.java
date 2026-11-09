@@ -17,7 +17,13 @@
 package blackjack;
 
 /**
- *
+ * Represents an insurance bet that the dealer might have natural blackjack. 
+ * Objects of this class hold the state of what the wager is and whether or not 
+ * it has been settled. It is not a responsibility of this class to check that 
+ * the dealer does indeed have an Ace showing, nor to check that no player has 
+ * more than one active insurance bet in a given round. Payout for insurance is 
+ * 2:1, the wager should be half the player's wager on the first hand of the 
+ * round.
  * @author Alonso del Arte
  */
 public class Insurance extends Bettable {
@@ -43,6 +49,12 @@ public class Insurance extends Bettable {
         return wager.getSettlement();
     }
     
+    /**
+     * Sole constructor.
+     * @param wager The wager. For example, $100.00. Must be an insurance wager.
+     * @throws IllegalArgumentException If {@code wager} is not an insurance 
+     * wager.
+     */
     Insurance(Wager wager) {
         super(wager);
         if (!wager.isInsuranceWager()) {
