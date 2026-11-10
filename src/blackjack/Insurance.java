@@ -42,10 +42,11 @@ public class Insurance extends Bettable {
         return this.settleFlag;
     }
     
-    // TODO: Write tests for this
     @Override
     public Wager.Settlement getSettlement() {
-        this.associatedWager.settle(Wager.Outcome.INSURANCE_WON);
+        Wager.Outcome outcome = this.wonFlag ? Wager.Outcome.INSURANCE_WON 
+                : Wager.Outcome.INSURANCE_LOST;
+        this.associatedWager.settle(outcome);
         return this.associatedWager.getSettlement();
     }
     
