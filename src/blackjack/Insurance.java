@@ -45,12 +45,8 @@ public class Insurance extends Bettable {
     // TODO: Write tests for this
     @Override
     public Wager.Settlement getSettlement() {
-        java.util.Currency currency = java.util.Currency.getInstance("XCD");
-        currency.CurrencyAmount amount 
-                = new currency.CurrencyAmount(1, currency);
-        Wager wager = new Wager(amount);
-        wager.settle(Wager.Outcome.INSURANCE_WON);
-        return wager.getSettlement();
+        this.associatedWager.settle(Wager.Outcome.INSURANCE_WON);
+        return this.associatedWager.getSettlement();
     }
     
     /**
