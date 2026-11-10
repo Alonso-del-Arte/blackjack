@@ -193,7 +193,7 @@ public class Wager {
          * The player wins an insurance bet that the dealer has a blackjack. The 
          * wager is usually equal to half the hand's wager and pays 2 to 1.
          */
-        INSURANCE_WON(cur -> cur),
+        INSURANCE_WON(cur -> cur.times(2)),
         
         /**
          * Neither the dealer nor the player has blackjack but they're tied 
