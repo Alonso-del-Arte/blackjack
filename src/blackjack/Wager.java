@@ -256,8 +256,8 @@ public class Wager {
          * Outcome#LOWER_SCORE} in the case of a wager on a hand, or {@link 
          * Outcome#INSURANCE_WON} or {@link Outcome#INSURANCE_LOST} in the case 
          * of an insurance bet, or {@link Outcome#REPLACED} in the case of 
-         * doubling down (a new <code>Wager</code> object reflecting the larger 
-         * wager amount should be created).
+         * doubling down (a new {@code Wager} object reflecting the larger wager 
+         * amount should be created).
          */
         public Outcome getOutcome() {
             return this.wagerOutcome;
