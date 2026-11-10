@@ -226,7 +226,6 @@ public class Wager {
          * The player did not get blackjack nor go bust, but the dealer has a 
          * higher score without busting. The dealer collects the player's wager.
          */
-        // TODO: Write a test for the payout function
         LOWER_SCORE(cur -> cur.negate());
         
         final UnaryOperator<CurrencyAmount> payoutFunction;
