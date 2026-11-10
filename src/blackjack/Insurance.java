@@ -49,7 +49,7 @@ public class Insurance extends Bettable {
         currency.CurrencyAmount amount 
                 = new currency.CurrencyAmount(1, currency);
         Wager wager = new Wager(amount);
-        wager.settle(Wager.Outcome.BUST);
+        wager.settle(Wager.Outcome.INSURANCE_WON);
         return wager.getSettlement();
     }
     
