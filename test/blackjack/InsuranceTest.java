@@ -83,19 +83,25 @@ public class InsuranceTest {
     }
     
     /**
-     * Test of getSettlement method, of class Insurance.
+     * Test the getSettlement function, of the Insurance class. This test is for 
+     * {@link Wager.Outcome#INSURANCE_WON}.
      */
-    // TODO: Write this test as INSURANCE_WON
-    @org.junit.Ignore
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
-        Insurance instance = null;
-        Wager.Settlement expResult = null;
-        Wager.Settlement result = instance.getSettlement();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        instance.markSettled(true);
+        Wager.Settlement settlement = instance.getSettlement();
+        CurrencyAmount expected = amount.times(2);
+        CurrencyAmount actual = settlement.getAmount();
+        String message = "Settling " + wager.toString() + " won";
+        assertEquals(message, expected, actual);
+        assertEquals(message, Wager.Outcome.INSURANCE_WON, 
+                settlement.getOutcome());
     }
     
     // TODO: Write a test for getSettlement() with outcome INSURANCE_LOST
