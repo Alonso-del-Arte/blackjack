@@ -218,12 +218,13 @@ public class WagerTest {
     
     @Test
     public void testPayoutFunctionInsuranceWon() {
-        CurrencyAmount expected = chooseAmount();
-        Wager instance = new Wager(expected);
+        CurrencyAmount amount = chooseAmount();
+        Wager instance = new Wager(amount);
         instance.settle(Wager.Outcome.INSURANCE_WON);
+        CurrencyAmount expected = amount.times(2);
         CurrencyAmount actual = Wager.Outcome.INSURANCE_WON.payoutFunction
-                .apply(expected);
-        String message = "Payout for wager of " + expected.toString() 
+                .apply(amount);
+        String message = "Payout for wager of " + amount.toString() 
                 + " on insurance won";
         assertEquals(message, expected, actual);
     }
