@@ -99,9 +99,9 @@ public class InsuranceTest {
         CurrencyAmount expected = amount.times(2);
         CurrencyAmount actual = settlement.getAmount();
         String message = "Settling " + wager.toString() + " won";
-        assertEquals(message, expected, actual);
         assertEquals(message, Wager.Outcome.INSURANCE_WON, 
                 settlement.getOutcome());
+        assertEquals(message, expected, actual);
     }
     
     // TODO: Write a test for getSettlement() with outcome INSURANCE_LOST
