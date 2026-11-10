@@ -47,6 +47,27 @@ public class InsuranceTest {
     }
     
     /**
+     * Test of the isSettled function, of the Hand class. For this test it 
+     * doesn't actually matter if the insurance bet is won or lost, only that it 
+     * has been settled.
+     */
+    @Test
+    public void testIsSettled() {
+        System.out.println("isSettled");
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        boolean won = RANDOM.nextBoolean();
+        instance.markSettled(won);
+        String wonStr = won ? "won" : "lost";
+        String msg = "Insurance with " + wager.toString() + " settled as " 
+                + wonStr + " should be settled";
+        assert instance.isSettled() : msg;
+    }
+    
+    /**
      * Test of the getWager function, of the Hand class.
      */
     @Test
@@ -64,6 +85,7 @@ public class InsuranceTest {
     /**
      * Test of getSettlement method, of class Insurance.
      */
+    // TODO: Write this test as INSURANCE_WON
     @org.junit.Ignore
     @Test
     public void testGetSettlement() {
@@ -75,6 +97,8 @@ public class InsuranceTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+    
+    // TODO: Write a test for getSettlement() with outcome INSURANCE_LOST
     
     @Test
     public void testConstructorRejectsNullWager() {
