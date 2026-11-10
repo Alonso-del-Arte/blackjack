@@ -104,7 +104,22 @@ public class InsuranceTest {
         assertEquals(message, expected, actual);
     }
     
-    // TODO: Write a test for getSettlement() with outcome INSURANCE_LOST
+    @Test
+    public void testGetSettlementInsuranceLost() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        instance.markSettled(false);
+        Wager.Settlement settlement = instance.getSettlement();
+        CurrencyAmount expected = amount.negate();
+        CurrencyAmount actual = settlement.getAmount();
+        String message = "Settling " + wager.toString() + " lost";
+        assertEquals(message, Wager.Outcome.INSURANCE_LOST, 
+                settlement.getOutcome());
+        assertEquals(message, expected, actual);
+    }
     
     @Test
     public void testConstructorRejectsNullWager() {
