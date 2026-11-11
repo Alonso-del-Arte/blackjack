@@ -28,8 +28,6 @@ package blackjack;
  */
 public class Insurance extends Bettable {
     
-    private boolean settled = false;
-    
     private boolean wonFlag = false;
     
     void markSettled(boolean won) {
