@@ -24,7 +24,10 @@ abstract class Bettable {
     
     Wager associatedWager;
     
-    public abstract boolean isSettled();
+    // TODO: Write tests for this
+    public boolean isSettled() {
+        return true;
+    }
     
     public Wager getWager() {
         return this.associatedWager;
