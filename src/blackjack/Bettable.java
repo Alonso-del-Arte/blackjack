@@ -22,6 +22,8 @@ package blackjack;
  */
 abstract class Bettable {
     
+    boolean settled = false;
+    
     Wager associatedWager;
     
     // TODO: Write tests for this
