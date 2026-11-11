@@ -28,7 +28,7 @@ abstract class Bettable {
     
     // TODO: Write tests for this
     public boolean isSettled() {
-        return true;
+        return false;
     }
     
     public Wager getWager() {
