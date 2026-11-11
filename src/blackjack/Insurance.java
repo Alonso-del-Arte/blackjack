@@ -28,18 +28,18 @@ package blackjack;
  */
 public class Insurance extends Bettable {
     
-    private boolean settleFlag = false;
+    private boolean settled = false;
     
     private boolean wonFlag = false;
     
     void markSettled(boolean won) {
-        this.settleFlag = true;
+        this.settled = true;
         this.wonFlag = won;
     }
     
     @Override
     public boolean isSettled() {
-        return this.settleFlag;
+        return this.settled;
     }
     
     @Override
