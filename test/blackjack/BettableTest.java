@@ -43,7 +43,7 @@ public class BettableTest {
         int cents = RANDOM.nextInt(65536) + 64;
         Currency currency = CurrencyChooser.chooseCurrency();
         CurrencyAmount amount = new CurrencyAmount(cents, currency);
-        Wager expected = new Wager(amount, true);
+        Wager expected = new Wager(amount, RANDOM.nextBoolean());
         Bettable instance = new BettableImpl(expected);
         Wager actual = instance.getWager();
         assertEquals(expected, actual);
