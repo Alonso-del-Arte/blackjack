@@ -36,11 +36,6 @@ public class Insurance extends Bettable {
     }
     
     @Override
-    public boolean isSettled() {
-        return this.settled;
-    }
-    
-    @Override
     public Wager.Settlement getSettlement() {
         Wager.Outcome outcome = this.wonFlag ? Wager.Outcome.INSURANCE_WON 
                 : Wager.Outcome.INSURANCE_LOST;
