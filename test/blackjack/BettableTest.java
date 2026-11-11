@@ -60,6 +60,20 @@ public class BettableTest {
                 + " should not already be settled";
         assert !instance.isSettled() : msg;
     }
+    
+    @Test
+    public void testIsSettled() {
+        System.out.println("isSettled");
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, RANDOM.nextBoolean());
+        Bettable instance = new BettableImpl(wager);
+        instance.settled = true;
+        String msg = "Settled bettable with " + wager.toString() 
+                + " should be settled";
+        assert instance.isSettled() : msg;
+    }
 
     @Test
     public void testConstructorRejectsNullWager() {
