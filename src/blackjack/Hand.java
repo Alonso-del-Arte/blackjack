@@ -38,7 +38,6 @@ public class Hand extends Bettable {
     private boolean open = true;
     private boolean won = false;
     private boolean busted = false;
-    private boolean settled = false;
     
     private void updateCardsValue() {
         int cumulRank = 0;
