@@ -37,8 +37,16 @@ public class Insurance extends Bettable {
      * @param won True if the dealer has natural blackjack, false otherwise. 
      * This will determine if the outcome for the settlement is {@link 
      * Wager.Outcome#INSURANCE_WON} or {@link Wager.Outcome#INSURANCE_LOST}.
+     * @throws IllegalStateException If this was already marked settled before. 
+     * The exception message will state what {@code won} was the previous time 
+     * around.
      */
     void markSettled(boolean won) {
+        if (this.settled) {
+            String excMsg = "Insurance bet was already settled as won " 
+                    + this.wonFlag;
+            throw new IllegalStateException(excMsg);
+        }
         this.settled = true;
         this.wonFlag = won;
     }
