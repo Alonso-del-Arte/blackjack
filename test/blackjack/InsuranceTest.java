@@ -82,6 +82,27 @@ public class InsuranceTest {
         assertEquals(expected, actual);
     }
     
+    @Test
+    public void testTryingToGetSettlementBeforeMarkingSettledCausesException() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        String msg = "Trying to get settlement for " + wager.toString() 
+                + " before marking settled should cause exception";
+        Throwable t = assertThrows(() -> {
+            Wager.Settlement settlement = instance.getSettlement();
+            System.out.println(msg + ", not give settlement of " 
+                    + settlement.getAmount().toString() + " for " 
+                    + settlement.getOutcome().toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
     /**
      * Test the getSettlement function, of the Insurance class. This test is for 
      * {@link Wager.Outcome#INSURANCE_WON}.
