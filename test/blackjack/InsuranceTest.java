@@ -143,6 +143,30 @@ public class InsuranceTest {
     }
     
     @Test
+    public void testNoMarkSettledTwice() {
+        int cents = RANDOM.nextInt(65536) + 64;
+        Currency currency = CurrencyChooser.chooseCurrency();
+        CurrencyAmount amount = new CurrencyAmount(cents, currency);
+        Wager wager = new Wager(amount, true);
+        Insurance instance = new Insurance(wager);
+        boolean won = RANDOM.nextBoolean();
+        instance.markSettled(won);
+        Wager.Outcome firstOutcome = won ? Wager.Outcome.INSURANCE_WON 
+                : Wager.Outcome.INSURANCE_LOST;
+        String msg = wager.toString() + " already marked settled with outcome " 
+                + firstOutcome.toString() + " can't be settled again";
+        Throwable t = assertThrows(() -> {
+            instance.markSettled(RANDOM.nextBoolean());
+            System.out.println(msg + " for outcome " 
+                    + instance.getSettlement().getOutcome().toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
+    }
+    
+    @Test
     public void testConstructorRejectsNullWager() {
         String msg = "Constructor should reject null wager";
         Throwable t = assertThrows(() -> {
