@@ -31,7 +31,11 @@ public class Player {
     
     private final List<Hand> hands = new ArrayList<>();
     
+    private final List<Insurance> insuranceBets = new ArrayList<>();
+    
     private final List<Wager> wagers = new ArrayList<>();
+    
+    private Insurance activeInsurance = null;
     
     private CurrencyAmount bankroll = new CurrencyAmount(Long.MIN_VALUE, 
             java.util.Currency.getInstance("LYD"));
