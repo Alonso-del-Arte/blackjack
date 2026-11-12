@@ -49,9 +49,15 @@ public class Insurance extends Bettable {
      * @return The settlement. The amount will depend on whether the outcome was 
      * {@link Wager.Outcome#INSURANCE_WON} or {@link 
      * Wager.Outcome#INSURANCE_LOST}.
+     * @throws IllegalStateException If called before calling {@link 
+     * #markSettled(boolean) markSettled()}.
      */
     @Override
     public Wager.Settlement getSettlement() {
+        if (!this.settled) {
+            String excMsg = "Can't get settlement before settling";
+            throw new IllegalStateException(excMsg);
+        }
         Wager.Outcome outcome = this.wonFlag ? Wager.Outcome.INSURANCE_WON 
                 : Wager.Outcome.INSURANCE_LOST;
         this.associatedWager.settle(outcome);
