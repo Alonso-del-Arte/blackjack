@@ -212,7 +212,8 @@ public class Wager {
         
         /**
          * The player loses an insurance bet that the dealer has a blackjack. 
-         * The wager is usually equal to half the hand's wager and pays 2 to 1.
+         * The wager is usually equal to half the hand's wager. It would have 
+         * paid 2 to 1 if won. Instead the player loses the wager.
          */
         INSURANCE_LOST(cur -> cur.negate()), 
         
