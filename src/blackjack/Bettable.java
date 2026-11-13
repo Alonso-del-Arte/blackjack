@@ -17,7 +17,8 @@
 package blackjack;
 
 /**
- *
+ * Represents the subject of a wager, such as a hand or insurance that the 
+ * dealer has blackjack.
  * @author Alonso del Arte
  */
 abstract class Bettable {
@@ -45,12 +46,22 @@ abstract class Bettable {
         return this.settled;
     }
     
+    /**
+     * Retrieves the wager that this bettable was instantiated with. Examples: a 
+     * player wagers $100 on a hand, then takes out insurance.
+     * @return The wager. In the examples, a $100 wager on the hand and a $50 
+     * insurance wager.
+     */
     public Wager getWager() {
         return this.associatedWager;
     }
     
     public abstract Wager.Settlement getSettlement();
     
+    /**
+     * Base class constructor.
+     * @param wager The wager.
+     */
     Bettable(Wager wager) {
         if (wager == null) {
             String excMsg = "Wager should not be null";
