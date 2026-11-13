@@ -22,7 +22,8 @@ import java.util.function.Predicate;
 import static playingcards.PlayingCardTest.RANDOM;
 
 /**
- *
+ * Gives arbitrary cards without the risk of depleting a deck. To be used for 
+ * testing purposes only.
  * @author Alonso del Arte
  */
 public class CardStream {
