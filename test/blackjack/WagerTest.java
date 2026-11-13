@@ -58,7 +58,7 @@ public class WagerTest {
         return TEST_CURRENCIES[index];
     }
     
-    private static CurrencyAmount chooseAmount() {
+    static CurrencyAmount chooseAmount() {
         int bound = 100000;
         int cents = RANDOM.nextInt(bound) + 1;
         Currency currency = chooseCurrency();
