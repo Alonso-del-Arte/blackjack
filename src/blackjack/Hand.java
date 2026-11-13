@@ -64,7 +64,7 @@ public class Hand extends Bettable {
     /**
      * Gives the value of the hand. Court cards are counted as 10 each. An Ace 
      * is counted as 11 unless that causes the hand to go bust, in which case it 
-     * is counted as 1. All the pip cards are counted at face value.
+     * is counted as 1. All the other pip cards are counted at face value.
      * @return The value of the hand: 0 for a new hand, 2 to 20 for a hand that 
      * has at least one card and may take more cards, 21 for a winning hand and 
      * 22 to 30 for a hand that has gone bust. The value 1 should not occur 
@@ -91,12 +91,9 @@ public class Hand extends Bettable {
      * Determines if the hand can be split. If it can be split, use {@link 
      * #split()} to split the hand.
      * @param dealer The dealer who enforces the rules as to how and when hands 
-     * can be split.
-     * @return True if and only if the hand has only a pair of cards of the same 
-     * rank, false otherwise. For example, this would be true for 10&#9824; and 
-     * 10&#9827;, false for 10&#9824; and J&#9827; even though they are both 
-     * valued 10. There is no stricture on splitting Aces, Fours, Fives or Tens 
-     * (which some British casinos might enforce).
+     * can be split. See {@link Dealer#giveSplittablePairs()}.
+     * @return True if this hand has precisely two cards and {@code dealer} 
+     * would allow the split.
      */
     public boolean isSplittable(Dealer dealer) {
         if (this.cards.size() == 2) {
@@ -115,7 +112,8 @@ public class Hand extends Bettable {
      * will contain the other card. The value of this hand is reduced 
      * accordingly. Some casinos may limit how many times one player may split a 
      * hand during a game; this class provides no mechanism for such a 
-     * limitation.
+     * limitation. Also it'll be up to the dealer to check that the player has 
+     * enough of a bankroll to make the additional wager.
      * @param dealer The dealer who enforces the rules as to how and when hands 
      * can be split.
      * @return The split off hand, containing one card that was previously in 
@@ -123,7 +121,7 @@ public class Hand extends Bettable {
      * hand: that's an implementation detail callers should not rely upon and 
      * tests should not test for.
      * @throws IllegalStateException If this hand can't be split according to 
-     * {@link #isSplittableHand()}.
+     * {@link #isSplittable(blackjack.Dealer) isSplittable()}.
      */
     Hand split(Dealer dealer) {
         if (!this.isSplittable(dealer)) {
@@ -137,9 +135,14 @@ public class Hand extends Bettable {
     }
     
     /**
-     * Indicates if cards may be added to this hand.
+     * Indicates if cards may be added to this hand. It does not indicate 
+     * whether the player has chosen to stand. For example, a hand with two 
+     * Eights and then the player foolishly decides to hit instead of split, and 
+     * gets a Ten.
      * @return True if the hand is new or has cards valued at 2 to 20, false 
-     * otherwise.
+     * otherwise. In the example, this function would return true when the 
+     * player has the chance to split the Eights, and false once the player goes 
+     * bust.
      */
     public boolean isOpen() {
         return this.open;
@@ -149,10 +152,12 @@ public class Hand extends Bettable {
      * Indicates if this is a winning hand. This depends only on the value of 
      * the cards in this hand, not how it compares to other players' hands 
      * (e.g., if this hand is not a natural blackjack but another player's is) 
-     * nor the dealer's hand.
+     * nor the dealer's hand. Three examples: an Ace and a Six; three Sevens; 
+     * three Eights.
      * @return True if and only if this hand is valued at 21, false otherwise, 
      * without regard to how this hand compares to other players' hands nor the 
-     * dealer's hand.
+     * dealer's hand. In the examples, true for the three Sevens; false for the 
+     * Ace and the Six; and false for the three Eights.
      */
     public boolean isWinning() {
         return this.won;
