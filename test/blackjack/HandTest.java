@@ -17,6 +17,7 @@
 package blackjack;
 
 import static blackjack.DealerTest.RANDOM;
+import static blackjack.WagerTest.chooseAmount;
 import currency.CurrencyAmount;
 import currency.CurrencyChooser;
 
@@ -89,6 +90,11 @@ public class HandTest {
                 + " cards remaining");
         System.out.println("Extra server has " + EXTRA_SERVER.countRemaining() 
                 + " cards remaining");
+    }
+    
+    private static Wager makeWager() {
+        CurrencyAmount amount = chooseAmount();
+        return new Wager(amount);
     }
     
     private static Set<RankPairSpec> makeRankPairSpecSet() {
@@ -1198,35 +1204,44 @@ public class HandTest {
     @Test
     public void testNoSettlementBeforeMarkingSettled() {
         Hand hand = new Hand(DEFAULT_WAGER);
-        try {
+        PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        hand.add(card);
+        card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        hand.add(card);
+        String msg = "Since hand " + hand.toString() 
+                + " is not settled, getting settlement should cause exception";
+        Throwable t = assertThrows(() -> {
             Wager.Settlement badSettlement = hand.getSettlement();
-            String msg = "Settlement from new hand should not be " 
-                    + badSettlement.toString() + ", should've caused exception";
-            fail(msg);
-        } catch (IllegalStateException ise) {
-            System.out.println("Premature wager settlement caused exception");
-            System.out.println("\"" + ise.getMessage() + "\"");
-        } catch (RuntimeException re) {
-            String msg = re.getClass().getName() 
-                    + " is the wrong exception for premature wager settlement";
-            fail(msg);
-        }
+            System.out.println(msg + ", not given " + badSettlement.toString());
+        }, IllegalStateException.class, msg);
+        String excMsg = t.getMessage();
+        assert excMsg != null : "Exception message should not be null";
+        assert !excMsg.isBlank() : "Exception message should not be blank";
+        System.out.println("\"" + excMsg + "\"");
     }
     
     @Test
     public void testGetSettlement() {
         System.out.println("getSettlement");
-        Hand hand = new Hand(DEFAULT_WAGER);
+        Wager wager = makeWager();
+        Hand hand = new Hand(wager);
         PlayingCard ace = CardStream.giveCard(Rank.ACE);
         PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
         hand.add(tenCard);
         hand.markSettled();
+        Wager.Settlement settlement = hand.getSettlement();
         Wager.Outcome expected = Wager.Outcome.NATURAL_BLACKJACK;
-        Wager.Outcome actual = hand.getSettlement().getOutcome();
+        Wager.Outcome actual = settlement.getOutcome();
         String message = "Outcome for settling " + hand.toString() 
                 + " should be " + expected.toString();
         assertEquals(message, expected, actual);
+        CurrencyAmount expAmount = Wager.Outcome.NATURAL_BLACKJACK
+                .payoutFunction.apply(wager.getAmount());
+        CurrencyAmount actAmount = settlement.getAmount();
+        String amtMsg = "Getting settlement for wager of " + wager.toString() 
+                + " on natural blackjack";
+        assertEquals(message, expAmount, actAmount);
     }
     
     @Test
