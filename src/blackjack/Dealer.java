@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2025 Alonso del Arte
+ * Copyright (C) 2026 Alonso del Arte
  *
  * This program is free software: you can redistribute it and/or modify it under 
  * the terms of the GNU General Public License as published by the Free Software 
@@ -53,6 +53,13 @@ public class Dealer {
     
     private CurrencyAmount bankroll = null;
     
+    /**
+     * Tells which pairs the dealer allows a player to split. Typically the 
+     * dealer will allow a player to split any pair of the same rank (e.g., two 
+     * Sevens) or at least the same value (e.g., a Ten and a Jack).
+     * @return The set of allowed pairs. Typically this would be two Aces, two 
+     * Twos, two Threes and so on and so forth.
+     */
     public Set<RankPairSpec> giveSplittablePairs() {
         return new HashSet<>(this.splitSpecs);
     }
