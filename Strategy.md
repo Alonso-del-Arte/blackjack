@@ -1,6 +1,8 @@
 # Strategy suggestions for blackjack
 
-[The rules of blackjack](GameRules.md) allow moves that are inadvisable.
+[The rules of blackjack](GameRules.md) allow moves that are inadvisable. In this 
+document, we give some general guidance, some of it based on widespread 
+agreement.
 
 ## Splitting
 
@@ -10,8 +12,22 @@ on that hand you run the risk of busting if you get a Ten or a royal card. The
 worst case scenario for splitting Aces is that you get more Aces, but at least 
 there's no immediate risk of going bust.
 
+* **Twos** &mdash; FINISH WRITING
+
+* **Threes** &mdash; FINISH WRITING
+
+* **Fours** &mdash; FINISH WRITING
+
+* **Fives** &mdash; FINISH WRITING
+
+* **Sixes** &mdash; FINISH WRITING
+
+* **Sevens** &mdash; FINISH WRITING
+
 * **Eights** &mdash; There is near universal agreement you should always split 
-Eights.
+Eights. If you stand on a pair of Eights, the dealer is likely to beat your 
+score, but hitting runs a high risk of going bust. Splitting Eights is perhaps 
+the best way out of a bad hand.
 
 * **Nines** &mdash; "I never split Nines," says some guy in a TV ad for an 
 online casino. Is he supposed to be a famous blackjack player? Even if he is, I 
@@ -27,6 +43,6 @@ stand on a low score or go bust.
 
 ## Insurance
 
-FINISH WRITING
-
-the
+Keep in mind that the dealer has about as much of a chance of natural blackjack 
+as anyone else at the table. The general agreement seems to be that unless 
+you're counting cards, insurance is a bad bet.
