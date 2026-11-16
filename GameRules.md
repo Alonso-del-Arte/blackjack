@@ -91,6 +91,15 @@ Suppose then you stand on 20 but it turns out the dealer has natural blackjack
 after all. You lose the $100 you wagered on your hand, but the dealer pays you 
 $100 for the insurance and so you're down just $50 instead of $100.
 
+However, when reading about blackjack at Cache Creek Casino Resort, I get the 
+impression that some casinos allow you to make an insurance bet that is _up to_ 
+half your hand's original wager, but may be less.
+
+In the example scenario, you could make an insurance bet of $25. Then, if the 
+dealer does have natural blackjack, you lose $100 on the hand and the dealer 
+pays you $50 on the insurance, so you'd be down $75, but that's still less than 
+$100.
+
 When a player's first two cards add up to 9, 10 or 11, that player may make 
 another wager equal to their original wager ("doubling down"). The dealer then 
 gives that player a card face down, which stays face down until other bets are 
