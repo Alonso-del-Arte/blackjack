@@ -21,7 +21,6 @@ import playingcards.Rank;
 import playingcards.matchers.RankPairSpec;
 
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 
 /**
