@@ -26,7 +26,8 @@ there's no immediate risk of going bust.
 
 * **Eights** &mdash; There is near universal agreement you should always split 
 Eights. If you stand on a pair of Eights, the dealer is likely to beat your 
-score, but hitting runs a high risk of going bust. Splitting Eights is perhaps 
+score (remember that the dealer has to draw above 16 regardless), but hitting on 
+a pair of Eights runs a high risk of going bust. Splitting Eights is perhaps 
 the best way out of a bad hand.
 
 * **Nines** &mdash; "I never split Nines," says some guy in a TV ad for an 
