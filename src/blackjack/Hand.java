@@ -76,19 +76,6 @@ public class Hand extends Bettable {
     }
     
     /**
-     * Shows the cards in the hand. The cards are still held by the hand 
-     * afterwards.
-     * @return An array of the cards. For example, a 2-element array containing 
-     * an Ace of Spades (A&#9824;) and a Two of Hearts (2&#9829;).
-     */
-    // TODO: Refactor
-    public PlayingCard[] inspectCards() {
-        PlayingCard[] cardsToShow = new PlayingCard[this.cards.size()];
-        this.cards.toArray(cardsToShow);
-        return cardsToShow;
-    }
-
-    /**
      * Determines if the hand can be split. If it can be split, use {@link 
      * #split()} to split the hand.
      * @param dealer The dealer who enforces the rules as to how and when hands 
