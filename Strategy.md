@@ -22,7 +22,12 @@ there's no immediate risk of going bust.
 
 * **Sixes** &mdash; FINISH WRITING
 
-* **Sevens** &mdash; FINISH WRITING
+* **Sevens** &mdash; Experts seems to agree the decision to split Sevens should 
+depend on what the dealer's face up card is. If the dealer is showing a low 
+card, split your Sevens, but if the dealer is showing a high card, keep your 
+Sevens together. There isn't exact agreement on what the threshold is between a 
+low card and a high card. Some might consider a dealer's Seven low in this 
+context, some might consider it high.
 
 * **Eights** &mdash; There is near universal agreement you should always split 
 Eights. If you stand on a pair of Eights, the dealer is likely to beat your 
