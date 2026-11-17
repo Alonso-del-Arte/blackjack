@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Hand extends Bettable {
 
-    private final List<PlayingCard> cards = new ArrayList<>();
+    final List<PlayingCard> cards = new ArrayList<>();
     
     private int handScore = 0;
     
