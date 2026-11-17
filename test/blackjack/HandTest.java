@@ -34,6 +34,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import static org.testframe.api.Asserters.assertContainsSame;
 import static org.testframe.api.Asserters.assertThrows;
 
 import playingcards.AbridgedDeck;
@@ -324,29 +325,6 @@ public class HandTest {
     }
     
     /**
-     * Test of the inspectCards function, of the Hand class.
-     */
-    @org.junit.Ignore
-    @Test
-    public void testInspectCards() {
-        System.out.println("inspectCards");
-        fail("REASSESS THE FUNCTION BEING TESTED AND REWRITE TEST");
-        Hand hand = new Hand(DEFAULT_WAGER);
-        PlayingCard[] expected = SERVER.giveCards(Rank.TWO, 4);
-        hand.add(expected[0]);
-        hand.add(expected[1]);
-        hand.add(expected[2]);
-        hand.add(expected[3]);
-        PlayingCard[] actual = hand.inspectCards();
-        assertArrayEquals(expected, actual);
-        String msg;
-        for (PlayingCard card : actual) {
-            msg = card.toString() + " came from the test class's card server";
-            assert SERVER.provenance(card) : msg;
-        }
-    }
-    
-    /**
      * Test of the isSplittable function, of the Hand class.
      */
     @Test
@@ -473,21 +451,19 @@ public class HandTest {
     }
     
     private static void assertCanSplit(Hand hand, Dealer dealer) {
-        System.out.println("Asserting that " + hand.toString() 
-                + " may be split according to " + dealer.toString());
-        PlayingCard[] cardsBeforeSplit = hand.inspectCards();
-        assert cardsBeforeSplit.length == 2 : "Hand should only have two cards";
+        String msg = "Asserting that " + hand.toString() 
+                + " may be split according to " + dealer.toString();
+        List<PlayingCard> expected = new ArrayList<>(hand.cards);
+        assert expected.size() == 2 : "Hand should only have two cards";
         Hand splitOffHand = hand.split(dealer);
-        PlayingCard[] cardsA = hand.inspectCards();
-        PlayingCard[] cardsB = splitOffHand.inspectCards();
-        String msg = "Right after split, hand should only have one card";
-        assert cardsA.length == 1 : msg;
-        assert cardsB.length == 1 : msg;
-        if (cardsA[0].equals(cardsBeforeSplit[0])) {
-            assertEquals(cardsBeforeSplit[1], cardsB[0]);
-        } else {
-            assertEquals(cardsBeforeSplit[0], cardsB[0]);
-        }
+        List<PlayingCard> cardsA = new ArrayList<>(hand.cards);
+        List<PlayingCard> cardsB = new ArrayList<>(splitOffHand.cards);
+        String message = "Right after split, hand should only have one card";
+        assert cardsA.size() == 1 : message;
+        assert cardsB.size() == 1 : message;
+        List<PlayingCard> actual = new ArrayList<>(cardsA);
+        actual.addAll(cardsB);
+        assertContainsSame(expected, actual, msg);
     }
     
     private static void assertCanNotSplit(Hand hand, Dealer dealer) {
