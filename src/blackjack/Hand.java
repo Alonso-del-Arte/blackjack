@@ -202,17 +202,12 @@ public class Hand extends Bettable {
     // TODO: Write tests for this
     @Override
     public Wager.Settlement getSettlement() {
-//        if (!this.settled) {
-//            String excMsg = "No settlement for this hand yet";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        this.associatedWager.settle(Wager.Outcome.NATURAL_BLACKJACK);
-//        return this.associatedWager.getSettlement();
-java.util.Currency currency = java.util.Currency.getInstance("USD");
-currency.CurrencyAmount amount = new currency.CurrencyAmount(10000, currency);
-Wager wager = new Wager(amount);
-wager.settle(Wager.Outcome.BUST);
-return wager.getSettlement();
+        if (!this.settled) {
+            String excMsg = "No settlement for this hand yet";
+            throw new IllegalStateException(excMsg);
+        }
+        this.associatedWager.settle(Wager.Outcome.NATURAL_BLACKJACK);
+        return this.associatedWager.getSettlement();
     }
     
     @Override
