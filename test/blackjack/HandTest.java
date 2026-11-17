@@ -1212,12 +1212,24 @@ public class HandTest {
         String message = "Outcome for settling " + hand.toString() 
                 + " should be " + expected.toString();
         assertEquals(message, expected, actual);
-        CurrencyAmount expAmount = Wager.Outcome.NATURAL_BLACKJACK
+    }
+    
+    @Test
+    public void testGetSettlementAmountForNaturalBlackjack() {
+        Wager wager = makeWager();
+        Hand hand = new Hand(wager);
+        PlayingCard ace = CardStream.giveCard(Rank.ACE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
+        hand.add(ace);
+        hand.add(tenCard);
+        hand.markSettled();
+        Wager.Settlement settlement = hand.getSettlement();
+        CurrencyAmount expected = Wager.Outcome.NATURAL_BLACKJACK
                 .payoutFunction.apply(wager.getAmount());
-        CurrencyAmount actAmount = settlement.getAmount();
-        String amtMsg = "Getting settlement for wager of " + wager.toString() 
+        CurrencyAmount actual = settlement.getAmount();
+        String message = "Getting settlement for wager of " + wager.toString() 
                 + " on natural blackjack";
-        assertEquals(message, expAmount, actAmount);
+        assertEquals(message, expected, actual);
     }
     
     @Test
