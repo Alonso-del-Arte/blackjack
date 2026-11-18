@@ -1233,6 +1233,57 @@ public class HandTest {
     }
     
     @Test
+    public void testGetPlainBlackjack() {
+        Wager wager = makeWager();
+        Hand hand = new Hand(wager);
+        PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
+        hand.add(card);
+        hand.add(tenCard);
+        int value = card.integerValue() + 10;
+        if (value == 20) {
+            hand.add(CardStream.giveCard(Rank.ACE));
+        } else {
+            Predicate<PlayingCard> predicate = predicateForBlackjack(value);
+            card = CardStream.giveCard(predicate);
+            hand.add(card);
+        }
+        hand.markSettled();
+        Wager.Settlement settlement = hand.getSettlement();
+        Wager.Outcome expected = Wager.Outcome.BLACKJACK;
+        Wager.Outcome actual = settlement.getOutcome();
+        String message = "Outcome for settling " + hand.toString() 
+                + " should be " + expected.toString();
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
+    public void testGetSettlementAmountForPlainBlackjack() {
+        Wager wager = makeWager();
+        Hand hand = new Hand(wager);
+        PlayingCard card = CardStream.giveCard(REGULAR_PIP_CARD_PREDICATE);
+        PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
+        hand.add(card);
+        hand.add(tenCard);
+        int value = card.integerValue() + 10;
+        if (value == 20) {
+            hand.add(CardStream.giveCard(Rank.ACE));
+        } else {
+            Predicate<PlayingCard> predicate = predicateForBlackjack(value);
+            card = CardStream.giveCard(predicate);
+            hand.add(card);
+        }
+        hand.markSettled();
+        Wager.Settlement settlement = hand.getSettlement();
+        CurrencyAmount expected = Wager.Outcome.BLACKJACK
+                .payoutFunction.apply(wager.getAmount());
+        CurrencyAmount actual = settlement.getAmount();
+        String message = "Getting settlement for wager of " + wager.toString() 
+                + " on plain blackjack hand " + hand.toString();
+        assertEquals(message, expected, actual);
+    }
+    
+    @Test
     public void testPrimaryConstructorRejectsNullWager() {
         String msg = "Constructor should reject null wager";
         Throwable t = assertThrows(() -> {
