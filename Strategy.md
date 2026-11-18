@@ -20,7 +20,8 @@ there's no immediate risk of going bust.
 
 * **Fives** &mdash; FINISH WRITING
 
-* **Sixes** &mdash; FINISH WRITING
+* **Sixes** &mdash; Maybe split if the dealer has a low face up card up to and 
+including a Six, otherwise prefer to keep them together.
 
 * **Sevens** &mdash; Experts seems to agree the decision to split Sevens should 
 depend on what the dealer's face up card is. If the dealer is showing a low 
