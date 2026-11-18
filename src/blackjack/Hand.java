@@ -199,14 +199,17 @@ public class Hand extends Bettable {
         this.updateCardsValue();
     }
     
-    // TODO: Write tests for this
+    // TODO: Write tests for this for the following outcomes: BETTER_SCORE, 
+    // STANDOFF, REPLACED, BUST, LOWER_SCORE.
     @Override
     public Wager.Settlement getSettlement() {
         if (!this.settled) {
             String excMsg = "No settlement for this hand yet";
             throw new IllegalStateException(excMsg);
         }
-        this.associatedWager.settle(Wager.Outcome.NATURAL_BLACKJACK);
+        Wager.Outcome outcome = (this.cards.size() == 2) 
+                ? Wager.Outcome.NATURAL_BLACKJACK : Wager.Outcome.BLACKJACK;
+        this.associatedWager.settle(outcome);
         return this.associatedWager.getSettlement();
     }
     
