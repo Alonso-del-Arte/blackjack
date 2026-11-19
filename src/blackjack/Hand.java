@@ -167,6 +167,12 @@ public class Hand extends Bettable {
         return !this.open;
     }
     
+    /**
+     * Marks the hand as settled. Perhaps should only be called by a {@link 
+     * Dealer} instance.
+     * @param outcome The outcome. For example, {@link 
+     * Wager.Outcome#BETTER_SCORE}.
+     */
     void markSettled(Wager.Outcome outcome) {
         this.settled = true;
     }
