@@ -112,8 +112,9 @@ of unequal rank.
 
 Only the dealer may touch the cards, and that includes cards that have been 
 dealt to the players. To request a hand be split, a player says "split," or 
-perhaps makes some hand signal. The dealer moves the two cards apart and then 
-deals one card to each of the new hands.
+perhaps makes some hand signal, such as pointing with two fingers together and 
+then moving them apart to a V shape. The dealer moves the two cards apart and 
+then deals one card to each of the new hands.
 
 From there, game play proceeds the same as if the two hands were held by 
 different players, though some casinos place limits on how many times a player 
