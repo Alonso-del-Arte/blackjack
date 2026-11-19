@@ -914,7 +914,7 @@ public class HandTest {
         hand.add(firstCard);
         PlayingCard secondCard = CardStream.giveCard(Rank.ACE);
         hand.add(secondCard);
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.NATURAL_BLACKJACK);
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + secondCard.toString() 
                 + " was marked settled, should be recognized as settled";
@@ -927,7 +927,7 @@ public class HandTest {
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         PlayingCard card = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(card);
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.NATURAL_BLACKJACK);
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + card.toString() 
                 + " was marked settled, should be recognized as settled";
@@ -940,7 +940,7 @@ public class HandTest {
         Hand hand = new Hand(DEFAULT_WAGER, firstCard);
         PlayingCard card = CardStream.giveCard(Rank.ACE);
         hand.add(card);
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.NATURAL_BLACKJACK);
         String msg = "Hand with " + firstCard.toString() + " and " 
                 + card.toString() 
                 + " was marked settled, should be recognized as settled";
@@ -971,7 +971,7 @@ public class HandTest {
             card = CardStream.giveCard(predicate);
             hand.add(card);
         }
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.BLACKJACK);
         String msg = "Hand " + hand.toString() 
                 + " was marked settled, should be recognized as such";
         assert hand.isSettled() : msg;
@@ -1000,7 +1000,7 @@ public class HandTest {
             card = CardStream.giveCard(predicate);
             hand.add(card);
         }
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.BLACKJACK);
         String msg = "Hand " + hand.toString() 
                 + " was marked settled, should be recognized as such";
         assert hand.isSettled() : msg;
@@ -1009,7 +1009,7 @@ public class HandTest {
     @Test
     public void testMarkBustedHandSettled() {
         Hand hand = makeBustedHand();
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.BUST);
         String msg = "Hand " + hand.toString() 
                 + " was marked settled, should be recognized as such";
         assert hand.isSettled() : msg;
@@ -1018,7 +1018,7 @@ public class HandTest {
     @Test
     public void testMarkBustedHandSettledAuxConstructor() {
         Hand hand = makeBustedHandAuxConstructor();
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.BUST);
         String msg = "Hand " + hand.toString() 
                 + " was marked settled, should be recognized as such";
         assert hand.isSettled() : msg;
@@ -1205,9 +1205,9 @@ public class HandTest {
         PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
         hand.add(tenCard);
-        hand.markSettled();
-        Wager.Settlement settlement = hand.getSettlement();
         Wager.Outcome expected = Wager.Outcome.NATURAL_BLACKJACK;
+        hand.markSettled(expected);
+        Wager.Settlement settlement = hand.getSettlement();
         Wager.Outcome actual = settlement.getOutcome();
         String message = "Outcome for settling " + hand.toString() 
                 + " should be " + expected.toString();
@@ -1222,7 +1222,7 @@ public class HandTest {
         PlayingCard tenCard = CardStream.giveCard(TEN_CARD_PREDICATE);
         hand.add(ace);
         hand.add(tenCard);
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.NATURAL_BLACKJACK);
         Wager.Settlement settlement = hand.getSettlement();
         CurrencyAmount expected = Wager.Outcome.NATURAL_BLACKJACK
                 .payoutFunction.apply(wager.getAmount());
@@ -1248,9 +1248,9 @@ public class HandTest {
             card = CardStream.giveCard(predicate);
             hand.add(card);
         }
-        hand.markSettled();
-        Wager.Settlement settlement = hand.getSettlement();
         Wager.Outcome expected = Wager.Outcome.BLACKJACK;
+        hand.markSettled(expected);
+        Wager.Settlement settlement = hand.getSettlement();
         Wager.Outcome actual = settlement.getOutcome();
         String message = "Outcome for settling " + hand.toString() 
                 + " should be " + expected.toString();
@@ -1273,7 +1273,7 @@ public class HandTest {
             card = CardStream.giveCard(predicate);
             hand.add(card);
         }
-        hand.markSettled();
+        hand.markSettled(Wager.Outcome.BLACKJACK);
         Wager.Settlement settlement = hand.getSettlement();
         CurrencyAmount expected = Wager.Outcome.BLACKJACK
                 .payoutFunction.apply(wager.getAmount());
