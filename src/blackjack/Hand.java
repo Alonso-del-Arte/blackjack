@@ -168,7 +168,7 @@ public class Hand extends Bettable {
     }
     
     void markSettled(Wager.Outcome outcome) {
-//        this.settled = true;
+        this.settled = true;
     }
     
     /**
@@ -203,19 +203,14 @@ public class Hand extends Bettable {
     // STANDOFF, REPLACED, BUST, LOWER_SCORE.
     @Override
     public Wager.Settlement getSettlement() {
-//        if (!this.settled) {
-//            String excMsg = "No settlement for this hand yet";
-//            throw new IllegalStateException(excMsg);
-//        }
-//        Wager.Outcome outcome = (this.cards.size() == 2) 
-//                ? Wager.Outcome.NATURAL_BLACKJACK : Wager.Outcome.BLACKJACK;
-//        this.associatedWager.settle(outcome);
-//        return this.associatedWager.getSettlement();
-java.util.Currency currency = java.util.Currency.getInstance("USD");
-currency.CurrencyAmount amount = new currency.CurrencyAmount(handScore, currency);
-Wager wager = new Wager(amount);
-wager.settle(Wager.Outcome.BUST);
-return wager.getSettlement();
+        if (!this.settled) {
+            String excMsg = "No settlement for this hand yet";
+            throw new IllegalStateException(excMsg);
+        }
+        Wager.Outcome outcome = (this.cards.size() == 2) 
+                ? Wager.Outcome.NATURAL_BLACKJACK : Wager.Outcome.BLACKJACK;
+        this.associatedWager.settle(outcome);
+        return this.associatedWager.getSettlement();
     }
     
     @Override
