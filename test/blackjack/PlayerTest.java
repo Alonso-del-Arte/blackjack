@@ -129,9 +129,12 @@ public class PlayerTest {
         while (hand.cardsValue() < 21) {
             hand.add(SERVER.getNextCard());
         }
-        hand.markSettled();
+        Wager.Outcome outcome = (hand.cardsValue() == 21) 
+                ? Wager.Outcome.BLACKJACK : Wager.Outcome.BUST;
+        hand.markSettled(outcome);
         String msg = "After hand " + hand.toString() 
-                + " is settled, that hand should not count as active";
+                + " is settled as " + outcome.toString()
+                + ", that hand should not count as active";
         int actual = player.getActiveHandsCount();
         assertZero(actual, msg);
     }
