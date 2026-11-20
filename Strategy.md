@@ -4,6 +4,16 @@
 document, we give some general guidance, some of it based on widespread 
 agreement.
 
+Still, since I have limited experience playing in a mock casino and no 
+experience playing the game in a real casino for real money, any advice in this 
+document should be treated with a grain of salt.
+
+Although there is some allusion to the general principles of card counting, and 
+even though card counting is technically not illegal, I do not encourage it. 
+Casinos tend to take a very dim view of card counting. Therefore in this 
+document I won't be giving any advice on any specific card counting techniques, 
+other than that you might want to occasionally lose some bets on purpose.
+
 ## Splitting
 
 * **Aces** &mdash; There is near universal agreement you should always split 
@@ -52,4 +62,5 @@ stand on a low score or go bust.
 
 Keep in mind that the dealer has about as much of a chance of natural blackjack 
 as anyone else at the table. The general agreement seems to be that unless 
-you're counting cards, insurance is a bad bet.
+you're counting cards, insurance is a bad bet. And if you're card counting, it 
+might be a good idea to lose an insurance bet here and there.
