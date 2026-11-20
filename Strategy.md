@@ -22,7 +22,9 @@ on that hand you run the risk of busting if you get a Ten or a royal card. The
 worst case scenario for splitting Aces is that you get more Aces, but at least 
 there's no immediate risk of going bust.
 
-* **Twos** &mdash; FINISH WRITING
+* **Twos** &mdash; I'm not sure there's much point to splitting Twos, but people 
+who know better tend to say you should split if the dealer's face up card is a 
+low value card, up to maybe a Six or a Seven.
 
 * **Threes** &mdash; FINISH WRITING
 
